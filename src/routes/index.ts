@@ -3,6 +3,7 @@ const mainRoutes = {
     start: "/start",
     userChange: "/userChange",
     feedback: "/feedback",
+    signup: "/signUp"
   };
   
   const authRoutes = {
@@ -15,6 +16,7 @@ const mainRoutes = {
     start: () => "/start",
     userChange: () => "/userChange",
     feedback: () => "/feedback",
+    signup: () => "/signUp",
   };
   
   export const links = { ...mainLinks };
