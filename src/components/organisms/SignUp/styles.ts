@@ -7,6 +7,14 @@ export const useStyles = makeStyles({
     overflow:"auto",
     width:"100%"
   },
+  regContainer: {
+    marginTop: "1rem",
+    display: "flex", 
+    justifyContent: "center",
+  },
+  regBox: {
+ 
+  }
  
   
 }, {index: 3});

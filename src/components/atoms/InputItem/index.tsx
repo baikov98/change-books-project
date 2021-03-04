@@ -6,6 +6,7 @@ import { useStyles } from "./styles";
 
 interface IProps {
   id?: string;
+  pattern?: string; 
   placeholder?: string;
   label?: string;
   defaultValue?: string;
@@ -13,7 +14,9 @@ interface IProps {
   value?: string;
   error?: boolean;
   errorText?: string;
+  variant?: "filled" | "outlined";
   className?: string;
+  endAdornment?: any;
 }
 
 const defaultProps: IProps = {
@@ -23,6 +26,7 @@ const defaultProps: IProps = {
 const InputItem: React.FC<IProps> = (props: IProps) => {
   const {
     id,
+    pattern,
     value,
     placeholder,
     label,
@@ -30,7 +34,9 @@ const InputItem: React.FC<IProps> = (props: IProps) => {
     onChange,
     error,
     errorText,
+    variant,
     className,
+    endAdornment
   } = props;
   const classes = useStyles();
 
@@ -44,6 +50,7 @@ const InputItem: React.FC<IProps> = (props: IProps) => {
       error={error}
       helperText={errorText}
       value={value}
+      variant={variant}
       className={className}
     />
   );
