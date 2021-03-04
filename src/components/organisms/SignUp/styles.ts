@@ -14,6 +14,9 @@ export const useStyles = makeStyles({
   },
   regBox: {
  
+  },
+  test: {
+    maxWidth: "204px"
   }
  
   

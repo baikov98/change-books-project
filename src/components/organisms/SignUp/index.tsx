@@ -19,7 +19,9 @@ const SignUp: React.FC<IProps> = (props) => {
       <Box className={classes.regBox}>
         <Typography variant="h3" component="h1">Регистрация</Typography>
         <EmailItem />
-        <PasswordItem />
+        <Box className={classes.test}>
+          <PasswordItem />
+        </Box>
         <NameItem />
         <SurnameItem />
         <PatronymicItem />

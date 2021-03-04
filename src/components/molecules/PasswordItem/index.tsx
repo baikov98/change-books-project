@@ -22,16 +22,20 @@ const PasswordItem: React.FC<IProps> = (props: IProps) => {
   const placeholder = "Введите пароль"
   const [state, setState] = useState({
     error: false,
-    showPassword: false
+    showPassword: false,
+    value: ''
   })
   const handleClickShowPassword = () => setState(prev => ({...prev, showPassword: !prev.showPassword}))
+  const errorText = "Не менее 8 символов - из них: не менее 1 заглавной 1 прописной буквы и 1 цифра" 
   return ( 
     <TextField  placeholder={placeholder}
                 type={state.showPassword ? "text" : "password"}
                 label="Пароль"
                 variant="outlined"
                 error={state.error}
-                onChange={(e) => {setState(prev => ({...prev, error: !checkPass(e)})) }}
+                helperText={errorText}
+                onChange={(e) => {setState(prev => ({...prev, value: e.target.value})) }}
+                onBlur={(e) => {setState(prev => ({...prev, error: !checkPass(e)})) }}
                 InputProps={{
                   endAdornment: <IconButton
                                             aria-label="toggle password visibility"
