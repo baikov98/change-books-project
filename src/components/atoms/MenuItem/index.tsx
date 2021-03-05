@@ -8,9 +8,9 @@ import { Colors } from '../../../styles/Colors'
 interface IProps {
     title?: string;
     link?: string;
-    className?: string;
+    className?: string; 
     disabled?: boolean;
-    onClick: (e: SyntheticEvent) => void;
+    onClick: (e: string) => void;
     children?: React.ReactNode;
 }
 
@@ -40,7 +40,7 @@ const MenuItem: React.FC<IProps> = (props: IProps) => {
         </NavLink>
     )
 }
-//onClick={() => onClick(`${link}`)}
+
 MenuItem.defaultProps = defaultProps
 
 export default MenuItem

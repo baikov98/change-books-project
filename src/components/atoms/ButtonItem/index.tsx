@@ -6,8 +6,8 @@ import { useStyles } from "./styles"
 
 
 interface IProps {
-    btnType?: "button" | "submit" | "reset" | undefined;
-    variant?: "contained" | "outlined" | undefined;
+    btnType?: "button" | "submit" | "reset";
+    variant?: "contained" | "outlined";
     size?: "small" | "medium" | "large";
     className?: string;
     btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "yellow";
