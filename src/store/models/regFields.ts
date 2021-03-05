@@ -105,9 +105,4 @@ export const regFields = createModel<RootModel>()({
     error: null,
     ...initialState,
   },
-  reducers: {
-  },
-  effects: (dispatch) => ({
-  
-  }),
 });
