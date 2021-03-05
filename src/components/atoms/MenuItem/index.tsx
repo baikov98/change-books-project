@@ -11,7 +11,6 @@ interface IProps {
     className?: string; 
     disabled?: boolean;
     onClick: (e: string) => void;
-    children?: React.ReactNode;
 }
 
 const defaultProps: IProps = {
@@ -20,11 +19,10 @@ const defaultProps: IProps = {
     className: "",
     disabled: false,
     onClick: () => null,
-    children: "",
 }
 
 const MenuItem: React.FC<IProps> = (props: IProps) => {
-    const { title, link, className, disabled, onClick, children } = props
+    const { title, link, className, disabled, onClick } = props
     const classes = useStyles()
     const classText = cn(
         className

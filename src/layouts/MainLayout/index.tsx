@@ -4,7 +4,6 @@ import { useStyles } from "./styles";
 
 interface IProps {
   header: ReactChild;
-  children: ReactChild;
 }
 
 const MainLayout: React.FC<IProps> = (props) => {

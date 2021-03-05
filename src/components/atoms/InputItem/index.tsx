@@ -10,7 +10,7 @@ interface IProps {
     placeholder?: string
     label?: string
     defaultValue?: string
-    onChange?: (e: SyntheticEvent) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     error?: boolean
     errorText?: string
 }

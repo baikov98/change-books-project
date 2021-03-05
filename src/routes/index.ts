@@ -11,10 +11,10 @@ const mainRoutes = {
   export const routes = { ...mainRoutes, ...authRoutes };
   
   const mainLinks = {
-    main: () => "/",
+    main: "/",
     start: () => "/start",
     userChange: () => "/userChange",
     feedback: () => "/feedback",
   };
   
-  export const links = { ...mainLinks };
+  export default mainLinks;

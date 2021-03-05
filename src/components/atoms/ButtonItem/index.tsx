@@ -13,12 +13,11 @@ interface IProps {
     btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "yellow";
     fontWeight?: "textBold" | "textNormal";
     disabled?: boolean;
-    onClick?: (e: SyntheticEvent) => void;
-    children?: React.ReactNode
+    onClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 
-const ButtonItem: React.FC<IProps> = (props: IProps) => {
+const ButtonItem: React.FC<IProps> = (props) => {
     const { btnType, className, btnColor, fontWeight, disabled, onClick, variant, size, children } = props
     const classes = useStyles()
 

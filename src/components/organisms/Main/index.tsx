@@ -6,13 +6,16 @@ import { useHistory } from "react-router-dom";
 import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
 import MenuItem from '../../atoms/MenuItem'
-interface IProps {}
 
-const Main: React.FC<IProps> = () => {
+
+const getList = (state:RootState) => {
+  return state.menu.list
+}
+const Main: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const menu = useSelector((state: RootState) => state.menu.list);
+  const menu = useSelector(getList);
 
   const handlerClick = (str: string) => {
     history.push(str);

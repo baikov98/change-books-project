@@ -2,9 +2,8 @@ import React from "react";
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import ButtonItem from '../../atoms/ButtonItem'
-interface IProps {}
 
-const Header: React.FC<IProps> = (props) => {
+const Header: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -15,12 +14,14 @@ const Header: React.FC<IProps> = (props) => {
                     size="large"
                     btnColor="white"
                     fontWeight="textBold"
+                    onClick={()=> null}
                     >Войти</ButtonItem>
         <Box className={classes.regButton}>
         <ButtonItem variant="contained"
                       size="large"
                       btnColor="yellow"
-                      fontWeight="textBold">Регистрация</ButtonItem> 
+                      fontWeight="textBold"
+                      onClick={()=> null}>Регистрация</ButtonItem> 
         </Box>
       </Box>
     </Box>
