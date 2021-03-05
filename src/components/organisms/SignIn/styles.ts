@@ -38,6 +38,14 @@ export const useStyles = makeStyles({
       border: `1px solid #eee`,
       padding: 12,
   },
+  inputLabel:{
+    fontSize: 20,
+    color: Colors.text,
+    fontWeight: 700,
+  },
+  inputBox:{
+    marginTop: 12,
+  },
   textRow:{
     display: 'flex',
     justifyContent: 'flex-start',

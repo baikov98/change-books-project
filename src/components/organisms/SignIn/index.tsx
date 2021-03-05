@@ -4,7 +4,7 @@ import { useStyles } from "./styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import { Typography, ButtonBase, Box, Input } from "@material-ui/core";
+import { Typography, ButtonBase, Box, Input, InputLabel, TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 // import * as yup from "yup";
 // import { yupResolver } from "@hookform/resolvers/yup";
@@ -77,11 +77,17 @@ const SignIn: React.FC<IProps> = (props) => {
               rules={{ required: true }}
               defaultValue=""
               render={(props) => (
-                <Input
+                <Box className={classes.inputBox}>
+                <InputLabel className={classes.inputLabel} shrink htmlFor="email">
+                  Email *
+                </InputLabel>
+                <TextField
+                  InputProps={{ disableUnderline: true }}
                   placeholder="example@example.com"
                   className={classes.input}
                   {...props}
                 />
+                </Box>
               )}
             />
             <Controller
@@ -90,13 +96,19 @@ const SignIn: React.FC<IProps> = (props) => {
               rules={{ required: true }}
               defaultValue=""
               render={({ onChange, value }) => (
-                <Input
+                <Box className={classes.inputBox}>
+                 <InputLabel className={classes.inputLabel} shrink htmlFor="email">
+                  Password *
+                </InputLabel>
+                <TextField
+                  InputProps={{ disableUnderline: true }}
                   onChange={onChange}
                   value={value}
                   className={classes.input}
                   type={"password"}
                   placeholder="Введите пароль"
                 />
+                </Box>
               )}
             />
           </Box>
