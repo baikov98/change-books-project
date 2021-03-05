@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import cn from "classnames"
 import { TextField } from "@material-ui/core"
 
@@ -10,14 +10,11 @@ interface IProps {
     placeholder?: string
     label?: string
     defaultValue?: string
-    onChange?: (e: any) => void
+    onChange?: (e: SyntheticEvent) => void
     error?: boolean
     errorText?: string
 }
 
-const defaultProps: IProps = {
-    onChange: () => null
-}
 
 const InputItem: React.FC<IProps> = (props: IProps) => {
     const { id, placeholder, label, defaultValue, onChange, error, errorText } = props
@@ -34,7 +31,5 @@ const InputItem: React.FC<IProps> = (props: IProps) => {
         </TextField>
     )
 }
-
-InputItem.defaultProps = defaultProps
 
 export default InputItem

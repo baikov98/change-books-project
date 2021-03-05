@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import cn from "classnames"
 import { Box, Typography } from "@material-ui/core"
 import { NavLink } from "react-router-dom"
@@ -10,8 +10,8 @@ interface IProps {
     link?: string;
     className?: string;
     disabled?: boolean;
-    onClick: (e: any) => void;
-    children?: any;
+    onClick: (e: SyntheticEvent) => void;
+    children?: React.ReactNode;
 }
 
 const defaultProps: IProps = {

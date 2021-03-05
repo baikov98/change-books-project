@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import cn from "classnames"
 import { Button } from "@material-ui/core"
 
@@ -13,21 +13,10 @@ interface IProps {
     btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "yellow";
     fontWeight?: "textBold" | "textNormal";
     disabled?: boolean;
-    onClick?: (e: any) => void;
-    children?: any;
+    onClick?: (e: SyntheticEvent) => void;
+    children?: React.ReactNode
 }
 
-const defaultProps: IProps = {
-    btnType: "button",
-    variant: undefined,
-    size: "medium",
-    className: "",
-    btnColor: "bg",
-    fontWeight: "textNormal",
-    disabled: false,
-    onClick: () => null,
-    children: "",
-}
 
 const ButtonItem: React.FC<IProps> = (props: IProps) => {
     const { btnType, className, btnColor, fontWeight, disabled, onClick, variant, size, children } = props
@@ -48,7 +37,5 @@ const ButtonItem: React.FC<IProps> = (props: IProps) => {
         </Button>
     )
 }
-
-ButtonItem.defaultProps = defaultProps
 
 export default ButtonItem
