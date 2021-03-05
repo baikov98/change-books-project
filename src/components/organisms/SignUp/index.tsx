@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import InputCyrillic from "../../molecules/InputCyrillic";
 import PasswordItem from "../../molecules/PasswordItem";
 import EmailItem from "../../molecules/EmailItem";  
-
+import NickItem from "../../molecules/NickItem";
 import PostCodeItem from "../../molecules/PostCodeItem";
 import { useStyles } from "./styles";
 
@@ -43,6 +43,7 @@ const SignUp: React.FC<IProps> = (props) => {
                       label="Улица"
                       helperText="Только буквы кириллицы"
                       maxlength={25}/>
+        <NickItem />
         <PostCodeItem />
       </Box> 
     </Container>

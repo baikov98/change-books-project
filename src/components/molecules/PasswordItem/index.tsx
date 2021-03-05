@@ -32,6 +32,7 @@ const PasswordItem: React.FC<IProps> = (props: IProps) => {
                 variant="outlined"
                 error={state.error}
                 helperText={errorText}
+                value={+state.value <= 50 ? state.value : state.value.slice(0, 50)}
                 onChange={(e) => {setState(prev => ({...prev, value: e.target.value})) }}
                 onBlur={(e) => {setState(prev => ({...prev, error: !checkPass(e)})) }}
                 InputProps={{
