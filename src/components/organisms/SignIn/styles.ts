@@ -12,16 +12,22 @@ export const useStyles = makeStyles({
     flexDirection: "column",
     padding: "0px 0px 24px 0",
   },
+  close:{
+    width:'100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   text:{
       color: Colors.text,
-      fontSize:18,
-      textAlign: "center",
+      fontSize:20,
+      fontWeight: 700,
+      letterSpacing: 2,
   },
   form:{
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      marginTop: 50,
+      marginTop: 32,
   },
   inputWrapper:{
       width: "100%",
@@ -29,9 +35,23 @@ export const useStyles = makeStyles({
   input:{
       width: "100%",
       marginTop: 12,
+      border: `1px solid #eee`,
+      padding: 12,
+  },
+  textRow:{
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 18,
+  },
+  socialBox:{
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   btn:{
     marginTop: 32,
+    padding: '16px 0px'
   },
   forgetText:{
       color: Colors.textGray,

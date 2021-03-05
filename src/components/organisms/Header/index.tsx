@@ -4,20 +4,40 @@ import { Box, Typography } from "@material-ui/core";
 import ButtonItem from "../../atoms/ButtonItem";
 import SignIn from "../SignIn";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+
 interface IProps {}
 
 const Header: React.FC<IProps> = (props) => {
   const classes = useStyles();
   const [showSignIn, setShowSignIn] = useState(false);
   const history = useHistory();
-
+  const menu = useSelector((state: RootState) => state.menu.list);
+  
   const handleSignIn = () => {
     setShowSignIn(true);
   };
 
+  const handlerClick = (str: string) => {
+    history.push(str);
+  };
+
+
   return (
     <Box className={classes.root}>
       <Typography> Change Books Logo</Typography>
+      <Box className={classes.nav}>
+      {!!menu.length &&
+          menu.map((item, index) => (
+            <Typography 
+            key={`menus-${index}-link`}
+            className={classes.link}
+            onClick={() => handlerClick(`${item.link}`)} > 
+              {item.title} 
+            </Typography>
+            ))}
+      </Box>
       <Box className={classes.loginMenu}>
         <ButtonItem
           variant="outlined"

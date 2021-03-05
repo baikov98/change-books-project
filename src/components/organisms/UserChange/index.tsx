@@ -4,16 +4,16 @@ import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 interface IProps {}
 
-const Main: React.FC<IProps> = () => {
+const UserChange: React.FC<IProps> = () => {
   const classes = useStyles();
   
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
-        <Typography>Change Books- сервис обмена книгами</Typography>
+        <Typography>Бланк обмена</Typography>
       </Box>
     </Box>
   );
 };
 
-export default Main;
+export default UserChange;

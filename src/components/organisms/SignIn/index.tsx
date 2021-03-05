@@ -9,8 +9,7 @@ import { useForm, Controller } from "react-hook-form";
 // import * as yup from "yup";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import { VALIDATION } from "../../../constants";
-import { Link } from "react-router-dom";
-import InputItem from "../../atoms/InputItem";
+import { useHistory } from "react-router-dom";
 import ButtonItem from "../../atoms/ButtonItem";
 
 type IFormInput = {
@@ -21,20 +20,6 @@ type IFormInput = {
   confirmNewPassword: string;
 };
 
-export interface IPropsInput {
-  onChange?: () => void;
-  value?: string;
-  title?: string;
-  error?: string | undefined;
-  errorMessage?: string;
-  classContainer?: string;
-  inputType?: string;
-  required?: boolean;
-  disabled?: boolean;
-  mask?: string;
-  maxLength?: number;
-}
-
 export interface IProps {
   open: boolean;
   closeModal: (e: boolean) => void;
@@ -43,6 +28,7 @@ export interface IProps {
 const SignIn: React.FC<IProps> = (props) => {
   const { open, closeModal } = props;
   const classes = useStyles();
+  const history = useHistory()
   const {
     handleSubmit,
     control,
@@ -63,7 +49,10 @@ const SignIn: React.FC<IProps> = (props) => {
     reset();
   };
 
-  const handleForgetClick = () => {};
+  const handleForgetClick = () => {
+    closeModal(false)
+    history.push('/forgetPass')
+  };
 
   return (
     <Dialog
@@ -77,7 +66,8 @@ const SignIn: React.FC<IProps> = (props) => {
       onEscapeKeyDown={onClose}
     >
       <DialogContent classes={{ root: classes.root }}>
-        <Typography className={classes.text}>Авторизация</Typography>
+        <Box className={classes.close}>X</Box>
+        <Typography className={classes.text}>Вход в систему:</Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Box className={classes.inputWrapper}>
@@ -88,7 +78,7 @@ const SignIn: React.FC<IProps> = (props) => {
               defaultValue=""
               render={(props) => (
                 <Input
-                  placeholder="Введите Email"
+                  placeholder="example@example.com"
                   className={classes.input}
                   {...props}
                 />
@@ -109,6 +99,13 @@ const SignIn: React.FC<IProps> = (props) => {
                 />
               )}
             />
+          </Box>
+
+          <Box className={classes.textRow}>
+            <Typography>Войти с помощью</Typography>
+            <Box className={classes.socialBox}>
+              VK G FB
+            </Box>
           </Box>
 
           <ButtonItem
