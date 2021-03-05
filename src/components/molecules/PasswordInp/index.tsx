@@ -14,7 +14,7 @@ const defaultProps: IProps = {
   onChange: () => null,
 };
 
-const PasswordItem: React.FC<IProps> = (props: IProps) => {
+const PasswordInp: React.FC<IProps> = (props: IProps) => {
   const { onChange, } = props;
   const classes = useStyles();
   const placeholder = "Введите пароль"
@@ -34,7 +34,7 @@ const PasswordItem: React.FC<IProps> = (props: IProps) => {
                 helperText={errorText}
                 value={+state.value <= 50 ? state.value : state.value.slice(0, 50)}
                 onChange={(e) => {setState(prev => ({...prev, value: e.target.value})) }}
-                onBlur={(e) => {setState(prev => ({...prev, error: !checkPass(e)})) }}
+                onBlur={(e) => {setState(prev => ({...prev, error: !checkInput(e)})) }}
                 InputProps={{
                   endAdornment: <IconButton
                                             aria-label="toggle password visibility"
@@ -48,7 +48,7 @@ const PasswordItem: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-const checkPass = (e: any) => {
+const checkInput = (e: any) => {
   let str = e.target.value
   if (str.length <= 8) return false
   if (str.match(/[A-ZА-ЯЁ]{1}/) && 
@@ -58,6 +58,6 @@ const checkPass = (e: any) => {
   return false
 }
 
-PasswordItem.defaultProps = defaultProps;
+PasswordInp.defaultProps = defaultProps;
 
-export default PasswordItem;
+export default PasswordInp;

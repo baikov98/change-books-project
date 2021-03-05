@@ -13,7 +13,7 @@ const defaultProps: IProps = {
   onChange: () => null,
 };
 
-const NickItem: React.FC<IProps> = (props: IProps) => {
+const NickInp: React.FC<IProps> = (props: IProps) => {
   const { onChange, } = props;
   const classes = useStyles();
   const placeholder = "Введите ник"
@@ -32,7 +32,7 @@ const NickItem: React.FC<IProps> = (props: IProps) => {
                 helperText={errorText}
                 value={+state.value <= 50 ? state.value : state.value.slice(0, 50)}
                 onChange={(e) => {setState(prev => ({...prev, value: e.target.value})) }}
-                onBlur={(e) => {setState(prev => ({...prev, error: !checkNick(e)})) }}
+                onBlur={(e) => {setState(prev => ({...prev, error: !checkInput(e)})) }}
                 InputProps={{
                   endAdornment: <IconButton
                                             aria-label="toggle visibility"
@@ -46,13 +46,13 @@ const NickItem: React.FC<IProps> = (props: IProps) => {
   );
 };
 
-const checkNick = (e: any) => {
+const checkInput = (e: any) => {
   let str = e.target.value
   if (str.length <= 2) return false
   if (str.match(/^[А-Яа-яЁёA-Za-z\s]+$/)) { return true }
   return false
 }
 
-NickItem.defaultProps = defaultProps;
+NickInp.defaultProps = defaultProps;
 
-export default NickItem;
+export default NickInp;

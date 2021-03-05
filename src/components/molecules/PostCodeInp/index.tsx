@@ -9,7 +9,7 @@ const defaultProps: IProps = {
   onChange: () => null,
 };
 
-const PostCodeItem: React.FC<IProps> = (props: IProps) => {
+const PostCodeInp: React.FC<IProps> = (props: IProps) => {
   const {} = props;
   const classes = useStyles();
   const [state, setState] = useState({
@@ -26,12 +26,12 @@ const PostCodeItem: React.FC<IProps> = (props: IProps) => {
                 label="Почтовый индекс"
                 value={+state.value <= 6 ? state.value : state.value.slice(0, 6)}
                 onChange={(e) => {setState(prev => ({...prev, value: e.target.value})) }}
-                onBlur={(e) => {setState(prev => ({...prev, error: !checkName(e)})) }}
+                onBlur={(e) => {setState(prev => ({...prev, error: !checkInput(e)})) }}
                  />
   );
 };
 
-const checkName = (e: any) => {
+const checkInput = (e: any) => {
   let str = e.target.value
   if (!str.length) return true
   if (str.match(/^[0-9]{6}/)
@@ -39,6 +39,6 @@ const checkName = (e: any) => {
   return false
 }
 
-PostCodeItem.defaultProps = defaultProps;
+PostCodeInp.defaultProps = defaultProps;
 
-export default PostCodeItem;
+export default PostCodeInp;

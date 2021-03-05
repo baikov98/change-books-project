@@ -34,12 +34,12 @@ const InputCyrillic: React.FC<IProps> = (props: IProps) => {
                 placeholder={placeholder}
                 label={label}
                 value={+state.value <= maxlength ? state.value : state.value.slice(0, maxlength)}
-                onChange={(e) => {setState(prev => ({value: e.target.value, error: !checkName(e)})) }}
+                onChange={(e) => {setState(prev => ({value: e.target.value, error: !checkInput(e)})) }}
                  />
   );
 };
 
-const checkName = (e: any) => {
+const checkInput = (e: any) => {
   let str = e.target.value
   if (!str.length) return true
   if (str.match(/^[А-Яа-яЁё\s]+$/)

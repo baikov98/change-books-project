@@ -1,10 +1,11 @@
 import { Box, Container, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import InputCyrillic from "../../molecules/InputCyrillic";
-import PasswordItem from "../../molecules/PasswordItem";
-import EmailItem from "../../molecules/EmailItem";  
-import NickItem from "../../molecules/NickItem";
-import PostCodeItem from "../../molecules/PostCodeItem";
+import PasswordInp from "../../molecules/PasswordInp";
+import EmailInp from "../../molecules/EmailInp";  
+import NickInp from "../../molecules/NickInp";
+import PostCodeInp from "../../molecules/PostCodeInp";
+import HouseNumInp from "../../molecules/HouseNumInp";
 import { useStyles } from "./styles";
 
 interface IProps {}
@@ -17,9 +18,9 @@ const SignUp: React.FC<IProps> = (props) => {
     <Container className={classes.regContainer}>
       <Box className={classes.regBox}>
         <Typography variant="h3" component="h1">Регистрация</Typography>
-        <EmailItem />
+        <EmailInp />
         <Box className={classes.test}>
-          <PasswordItem />
+          <PasswordInp />
         </Box>
         <InputCyrillic placeholder="Введите фамилию" 
                       label="Фамилия"
@@ -43,8 +44,9 @@ const SignUp: React.FC<IProps> = (props) => {
                       label="Улица"
                       helperText="Только буквы кириллицы"
                       maxlength={25}/>
-        <NickItem />
-        <PostCodeItem />
+        <NickInp />
+        <PostCodeInp />
+        <HouseNumInp />
       </Box> 
     </Container>
   );
