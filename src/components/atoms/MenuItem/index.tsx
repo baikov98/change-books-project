@@ -1,4 +1,4 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import cn from "classnames"
 import { Box, Typography } from "@material-ui/core"
 import { NavLink } from "react-router-dom"
@@ -8,10 +8,9 @@ import { Colors } from '../../../styles/Colors'
 interface IProps {
     title?: string;
     link?: string;
-    className?: string;
+    className?: string; 
     disabled?: boolean;
-    onClick: (e: any) => void;
-    children?: any;
+    onClick: (e: string) => void;
 }
 
 const defaultProps: IProps = {
@@ -20,11 +19,10 @@ const defaultProps: IProps = {
     className: "",
     disabled: false,
     onClick: () => null,
-    children: "",
 }
 
 const MenuItem: React.FC<IProps> = (props: IProps) => {
-    const { title, link, className, disabled, onClick, children } = props
+    const { title, link, className, disabled, onClick } = props
     const classes = useStyles()
     const classText = cn(
         className
@@ -40,7 +38,7 @@ const MenuItem: React.FC<IProps> = (props: IProps) => {
         </NavLink>
     )
 }
-//onClick={() => onClick(`${link}`)}
+
 MenuItem.defaultProps = defaultProps
 
 export default MenuItem

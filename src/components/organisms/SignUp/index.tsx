@@ -7,6 +7,7 @@ import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import {IRegFields} from '../../../store/models/regFields'
 
 type IFormInput = {
   name: string;
@@ -27,11 +28,19 @@ type IFormInput = {
 
 interface IProps {}
 
+
+const getMainInput = (state: RootState) => {
+  return state.regFields.main
+}
+const getAdressInput = (state: RootState) => {
+  return state.regFields.adress
+}
+
 const SignUp: React.FC<IProps> = (props) => {
   const {} = props;
   const classes = useStyles();
-  const mainInput = useSelector((state: RootState) => state.regFields.main)
-  const adressInput = useSelector((state: RootState) => state.regFields.adress);
+  const mainInput = useSelector(getMainInput)
+  const adressInput = useSelector(getAdressInput);
 
   const {
     handleSubmit,
@@ -56,7 +65,7 @@ const SignUp: React.FC<IProps> = (props) => {
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Box className={classes.inputRow}>
-            {mainInput.map((item, index) => (
+            {mainInput.map((item: IRegFields, index:number) => (
               <Controller
               key={`input-${index}`}
               name={item.name}
@@ -76,7 +85,7 @@ const SignUp: React.FC<IProps> = (props) => {
 
           <Typography className={classes.subtitle}>Адрес</Typography>
           <Box className={classes.inputRow}>
-          {adressInput.map((item, index) => (
+          {adressInput.map((item: IRegFields, index:number) => (
               <Controller
               key={`input-adress-${index}`}
               name={item.name}
@@ -124,12 +133,11 @@ const SignUp: React.FC<IProps> = (props) => {
           
 
           <ButtonItem
-            value="Создать аккаунт"
             btnType="submit"
             size="large"
             btnColor="yellow"
             className={classes.btn}
-          />
+          >Создать аккаунт</ButtonItem>
         </form>
         
       </Box>

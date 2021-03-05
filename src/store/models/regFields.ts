@@ -1,6 +1,15 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 
+
+export interface IRegFields {
+  name: string;
+  required: boolean;
+  label: string;
+  type: string;
+  placeholder: string;
+}
+
 const initialState = {
    main: [
      {

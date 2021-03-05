@@ -58,12 +58,12 @@ const ForgetPass: React.FC<IProps> = (props) => {
           </Box>
 
           <ButtonItem
-            value="Сбросить пароль"
             btnType="submit"
             size="large"
             btnColor="yellow"
             className={classes.btn}
-          />
+            onClick={()=> null}
+          >Сбросить пароль</ButtonItem>
         </form>
         
       </Box>

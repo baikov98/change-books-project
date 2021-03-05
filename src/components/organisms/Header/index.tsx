@@ -9,7 +9,7 @@ import { RootState } from "../../../store";
 
 interface IProps {}
 
-const Header: React.FC<IProps> = (props) => {
+const Header: React.FC = () => {
   const classes = useStyles();
   const [showSignIn, setShowSignIn] = useState(false);
   const history = useHistory();
@@ -45,20 +45,18 @@ const Header: React.FC<IProps> = (props) => {
           btnColor="white"
           fontWeight="textBold"
           onClick={handleSignIn}
-          value="Войти"
-        />
+        > Войти</ButtonItem>
         <Box className={classes.regButton}>
           <ButtonItem
             variant="contained"
             size="large"
             btnColor="yellow"
             fontWeight="textBold"
-            value="Регистрация"
             onClick={(e) => {
               e.preventDefault();
               history.push("/signup");
             }}
-          />
+          >Регистрация</ButtonItem>
         </Box>
       </Box>
       <SignIn open={showSignIn} closeModal={setShowSignIn} />

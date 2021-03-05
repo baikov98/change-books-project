@@ -95,12 +95,11 @@ const StartChange: React.FC<IProps> = () => {
         </Box>
         <Box className={classes.btnBox}>
           <ButtonItem
-            value="Далее"
             btnType="submit"
             size="large"
             btnColor="yellow"
             className={classes.btn}
-          />  
+          >Далее</ButtonItem>  
         </Box>
       </form>
       </Box>

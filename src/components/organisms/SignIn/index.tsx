@@ -121,12 +121,12 @@ const SignIn: React.FC<IProps> = (props) => {
           </Box>
 
           <ButtonItem
-            value="Войти"
             btnType="submit"
             size="large"
             btnColor="yellow"
             className={classes.btn}
-          />
+            onClick={() => null}
+          >Войти</ButtonItem>
         </form>
         <Typography className={classes.forgetText} onClick={handleForgetClick}>
           Забыли пароль?
