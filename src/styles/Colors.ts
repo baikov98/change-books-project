@@ -4,6 +4,7 @@ export const Colors: {[index: string]: string } = {
     textActive: '#F4B862',
     textGray: '#A5A3B0',
     white: '#FAFBFD',
-    yellow: '#FFD984'
+    orange: '#DC975E',
+    red: '#f00',
    };
    

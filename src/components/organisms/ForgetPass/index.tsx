@@ -4,15 +4,13 @@ import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
 import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
+import InputItem from '../../atoms/InputItem'
 
 type IFormInput = {
   name: string;
 };
 
-interface IProps {}
-
-const ForgetPass: React.FC<IProps> = (props) => {
-  const {} = props;
+const ForgetPass: React.FC = () => {
   const classes = useStyles();
 
   const {
@@ -33,7 +31,7 @@ const ForgetPass: React.FC<IProps> = (props) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
-        <Typography className={classes.title}>Сброс пароля:</Typography>
+        <Typography className={classes.title}>Восстановление пароля:</Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Box className={classes.inputRow}>
@@ -43,9 +41,9 @@ const ForgetPass: React.FC<IProps> = (props) => {
               rules={{ required: true }}
               defaultValue=""
               render={(props) => (
-                <TextField
+                <InputItem
+                  label={'Email*:'}
                   placeholder="Введите свой email"
-                  className={classes.input}
                   {...props}
                 />
               )}
@@ -60,8 +58,7 @@ const ForgetPass: React.FC<IProps> = (props) => {
           <ButtonItem
             btnType="submit"
             size="large"
-            btnColor="yellow"
-            className={classes.btn}
+            btnColor="orange"
             onClick={()=> null}
           >Сбросить пароль</ButtonItem>
         </form>

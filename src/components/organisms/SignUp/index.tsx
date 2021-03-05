@@ -8,6 +8,7 @@ import ButtonItem from "../../atoms/ButtonItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import {IRegFields} from '../../../store/models/regFields'
+import InputItem from "../../atoms/InputItem";
 
 type IFormInput = {
   name: string;
@@ -73,9 +74,10 @@ const SignUp: React.FC<IProps> = (props) => {
               rules={{ required: item.required }}
               defaultValue=""
               render={(props) => (
-                <TextField
+                <InputItem
+                  label={item.label}
+                  inputType={item.type}
                   placeholder={item.placeholder}
-                  className={classes.input}
                   {...props}
                 />
               )}
@@ -93,9 +95,9 @@ const SignUp: React.FC<IProps> = (props) => {
               rules={{ required: item.required }}
               defaultValue=""
               render={(props) => (
-                <TextField
+                <InputItem
+                  label = {item.label}
                   placeholder={item.placeholder}
-                  className={classes.input}
                   {...props}
                 />
               )}
@@ -135,7 +137,7 @@ const SignUp: React.FC<IProps> = (props) => {
           <ButtonItem
             btnType="submit"
             size="large"
-            btnColor="yellow"
+            btnColor="orange"
             className={classes.btn}
           >Создать аккаунт</ButtonItem>
         </form>

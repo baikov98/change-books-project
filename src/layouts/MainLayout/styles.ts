@@ -12,7 +12,7 @@ export const useStyles = makeStyles(() => ({
     header:{
         height: 70,
         width: "100%",
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.orange,
     },
     content: {
         display: "flex",

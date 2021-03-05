@@ -31,11 +31,6 @@ export const useStyles = makeStyles({
     gridGap: 18,
     marginBottom: 32,
   },
-  input:{
-    border: '1px solid #eee',
-    padding: '8px 16px',
-    outline: 'none',
-  },
   textRow:{
     display: 'flex',
     justifyContent: 'flex-start',

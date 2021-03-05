@@ -1,6 +1,10 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 
+export interface IMenuItem {
+  title: string;
+  link: string;
+}
 const initialState = {
    list: [
      {

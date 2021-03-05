@@ -5,7 +5,7 @@ export const useStyles = makeStyles({
     link: {
         textDecoration: "none",
         background: Colors.white,
-        borderBottom: `2px solid ${Colors.yellow}`,
+        borderBottom: `2px solid ${Colors.orange}`,
         borderRadius: 12,
         flex: "0 1 20%",
         textAlign: "center",
@@ -13,7 +13,7 @@ export const useStyles = makeStyles({
         cursor:"pointer",
         transition: "all 0.3s ease 0s",
         '&:hover':{
-          background: Colors.yellow,
+          background: Colors.orange,
         }
       },
     linkText:{
@@ -21,6 +21,6 @@ export const useStyles = makeStyles({
         color: Colors.text,
       },
     activeLink: {
-      background: Colors.yellow
+      background: Colors.orange
     }
 })

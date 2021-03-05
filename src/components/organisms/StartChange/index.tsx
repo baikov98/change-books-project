@@ -97,7 +97,7 @@ const StartChange: React.FC<IProps> = () => {
           <ButtonItem
             btnType="submit"
             size="large"
-            btnColor="yellow"
+            btnColor="orange"
             className={classes.btn}
           >Далее</ButtonItem>  
         </Box>

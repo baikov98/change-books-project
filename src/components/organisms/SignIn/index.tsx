@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import { useStyles } from "./styles";
 
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import { Typography, ButtonBase, Box, Input, InputLabel, TextField } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
-// import * as yup from "yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { VALIDATION } from "../../../constants";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { VALIDATION } from "../../../constants";
 import { useHistory } from "react-router-dom";
 import ButtonItem from "../../atoms/ButtonItem";
+import InputItem from "../../atoms/InputItem";
+import CloseIcon from '@material-ui/icons/Close';
 
 type IFormInput = {
   email: string;
   password: string;
-  currentEmail: string;
-  newPassword: string;
-  confirmNewPassword: string;
 };
 
 export interface IProps {
@@ -35,8 +32,11 @@ const SignIn: React.FC<IProps> = (props) => {
     errors,
     reset,
     setError,
+    register,
     clearErrors,
-  } = useForm<IFormInput>({});
+  } = useForm<IFormInput>({
+    resolver: yupResolver(VALIDATION.SIGN_IN)
+  });
 
   const onClose = () => {
     reset();
@@ -53,12 +53,11 @@ const SignIn: React.FC<IProps> = (props) => {
     closeModal(false)
     history.push('/forgetPass')
   };
-
+ 
   return (
     <Dialog
       scroll={"paper"}
       open={open}
-      ref={() => null}
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
       classes={{ paper: classes.paper }}
@@ -66,7 +65,7 @@ const SignIn: React.FC<IProps> = (props) => {
       onEscapeKeyDown={onClose}
     >
       <DialogContent classes={{ root: classes.root }}>
-        <Box className={classes.close}>X</Box>
+        <Box className={classes.close} onClick={onClose}><CloseIcon className={classes.closeIcon}/></Box>
         <Typography className={classes.text}>Вход в систему:</Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
@@ -76,18 +75,14 @@ const SignIn: React.FC<IProps> = (props) => {
               control={control}
               rules={{ required: true }}
               defaultValue=""
-              render={(props) => (
-                <Box className={classes.inputBox}>
-                <InputLabel className={classes.inputLabel} shrink htmlFor="email">
-                  Email *
-                </InputLabel>
-                <TextField
-                  InputProps={{ disableUnderline: true }}
-                  placeholder="example@example.com"
-                  className={classes.input}
-                  {...props}
+              render={({ onChange, value }) => (
+                <InputItem 
+                  label = {"Email *"}
+                  error={errors.email?.message}
+                  onChange ={onChange}
+                  value={value}
+                  placeholder = 'example@example.com'
                 />
-                </Box>
               )}
             />
             <Controller
@@ -96,19 +91,14 @@ const SignIn: React.FC<IProps> = (props) => {
               rules={{ required: true }}
               defaultValue=""
               render={({ onChange, value }) => (
-                <Box className={classes.inputBox}>
-                 <InputLabel className={classes.inputLabel} shrink htmlFor="email">
-                  Password *
-                </InputLabel>
-                <TextField
-                  InputProps={{ disableUnderline: true }}
-                  onChange={onChange}
+                <InputItem 
+                  label = {"Пароль *"}
+                  onChange ={onChange}
                   value={value}
-                  className={classes.input}
-                  type={"password"}
-                  placeholder="Введите пароль"
+                  error={errors.password?.message}
+                  inputType = {"password"}
+                  placeholder = 'Введите пароль'
                 />
-                </Box>
               )}
             />
           </Box>
@@ -123,9 +113,8 @@ const SignIn: React.FC<IProps> = (props) => {
           <ButtonItem
             btnType="submit"
             size="large"
-            btnColor="yellow"
+            btnColor="orange"
             className={classes.btn}
-            onClick={() => null}
           >Войти</ButtonItem>
         </form>
         <Typography className={classes.forgetText} onClick={handleForgetClick}>

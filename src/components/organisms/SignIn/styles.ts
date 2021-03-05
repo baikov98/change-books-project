@@ -17,6 +17,12 @@ export const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  closeIcon: {
+    width: 20,
+    height: 20,
+    fill: Colors.textGray,
+    cursor:"pointer",
+  },
   text:{
       color: Colors.text,
       fontSize:20,
@@ -31,20 +37,6 @@ export const useStyles = makeStyles({
   },
   inputWrapper:{
       width: "100%",
-  },
-  input:{
-      width: "100%",
-      marginTop: 12,
-      border: `1px solid #eee`,
-      padding: 12,
-  },
-  inputLabel:{
-    fontSize: 20,
-    color: Colors.text,
-    fontWeight: 700,
-  },
-  inputBox:{
-    marginTop: 12,
   },
   textRow:{
     display: 'flex',

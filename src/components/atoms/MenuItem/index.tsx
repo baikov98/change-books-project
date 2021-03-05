@@ -10,7 +10,7 @@ interface IProps {
     link?: string;
     className?: string; 
     disabled?: boolean;
-    onClick: (e: string) => void;
+    onClick: (event: string) => void;
 }
 
 const defaultProps: IProps = {
@@ -30,7 +30,7 @@ const MenuItem: React.FC<IProps> = (props: IProps) => {
     
     return (
         <NavLink exact to={`${link}`} 
-                 activeStyle={{background: Colors.yellow}}
+                 activeStyle={{background: Colors.orange}}
                  className={classes.link}>
             <Typography noWrap className={classes.linkText}>
                 {title}

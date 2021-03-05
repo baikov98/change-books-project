@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
     textActive: { backgroundColor: Colors.textActiveColor},
     textGray: { backgroundColor: Colors.textGray},
     white: { backgroundColor: Colors.white},
-    yellow: { backgroundColor: Colors.yellow},
+    orange: { backgroundColor: Colors.orange},
 
     textBold: { fontWeight: "bold" },
     textNormal: { fontWeight: "normal"}

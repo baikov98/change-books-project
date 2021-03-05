@@ -6,14 +6,17 @@ import SignIn from "../SignIn";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { IMenuItem } from "../../../store/models/menu";
 
-interface IProps {}
+const getList = (state:RootState) => {
+  return state.menu.list
+}
 
 const Header: React.FC = () => {
   const classes = useStyles();
   const [showSignIn, setShowSignIn] = useState(false);
   const history = useHistory();
-  const menu = useSelector((state: RootState) => state.menu.list);
+  const menu = useSelector(getList);
   
   const handleSignIn = () => {
     setShowSignIn(true);
@@ -29,7 +32,7 @@ const Header: React.FC = () => {
       <Typography> Change Books Logo</Typography>
       <Box className={classes.nav}>
       {!!menu.length &&
-          menu.map((item, index) => (
+          menu.map((item:IMenuItem, index:number) => (
             <Typography 
             key={`menus-${index}-link`}
             className={classes.link}
@@ -50,7 +53,7 @@ const Header: React.FC = () => {
           <ButtonItem
             variant="contained"
             size="large"
-            btnColor="yellow"
+            btnColor="orange"
             fontWeight="textBold"
             onClick={(e) => {
               e.preventDefault();
