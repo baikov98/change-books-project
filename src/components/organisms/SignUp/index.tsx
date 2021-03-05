@@ -1,10 +1,9 @@
 import { Box, Container, Typography } from "@material-ui/core";
 import React, { useState } from "react";
+import InputCyrillic from "../../molecules/InputCyrillic";
 import PasswordItem from "../../molecules/PasswordItem";
-import EmailItem from "../../molecules/EmailItem"; 
-import NameItem from "../../molecules/NameItem"; 
-import SurnameItem from "../../molecules/SurnameItem"; 
-import PatronymicItem from "../../molecules/PatronymicItem";
+import EmailItem from "../../molecules/EmailItem";  
+
 import PostCodeItem from "../../molecules/PostCodeItem";
 import { useStyles } from "./styles";
 
@@ -22,9 +21,28 @@ const SignUp: React.FC<IProps> = (props) => {
         <Box className={classes.test}>
           <PasswordItem />
         </Box>
-        <NameItem />
-        <SurnameItem />
-        <PatronymicItem />
+        <InputCyrillic placeholder="Введите фамилию" 
+                      label="Фамилия"
+                      helperText="Только буквы кириллицы"
+                      maxlength={50}/>
+
+        <InputCyrillic placeholder="Введите имя" 
+                       label="Имя"
+                     helperText="Только буквы кириллицы"
+                     maxlength={25}/>
+
+        <InputCyrillic placeholder="Введите отчество" 
+                      label="Отчество"
+                      helperText="Только буквы кириллицы"
+                      maxlength={25}/>
+        <InputCyrillic placeholder="Введите город" 
+                      label="Город"
+                      helperText="Только буквы кириллицы"
+                      maxlength={15}/>
+        <InputCyrillic placeholder="Введите улицу" 
+                      label="Улица"
+                      helperText="Только буквы кириллицы"
+                      maxlength={25}/>
         <PostCodeItem />
       </Box> 
     </Container>

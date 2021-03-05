@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 import { useStyles } from "./styles";
 import { TextField } from "@material-ui/core";
+
 interface IProps {
+  maxlength: number
+  placeholder?: string
+  helperText?: string
+  label?: string
   onChange?: (e: any) => void
 }
 
 const defaultProps: IProps = {
+  maxlength: 50,
   onChange: () => null,
 };
 
-const SurnameItem: React.FC<IProps> = (props: IProps) => {
-  const {} = props;
+const InputCyrillic: React.FC<IProps> = (props: IProps) => {
+  const { maxlength, 
+          placeholder, 
+          helperText, 
+          label, } = props;
   const classes = useStyles();
   const [state, setState] = useState({
     error: false,
     value: ''
   })
-  const errorText = state.error ? "Только буквы кириллицы" : ""
+  const errorText = state.error ? helperText : ""
   return (
     <TextField  type="text"
                 error={state.error}
                 helperText={errorText}
                 variant="outlined"
-                placeholder="Введите фамилию"
-                label="Фамилия"
-                value={+state.value <= 50 ? state.value : state.value.slice(0, 50)}
+                placeholder={placeholder}
+                label={label}
+                value={+state.value <= maxlength ? state.value : state.value.slice(0, maxlength)}
                 onChange={(e) => {setState(prev => ({value: e.target.value, error: !checkName(e)})) }}
                  />
   );
@@ -38,6 +47,6 @@ const checkName = (e: any) => {
   return false
 }
 
-SurnameItem.defaultProps = defaultProps;
+InputCyrillic.defaultProps = defaultProps;
 
-export default SurnameItem;
+export default InputCyrillic; 

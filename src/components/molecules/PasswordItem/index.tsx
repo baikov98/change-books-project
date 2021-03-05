@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import InputItem from '../../atoms/InputItem'
 import { useStyles } from "./styles";
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField } from "@material-ui/core";
-import Input from '@material-ui/core/Input';
+
 interface IProps {
   onChange?: (e: any) => void
 
