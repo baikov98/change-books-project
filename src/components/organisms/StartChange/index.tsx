@@ -28,13 +28,13 @@ type IFormInput = {
 
 interface IProps {}
 
-function getStepContent(step: number, control: any) { 
+function getStepContent(step: number, control: any, data: object) { 
 
   switch (step) {
     case 0:
-      return <IwantToExchange control={control} />;  
+      return <IwantToExchange control={control} data={data} />;  
     case 1:
-      return <IwantToGet control={control} />;
+      return <IwantToGet control={control} />; 
     case 2:
       return <DeliveryAddress control={control} />;
     default:
@@ -45,8 +45,9 @@ function getStepContent(step: number, control: any) {
 const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
   const currentStep = useSelector((state: RootState) => state.startExchange)
+  
   const dispatch = useDispatch()
-  useEffect(() => {}, [currentStep.step]);
+  //useEffect(() => {}, [currentStep.step]); 
 
   const {
     handleSubmit,
@@ -59,25 +60,23 @@ const StartChange: React.FC<IProps> = () => {
 
   const submit = (data: any) => { 
     console.log(data)
+    dispatch.startExchange.SET_EXCHANGE_DATA({[`step${currentStep.step}`]: data})
     dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step+1)
+    console.log(currentStep)
   }
   const fun = handleSubmit(submit)
-  const handleNext = () => {
-    
-  };
+  const handleNext = () => {};
   const handleBack = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step-1)
   };
-  const handleReset = () => {
-    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep, 0)
-  };
 
+  console.log(currentStep)
   return (
     <Box className={classes.root}> 
       <ProgressIndicator />
       <form className={classes.form}>
       
-        {getStepContent(currentStep.step, control)}     
+        {getStepContent(currentStep.step, control, currentStep.data)}     
         
         <Box className={classes.btnBox}>
           <ButtonItem

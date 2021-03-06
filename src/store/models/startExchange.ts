@@ -19,10 +19,10 @@ export const startExchange = createModel<RootModel>()({
             step: payload
           }
       },
-      SET_EXCHANGE_DATA: (state: IStartExchange, payload: any) => {
+      SET_EXCHANGE_DATA: (state: IStartExchange, payload: object) => {
         return {
           ...state,
-          data: payload 
+          data: {...state.data, ...payload }
         }
     },
   },

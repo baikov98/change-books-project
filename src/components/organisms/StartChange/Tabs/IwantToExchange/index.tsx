@@ -17,11 +17,12 @@ type IFormInput = {
 
 interface IProps { 
   control: any;
+  data: any;
 }
 
-const IwantToExchange: React.FC<IProps> = ({ control }) => {
+const IwantToExchange: React.FC<IProps> = ({ control, data }) => {
   const classes = useStyles();
-
+  
   return (
  
       <Box className={classes.wrapper}>
@@ -33,7 +34,7 @@ const IwantToExchange: React.FC<IProps> = ({ control }) => {
                   name="author"
                   control={control}
                   rules={{ required: true }}
-                  defaultValue=""
+                  defaultValue={data?.step0?.author || ''}   
                   render={(props) => (
                     <TextField
                     placeholder="Фамилия и имя автора"
@@ -45,7 +46,7 @@ const IwantToExchange: React.FC<IProps> = ({ control }) => {
                     name="book"
                     control={control}
                     rules={{ required: true }}
-                    defaultValue=""
+                    defaultValue={data?.step0?.book || ''}  
                     render={(props) => (
                       <TextField
                       placeholder="Название книги"
@@ -57,7 +58,7 @@ const IwantToExchange: React.FC<IProps> = ({ control }) => {
                     name="isbn"
                     control={control}
                     rules={{ required: true }}
-                    defaultValue=""
+                    defaultValue={data?.step0?.isbn || ''}  
                     render={(props) => (
                       <TextField
                       placeholder="ISBN"
@@ -69,7 +70,7 @@ const IwantToExchange: React.FC<IProps> = ({ control }) => {
                     name="year"
                     control={control}
                     rules={{ required: true }}
-                    defaultValue=""
+                    defaultValue={data?.step0?.year || ''}  
                     render={(props) => (
                       <TextField
                       placeholder="Год издания"
