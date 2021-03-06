@@ -11,6 +11,7 @@ import {IRegFields} from "../../../store/models/regFields"
 import InputItem from "../../atoms/InputItem";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
+import SocialItems from "../../atoms/SocialItems";
 
 type IFormInput = {
   name: string;
@@ -110,10 +111,7 @@ const SignUp: React.FC = () => {
             ))}
           </Box>
           <Box className={classes.textRow}>
-            <Typography>Зарегистрироваться с помощью</Typography>
-            <Box className={classes.socialBox}>
-              VK G FB
-            </Box>
+          <SocialItems title={'Зарегистрироваться с помощью'}/>
           </Box>
           <Box className={classes.textRow}>
             <Typography>Знаком * отмечены все поля, обязательные для заполнения</Typography>

@@ -7,5 +7,6 @@ export const Colors: {[index: string]: string } = {
     orange: '#DC975E',
     red: '#f00',
     blue: '#2961B5',
+    grape: '#3F2A49',
    };
    

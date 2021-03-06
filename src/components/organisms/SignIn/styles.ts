@@ -5,14 +5,14 @@ export const useStyles = makeStyles({
   root: {
   },
   popover:{
-    borderRadius: 12,
-    boxShadow: 'none',
+    borderRadius: 4,
+    boxShadow: `0 0 8px rgba(0, 0, 0, 0.1)`,
   },
   paper:{
     display: "flex",
     width: 400,
     backgroundColor: Colors.white,
-    borderRadius: 12,
+    borderRadius: 4,
     flexDirection: "column",
     padding: 24,
     border: `1px solid ${Colors.bg}`,
@@ -41,7 +41,7 @@ export const useStyles = makeStyles({
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      marginTop: 32,
+      marginTop: 12,
   },
   inputWrapper:{
       width: "100%",
@@ -64,7 +64,7 @@ export const useStyles = makeStyles({
   forgetText:{
       color: Colors.blue,
       fontSize: 12,
-      marginTop: 12,
+      marginTop: 24,
       textDecoration: "underline",
       '&:hover':{
           cursor: "pointer",

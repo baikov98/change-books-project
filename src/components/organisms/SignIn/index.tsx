@@ -10,6 +10,8 @@ import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
 import CloseIcon from '@material-ui/icons/Close';
 import Popover from '@material-ui/core/Popover';
+import SocialItems from '../../atoms/SocialItems';
+
 
 type IFormInput = {
   email: string;
@@ -115,10 +117,7 @@ const SignIn: React.FC = () => {
           </Box>
 
           <Box className={classes.textRow}>
-            <Typography>Войти с помощью</Typography>
-            <Box className={classes.socialBox}>
-              VK G FB
-            </Box>
+            <SocialItems title={'Войти с помощью'}/>
           </Box>
 
           <ButtonItem
