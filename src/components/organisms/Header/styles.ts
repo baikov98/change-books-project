@@ -3,17 +3,20 @@ import { Colors } from "../../../styles/Colors";
 
 export const useStyles = makeStyles(() => ({
     root:{
-        width: 1080,
         height: "100%",
+        width: '100%',
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 16px",
-        margin: "0 auto",
+    },
+    logo: {
+        width: 180,
+        height: "auto",
     },
     loginMenu: {
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        cursor: 'pointer',
     },
     regButton: {
         paddingLeft: "0.5rem",
@@ -23,9 +26,8 @@ export const useStyles = makeStyles(() => ({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    link:{
-        marginRight: 16,
-        cursor: "pointer",
-    },
+    login:{
+        fontWeight: 900,
+    }
     
 }), { index: 2 });

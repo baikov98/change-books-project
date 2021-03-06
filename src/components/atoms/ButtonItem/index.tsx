@@ -4,37 +4,34 @@ import { Button, ButtonBase, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
 
-interface IProps {
+export interface IProps {
     btnType?: "button" | "submit" | "reset";
     variant?: "contained" | "outlined";
     size?: "small" | "medium" | "large";
     className?: string;
-    btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "orange";
-    fontWeight?: "textBold" | "textNormal";
+    btnColor?: "white" | "orange";
     disabled?: boolean;
     onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 
 const ButtonItem: React.FC<IProps> = (props) => {
-    const { btnType, className, btnColor, fontWeight, disabled, onClick, variant, size, children } = props
-    const classes = useStyles()
+    const { btnType, className, disabled, onClick, variant, size, children } = props
+    const classes = useStyles(props)
 
-    const classText = cn(
-        className, classes[btnColor || "bg"]
-    )
-    
+    const classText = cn(classes.text, className)
     return (
         <Button
                 disableTouchRipple
                 disableRipple
                 type={btnType}
-                className={classText}
+                className={classes.button}
                 disabled={disabled}
                 onClick={onClick}
                 variant={variant}
                 size={size}>
-            <Typography variant={"subtitle1"} className={classes[fontWeight || "textNormal"]}>
+                
+            <Typography variant={"subtitle1"} className={classText}>
                 {children}
             </Typography>
         </Button>

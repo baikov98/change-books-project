@@ -7,8 +7,10 @@ import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import {IRegFields} from '../../../store/models/regFields'
+import {IRegFields} from "../../../store/models/regFields"
 import InputItem from "../../atoms/InputItem";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { VALIDATION } from "../../../constants";
 
 type IFormInput = {
   name: string;
@@ -27,8 +29,6 @@ type IFormInput = {
   terms: boolean;
 };
 
-interface IProps {}
-
 
 const getMainInput = (state: RootState) => {
   return state.regFields.main
@@ -37,8 +37,8 @@ const getAdressInput = (state: RootState) => {
   return state.regFields.adress
 }
 
-const SignUp: React.FC<IProps> = (props) => {
-  const {} = props;
+
+const SignUp: React.FC = () => {
   const classes = useStyles();
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
@@ -50,7 +50,9 @@ const SignUp: React.FC<IProps> = (props) => {
     reset,
     setError,
     clearErrors,
-  } = useForm<IFormInput>({});
+  } = useForm<IFormInput>({
+    resolver: yupResolver(VALIDATION.SIGN_UP)
+  });
 
 
   const submit = (data: IFormInput) => {
@@ -60,24 +62,25 @@ const SignUp: React.FC<IProps> = (props) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.wrapper}>
+      
         <Typography className={classes.title}>Регистрация:</Typography>
         <Typography className={classes.subtitle}>Основная информация</Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Box className={classes.inputRow}>
-            {mainInput.map((item: IRegFields, index:number) => (
+            {mainInput.map(({name, required, placeholder, label, type, error}:IRegFields, index:number) => (
               <Controller
               key={`input-${index}`}
-              name={item.name}
+              name={name}
               control={control}
-              rules={{ required: item.required }}
+              rules={{ required: required }}
               defaultValue=""
               render={(props) => (
                 <InputItem
-                  label={item.label}
-                  inputType={item.type}
-                  placeholder={item.placeholder}
+                  label={label}
+                  inputType={type}
+                  error={errors[error]?.message}
+                  placeholder={placeholder}
                   {...props}
                 />
               )}
@@ -87,17 +90,19 @@ const SignUp: React.FC<IProps> = (props) => {
 
           <Typography className={classes.subtitle}>Адрес</Typography>
           <Box className={classes.inputRow}>
-          {adressInput.map((item: IRegFields, index:number) => (
+          {adressInput.map(({name, required, placeholder, label, type, error}: IRegFields, index:number) => (
               <Controller
               key={`input-adress-${index}`}
-              name={item.name}
+              name={name}
               control={control}
-              rules={{ required: item.required }}
+              rules={{ required: required }}
               defaultValue=""
               render={(props) => (
                 <InputItem
-                  label = {item.label}
-                  placeholder={item.placeholder}
+                  label = {label}
+                  inputType = {type}
+                  error={errors[error]?.message}
+                  placeholder={placeholder}
                   {...props}
                 />
               )}
@@ -141,8 +146,6 @@ const SignUp: React.FC<IProps> = (props) => {
             className={classes.btn}
           >Создать аккаунт</ButtonItem>
         </form>
-        
-      </Box>
     </Box>
   );
 };

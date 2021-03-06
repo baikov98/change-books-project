@@ -8,11 +8,14 @@ export const useStyles = makeStyles(() => ({
         flexDirection: "column",
         flexWrap: "nowrap",
         alignItems: "center",
+        backgroundColor: Colors.white,
+        width: 1100,
     },
     header:{
-        height: 70,
-        width: "100%",
-        backgroundColor: Colors.orange,
+        height: 80,
+        width: 1100,
+        background: Colors.white,
+        borderBottom: `1px solid ${Colors.bg}`
     },
     content: {
         display: "flex",

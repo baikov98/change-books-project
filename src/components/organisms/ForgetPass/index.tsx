@@ -2,12 +2,14 @@ import { Box, Typography, TextField} from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
+import { VALIDATION } from "../../../constants";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from '../../atoms/InputItem'
 
 type IFormInput = {
-  name: string;
+  email: string;
 };
 
 const ForgetPass: React.FC = () => {
@@ -20,7 +22,9 @@ const ForgetPass: React.FC = () => {
     reset,
     setError,
     clearErrors,
-  } = useForm<IFormInput>({});
+  } = useForm<IFormInput>({
+    resolver: yupResolver(VALIDATION.RESET_PASS)
+  });
 
 
   const submit = (data: IFormInput) => {
@@ -43,6 +47,7 @@ const ForgetPass: React.FC = () => {
               render={(props) => (
                 <InputItem
                   label={'Email*:'}
+                  error={errors.email?.message}
                   placeholder="Введите свой email"
                   {...props}
                 />

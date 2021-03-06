@@ -11,9 +11,7 @@ const Main: React.FC = () => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.wrapper}>
         <Typography>Change Books- сервис обмена книгами</Typography>
-      </Box>
     </Box>
   );
 };
