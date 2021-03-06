@@ -9,6 +9,7 @@ interface IProps {
     variant?: "contained" | "outlined";
     size?: "small" | "medium" | "large";
     className?: string;
+    style?: object;
     btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "orange";
     fontWeight?: "textBold" | "textNormal";
     disabled?: boolean;

@@ -5,29 +5,22 @@ export const useStyles = makeStyles({
   root: {
     color: Colors.text,
     overflow:"auto",
-    width:"100%"
+    width:"100%",
+    padding: "0px"
   },
-  wrapper:{
-    background: Colors.white,
-    minHeight: 500,
-    padding: 24,
-  },
-  stepper: {},
-  content:{
-    display: 'grid',
-    gridTemplateColumns: '1fr 3fr'
-  },
-  formBox: {},
-  form: {},
-  categoryBox:{
-    background: Colors.bg,
+  form: {
+    
   },
   btnBox:{
     display: 'flex',
     width: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginTop:24,
   },
-  btn:{},
+  btn:{
+    width: "280px",
+    
+  },
+  
 
 }, {index: 3});

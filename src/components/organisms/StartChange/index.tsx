@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { RootState } from '../../../store'
+import { useSelector, useDispatch } from 'react-redux'
+import { connect } from "react-redux";
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import {Controller, useForm} from 'react-hook-form';
+
+import ArrowForward from '@material-ui/icons/ArrowForward';
+import ArrowBack from '@material-ui/icons/ArrowBack'; 
+import { Box, TextField, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
-import { Box, TextField, Typography } from "@material-ui/core";
-import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
+import ProgressIndicator from "../../atoms/ProgressIndicator"
+import DeliveryAddress from "./Tabs/DeliveryAddress"
+import IwantToExchange from "./Tabs/IwantToExchange"
+import IwantToGet from "./Tabs/IwantToGet"
+ 
 
 type IFormInput = {
   book: string;
@@ -14,8 +28,26 @@ type IFormInput = {
 
 interface IProps {}
 
+function getStepContent(step: number, control: any) { 
+
+  switch (step) {
+    case 0:
+      return <IwantToExchange control={control} />;  
+    case 1:
+      return <IwantToGet control={control} />;
+    case 2:
+      return <DeliveryAddress control={control} />;
+    default:
+      return <p>Default value</p>;
+  }
+}
+
 const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
+  const currentStep = useSelector((state: RootState) => state.startExchange)
+  const dispatch = useDispatch()
+  useEffect(() => {}, [currentStep.step]);
+
   const {
     handleSubmit,
     control,
@@ -25,84 +57,48 @@ const StartChange: React.FC<IProps> = () => {
     clearErrors,
   } = useForm<IFormInput>({});
 
-  const submit = () => {
-
+  const submit = (data: any) => { 
+    console.log(data)
+    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step+1)
   }
-  
-  return (
-    <Box className={classes.root}>
-      <Box className={classes.wrapper}>
-        <Typography>Мои обмены</Typography>
-        <Box className={classes.stepper}> Stepper </Box>
-        <form className={classes.form}>
-        <Box className={classes.content}>
-        
+  const fun = handleSubmit(submit)
+  const handleNext = () => {
+    
+  };
+  const handleBack = () => {
+    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step-1)
+  };
+  const handleReset = () => {
+    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep, 0)
+  };
 
-          <Box className={classes.formBox}>
-            <Typography>Данные книги</Typography>
-              <Controller
-                name="author"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField
-                  placeholder="Фамилия и имя автора"
-                    {...props}
-                  />
-                )}
-              />
-                <Controller
-                name="book"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField
-                  placeholder="Название книги"
-                    {...props}
-                  />
-                )}
-              />
-                <Controller
-                name="isbn"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField
-                  placeholder="ISBN"
-                    {...props}
-                  />
-                )}
-              />
-                <Controller
-                name="year"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField
-                  placeholder="Год издания"
-                    {...props}
-                  />
-                )}
-              />
-          </Box>
-          <Box className={classes.categoryBox}>
-              <Typography>Категории</Typography>
-          </Box>
-        </Box>
+  return (
+    <Box className={classes.root}> 
+      <ProgressIndicator />
+      <form className={classes.form}>
+      
+        {getStepContent(currentStep.step, control)}     
+        
         <Box className={classes.btnBox}>
           <ButtonItem
-            btnType="submit"
-            size="large"
-            btnColor="orange"
-            className={classes.btn}
-          >Далее</ButtonItem>  
+                btnType="submit"
+                size="large"
+                btnColor="orange"
+                disabled={currentStep.step === 0}
+                className={classes.btn}
+                onClick={handleBack}
+                style={{position: "relative"}} 
+              ><ArrowBack style={{position: "absolute", top: "25%", left: "25%"}} /> Назад</ButtonItem>  
+          <ButtonItem
+                btnType="submit"
+                size="large"
+                btnColor="orange"
+                className={classes.btn}
+                style={{position: "relative"}} 
+                onClick={fun}
+            >Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></ButtonItem>  
         </Box>
-      </form>
-      </Box>
+        </form>
     </Box>
   );
 };

@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 function App() {
   const classes = useStyles();
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/ReactHooks' >
       <CssBaseline />
       <Container
         maxWidth={false}
