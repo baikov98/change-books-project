@@ -26,6 +26,7 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
   const onlyNames = mainInput.slice(0, 3)
+  //{data[`${item.name}`] || ""} 
   return (
  
       <Box className={classes.wrapper}>
@@ -37,7 +38,7 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
               name={item.name}
               control={control}
               rules={{ required: item.required }}
-              defaultValue=""
+              defaultValue=''
               render={(props) => (
                 <InputItem
                   label={item.label}

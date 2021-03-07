@@ -1,10 +1,9 @@
 import React from "react";
 
-import {Controller, useForm} from 'react-hook-form'
-
 import { Box, TextField, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
+
 import Categories from "../../../Categories";
 import BookInfo from './BookInfo'; 
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { RootState } from '../../../store'
 import { useSelector, useDispatch } from 'react-redux'
-import { connect } from "react-redux";
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import {Controller, useForm} from 'react-hook-form';
+
+import { useForm } from 'react-hook-form';
+import { useHistory } from "react-router-dom";
 
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import ArrowBack from '@material-ui/icons/ArrowBack'; 
@@ -38,7 +36,7 @@ const StartChange: React.FC<IProps> = () => {
   const currentStep = useSelector((state: RootState) => state.startExchange)
   const step = currentStep.step
   const dispatch = useDispatch()
-
+  const history = useHistory();
   const {
     handleSubmit,
     control,
@@ -50,10 +48,14 @@ const StartChange: React.FC<IProps> = () => {
 
   const submit = (data: any) => { 
     dispatch.startExchange.SET_EXCHANGE_DATA(data)
-    dispatch.startExchange.SET_EXCHANGE_STEP(step+1)
+    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step)
+    if (step === 2) history.push('userChange')
   }
   const handleNext = handleSubmit(submit)
-  const submitForm = () => null
+  const submitForm = (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault()
+      history.push('userChange')
+  }
   const handleBack = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };
@@ -81,7 +83,7 @@ const StartChange: React.FC<IProps> = () => {
                 btnColor="orange"
                 className={classes.btn}
                 style={{position: "relative"}} 
-                onClick={step === 2 ? () => null : handleNext}
+                onClick={handleNext}
             >Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></ButtonItem>  
         </Box>
         </form>
