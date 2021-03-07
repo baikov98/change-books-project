@@ -20,7 +20,9 @@ const Main: React.FC = () => {
           <Typography className={classes.subtitle}>Cервис позволит упростить процесс обмена книгами, сделает его более привлекательным и надежным, будет способствовать привлечению большего количества людей к обмену бумажными книгами.</Typography>
           <ButtonItem className={classes.btn}> Начать обмен</ButtonItem>
         </Box>
-        <img className={classes.image} src={main} alt="Main picture"/>
+        <Box className={classes.imageBlock}>
+          <img className={classes.image} src={main} alt="Main picture"/>
+        </Box>
       </Box>
     </Box>
   );

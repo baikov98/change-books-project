@@ -21,6 +21,7 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    flex: '0 1 60%',
   }, 
   title:{
     fontWeight: 900,
@@ -40,8 +41,10 @@ export const useStyles = makeStyles({
   btn:{
     marginTop: 40,
   },
+  imageBlock:{
+    flex: '0 1 40%',
+  },
   image:{
-    width: 500,
-    height: 'auto',
+    maxWidth: '100%',
   },
 }, {index: 3});
