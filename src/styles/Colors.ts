@@ -8,5 +8,6 @@ export const Colors: {[index: string]: string } = {
     red: '#f00',
     blue: '#2961B5',
     grape: '#3F2A49',
+    darkGray: '#C4C4C4',
    };
    

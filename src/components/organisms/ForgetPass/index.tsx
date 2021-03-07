@@ -63,7 +63,7 @@ const ForgetPass: React.FC = () => {
           <ButtonItem
             btnType="submit"
             size="large"
-            btnColor="orange"
+            type="solid"
             onClick={()=> null}
           >Сбросить пароль</ButtonItem>
         </form>

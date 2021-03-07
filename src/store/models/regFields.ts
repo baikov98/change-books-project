@@ -6,7 +6,7 @@ const initialState = {
      {
       name: "secondName",
       required: true,
-      label: 'Фамилия *',
+      label: 'Фамилия*:',
       type: '',
       placeholder: 'Введите фамилию',
       error: 'secondName',
@@ -14,7 +14,7 @@ const initialState = {
      {
       name: "name",
       required: true,
-      label: 'Имя *',
+      label: 'Имя*:',
       type: '',
       placeholder: 'Введите имя',
       error: 'name',
@@ -22,7 +22,7 @@ const initialState = {
      {
       name: "thirdName",
       required: false,
-      label: 'Отчество',
+      label: 'Отчество:',
       type: '',
       placeholder: 'Введите отчество',
       error: 'thirdName',
@@ -30,7 +30,7 @@ const initialState = {
      {
       name: "nickname",
       required: true,
-      label: 'Ник *',
+      label: 'Ник*:',
       type: '',
       placeholder: 'Придумайте никнейм',
       error: 'nickname',
@@ -97,7 +97,7 @@ const initialState = {
         {
         name: "buildNumber",
         required: true,
-        label: 'Номер корпуса/строения',
+        label: 'Номер корпуса/строения:',
         type: '',
         placeholder: 'Номер корпуса/строения',
         error: 'buildNumber',
@@ -105,7 +105,7 @@ const initialState = {
         {
         name: "flatNumber",
         required: true,
-        label: 'Номер квартиры',
+        label: 'Номер квартиры:',
         type: '',
         placeholder: 'Номер квартиры',
         error: 'flatNumber',

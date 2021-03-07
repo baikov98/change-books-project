@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     display: "flex",
-    height: "100vh",
+    minHeight: "100vh",
   },
 }));
 
