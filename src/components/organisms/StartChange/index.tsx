@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { RootState } from '../../../store'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { useForm } from 'react-hook-form';
+import { useForm, Control } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 
 import ArrowForward from '@material-ui/icons/ArrowForward';
@@ -22,7 +22,7 @@ interface propData {
 
 interface IProps {}
 
-function getStepContent(step: number, control: any, data: propData) { 
+function getStepContent(step: number, control: Control, data: propData) { 
 
   switch (step) {
     case 0:

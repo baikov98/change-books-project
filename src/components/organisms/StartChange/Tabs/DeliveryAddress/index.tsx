@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Box, TextField, Typography } from "@material-ui/core";
-import {Controller} from 'react-hook-form'
+import {Controller, Control} from 'react-hook-form'
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store";
@@ -9,14 +9,12 @@ import {IRegFields} from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
 
-interface propData {
-  [key: string]: string;
-}
-
 interface IProps {
   step: number;
-  control: any;
-  data: propData;
+  control: Control;
+  data: {
+    [key: string]: string;
+  };
 }
 
 const getMainInput = (state: RootState) => {
@@ -31,7 +29,7 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
   const onlyNames = mainInput.slice(0, 3)
-  //{data[`${item.name}`] || ""} 
+
   return (
  
       <Box className={classes.wrapper}>
@@ -39,18 +37,18 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
         <Box className={classes.inputRow}>
             {onlyNames.map((item: IRegFields, index:number) => (
               <Controller
-              key={`input-${index}`}
-              name={item.name}
-              control={control}
-              rules={{ required: item.required }}
-              defaultValue={data[item.name] || ''}
-              render={(props) => (
-                <InputItem
-                  label={item.label}
-                  inputType={item.type}
-                  placeholder={item.placeholder}
-                  {...props}
-                />
+                key={`input-${index}`}
+                name={item.name}
+                control={control}
+                rules={{ required: item.required }}
+                defaultValue={data[item.name] || ''}
+                render={(props) => (
+                  <InputItem
+                    label={item.label}
+                    inputType={item.type}
+                    placeholder={item.placeholder}
+                    {...props}
+                  />
               )}
             />
             ))}

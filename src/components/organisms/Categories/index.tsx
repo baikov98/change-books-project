@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Controller} from 'react-hook-form'
+import {Controller, Control} from 'react-hook-form'
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -16,8 +16,10 @@ import { useStyles } from "./styles";
 
 interface IProps {
   step: number;
-  control?: any;
-  data: any;
+  control: Control;
+  data: {
+    [key: string]: string;
+  };
 }
 
 const listOfCategories = [{title: 'Жанр',
@@ -54,7 +56,7 @@ const Categories: React.FC<IProps> = ({ step, control, data }) => {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
               >
-                <Typography className='none'>{item.title}</Typography>
+              <Typography className='none'>{item.title}</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
               {item.opts.map((item, index) => ( 

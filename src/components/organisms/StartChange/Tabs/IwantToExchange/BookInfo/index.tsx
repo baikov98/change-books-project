@@ -1,12 +1,10 @@
 import React from "react";
-import {  Controller } from 'react-hook-form'
+import {  Controller, Control } from 'react-hook-form'
 import { TextField} from "@material-ui/core";
 import { useStyles } from "./styles";
 
-
-
 interface IProps { 
-  control: any;
+  control: Control;
   data: {
     [key: string]: string;
   };

@@ -1,15 +1,13 @@
 import React from "react";
-
+import { Control } from 'react-hook-form';
 import { Box, TextField, Typography } from "@material-ui/core";
-
 import { useStyles } from "./styles";
-
 import Categories from "../../../Categories";
 
 
 interface IProps {
   step: number;
-  control: any;
+  control: Control;
   data: {
     [key: string]: string;
   }; 
