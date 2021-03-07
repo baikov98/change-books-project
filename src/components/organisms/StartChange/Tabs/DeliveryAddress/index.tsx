@@ -8,10 +8,15 @@ import { RootState } from "../../../../../store";
 import {IRegFields} from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
+
+interface propData {
+  [key: string]: string;
+}
+
 interface IProps {
   step: number;
   control: any;
-  data: object;
+  data: propData;
 }
 
 const getMainInput = (state: RootState) => {
@@ -38,7 +43,7 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
               name={item.name}
               control={control}
               rules={{ required: item.required }}
-              defaultValue=''
+              defaultValue={data[item.name] || ''}
               render={(props) => (
                 <InputItem
                   label={item.label}
@@ -58,7 +63,7 @@ const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
                   name={item.name}
                   control={control}
                   rules={{ required: item.required }}
-                  defaultValue=""
+                  defaultValue={data[item.name] || ''}
                   render={(props) => (
                     <InputItem
                       label = {item.label}

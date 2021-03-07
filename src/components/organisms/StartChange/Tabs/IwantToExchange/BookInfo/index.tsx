@@ -4,9 +4,12 @@ import { TextField} from "@material-ui/core";
 import { useStyles } from "./styles";
 
 
+
 interface IProps { 
   control: any;
-  data: any;
+  data: {
+    [key: string]: string;
+  };
 }
 
 const BookInfo: React.FC<IProps> = ({ control, data }) => {

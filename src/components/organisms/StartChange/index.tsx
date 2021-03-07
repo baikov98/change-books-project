@@ -16,10 +16,13 @@ import DeliveryAddress from "./Tabs/DeliveryAddress"
 import IwantToExchange from "./Tabs/IwantToExchange"
 import IwantToGet from "./Tabs/IwantToGet"
  
+interface propData {
+  [key: string]: string;
+}
 
 interface IProps {}
 
-function getStepContent(step: number, control: any, data: object) { 
+function getStepContent(step: number, control: any, data: propData) { 
 
   switch (step) {
     case 0:
@@ -35,6 +38,7 @@ const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
   const currentStep = useSelector((state: RootState) => state.startExchange)
   const step = currentStep.step
+  const storeData = currentStep.data as propData
   const dispatch = useDispatch()
   const history = useHistory();
   const {
@@ -66,7 +70,7 @@ const StartChange: React.FC<IProps> = () => {
       <ProgressIndicator number={step} />
       <form className={classes.form}>
       
-        {getStepContent(step, control, currentStep.data)}     
+        {getStepContent(step, control, storeData)}     
         
         <Box className={classes.btnBox}>
           <ButtonItem

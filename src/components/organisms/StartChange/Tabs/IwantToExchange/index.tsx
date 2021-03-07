@@ -10,7 +10,9 @@ import BookInfo from './BookInfo';
 interface IProps {
   step: number; 
   control: any;
-  data: object;
+  data: {
+    [key: string]: string;
+  };
 }
 
 const IwantToExchange: React.FC<IProps> = ({ step, control, data }) => {
