@@ -19,7 +19,6 @@ export const useStyles = makeStyles({
   },
   btn:{
     width: "280px",
-    
   },
   
 

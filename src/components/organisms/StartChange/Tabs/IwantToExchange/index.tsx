@@ -6,21 +6,15 @@ import { Box, TextField, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
 import Categories from "../../../Categories";
+import BookInfo from './BookInfo'; 
 
-
-type IFormInput = {
-  book: string;
-  author: string;
-  isbn: string;
-  year: string;
-};
-
-interface IProps { 
+interface IProps {
+  step: number; 
   control: any;
-  data: any;
+  data: object;
 }
 
-const IwantToExchange: React.FC<IProps> = ({ control, data }) => {
+const IwantToExchange: React.FC<IProps> = ({ step, control, data }) => {
   const classes = useStyles();
   
   return (
@@ -30,57 +24,11 @@ const IwantToExchange: React.FC<IProps> = ({ control, data }) => {
         <Box className={classes.content}>
           <Box className={classes.formBox}>
             <Typography>Данные книги</Typography>
-              <Controller
-                  name="author"
-                  control={control}
-                  rules={{ required: true }}
-                  defaultValue={data?.step0?.author || ''}   
-                  render={(props) => (
-                    <TextField
-                    placeholder="Фамилия и имя автора"
-                      {...props}
-                  />
-                )}
-              />
-                <Controller
-                    name="book"
-                    control={control}
-                    rules={{ required: true }}
-                    defaultValue={data?.step0?.book || ''}  
-                    render={(props) => (
-                      <TextField
-                      placeholder="Название книги"
-                        {...props}
-                  />
-                )}
-              />
-                <Controller
-                    name="isbn"
-                    control={control}
-                    rules={{ required: true }}
-                    defaultValue={data?.step0?.isbn || ''}  
-                    render={(props) => (
-                      <TextField
-                      placeholder="ISBN"
-                        {...props}
-                  />
-                )}
-              />
-                <Controller
-                    name="year"
-                    control={control}
-                    rules={{ required: true }}
-                    defaultValue={data?.step0?.year || ''}  
-                    render={(props) => (
-                      <TextField
-                      placeholder="Год издания"
-                        {...props}
-                  />
-                )}
-              />
+            <BookInfo control={control} data={data} />
+              
           </Box>
           <Box className={classes.categoryBox}>
-            <Categories control={control} />
+            <Categories step={step} control={control} data={data} />
           </Box>
         </Box>
       </Box>

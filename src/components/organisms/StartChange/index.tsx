@@ -19,35 +19,25 @@ import IwantToExchange from "./Tabs/IwantToExchange"
 import IwantToGet from "./Tabs/IwantToGet"
  
 
-type IFormInput = {
-  book: string;
-  author: string;
-  isbn: string;
-  year: string;
-};
-
 interface IProps {}
 
 function getStepContent(step: number, control: any, data: object) { 
 
   switch (step) {
     case 0:
-      return <IwantToExchange control={control} data={data} />;  
+      return <IwantToExchange step={step} control={control} data={data} />;  
     case 1:
-      return <IwantToGet control={control} />; 
+      return <IwantToGet step={step} control={control} data={data} />; 
     case 2:
-      return <DeliveryAddress control={control} />;
-    default:
-      return <p>Default value</p>;
+      return <DeliveryAddress step={step} control={control} data={data} />;
   }
 }
 
 const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
   const currentStep = useSelector((state: RootState) => state.startExchange)
-  
+  const step = currentStep.step
   const dispatch = useDispatch()
-  //useEffect(() => {}, [currentStep.step]); 
 
   const {
     handleSubmit,
@@ -56,34 +46,31 @@ const StartChange: React.FC<IProps> = () => {
     reset,
     setError,
     clearErrors,
-  } = useForm<IFormInput>({});
+  } = useForm({});
 
   const submit = (data: any) => { 
-    console.log(data)
-    dispatch.startExchange.SET_EXCHANGE_DATA({[`step${currentStep.step}`]: data})
-    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step+1)
-    console.log(currentStep)
+    dispatch.startExchange.SET_EXCHANGE_DATA(data)
+    dispatch.startExchange.SET_EXCHANGE_STEP(step+1)
   }
-  const fun = handleSubmit(submit)
-  const handleNext = () => {};
+  const handleNext = handleSubmit(submit)
+  const submitForm = () => null
   const handleBack = () => {
-    dispatch.startExchange.SET_EXCHANGE_STEP(currentStep.step-1)
+    dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };
 
-  console.log(currentStep)
   return (
-    <Box className={classes.root}> 
-      <ProgressIndicator />
+    <Box className={classes.root}>
+      <Typography>Бланк обмена</Typography>
+      <ProgressIndicator number={step} />
       <form className={classes.form}>
       
-        {getStepContent(currentStep.step, control, currentStep.data)}     
+        {getStepContent(step, control, currentStep.data)}     
         
         <Box className={classes.btnBox}>
           <ButtonItem
-                btnType="submit"
                 size="large"
                 btnColor="orange"
-                disabled={currentStep.step === 0}
+                disabled={step === 0}
                 className={classes.btn}
                 onClick={handleBack}
                 style={{position: "relative"}} 
@@ -94,7 +81,7 @@ const StartChange: React.FC<IProps> = () => {
                 btnColor="orange"
                 className={classes.btn}
                 style={{position: "relative"}} 
-                onClick={fun}
+                onClick={step === 2 ? () => null : handleNext}
             >Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></ButtonItem>  
         </Box>
         </form>

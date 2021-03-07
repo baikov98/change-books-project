@@ -6,43 +6,44 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 import { Box, TextField, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
 
-type IFormInput = {
-  book: string;
-  author: string;
-  isbn: string;
-  year: string;
-};
 
 interface IProps {
-  control: any;
+  step: number;
+  control?: any;
+  data: any;
 }
 
 const listOfCategories = [{title: 'Жанр',
-                           opts: ['Детектив', 'Детские книги', 'История', 'Мемуары', 'Приключения', 
-                                   'Психология', 'Фантастика', 'Эзотерика']}, 
+                           opts: [['Детектив', 'detective'], ['Детские книги', 'childbooks'], 
+                                  ['История', 'history'], ['Мемуары', 'memoirs'], ['Приключения', 'adventures'], 
+                                   ['Психология', 'psychology'], ['Фантастика', 'fantasy'], ['Эзотерика', 'esoterics']]}, 
                           {title: 'Область наук',
-                           opts: ['Биология', 'Медицина', 'Физика', 'Химия']}, 
+                           opts: [['Биология', 'biology'], ['Медицина', 'medicine'], ['Физика', 'physics'], 
+                                  ['Химия', 'chemistry']]}, 
                           {title: 'Состояние',
-                           opts: ['Новая', 'В хорошем состоянии', 'Б/у', 'Потрепана']}, 
+                           opts: [['Новая', 'fresh'], ['В хорошем состоянии', 'goodshape'], ['Б/у', 'boo'], 
+                                  ['Потрепана', 'shabby']]}, 
                           {title: 'Обложка',
-                           opts: ['Суперобложка', 'Жесткая', 'Мягкая', 'Без обложки']}, 
+                           opts: [['Суперобложка', 'dustjacket'], ['Жесткая', 'tough'], ['Мягкая', 'soft'], 
+                                  ['Без обложки', 'withoutcover']]}, 
                           {title: 'Лауреат',
-                           opts: ['Нобелевская', 'Пулитцеровская', 'Гонкуровская', 'Букеровская', 'Русский Букер']}, 
+                           opts: [['Нобелевская', 'nobel'], ['Пулитцеровская', 'pylit'], ['Гонкуровская', 'gonkyr'], 
+                                  ['Букеровская', 'buker'], ['Русский Букер', 'rusbuker']]}, 
                           {title: 'Экранизация',
-                           opts: ['Экранизирована', 'Не экранизирована']}, 
+                           opts: [['Экранизирована', 'filmed'], ['Не экранизирована', 'notfilmed']]}, 
                           {title: 'Язык издания',
-                           opts: ['Русский', 'Английский']}]
+                           opts: [['Русский', 'russian'], ['Английский', 'english']]}]
 
-const Categories: React.FC<IProps> = ({ control }) => {
+const Categories: React.FC<IProps> = ({ step, control, data }) => {
   const classes = useStyles();
-  
+  const isGet = step ? 'Get' : ''
   return (
       <>
       <Typography>Категории</Typography>
@@ -52,22 +53,23 @@ const Categories: React.FC<IProps> = ({ control }) => {
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
-
               >
                 <Typography className='none'>{item.title}</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
               {item.opts.map((item, index) => ( 
-                  <Box key={item+index}>
+                  <Box key={item[1]}>
                     <Controller
-                        name={item}
-                        control={control}
+                        name={item[1]+isGet} 
+                        control={control} 
                         rules={{ required: false }}
-                        defaultValue=""
+                        defaultValue={data[`${item[1]+isGet}`] || false} // получение данных
                         render={(props) => (
                           <FormControlLabel
-                          control={<Checkbox {...props} />}
-                          label={item}
+                          control={<Checkbox 
+                                              onChange={e => props.onChange(e.target.checked)}
+                                              checked={props.value} />}
+                          label={item[0]}
                           />
                         )}
                     />

@@ -7,6 +7,7 @@ export const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        padding: "1rem 0 2rem 0"
     },
     mainBox: {
         display: "flex",
@@ -17,7 +18,7 @@ export const useStyles = makeStyles({
     },
     line: {
         display: "flex",
-        //justifyContent: "space-between",
+        justifyContent: "space-between",
         alignItems: "center",
         height: "2px",
         //width: "100%",
@@ -35,13 +36,20 @@ export const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        border: "1px solid #C4C4C4",
+        border: `1px solid ${Colors.textGray}`,
+        fontWeight: "bold",
         height: "32px",
         width: "32px",
         borderRadius: "50%",
         backgroundColor: Colors.white,
+        color: Colors.textGray
         
     },
+    numActive: {
+        border: `1px solid ${Colors.text}`,
+        color: Colors.text
+    },
+
     num1: {
         position: "relative",
         '&::after': {

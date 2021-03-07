@@ -8,13 +8,12 @@ export const useStyles = makeStyles({
     minHeight: 500,
     padding: 24,
   },
-  stepper: {},
   content:{
     display: 'grid',
     gridTemplateColumns: '1fr 3fr'
   },
   formBox: {},
-  form: {},
+
   categoryBox:{
     background: Colors.bg,
   },

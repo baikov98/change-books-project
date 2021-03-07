@@ -6,29 +6,25 @@ import { useStyles } from "./styles";
 
 import Categories from "../../../Categories";
 
-type IFormInput = {
-  book: string;
-  author: string;
-  isbn: string;
-  year: string;
-};
 
 interface IProps {
+  step: number;
   control: any;
+  data: object;  
 }
 
 
-const IwantToGet: React.FC<IProps> = ({ control }) => {
+const IwantToGet: React.FC<IProps> = ({ step, control, data }) => {
   const classes = useStyles();
   
   return (
  
       <Box className={classes.wrapper}>
         <Typography>Хочу получить</Typography>
-        
+        <Categories step={step} control={control} data={data} /> 
       </Box>
 
   );
 };
-//<Categories control={control} />
+
 export default IwantToGet;
