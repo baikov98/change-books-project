@@ -11,6 +11,7 @@ import InputItem from "../../atoms/InputItem";
 import CloseIcon from '@material-ui/icons/Close';
 import Popover from '@material-ui/core/Popover';
 import SocialItems from '../../atoms/SocialItems';
+import { useDispatch } from "react-redux";
 
 
 type IFormInput = {
@@ -22,6 +23,7 @@ const SignIn: React.FC = () => {
   const classes = useStyles();
   const [ open, setOpen ] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const dispatch = useDispatch()
   
   const history = useHistory()
   const {
@@ -46,6 +48,7 @@ const SignIn: React.FC = () => {
     console.log("Form is submited", data);
     clearErrors();
     reset();
+    dispatch.user.login(data)
   };
 
   const handleForgetClick = () => {

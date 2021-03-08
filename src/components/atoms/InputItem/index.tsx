@@ -45,7 +45,7 @@ const InputItem: React.FC<IProps> = (props: IProps) => {
                   helperText={errorText}
                 />
                 {error && (
-                    <Typography noWrap className={classes.error}>
+                    <Typography className={classes.error}>
                         {`* ${error}`}
                     </Typography>
                 )}

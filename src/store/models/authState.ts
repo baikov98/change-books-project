@@ -16,12 +16,6 @@ export const authState = createModel<RootModel>()({
         }
     },
     effects: (dispatch) =>  ({
-        async loadData(payload, rootState) {
-           
-            // const response = await fetch('http://example.com/data')
-            // const data = await response.json()
-           
-            // dispatch.SET_AUTH_STATE(data)
-          }
+       
     })
 })

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from '../../atoms/InputItem'
+import { useDispatch } from "react-redux";
 
 type IFormInput = {
   email: string;
@@ -14,6 +15,7 @@ type IFormInput = {
 
 const ForgetPass: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
 
   const {
     handleSubmit,
@@ -30,6 +32,7 @@ const ForgetPass: React.FC = () => {
   const submit = (data: IFormInput) => {
     console.log("Submitted = ", data)
     reset();
+    dispatch.user.resetPassword(data);
   }
 
   return (
@@ -64,7 +67,6 @@ const ForgetPass: React.FC = () => {
             btnType="submit"
             size="large"
             type="solid"
-            onClick={()=> null}
           >Сбросить пароль</ButtonItem>
         </form>
         

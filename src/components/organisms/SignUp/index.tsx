@@ -5,13 +5,14 @@ import cn from "classnames";
 import { useHistory } from "react-router-dom";
 import {Controller, useForm} from 'react-hook-form'
 import ButtonItem from "../../atoms/ButtonItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import {IRegFields} from "../../../store/models/regFields"
 import InputItem from "../../atoms/InputItem";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import SocialItems from "../../atoms/SocialItems";
+import CheckBox from '../../atoms/CheckBox'
 
 type IFormInput = {
   name: string;
@@ -43,6 +44,7 @@ const SignUp: React.FC = () => {
   const classes = useStyles();
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
+  const dispatch = useDispatch()
 
   const {
     handleSubmit,
@@ -59,8 +61,10 @@ const SignUp: React.FC = () => {
   const submit = (data: IFormInput) => {
     console.log("Submitted = ", data)
     reset();
+    dispatch.user.registration(data)
   }
 
+  console.log("Error - ", errors)
   return (
     <Box className={classes.root}>
       
@@ -124,16 +128,17 @@ const SignUp: React.FC = () => {
               name="terms"
               control={control}
               rules={{ required: true }}
-              defaultValue=""
-              render={(props) => (
-                <Checkbox
-                  {...props}
+              defaultValue={false}
+              render={({value, onChange}) => (
+                <CheckBox
+                  error = {errors.terms?.message}
+                  label = {`Нажимая кнопку "СОЗДАТЬ АККАУНТ" вы соглашаетесь с полититкой хранения и обработки персональных данных 
+                  в соответствии с политикой конфиденциальности данных`}
+                  onChange={e => onChange(e.target.checked)}
+                  checked={value}
                 />
               )}
             />
-            <Typography>Нажимая кнопку "СОЗДАТЬ АККАУНТ" вы соглашаетесь с полититкой хранения и обработки персональных данных 
-              в соответствии с политикой конфиденциальности данных
-            </Typography>
           </Box>
           
 
