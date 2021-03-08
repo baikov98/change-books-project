@@ -1,44 +1,39 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 
-
-export interface IRegFields {
-  name: string;
-  required: boolean;
-  label: string;
-  type: string;
-  placeholder: string;
-}
-
 const initialState = {
    main: [
      {
       name: "secondName",
       required: true,
-      label: 'Фамилия *',
+      label: 'Фамилия*:',
       type: '',
       placeholder: 'Введите фамилию',
+      error: 'secondName',
      },
      {
       name: "name",
       required: true,
-      label: 'Имя *',
+      label: 'Имя*:',
       type: '',
       placeholder: 'Введите имя',
+      error: 'name',
      },
      {
       name: "thirdName",
       required: false,
-      label: 'Отчество',
+      label: 'Отчество:',
       type: '',
       placeholder: 'Введите отчество',
+      error: 'thirdName',
      },
      {
       name: "nickname",
       required: true,
-      label: 'Ник *',
+      label: 'Ник*:',
       type: '',
       placeholder: 'Придумайте никнейм',
+      error: 'nickname',
      },
      {
       name: "email",
@@ -46,6 +41,7 @@ const initialState = {
       label: 'Email*:',
       type: '',
       placeholder: 'Введите Email',
+      error: 'email',
      },
      {
       name: "password",
@@ -53,6 +49,7 @@ const initialState = {
       label: 'Пароль*:',
       type: 'password',
       placeholder: 'Введите пароль',
+      error: 'password',
      },
      {
       name: "confirmPassword",
@@ -60,6 +57,7 @@ const initialState = {
       label: 'Повторный ввод пароля:',
       type: 'password',
       placeholder: 'Подтвердите пароль',
+      error: 'confirmPassword',
      },
      
    ],
@@ -70,6 +68,7 @@ const initialState = {
         label: 'Индекс*:',
         type: '',
         placeholder: 'Введите индекс',
+        error: 'indexLocation',
        },
         {
         name: "city",
@@ -77,6 +76,7 @@ const initialState = {
         label: 'Город*:',
         type: '',
         placeholder: 'Введите город',
+        error: 'city',
        },
         {
         name: "street",
@@ -84,6 +84,7 @@ const initialState = {
         label: 'Улица*:',
         type: '',
         placeholder: 'Введите улицу',
+        error: 'street',
        },
         {
         name: "homeNumber",
@@ -91,27 +92,60 @@ const initialState = {
         label: 'Номер дома*:',
         type: '',
         placeholder: 'Номер дома',
+        error: 'homeNumber',
        },
         {
         name: "buildNumber",
         required: true,
-        label: 'Номер корпуса/строения',
+        label: 'Номер корпуса/строения:',
         type: '',
         placeholder: 'Номер корпуса/строения',
+        error: 'buildNumber',
        },
         {
         name: "flatNumber",
         required: true,
-        label: 'Номер квартиры',
+        label: 'Номер квартиры:',
         type: '',
         placeholder: 'Номер квартиры',
+        error: 'flatNumber',
        },
    ],
+}
+
+type errorType = "email"
+  | "password"
+  | "confirmPassword"
+  | "name"
+  | "secondName"
+  | "thirdName"
+  | "nickname"
+  | "indexLocation"
+  | "city"
+  | "street"
+  | "buildNumber"
+  | "flatNumber"
+  | "homeNumber"
+
+
+export interface IRegFields {
+  name: string;
+  required: boolean;
+  label: string;
+  type: string;
+  placeholder: string;
+  error:errorType;
+}
+
+interface IInputs {
+  main: IRegFields[],
+  adress: IRegFields[],
 }
 
 export const regFields = createModel<RootModel>()({
   state: {
     error: null,
-    ...initialState,
-  },
+    main: initialState.main,
+    adress: initialState.adress,
+  } as IInputs,
 });

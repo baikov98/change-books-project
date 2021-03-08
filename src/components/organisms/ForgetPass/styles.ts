@@ -36,6 +36,7 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 18,
+    marginBottom: 18,
   },
 
   btn:{

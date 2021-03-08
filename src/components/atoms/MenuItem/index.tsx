@@ -3,6 +3,7 @@ import cn from "classnames"
 import { Box, Typography } from "@material-ui/core"
 import { NavLink } from "react-router-dom"
 import { useStyles } from "./styles"
+import { activeLink } from "./styles"
 import { Colors } from '../../../styles/Colors'
 
 interface IProps {
@@ -30,11 +31,9 @@ const MenuItem: React.FC<IProps> = (props: IProps) => {
     
     return (
         <NavLink exact to={`${link}`} 
-                 activeStyle={{background: Colors.orange}}
+                 activeStyle={activeLink}
                  className={classes.link}>
-            <Typography noWrap className={classes.linkText}>
-                {title}
-            </Typography>
+                     {title}
         </NavLink>
     )
 }

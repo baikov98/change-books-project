@@ -79,14 +79,14 @@ const StartChange: React.FC<IProps> = () => {
                 disabled={step === 0}
                 className={classes.btn}
                 onClick={handleBack}
-                style={{position: "relative"}} 
+
               ><ArrowBack style={{position: "absolute", top: "25%", left: "25%"}} /> Назад</ButtonItem>  
           <ButtonItem
                 btnType="submit"
                 size="large"
                 btnColor="orange"
                 className={classes.btn}
-                style={{position: "relative"}} 
+
                 onClick={handleNext}
             >Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></ButtonItem>  
         </Box>

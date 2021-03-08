@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStyles } from "./styles";
 
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import { Typography, Box } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,20 +9,20 @@ import { useHistory } from "react-router-dom";
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
 import CloseIcon from '@material-ui/icons/Close';
+import Popover from '@material-ui/core/Popover';
+import SocialItems from '../../atoms/SocialItems';
+
 
 type IFormInput = {
   email: string;
   password: string;
 };
 
-export interface IProps {
-  open: boolean;
-  closeModal: (e: boolean) => void;
-}
-
-const SignIn: React.FC<IProps> = (props) => {
-  const { open, closeModal } = props;
+const SignIn: React.FC = () => {
   const classes = useStyles();
+  const [ open, setOpen ] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  
   const history = useHistory()
   const {
     handleSubmit,
@@ -40,7 +38,8 @@ const SignIn: React.FC<IProps> = (props) => {
 
   const onClose = () => {
     reset();
-    closeModal(false);
+    setOpen(false);
+    setAnchorEl(null)
   };
 
   const submit = (data: IFormInput) => {
@@ -50,22 +49,36 @@ const SignIn: React.FC<IProps> = (props) => {
   };
 
   const handleForgetClick = () => {
-    closeModal(false)
+    onClose()
     history.push('/forgetPass')
   };
- 
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setOpen(prev => !prev)
+  };
+
   return (
-    <Dialog
-      scroll={"paper"}
-      open={open}
-      aria-labelledby="scroll-dialog-title"
-      aria-describedby="scroll-dialog-description"
-      classes={{ paper: classes.paper }}
-      onBackdropClick={onClose}
-      onEscapeKeyDown={onClose}
-    >
-      <DialogContent classes={{ root: classes.root }}>
-        <Box className={classes.close} onClick={onClose}><CloseIcon className={classes.closeIcon}/></Box>
+    <Box className={classes.root}>
+      <Typography  onClick={handleClick} className={classes.enter}>
+        Войти
+      </Typography>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={onClose}
+        classes={{paper: classes.popover}}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+     <Box className={classes.paper}>
+      <Box className={classes.close} onClick={onClose}><CloseIcon className={classes.closeIcon}/></Box>
         <Typography className={classes.text}>Вход в систему:</Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
@@ -104,10 +117,7 @@ const SignIn: React.FC<IProps> = (props) => {
           </Box>
 
           <Box className={classes.textRow}>
-            <Typography>Войти с помощью</Typography>
-            <Box className={classes.socialBox}>
-              VK G FB
-            </Box>
+            <SocialItems title={'Войти с помощью'}/>
           </Box>
 
           <ButtonItem
@@ -120,8 +130,9 @@ const SignIn: React.FC<IProps> = (props) => {
         <Typography className={classes.forgetText} onClick={handleForgetClick}>
           Забыли пароль?
         </Typography>
-      </DialogContent>
-    </Dialog>
+        </Box>
+      </Popover>
+    </Box>
   );
 };
 

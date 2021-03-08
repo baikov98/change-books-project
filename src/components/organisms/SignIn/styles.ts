@@ -4,13 +4,22 @@ import { Colors } from "../../../styles/Colors";
 export const useStyles = makeStyles({
   root: {
   },
+  popover:{
+    borderRadius: 4,
+    boxShadow: `0 0 8px rgba(0, 0, 0, 0.1)`,
+  },
   paper:{
     display: "flex",
-    width: 425,
+    width: 400,
     backgroundColor: Colors.white,
-    borderRadius: 12,
+    borderRadius: 4,
     flexDirection: "column",
-    padding: "0px 0px 24px 0",
+    padding: 24,
+    border: `1px solid ${Colors.bg}`,
+    boxSizing: 'border-box',
+  },
+  enter:{
+    fontWeight: 600,
   },
   close:{
     width:'100%',
@@ -27,13 +36,12 @@ export const useStyles = makeStyles({
       color: Colors.text,
       fontSize:20,
       fontWeight: 700,
-      letterSpacing: 2,
   },
   form:{
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
-      marginTop: 32,
+      marginTop: 12,
   },
   inputWrapper:{
       width: "100%",
@@ -54,12 +62,11 @@ export const useStyles = makeStyles({
     padding: '16px 0px'
   },
   forgetText:{
-      color: Colors.textGray,
+      color: Colors.blue,
       fontSize: 12,
-      textAlign: "center",
-      marginTop: 12,
+      marginTop: 24,
+      textDecoration: "underline",
       '&:hover':{
-          textDecoration: "underline",
           cursor: "pointer",
       }
   },

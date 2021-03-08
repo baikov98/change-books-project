@@ -6,12 +6,12 @@ export const useStyles =  makeStyles(() => ({
     input:{
         width: "100%",
         marginTop: 12,
-        border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid #eee`,
+        border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid ${Colors.bg}`,
         padding: 12,
     },
     inputLabel:{
       fontSize: 14,
-      color: Colors.text,
+      color: ({error}: IProps) => error ? Colors.red: Colors.orange,
       fontWeight: 700,
     },
     inputBox:{

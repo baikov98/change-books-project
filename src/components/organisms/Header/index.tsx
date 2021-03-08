@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { IMenuItem } from "../../../store/models/menu";
+import Logo from '../../../assets/image/LOGO.png';
+import MenuItem from "../../atoms/MenuItem";
 
 const getList = (state:RootState) => {
   return state.menu.list
@@ -14,55 +16,36 @@ const getList = (state:RootState) => {
 
 const Header: React.FC = () => {
   const classes = useStyles();
-  const [showSignIn, setShowSignIn] = useState(false);
   const history = useHistory();
   const menu = useSelector(getList);
   
-  const handleSignIn = () => {
-    setShowSignIn(true);
-  };
-
   const handlerClick = (str: string) => {
     history.push(str);
   };
 
-
   return (
     <Box className={classes.root}>
-      <Typography> Change Books Logo</Typography>
+      <img src={Logo} alt={"Book exchange Web Site"} className={classes.logo}/>
       <Box className={classes.nav}>
       {!!menu.length &&
           menu.map((item:IMenuItem, index:number) => (
-            <Typography 
+            <MenuItem 
             key={`menus-${index}-link`}
-            className={classes.link}
-            onClick={() => handlerClick(`${item.link}`)} > 
-              {item.title} 
-            </Typography>
+            title= {item.title} 
+            link={item.link}
+            onClick={() => handlerClick(`${item.link}`)} 
+            /> 
             ))}
       </Box>
       <Box className={classes.loginMenu}>
-        <ButtonItem
-          variant="outlined"
-          size="large"
-          btnColor="white"
-          fontWeight="textBold"
-          onClick={handleSignIn}
-        > Войти</ButtonItem>
-        <Box className={classes.regButton}>
-          <ButtonItem
-            variant="contained"
-            size="large"
-            btnColor="orange"
-            fontWeight="textBold"
+          <SignIn />        
+          <Typography
             onClick={(e) => {
               e.preventDefault();
               history.push("/signup");
             }}
-          >Регистрация</ButtonItem>
-        </Box>
+          >/ Регистрация</Typography>
       </Box>
-      <SignIn open={showSignIn} closeModal={setShowSignIn} />
     </Box>
   );
 };
