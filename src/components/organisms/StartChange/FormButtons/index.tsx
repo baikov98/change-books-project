@@ -7,15 +7,16 @@ import { Box } from "@material-ui/core";
 import { useStyles } from "./styles";
 import ButtonItem from "../../../atoms/ButtonItem";
 
-
 interface IProps {
   step: number;
-  handleBack?: (e: any) => void;
-  handleNext: (e: any) => void;
+  handleBack?: (e: React.MouseEvent<HTMLElement>) => void;
+  handleNext: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
   const classes = useStyles();
+  const nextText = step !== 2 ? (<>Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></>) : 
+                                  'Подтвердить данные'
   return (
         <Box className={classes.btnBox}>
           {step === 0 ? <Box /> : <ButtonItem
@@ -32,7 +33,7 @@ const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
                 btnColor="orange"
                 className={classes.btn}
                 onClick={handleNext}
-            >Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></ButtonItem>  
+            >{nextText}</ButtonItem>  
         </Box>
   );
 };

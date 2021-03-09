@@ -18,6 +18,7 @@ export const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        whiteSpace: 'nowrap'
     },
     icon:{
         fill: Colors.darkGray,
