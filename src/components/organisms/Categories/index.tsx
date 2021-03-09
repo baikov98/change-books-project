@@ -27,6 +27,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
     listOfCategories.forEach((val, i) => {
       val.opts.forEach((val, i) => {
         setValue(val[1], false)
+        if (isGet) setValue(val[1]+isGet, false)
       }) 
     })
   }
