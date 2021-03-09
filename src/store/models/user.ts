@@ -37,7 +37,6 @@ export const user = createModel<RootModel>()({
     },
     effects: (dispatch) =>  ({
         async resetPassword({email}) {
-            console.log('Reset password = ', email)
             try {
                 const response = await axios.post(`${baseURL}/auth/users/reset_password`, {
                     email
@@ -48,7 +47,6 @@ export const user = createModel<RootModel>()({
             }
         },
         async registration(payload) {
-            console.log('Registration = ', payload)
             try {
                 const {email, password} = payload
                    const data = {
@@ -68,7 +66,6 @@ export const user = createModel<RootModel>()({
             }
         },
         async login(payload) {
-            console.log('Auth = ', payload)
             try {
                    const {email, password} = payload
                    const data = {
@@ -84,7 +81,7 @@ export const user = createModel<RootModel>()({
                 cookie.set('token', response.data?.token, {path : '/'})
                 dispatch.SET_USER(response)
             } catch (error) {
-            console.error('Failed to reset password - ', error);
+                console.error('Failed to reset password - ', error);
             }
         },
         logout(){
