@@ -10,4 +10,4 @@ export const useStyles = makeStyles({
   btn: {
     width: "280px",
   },
-});
+}, {index: 3});

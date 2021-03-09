@@ -16,6 +16,7 @@ import { Box, TextField, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
 import { Colors } from "../../../styles/Colors";
+import listOfCategories from './listOfCategories'
 
 interface IProps {
   step: number;
@@ -25,7 +26,7 @@ interface IProps {
   };
 }
 
-const GreenCheckbox = withStyles({
+const OrangeCheckbox = withStyles({
   root: {
     '&$checked': {
       color: Colors.orange,
@@ -45,56 +46,27 @@ const Accordion = withStyles({
     '&:before': {
       display: 'none',
     },
-    '&$expanded': {
-      margin: 'auto',
-    },
   },
   expanded: {},
 })(MuiAccordion);
 
 const AccordionSummary = withStyles({
   root: {
-    backgroundColor: 'rgba(0, 0, 0, .03)',
-    borderBottom: '0px',
     marginBottom: -1,
     minHeight: 40,
     '&$expanded': {
       minHeight: 40,
     },
   },
-  content: {
-    '&$expanded': {
-      margin: '12px 0',
-    },
-  },
+  
   expandIcon: { 
-
-  expanded: {
-    transform: 'rotate(90deg)',
-    }
+    '&$expanded': {
+      transform: 'rotate(90deg)',
+      }
   },
 })(MuiAccordionSummary);
 
-const listOfCategories = [{title: 'Жанр',
-                           opts: [['детектив', 'detective'], ['детские книги', 'childbooks'], 
-                                  ['история', 'history'], ['мемуары', 'memoirs'], ['приключения', 'adventures'], 
-                                   ['психология', 'psychology'], ['фантастика', 'fantasy'], ['эзотерика', 'esoterics']]}, 
-                          {title: 'Область наук',
-                           opts: [['биология', 'biology'], ['медицина', 'medicine'], ['физика', 'physics'], 
-                                  ['химия', 'chemistry']]}, 
-                          {title: 'Состояние',
-                           opts: [['новая', 'fresh'], ['в хорошем состоянии', 'goodshape'], ['б/у', 'boo'], 
-                                  ['потрепана', 'shabby']]}, 
-                          {title: 'Обложка',
-                           opts: [['суперобложка', 'dustjacket'], ['жесткая', 'tough'], ['мягкая', 'soft'], 
-                                  ['без обложки', 'withoutcover']]}, 
-                          {title: 'Лауреат',
-                           opts: [['нобелевская', 'nobel'], ['пулитцеровская', 'pylit'], ['гонкуровская', 'gonkyr'], 
-                                  ['букеровская', 'buker'], ['русский Букер', 'rusbuker']]}, 
-                          {title: 'Экранизация',
-                           opts: [['экранизирована', 'filmed'], ['не экранизирована', 'notfilmed']]}, 
-                          {title: 'Язык издания',
-                           opts: [['русский', 'russian'], ['английский', 'english']]}]
+
 
 const Categories: React.FC<IProps> = ({ step, control, data }) => {
   const classes = useStyles();
@@ -105,33 +77,34 @@ const Categories: React.FC<IProps> = ({ step, control, data }) => {
       {listOfCategories.map((item, index) => {
         return (
           <Accordion key={item.title+index} className={classes.accordion}>
-            <AccordionSummary
+              <AccordionSummary
                 expandIcon={<KeyboardArrowRightIcon />}
                 aria-controls="panel1a-content"
               >
-              <Typography className={classes.accordionTitle}>{item.title}</Typography>
+                <Typography className={classes.accordionTitle}>{item.title}</Typography>
+                
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
-              {item.opts.map((item, index) => ( 
-                  <Box key={item[1]}>
-                    <Controller
-                        name={item[1]+isGet} 
-                        control={control} 
-                        rules={{ required: false }}
-                        defaultValue={data[`${item[1]+isGet}`] || false} // получение данных
-                        render={(props) => (
-                          <FormControlLabel
-                          control={<GreenCheckbox  
-                                              onChange={e => props.onChange(e.target.checked)}
-                                              checked={props.value} />}
-                                              label={item[0]}
-                          />
-                        )}
-                    />
-                  </Box>
-              )
-              
-              )}
+                {item.opts.map((item, index) => ( 
+                    <Box key={item[1]}>
+                      <Controller
+                          name={item[1]+isGet} 
+                          control={control} 
+                          rules={{ required: false }}
+                          defaultValue={data[`${item[1]+isGet}`] || false} // получение данных
+                          render={(props) => (
+                            <FormControlLabel
+                            control={<OrangeCheckbox  
+                                                onChange={e => props.onChange(e.target.checked)}
+                                                checked={props.value} />}
+                                                label={item[0]}
+                            />
+                            )}
+                      />
+                    </Box>
+                )
+                
+                )}
               </AccordionDetails>
           </Accordion>
         )

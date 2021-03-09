@@ -12,9 +12,10 @@ import {IRegFields} from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
 import FormButtons from '../../FormButtons'
+import { ITabsData } from '../../index'
 
 interface IProps {
-  tabsData: any;
+  tabsData: ITabsData;
 }
 
 const getMainInput = (state: RootState) => {

@@ -7,10 +7,6 @@ import { Box } from "@material-ui/core";
 import { useStyles } from "./styles";
 import ButtonItem from "../../../atoms/ButtonItem";
 
- 
-interface propData {
-  [key: string]: string;
-}
 
 interface IProps {
   step: number;

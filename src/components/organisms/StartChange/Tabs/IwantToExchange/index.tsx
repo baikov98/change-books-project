@@ -12,13 +12,13 @@ import { IBookInfoFields } from '../../../../../store/models/bookInfoFields'
 import InputItem from '../../../../atoms/InputItem'
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
-
+import { ITabsData } from '../../index'
 const getBookInput = (state: RootState) => {
   return state.bookInfoFields.main
 }
 
 interface IProps {
-  tabsData: any;
+  tabsData: ITabsData;
 }
 
 const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
