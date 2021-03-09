@@ -23,7 +23,7 @@ const defaultProps: IProps = {
 
 
 const InputItem: React.FC<IProps> = (props: IProps) => {
-    const {placeholder, label, defaultValue, onChange, error, errorText, value,inputType, className } = props
+    const {placeholder, label, defaultValue, onChange, error, errorText, value, inputType, className } = props
     const classes = useStyles(props)
 
     const inputClass = cn(classes.input, className)

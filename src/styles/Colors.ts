@@ -9,5 +9,6 @@ export const Colors: {[index: string]: string } = {
     blue: '#2961B5',
     grape: '#3F2A49',
     darkGray: '#C4C4C4',
+    lightGray: '#F5F5F5'
    };
    

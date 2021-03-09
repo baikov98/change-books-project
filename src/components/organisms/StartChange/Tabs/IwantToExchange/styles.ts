@@ -5,18 +5,20 @@ export const useStyles = makeStyles({
 
   wrapper:{
     background: Colors.white,
-    minHeight: 500,
-    padding: 24,
+    width: "1080px",
+
   },
   content:{
     display: 'grid',
-    gridTemplateColumns: '1fr 3fr'
+    gridTemplateColumns: '1fr 3fr',
+    gridColumnGap: "3rem",
   },
   formBox: {},
-
-  categoryBox:{
-    background: Colors.bg,
+  textGray: {
+    fontSize: "12px",
+    color: Colors.textGray,
+    fontWeight: "bold",
+    paddingBottom: '16px'
   },
-  
 
 }, {index: 3});

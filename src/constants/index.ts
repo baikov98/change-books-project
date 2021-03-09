@@ -9,6 +9,10 @@ const texts = {
     nickname: 'Никнейм обязательное поле',
     street: 'Улица обязательное поле',
     home: 'Номер дома обязательное поле',
+    
+    author: 'Введите фамилию и имя автора',
+    book: 'Введите название книги',
+    year: 'Введите год издания',
 }
 
 export const VALIDATION = {
@@ -43,4 +47,22 @@ export const VALIDATION = {
         .matches(/^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}){0,1}$/, "Email не корректен ")
         .required("Email обязательное поле"),
     }),
+    BOOK_INFO: yup.object().shape({
+        author: yup.string().trim().max(50).required(texts.author),
+        book: yup.string().trim().max(50).required(texts.book),
+        isbn: yup.string().trim().max(13),
+        year: yup.string().trim().max(4).required(texts.year),
+    }),
+    DELIVERY_INFO: yup.object().shape({
+        name: yup.string().trim().max(64).required(texts.name),
+        secondName: yup.string().trim().max(64).required(texts.secondName),
+        thirdName: yup.string().trim().max(64),
+        indexLocation: yup.string().trim().max(64).required(texts.index),
+        city: yup.string().trim().max(64).required(texts.city),
+        street: yup.string().trim().max(64).required(texts.street),
+        homeNumber: yup.string().trim().max(64).required(texts.home),
+        buildNumber: yup.string().trim().max(64),
+        flatNumber: yup.string().trim().max(64),
+    }),
+
 }   

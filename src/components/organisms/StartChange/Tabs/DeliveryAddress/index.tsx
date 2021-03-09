@@ -1,20 +1,20 @@
 import React from "react";
 
-import { Box, TextField, Typography } from "@material-ui/core";
-import {Controller, Control} from 'react-hook-form'
+import { Box, Typography } from "@material-ui/core";
+import { useForm, Controller, Control, FieldErrors } from 'react-hook-form'
+import { yupResolver } from "@hookform/resolvers/yup";
+import { VALIDATION } from "../../../../../constants";
+
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store";
 import {IRegFields} from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
+import FormButtons from '../../FormButtons'
 
 interface IProps {
-  step: number;
-  control: Control;
-  data: {
-    [key: string]: string;
-  };
+  tabsData: any;
 }
 
 const getMainInput = (state: RootState) => {
@@ -24,54 +24,70 @@ const getAdressInput = (state: RootState) => {
   return state.regFields.adress
 }
 
-const DeliveryAddress: React.FC<IProps> = ({ step, control, data }) => {
+const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
+  const { step, storeData, submit, handleBack } = tabsData
   const classes = useStyles();
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
   const onlyNames = mainInput.slice(0, 3)
 
+  const {
+    handleSubmit,
+    control,
+    errors,
+    reset,
+    setError,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(VALIDATION.DELIVERY_INFO)
+  });
+  const handleNext = handleSubmit(submit)
+
   return (
  
       <Box className={classes.wrapper}>
-        <Typography>Адрес доставки</Typography>
-        <Box className={classes.inputRow}>
-            {onlyNames.map((item: IRegFields, index:number) => (
-              <Controller
-                key={`input-${index}`}
-                name={item.name}
-                control={control}
-                rules={{ required: item.required }}
-                defaultValue={data[item.name] || ''}
-                render={(props) => (
-                  <InputItem
-                    label={item.label}
-                    inputType={item.type}
-                    placeholder={item.placeholder}
-                    {...props}
-                  />
-              )}
-            />
-            ))}
-          </Box>
-
-        <Box className={classes.inputRow}>
-            {adressInput.map((item: IRegFields, index:number) => (
-                  <Controller
-                  key={`input-adress-${index}`}
+        <form>
+          <Typography>Адрес доставки</Typography>
+          <Box className={classes.inputRow}>
+              {onlyNames.map((item: IRegFields, index:number) => (
+                <Controller
+                  key={`input-${index}`}
                   name={item.name}
                   control={control}
                   rules={{ required: item.required }}
-                  defaultValue={data[item.name] || ''}
+                  defaultValue={storeData[item.name] || ''}
                   render={(props) => (
                     <InputItem
-                      label = {item.label}
+                      label={item.label}
+                      inputType={item.type}
                       placeholder={item.placeholder}
                       {...props}
                     />
-                  )}
-                />
-                ))}
-          </Box>
+                )}
+              />
+              ))}
+            </Box>
+
+          <Box className={classes.inputRow}>
+              {adressInput.map((item: IRegFields, index:number) => (
+                    <Controller
+                    key={`input-adress-${index}`}
+                    name={item.name}
+                    control={control}
+                    rules={{ required: item.required }}
+                    defaultValue={storeData[item.name] || ''}
+                    render={(props) => (
+                      <InputItem
+                        label = {item.label}
+                        placeholder={item.placeholder}
+                        {...props}
+                      />
+                    )}
+                  />
+                  ))}
+            </Box>
+            <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
+          </form>
       </Box>
 
   );
