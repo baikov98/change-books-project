@@ -10,16 +10,11 @@ export interface IProps {
   defaultValue?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorText?: string;
-  value?: string;
+  value: string;
   inputType?: string;
   className?: string;
   error?: string;
 }
-
-const defaultProps: IProps = {
-  inputType: "text",
-  onChange: () => null,
-};
 
 const InputItem = React.forwardRef<HTMLInputElement, IProps>(
   (props: IProps, ref) => {
@@ -61,5 +56,4 @@ const InputItem = React.forwardRef<HTMLInputElement, IProps>(
   }
 );
 
-// InputItem.defaultProps = defaultProps;
 export default InputItem;

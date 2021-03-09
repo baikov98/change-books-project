@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-
 export const baseURL = ''
 
 const texts = {
@@ -15,18 +14,20 @@ const texts = {
     home: 'Номер дома обязательное поле',
 }
 
+const emailMatches = /^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}){0,1}$/
+
 export const VALIDATION = {
     SIGN_IN: yup.object().shape({
         email: yup
         .string()
-        .matches(/^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}){0,1}$/, "Email не корректен ")
+        .matches(emailMatches, "Email не корректен ")
         .required(texts.email),
         password: yup.string().trim().max(64).required(texts.pass),
     }),
     SIGN_UP: yup.object().shape({
         email: yup
         .string()
-        .matches(/^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}){0,1}$/, "Email не корректен ")
+        .matches(emailMatches, "Email не корректен ")
         .required("Email обязательное поле"),
         password: yup.string().trim().required(texts.pass).min(8, 'Минимальная длина 8 символов').max(64).matches(/^((?=.*?[A-Z])(?=.*?[a-z]))|((?=.*?[А-Я])(?=.*?[а-я]))(?=.*?[0-9])[a-zA-ZА-Яа-я\d]$/, 'Пароль должен содержать заглавную букву и число'),
         confirmPassword: yup.string().trim().oneOf([yup.ref('password'), null], 'Пароли должны совпадать').required('Нужно повторить пароль'),
@@ -45,7 +46,7 @@ export const VALIDATION = {
     RESET_PASS: yup.object().shape({
         email: yup
         .string()
-        .matches(/^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}){0,1}$/, "Email не корректен ")
+        .matches(emailMatches, "Email не корректен ")
         .required("Email обязательное поле"),
     }),
 }   

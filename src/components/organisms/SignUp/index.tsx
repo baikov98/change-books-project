@@ -56,7 +56,6 @@ const SignUp: React.FC = () => {
   });
 
   const submit = (data: IFormInput) => {
-    console.log("Submitted = ", data);
     reset();
     dispatch.user.registration(data);
   };
@@ -154,7 +153,7 @@ const SignUp: React.FC = () => {
         <ButtonItem
           btnType="submit"
           size="large"
-          btnColor="orange"
+          type="solid"
           className={classes.btn}
         >
           Создать аккаунт

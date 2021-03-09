@@ -4,19 +4,12 @@ import { Box, Typography } from "@material-ui/core";
 import SignIn from "../SignIn";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { getList, getUser } from "../../../store/selectors";
 import { IMenuItem } from "../../../store/models/menu";
 import Logo from "../../../assets/image/LOGO.png";
 import MenuItem from "../../atoms/MenuItem";
 import cookie from "../../../services/CookieService";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
-const getList = (state: RootState) => {
-  return state.menu.list;
-};
-const getUser = (state: RootState) => {
-  return state.user.currentUser;
-};
 
 const Header: React.FC = () => {
   const classes = useStyles();
@@ -25,8 +18,9 @@ const Header: React.FC = () => {
   const user = useSelector(getUser);
   const auth = cookie.get("token");
 
-  const handlerClick = (str: string) => {
-    history.push(str);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    history.push("/signup");
   };
 
   return (
@@ -39,19 +33,13 @@ const Header: React.FC = () => {
               key={`menus-${index}-link`}
               title={item.title}
               link={item.link}
-              onClick={() => handlerClick(`${item.link}`)}
             />
           ))}
       </Box>
       {!auth && (
         <Box className={classes.loginMenu}>
           <SignIn />
-          <Typography
-            onClick={(e) => {
-              e.preventDefault();
-              history.push("/signup");
-            }}
-          >
+          <Typography onClick={(event) => handleClick(event)}>
             / Регистрация
           </Typography>
         </Box>

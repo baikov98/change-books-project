@@ -1,12 +1,12 @@
-import { Box, Typography, TextField} from "@material-ui/core";
+import { Box, Typography, TextField } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
 import { VALIDATION } from "../../../constants";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {Controller, useForm} from 'react-hook-form'
+import { Controller, useForm } from "react-hook-form";
 import ButtonItem from "../../atoms/ButtonItem";
-import InputItem from '../../atoms/InputItem'
+import InputItem from "../../atoms/InputItem";
 import { useDispatch } from "react-redux";
 
 type IFormInput = {
@@ -15,7 +15,7 @@ type IFormInput = {
 
 const ForgetPass: React.FC = () => {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -25,51 +25,49 @@ const ForgetPass: React.FC = () => {
     setError,
     clearErrors,
   } = useForm<IFormInput>({
-    resolver: yupResolver(VALIDATION.RESET_PASS)
+    resolver: yupResolver(VALIDATION.RESET_PASS),
   });
 
-
   const submit = (data: IFormInput) => {
-    console.log("Submitted = ", data)
     reset();
     dispatch.user.resetPassword(data);
-  }
+  };
 
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
-        <Typography className={classes.title}>Восстановление пароля:</Typography>
+        <Typography className={classes.title}>
+          Восстановление пароля:
+        </Typography>
 
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Box className={classes.inputRow}>
             <Controller
-              name='email'
+              name="email"
               control={control}
               rules={{ required: true }}
               defaultValue=""
               render={(props) => (
                 <InputItem
-                  label={'Email*:'}
+                  label={"Email*:"}
                   error={errors.email?.message}
                   placeholder="Введите свой email"
                   {...props}
                 />
               )}
             />
-           
           </Box>
 
           <Box className={classes.textRow}>
-            <Typography>На указанный вами e-mail будет отправлено письмо для сброса пароля</Typography>
+            <Typography>
+              На указанный вами e-mail будет отправлено письмо для сброса пароля
+            </Typography>
           </Box>
 
-          <ButtonItem
-            btnType="submit"
-            size="large"
-            type="solid"
-          >Сбросить пароль</ButtonItem>
+          <ButtonItem btnType="submit" size="large" type="solid">
+            Сбросить пароль
+          </ButtonItem>
         </form>
-        
       </Box>
     </Box>
   );

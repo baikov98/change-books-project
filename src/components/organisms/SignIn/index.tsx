@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useStyles } from "./styles";
 
 import { Typography, Box } from "@material-ui/core";
@@ -8,11 +8,10 @@ import { VALIDATION } from "../../../constants";
 import { useHistory } from "react-router-dom";
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
-import CloseIcon from '@material-ui/icons/Close';
-import Popover from '@material-ui/core/Popover';
-import SocialItems from '../../atoms/SocialItems';
+import CloseIcon from "@material-ui/icons/Close";
+import Popover from "@material-ui/core/Popover";
+import SocialItems from "../../atoms/SocialItems";
 import { useDispatch } from "react-redux";
-
 
 type IFormInput = {
   email: string;
@@ -21,11 +20,11 @@ type IFormInput = {
 
 const SignIn: React.FC = () => {
   const classes = useStyles();
-  const [ open, setOpen ] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const dispatch = useDispatch()
-  
-  const history = useHistory()
+  const dispatch = useDispatch();
+
+  const history = useHistory();
   const {
     handleSubmit,
     control,
@@ -35,104 +34,110 @@ const SignIn: React.FC = () => {
     register,
     clearErrors,
   } = useForm<IFormInput>({
-    resolver: yupResolver(VALIDATION.SIGN_IN)
+    resolver: yupResolver(VALIDATION.SIGN_IN),
   });
 
-  const onClose = () => {
+  const handleClose = () => {
     reset();
     setOpen(false);
-    setAnchorEl(null)
+    setAnchorEl(null);
   };
 
   const submit = (data: IFormInput) => {
-    console.log("Form is submited", data);
     clearErrors();
     reset();
-    dispatch.user.login(data)
+    dispatch.user.login(data);
   };
 
   const handleForgetClick = () => {
-    onClose()
-    history.push('/forgetPass')
+    handleClose();
+    history.push("/forgetPass");
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
-    setOpen(prev => !prev)
+    setOpen((prev) => !prev);
   };
 
   return (
     <Box className={classes.root}>
-      <Typography  onClick={handleClick} className={classes.enter}>
+      <Typography onClick={handleClick} className={classes.enter}>
         Войти
       </Typography>
       <Popover
         open={open}
         anchorEl={anchorEl}
-        onClose={onClose}
-        classes={{paper: classes.popover}}
+        onClose={handleClose}
+        classes={{ paper: classes.popover }}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
       >
-     <Box className={classes.paper}>
-      <Box className={classes.close} onClick={onClose}><CloseIcon className={classes.closeIcon}/></Box>
-        <Typography className={classes.text}>Вход в систему:</Typography>
-
-        <form className={classes.form} onSubmit={handleSubmit(submit)}>
-          <Box className={classes.inputWrapper}>
-            <Controller
-              name="email"
-              control={control}
-              rules={{ required: true }}
-              defaultValue=""
-              render={({ onChange, value }) => (
-                <InputItem 
-                  label = {"Email *"}
-                  error={errors.email?.message}
-                  onChange ={onChange}
-                  value={value}
-                  placeholder = 'example@example.com'
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              rules={{ required: true }}
-              defaultValue=""
-              render={({ onChange, value }) => (
-                <InputItem 
-                  label = {"Пароль *"}
-                  onChange ={onChange}
-                  value={value}
-                  error={errors.password?.message}
-                  inputType = {"password"}
-                  placeholder = 'Введите пароль'
-                />
-              )}
-            />
+        <Box className={classes.paper}>
+          <Box className={classes.close} onClick={handleClose}>
+            <CloseIcon className={classes.closeIcon} />
           </Box>
+          <Typography className={classes.text}>Вход в систему:</Typography>
 
-          <Box className={classes.textRow}>
-            <SocialItems title={'Войти с помощью'}/>
-          </Box>
+          <form className={classes.form} onSubmit={handleSubmit(submit)}>
+            <Box className={classes.inputWrapper}>
+              <Controller
+                name="email"
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ onChange, value }) => (
+                  <InputItem
+                    label={"Email *"}
+                    error={errors.email?.message}
+                    onChange={onChange}
+                    value={value}
+                    placeholder="example@example.com"
+                  />
+                )}
+              />
+              <Controller
+                name="password"
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ onChange, value }) => (
+                  <InputItem
+                    label={"Пароль *"}
+                    onChange={onChange}
+                    value={value}
+                    error={errors.password?.message}
+                    inputType={"password"}
+                    placeholder="Введите пароль"
+                  />
+                )}
+              />
+            </Box>
 
-          <ButtonItem
-            btnType="submit"
-            size="large"
-            btnColor="orange"
-            className={classes.btn}
-          >Войти</ButtonItem>
-        </form>
-        <Typography className={classes.forgetText} onClick={handleForgetClick}>
-          Забыли пароль?
-        </Typography>
+            <Box className={classes.textRow}>
+              <SocialItems title={"Войти с помощью"} />
+            </Box>
+
+            <ButtonItem
+              btnType="submit"
+              size="large"
+              type="solid"
+              className={classes.btn}
+            >
+              Войти
+            </ButtonItem>
+          </form>
+          <Typography
+            className={classes.forgetText}
+            onClick={handleForgetClick}
+          >
+            Забыли пароль?
+          </Typography>
         </Box>
       </Popover>
     </Box>
