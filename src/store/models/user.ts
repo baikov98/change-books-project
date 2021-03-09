@@ -3,16 +3,18 @@ import { RootModel } from "."
 import { baseURL } from "../../constants"
 
 import axios from 'axios'
+import cookie from '../../services/CookieService'
 
-// interface IUser {
-//     email: string,
-//     password: null,
-//     passwordToken: null,
-//     token: null,
-// }
+interface IUser {
+    name?: string
+    email?: string,
+    password?: null,
+    passwordToken?: null,
+    token?: null,
+}
 
 interface IProps {
-    currentUser: {}
+    currentUser: IUser
 }
 
 export const user = createModel<RootModel>()({
@@ -25,10 +27,16 @@ export const user = createModel<RootModel>()({
                 ...state,
                 currentUser,
             }
+        },
+        LOGOUT_USER: (state: IProps) => {
+            return {
+                ...state,
+                currentUser: {},
+            }
         }
     },
     effects: (dispatch) =>  ({
-        async resetPassword({email}, rootState) {
+        async resetPassword({email}) {
             console.log('Reset password = ', email)
             try {
                 const response = await axios.post(`${baseURL}/auth/users/reset_password`, {
@@ -39,7 +47,7 @@ export const user = createModel<RootModel>()({
             console.error('Failed to reset password - ', error);
             }
         },
-        async registration(payload, rootState) {
+        async registration(payload) {
             console.log('Registration = ', payload)
             try {
                 const {email, password} = payload
@@ -53,12 +61,13 @@ export const user = createModel<RootModel>()({
                 }
                 const response = await axios.post(`${baseURL}/auth/users`, data, {headers});
                 console.log(response);
+                cookie.set('token', response.data?.token, {path : '/'})
                 dispatch.SET_USER(response)
             } catch (error) {
             console.error('Failed to reset password - ', error);
             }
         },
-        async login(payload, rootState) {
+        async login(payload) {
             console.log('Auth = ', payload)
             try {
                    const {email, password} = payload
@@ -72,11 +81,15 @@ export const user = createModel<RootModel>()({
                 }
                 const response = await axios.post(`${baseURL}/auth/token`, data, {headers});
                 console.log(response);
-                // localStorage.setItem('token', token: response.token)
+                cookie.set('token', response.data?.token, {path : '/'})
                 dispatch.SET_USER(response)
             } catch (error) {
             console.error('Failed to reset password - ', error);
             }
+        },
+        logout(){
+            cookie.remove('token')
+            dispatch.LOGOUT_USER()
         }
     })
 })
