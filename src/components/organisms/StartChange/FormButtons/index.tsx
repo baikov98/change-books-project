@@ -15,23 +15,20 @@ interface IProps {
 
 const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
   const classes = useStyles();
-  const nextText = step !== 2 ? (<>Далее <ArrowForward style={{position: "absolute", top: "25%", left: "65%"}} /></>) : 
+  const nextText = step !== 2 ? ('Далее') : 
                                   'Подтвердить данные'
   return (
         <Box className={classes.btnBox}>
           {step === 0 ? <Box /> : <ButtonItem
+                type="back"
                 size="large"
-                btnColor="orange"
                 disabled={step === 0}
-                className={classes.btn}
                 onClick={handleBack}
-            ><ArrowBack style={{position: "absolute", top: "25%", left: "25%"}} /> Назад</ButtonItem>  }
+            >Назад</ButtonItem>  }
 
           <ButtonItem
-                btnType="submit"
+                type={step !== 2 ? 'forward' : 'solid'}
                 size="large"
-                btnColor="orange"
-                className={classes.btn}
                 onClick={handleNext}
             >{nextText}</ButtonItem>  
         </Box>

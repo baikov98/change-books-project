@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Colors } from '../../../styles/Colors'
-import { IProps } from './'
+
 
 export const useStyles = makeStyles({
     button: {
@@ -18,7 +18,6 @@ export const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        whiteSpace: 'nowrap'
     },
     icon:{
         fill: Colors.darkGray,
