@@ -9,6 +9,7 @@ import { Box,  Typography } from "@material-ui/core";
 
 import listOfCategories from './listOfCategories'
 import { OrangeCheckbox, Accordion, AccordionSummary } from './customComponents'
+import CheckBox from '../../atoms/CheckBox'
 
 interface IProps {
   step: number;
@@ -54,7 +55,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                           defaultValue={data[`${item[1]+isGet}`] || false} // получение данных
                           render={(props) => (
                             <FormControlLabel
-                            control={<OrangeCheckbox  
+                            control={<CheckBox  
                                                 onChange={e => props.onChange(e.target.checked)}
                                                 checked={props.value} />}
                                                 label={item[0]}
