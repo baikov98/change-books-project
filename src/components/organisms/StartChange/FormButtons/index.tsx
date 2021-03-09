@@ -21,6 +21,7 @@ const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
         <Box className={classes.btnBox}>
           {step === 0 ? <Box /> : <ButtonItem
                 type="back"
+                className={classes.btn}
                 size="large"
                 disabled={step === 0}
                 onClick={handleBack}
@@ -28,6 +29,7 @@ const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
 
           <ButtonItem
                 type={step !== 2 ? 'forward' : 'solid'}
+                className={classes.btn}
                 size="large"
                 onClick={handleNext}
             >{nextText}</ButtonItem>  
