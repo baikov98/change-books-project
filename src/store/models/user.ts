@@ -1,36 +1,28 @@
 import { createModel} from "@rematch/core"
 import { RootModel } from "."
 import { baseURL } from "../../constants"
+
 import axios from 'axios'
 
-interface IUser {
-    email: string,
-    password: null,
-    passwordToken: null,
-    token: null,
-}
+// interface IUser {
+//     email: string,
+//     password: null,
+//     passwordToken: null,
+//     token: null,
+// }
 
 interface IProps {
-    isAuth: boolean;
     currentUser: {}
 }
 
 export const user = createModel<RootModel>()({
     state: {
-        isAuth: false,
         currentUser: {}
     }as IProps,
     reducers: {
-        SET_AUTH_STATE: (state: IProps, isAuth: boolean) => {
+        SET_USER: (state: IProps, currentUser:{}) => {
             return {
                 ...state,
-                isAuth
-            }
-        },
-        SET_USER: (state: IProps, isAuth: boolean, currentUser:{}) => {
-            return {
-                ...state,
-                isAuth,
                 currentUser,
             }
         }
@@ -38,7 +30,6 @@ export const user = createModel<RootModel>()({
     effects: (dispatch) =>  ({
         async resetPassword({email}, rootState) {
             console.log('Reset password = ', email)
-            console.log('rootState password = ', rootState)
             try {
                 const response = await axios.post(`${baseURL}/auth/users/reset_password`, {
                     email
@@ -50,43 +41,42 @@ export const user = createModel<RootModel>()({
         },
         async registration(payload, rootState) {
             console.log('Registration = ', payload)
-            // try {
-                // const {email, password} = payload
-                //    const data = {
-                //        email,
-                //        password, 
-                //    }
-                // const headers = {
-                //     'Content-Type': 'application/json',
-                //     Accept: 'application/json',
-                // }
-            //     const response = await axios.post(`${baseURL}/auth/users`, {
-            //         email:payload
-            //     });
-            //     console.log(response);
-            // } catch (error) {
-            // console.error('Failed to reset password - ', error);
-            // }
+            try {
+                const {email, password} = payload
+                   const data = {
+                       email,
+                       password, 
+                   }
+                const headers = {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }
+                const response = await axios.post(`${baseURL}/auth/users`, data, {headers});
+                console.log(response);
+                dispatch.SET_USER(response)
+            } catch (error) {
+            console.error('Failed to reset password - ', error);
+            }
         },
         async login(payload, rootState) {
             console.log('Auth = ', payload)
-            // try {
-                //    const {email, password} = payload
-                //    const data = {
-                //        email,
-                //        password, 
-                //    }
-                // const headers = {
-                //     'Content-Type': 'application/json',
-                //     Accept: 'application/json',
-                // }
-            //     const response = await axios.post(`${baseURL}/auth/token`, data, {headers});
-            //     console.log(response);
+            try {
+                   const {email, password} = payload
+                   const data = {
+                       email,
+                       password, 
+                   }
+                const headers = {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }
+                const response = await axios.post(`${baseURL}/auth/token`, data, {headers});
+                console.log(response);
                 // localStorage.setItem('token', token: response.token)
-                // dispatch.SET_USER(response)
-            // } catch (error) {
-            // console.error('Failed to reset password - ', error);
-            // }
+                dispatch.SET_USER(response)
+            } catch (error) {
+            console.error('Failed to reset password - ', error);
+            }
         }
     })
 })
