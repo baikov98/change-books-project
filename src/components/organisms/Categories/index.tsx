@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box,  Typography } from "@material-ui/core";
 
 import listOfCategories from './listOfCategories'
-import { OrangeCheckbox, Accordion, AccordionSummary } from './customComponents'
+import { Accordion, AccordionSummary } from './customComponents'
 import CheckBox from '../../atoms/CheckBox'
 
 interface IProps {

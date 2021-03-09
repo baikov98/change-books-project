@@ -1,20 +1,7 @@
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import { Colors } from "../../../styles/Colors";
 
-export const OrangeCheckbox = withStyles({
-    root: {
-      '&$checked': {
-        color: Colors.orange,
-      },
-    },
-    checked: {
-      color: Colors.orange,
-    },
-  })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
-  
 export const Accordion = withStyles({
     root: {
       boxShadow: 'none',
