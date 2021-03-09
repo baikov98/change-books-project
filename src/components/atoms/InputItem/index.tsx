@@ -1,35 +1,59 @@
-import React, { SyntheticEvent } from "react"
-import cn from "classnames"
-import { TextField } from "@material-ui/core"
+import React from "react";
+import cn from "classnames";
+import { Box, Typography, TextField } from "@material-ui/core";
 
-import { useStyles } from "./styles"
+import { useStyles } from "./styles";
 
-
-interface IProps {
-    id?: string
-    placeholder?: string
-    label?: string
-    defaultValue?: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    error?: boolean
-    errorText?: string
+export interface IProps {
+  placeholder?: string;
+  label?: string;
+  defaultValue?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  errorText?: string;
+  value: string;
+  inputType?: string;
+  className?: string;
+  error?: string;
 }
 
+const InputItem = React.forwardRef<HTMLInputElement, IProps>(
+  (props: IProps, ref) => {
+    const {
+      placeholder,
+      label,
+      defaultValue,
+      onChange,
+      error,
+      errorText,
+      value,
+      inputType,
+      className,
+    } = props;
+    const classes = useStyles(props);
 
-const InputItem: React.FC<IProps> = (props: IProps) => {
-    const { id, placeholder, label, defaultValue, onChange, error, errorText } = props
-    const classes = useStyles()
-
+    const inputClass = cn(classes.input, className);
     return (
-        <TextField id={id}
-                   placeholder={placeholder}
-                   label={label}
-                   defaultValue={defaultValue}
-                   onChange={onChange}
-                   error={error}
-                   helperText={errorText}>
-        </TextField>
-    )
-}
+      <Box className={classes.inputBox}>
+        {label && (
+          <Typography className={classes.inputLabel}>{label}</Typography>
+        )}
+        <TextField
+          InputProps={{ disableUnderline: true }}
+          ref={ref}
+          onChange={onChange}
+          value={value}
+          defaultValue={defaultValue}
+          className={inputClass}
+          type={inputType}
+          placeholder={placeholder}
+          helperText={errorText}
+        />
+        {error && (
+          <Typography className={classes.error}>{`* ${error}`}</Typography>
+        )}
+      </Box>
+    );
+  }
+);
 
-export default InputItem
+export default InputItem;

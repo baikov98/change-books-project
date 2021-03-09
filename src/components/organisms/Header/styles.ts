@@ -3,21 +3,31 @@ import { Colors } from "../../../styles/Colors";
 
 export const useStyles = makeStyles(() => ({
     root:{
-        width:"100%",
         height: "100%",
-        boxShadow: "0 0 50px #000",
-        background: Colors.white,
+        width: '100%',
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 16px",
+    },
+    logo: {
+        width: 180,
+        height: "auto",
     },
     loginMenu: {
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        cursor: 'pointer',
     },
     regButton: {
         paddingLeft: "0.5rem",
+    },
+    nav:{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    login:{
+        fontWeight: 900,
     }
     
 }), { index: 2 });

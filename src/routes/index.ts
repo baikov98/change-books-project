@@ -3,6 +3,8 @@ const mainRoutes = {
     start: "/start",
     userChange: "/userChange",
     feedback: "/feedback",
+    signup: "/signUp",
+    forgetPass: "/forgetPass"
   };
   
   const authRoutes = {
@@ -15,6 +17,8 @@ const mainRoutes = {
     start: () => "/start",
     userChange: () => "/userChange",
     feedback: () => "/feedback",
+    signup: () => "/signUp",
+    forgetPass: () => "/forgetPass",
   };
   
   export default mainLinks;

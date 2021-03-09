@@ -7,16 +7,18 @@ export const useStyles = makeStyles(() => ({
         flexGrow: 1,
         flexDirection: "column",
         flexWrap: "nowrap",
-    },
-    header:{
-        height: 70,
-        width: "100%",
+        alignItems: "center",
         backgroundColor: Colors.white,
     },
+    header:{
+        height: 80,
+        maxWidth: 1080,
+        background: Colors.white,
+        borderBottom: `1px solid ${Colors.bg}`
+    },
     content: {
-        backgroundColor: Colors.bg,
         display: "flex",
-        flexGrow: 1,
+        maxWidth: 1080,
     }
 
 }))
