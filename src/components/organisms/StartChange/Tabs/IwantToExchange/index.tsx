@@ -27,6 +27,7 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
   const bookInput = useSelector(getBookInput)
   
   const {
+    setValue,
     handleSubmit,
     control,
     errors,
@@ -64,7 +65,7 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
             ))}
           </Box>
           <Box>
-            <Categories step={step} control={control} data={storeData} />
+            <Categories step={step} control={control} data={storeData} setValue={setValue} />
           </Box>
         </Box>
         <FormButtons step={step} handleNext={handleNext} />

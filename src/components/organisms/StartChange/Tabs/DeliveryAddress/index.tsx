@@ -61,6 +61,7 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
                     <InputItem
                       label={item.label}
                       inputType={item.type}
+                      error={errors[item.error]?.message}
                       placeholder={item.placeholder}
                       {...props}
                     />
@@ -80,6 +81,8 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
                     render={(props) => (
                       <InputItem
                         label = {item.label}
+                        inputType={item.type}
+                        error={errors[item.error]?.message}
                         placeholder={item.placeholder}
                         {...props}
                       />

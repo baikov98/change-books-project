@@ -20,4 +20,5 @@ const listOfCategories = [
     {title: 'Язык издания',
     opts: [['русский', 'russian'], ['английский', 'english']]}]
 
+
 export default listOfCategories

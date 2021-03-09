@@ -12,6 +12,16 @@ export const useStyles = makeStyles({
     fontWeight: "bold",
     paddingBottom: '8px'
   },
+  checkBoxRemover: {
+    fontSize: '12px',
+    color: Colors.textGray,
+    fontWeight: "bold",
+    cursor: 'pointer'
+  },
+  textBox: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
   accordion: {
     backgroundColor: Colors.lightGray,
     marginBottom: '4px',

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {Controller, Control} from 'react-hook-form'
 import { useStyles } from "./styles";
 
@@ -16,14 +16,25 @@ interface IProps {
   data: {
     [key: string]: string;
   };
+  setValue: (name: string, value: string | boolean) => void;
 }
 
-const Categories: React.FC<IProps> = ({ step, control, data }) => {
+const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
   const classes = useStyles();
   const isGet = step ? 'Get' : ''
+  const removeAllChecked = () => {
+    listOfCategories.forEach((val, i) => {
+      val.opts.forEach((val, i) => {
+        setValue(val[1], false)
+      }) 
+    })
+  }
   return (
       <>
-      <Typography className={classes.textGray}>Категории</Typography>
+      <Box className={classes.textBox}>
+        <Typography className={classes.textGray}>Категории</Typography>
+        <Typography className={classes.checkBoxRemover} onClick={removeAllChecked}>Снять все выделения</Typography>
+      </Box>
       {listOfCategories.map((item, index) => (
           <Accordion key={item.title+index} className={classes.accordion}>
               <AccordionSummary

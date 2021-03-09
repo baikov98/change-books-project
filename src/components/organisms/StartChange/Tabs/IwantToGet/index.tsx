@@ -14,6 +14,7 @@ const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit, handleBack } = tabsData
   const classes = useStyles();
   const {
+    setValue,
     handleSubmit,
     control,
     errors,
@@ -27,7 +28,7 @@ const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
       <Box className={classes.wrapper}>
         <Typography>Хочу получить</Typography>
         <form>
-          <Categories step={step} control={control} data={storeData} /> 
+          <Categories step={step} control={control} data={storeData} setValue={setValue} /> 
           <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
         </form>
       </Box>
