@@ -6,10 +6,10 @@ import ButtonItem from "../../../atoms/ButtonItem";
 interface IProps {
   step: number;
   handleBack?: (e: React.MouseEvent<HTMLElement>) => void;
-  handleNext: (e: React.MouseEvent<HTMLElement>) => void;
+  handleNextButtonClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
+const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNextButtonClick }) => {
   const classes = useStyles();
   const nextText = step !== 2 ? 'Далее' : 'Подтвердить данные'
   return (
@@ -26,7 +26,7 @@ const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
                 type={step !== 2 ? 'forward' : 'solid'}
                 className={classes.btn}
                 size="large"
-                onClick={handleNext}
+                onClick={handleNextButtonClick}
             >{nextText}</ButtonItem>  
         </Box>
   );

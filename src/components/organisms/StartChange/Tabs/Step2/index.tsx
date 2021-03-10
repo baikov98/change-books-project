@@ -10,7 +10,7 @@ interface IProps {
   tabsData: ITabsData;
 }
 
-const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
+const Step2: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit, handleBack } = tabsData
   const classes = useStyles();
   const {
@@ -19,16 +19,16 @@ const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
     control,
     errors,
   } = useForm({});
-  const handleNext = handleSubmit(submit)
+  const handleNextButtonClick = handleSubmit(submit)
   return (
       <Box className={classes.wrapper}>
         <Typography>Хочу получить</Typography>
         <form>
           <Categories step={step} control={control} data={storeData} setValue={setValue} /> 
-          <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
+          <FormButtons step={step} handleBack={handleBack} handleNextButtonClick={handleNextButtonClick} />
         </form>
       </Box>
   );
 };
 
-export default IwantToGet;
+export default Step2;

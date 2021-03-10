@@ -22,12 +22,12 @@ interface IProps {
 
 const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
   const classes = useStyles();
-  const isGet = step ? 'Get' : ''
-  const removeAllChecked = () => {
+  const getStr = step ? 'Get' : ''
+  const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
-        if (!isGet) setValue(val[1], false)
-        else setValue(val[1]+isGet, false)
+        if (!getStr) setValue(val[1], false)
+        else setValue(val[1]+getStr, false)
       }) 
     })
   }
@@ -36,7 +36,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
       <Box className={classes.textBox}>
         <Typography className={classes.textGray}>Категории</Typography>
         <Typography className={classes.checkBoxRemover} 
-                    onClick={removeAllChecked}>Снять все выделения</Typography>
+                    onClick={hangleRemoveAllChecked}>Снять все выделения</Typography>
       </Box>
       {listOfCategories.map((item, index) => (
           <Accordion key={item.title+index} className={classes.accordion}>
@@ -45,28 +45,27 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                 aria-controls="panel1a-content"
               >
                 <Typography className={classes.accordionTitle}>{item.title}</Typography>
-                
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
-                {item.opts.map((item, index) => ( 
-                    <Box key={item[1]}>
-                      <Controller
-                          name={item[1]+isGet} 
-                          control={control} 
-                          rules={{ required: false }}
-                          defaultValue={data[`${item[1]+isGet}`] || false}
-                          render={(props) => (
-                            <FormControlLabel
-                            control={<CheckBox  
-                                                onChange={e => props.onChange(e.target.checked)}
-                                                checked={props.value} />}
-                                                label={item[0]}
-                            />
-                            )}
-                      />
-                    </Box>
-                )
-                
+                {item.opts.map((item, index) => {
+                  const name = item[1]
+                  return <Box key={name}>
+                          <Controller
+                              name={name+getStr} 
+                              control={control} 
+                              rules={{ required: false }}
+                              defaultValue={data[`${name+getStr}`] || false}
+                              render={(props) => (
+                                <FormControlLabel
+                                  control={<CheckBox  
+                                            onChange={e => props.onChange(e.target.checked)}
+                                            checked={props.value} />}
+                                            label={item[0]}
+                                  />
+                                  )}
+                          />
+                        </Box>
+                      }        
                 )}
               </AccordionDetails>
           </Accordion>

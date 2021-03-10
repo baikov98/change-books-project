@@ -10,9 +10,9 @@ import { VALIDATION } from "../../../constants";
 import { Box, Typography } from "@material-ui/core";
 
 import ProgressIndicator from "../../atoms/ProgressIndicator"
-import DeliveryAddress from "./Tabs/DeliveryAddress"
-import IwantToExchange from "./Tabs/IwantToExchange"
-import IwantToGet from "./Tabs/IwantToGet"
+import Step1 from "./Tabs/Step1"
+import Step2 from "./Tabs/Step2"
+import Step3 from "./Tabs/Step3"
  
 interface IStoreData {
   [key: string]: string;
@@ -28,11 +28,11 @@ export interface ITabsData {
 function getStepContent(tabsData: ITabsData) { 
   switch (tabsData.step) {
     case 0:
-      return <IwantToExchange tabsData={tabsData} />;  
+      return <Step1 tabsData={tabsData} />;  
     case 1:
-      return <IwantToGet tabsData={tabsData} />; 
+      return <Step2 tabsData={tabsData} />; 
     case 2:
-      return <DeliveryAddress tabsData={tabsData} />;
+      return <Step3 tabsData={tabsData} />;
   }
 }
 interface IProps {}
@@ -65,7 +65,7 @@ const StartChange: React.FC<IProps> = () => {
   return (
     <Box className={classes.root}>
       <Typography>Бланк обмена</Typography>
-      <ProgressIndicator number={step} />
+      <ProgressIndicator step={step} />
       {getStepContent(tabsData)}     
     </Box>
   );

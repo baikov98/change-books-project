@@ -7,25 +7,18 @@ import { VALIDATION } from "../../../../../constants";
 
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
 import { IRegFields } from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
+import { getMainInput, getAdressInput } from './selectors'
 
 interface IProps {
   tabsData: ITabsData;
 }
 
-const getMainInput = (state: RootState) => {
-  return state.regFields.main
-}
-const getAdressInput = (state: RootState) => {
-  return state.regFields.adress
-}
-
-const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
+const Step3: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit, handleBack } = tabsData
   const classes = useStyles();
   const mainInput = useSelector(getMainInput)
@@ -39,7 +32,7 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
   } = useForm({
     resolver: yupResolver(VALIDATION.DELIVERY_INFO)
   });
-  const handleNext = handleSubmit(submit)
+  const handleNextButtonClick = handleSubmit(submit)
 
   return (
       <Box className={classes.wrapper}>
@@ -86,11 +79,11 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
                   />
                   ))}
           </Box>
-          <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
+          <FormButtons step={step} handleBack={handleBack} handleNextButtonClick={handleNextButtonClick} />
           </form>
       </Box>
 
   );
 };
 
-export default DeliveryAddress;
+export default Step3;

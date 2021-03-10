@@ -1,28 +1,24 @@
 import React from "react";
-import { useForm, Controller, Control, FieldErrors } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../../../constants";
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
 import { IBookInfoFields } from '../../../../../store/models/bookInfoFields'
 
 import InputItem from '../../../../atoms/InputItem'
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
+import { getBookInput } from './selectors'
 
 interface IProps {
   tabsData: ITabsData;
 }
 
-const getBookInput = (state: RootState) => {
-  return state.bookInfoFields.main
-}
-
-const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
+const Step1: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit } = tabsData
   const classes = useStyles();
   const bookInput = useSelector(getBookInput)
@@ -36,7 +32,7 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
   
-  const handleNext = handleSubmit(submit)
+  const handleNextButtonClick = handleSubmit(submit)
   return (
       <Box className={classes.wrapper}>
         <form>
@@ -66,11 +62,11 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
             <Categories step={step} control={control} data={storeData} setValue={setValue} />
           </Box>
         </Box>
-        <FormButtons step={step} handleNext={handleNext} />
+        <FormButtons step={step} handleNextButtonClick={handleNextButtonClick} />
         </form>
       </Box>
 
   );
 };
 //
-export default IwantToExchange;
+export default Step1;
