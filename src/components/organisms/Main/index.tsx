@@ -3,35 +3,44 @@ import React from "react";
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { RootState } from "../../../store";
-import { useSelector } from "react-redux";
-import MenuItem from '../../atoms/MenuItem'
-interface IProps {}
+import ButtonItem from "../../atoms/ButtonItem";
+import main from "../../../assets/image/main.png";
 
-const Main: React.FC<IProps> = () => {
+const Main: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  const menu = useSelector((state: RootState) => state.menu.list);
-
-  const handlerClick = (str: string) => {
-    history.push(str);
-  };
-
   return (
     <Box className={classes.root}>
-      <Box className={classes.linksWrapper}>
-        {!!menu.length &&
-          menu.map((item, index) => (
-            <MenuItem key={`menus-${index}-link`}
-                      title={item.title}
-                      link={item.link}
-                      onClick={handlerClick} />
-            ))}
-      </Box>
-
       <Box className={classes.wrapper}>
-        <Typography>Change Books- сервис обмена книгами</Typography>
+        <Box className={classes.textBlock}>
+          <Typography className={classes.title}>
+            Book Exchange — сервис обмена книгами
+          </Typography>
+          <Typography className={classes.subtitle}>
+            Обмен книгами (буккроссинг) становится всё более популярен. Такой
+            обмен даёт шанс бумажным книгам продлить свою жизнь, помогает
+            владельцам книг делиться с другими людьми хорошими историями и
+            получать новые впечатления.{" "}
+          </Typography>
+          <Typography className={classes.subtitle}>
+            Наш сайт предлагает совершить не просто обмен, а добавить к этому
+            увлекательному процессу элемент сюрприза. Подбор книг для обмена
+            будет выполнен по пожеланиям участников, но только при получении
+            станет известно, какая именно книга будет радовать своего владельца.{" "}
+          </Typography>
+          <Typography className={classes.subtitle}>
+            Интересно? Тогда начинайте обмен и скорее приглашайте своих друзей
+            поучаствовать!
+          </Typography>
+          <ButtonItem size="large" type="solid" className={classes.btn}>
+            {" "}
+            Начать обмен
+          </ButtonItem>
+        </Box>
+        <Box className={classes.imageBlock}>
+          <img className={classes.image} src={main} alt="Main picture" />
+        </Box>
       </Box>
     </Box>
   );

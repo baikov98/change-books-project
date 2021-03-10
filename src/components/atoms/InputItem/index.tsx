@@ -1,61 +1,59 @@
 import React from "react";
 import cn from "classnames";
-import { TextField } from "@material-ui/core";
+import { Box, Typography, TextField } from "@material-ui/core";
 
 import { useStyles } from "./styles";
 
-interface IProps {
-  id?: string;
-  pattern?: string; 
+export interface IProps {
   placeholder?: string;
   label?: string;
   defaultValue?: string;
-  onChange?: (e: any) => void;
-  value?: string;
-  error?: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorText?: string;
-  variant?: "filled" | "outlined";
+  value: string;
+  inputType?: string;
   className?: string;
-  endAdornment?: any;
+  error?: string;
 }
 
-const defaultProps: IProps = {
-  onChange: () => null,
-};
+const InputItem = React.forwardRef<HTMLInputElement, IProps>(
+  (props: IProps, ref) => {
+    const {
+      placeholder,
+      label,
+      defaultValue,
+      onChange,
+      error,
+      errorText,
+      value,
+      inputType,
+      className,
+    } = props;
+    const classes = useStyles(props);
 
-const InputItem: React.FC<IProps> = (props: IProps) => {
-  const {
-    id,
-    pattern,
-    value,
-    placeholder,
-    label,
-    defaultValue,
-    onChange,
-    error,
-    errorText,
-    variant,
-    className,
-    endAdornment
-  } = props;
-  const classes = useStyles();
-
-  return (
-    <TextField
-      id={id}
-      placeholder={placeholder}
-      label={label}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      error={error}
-      helperText={errorText}
-      value={value}
-      variant={variant}
-      className={className}
-    />
-  );
-};
-
-InputItem.defaultProps = defaultProps;
+    const inputClass = cn(classes.input, className);
+    return (
+      <Box className={classes.inputBox}>
+        {label && (
+          <Typography className={classes.inputLabel}>{label}</Typography>
+        )}
+        <TextField
+          InputProps={{ disableUnderline: true }}
+          ref={ref}
+          onChange={onChange}
+          value={value}
+          defaultValue={defaultValue}
+          className={inputClass}
+          type={inputType}
+          placeholder={placeholder}
+          helperText={errorText}
+        />
+        {error && (
+          <Typography className={classes.error}>{`* ${error}`}</Typography>
+        )}
+      </Box>
+    );
+  }
+);
 
 export default InputItem;

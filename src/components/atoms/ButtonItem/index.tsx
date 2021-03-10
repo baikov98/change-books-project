@@ -1,63 +1,50 @@
 import React from "react";
 import cn from "classnames";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import { useStyles } from "./styles";
 
 interface IProps {
-  btnType?: "button" | "submit" | "reset" | undefined;
-  variant?: "contained" | "outlined" | undefined;
-  size?: "small" | "medium" | "large";
+  btnType?: "button" | "submit" | "reset";
+  size: "small" | "medium" | "large";
   className?: string;
-  btnColor?: "bg" | "text" | "textActive" | "textGray" | "white" | "yellow";
-  fontWeight?: "textBold" | "textNormal";
+  type: "solid" | "border" | "back" | "forward" | "disabled";
   disabled?: boolean;
-  onClick?: (e: any) => void;
-  value?: string;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-const defaultProps: IProps = {
-  btnType: "button",
-  variant: undefined,
-  size: "medium",
-  className: "",
-  btnColor: "bg",
-  fontWeight: "textNormal",
-  disabled: false,
-  onClick: () => null,
-  value: "",
-};
-
-const ButtonItem: React.FC<IProps> = (props: IProps) => {
-  const {
-    btnType,
-    className,
-    btnColor,
-    fontWeight,
-    disabled,
-    onClick,
-    variant,
-    size,
-    value,
-  } = props;
+const ButtonItem: React.FC<IProps> = ({
+  btnType,
+  className,
+  disabled,
+  onClick,
+  size = "large",
+  children,
+  type = "solid",
+}) => {
   const classes = useStyles();
 
-  const classText = cn(className, classes[btnColor || "bg"]);
+  const classText = cn(classes.text, classes[type || "solid"], className);
 
   return (
     <Button
+      disableTouchRipple
+      disableRipple
       type={btnType}
-      className={classText}
+      className={classes.button}
       disabled={disabled}
       onClick={onClick}
-      variant={variant}
       size={size}
     >
-      <span className={classes[fontWeight || "textNormal"]}>{value}</span>
+      <Typography variant={"subtitle1"} className={classText}>
+        {type === "back" && <ArrowBackIcon className={classes.icon} />}
+        {children}
+        {type === "forward" && <ArrowForwardIcon className={classes.icon} />}
+      </Typography>
     </Button>
   );
 };
-
-ButtonItem.defaultProps = defaultProps;
 
 export default ButtonItem;
