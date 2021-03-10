@@ -7,22 +7,24 @@ export const useStyles = makeStyles({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "1rem 0 2rem 0"
+        padding: "1rem 0 2rem 0",
+        fontWeight: "bold",
+        color: Colors.textGray
     },
     mainBox: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         width: "796px",
         height: "32px"
+    },
+    lineBox: {
+        display: "flex",
+        justifyContent: "center",
     },
     line: {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         height: "2px",
-        //width: "100%",
-        flex: "1 5 796px",
+        width: '720px',
         backgroundColor: "#C4C4C4",
         
     },
@@ -30,55 +32,28 @@ export const useStyles = makeStyles({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        
+        marginTop: '1.2rem'
     },
     num: {
+        backgroundColor: Colors.white,
+    },
+    numCirle: {
+        border: `2px solid ${Colors.textGray}`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        border: `1px solid ${Colors.textGray}`,
-        fontWeight: "bold",
+        position: "relative",
         height: "32px",
         width: "32px",
         borderRadius: "50%",
-        backgroundColor: Colors.white,
-        color: Colors.textGray
-        
     },
     numActive: {
+        color: Colors.text,
+        '& div': {
+            border: `2px solid ${Colors.text}`,
+        }
+    },
+    '.num .numActive': {
         border: `1px solid ${Colors.text}`,
-        color: Colors.text
-    },
-
-    num1: {
-        position: "relative",
-        '&::after': {
-            content: "'Хочу обменять'",
-            position: "absolute",
-            top: "30px",
-            left: "-40px",
-            whiteSpace: "nowrap"
-        }
-    },
-    num2: {
-        position: "relative",
-        '&::after': {
-            position: "absolute",
-            top: "30px",
-            left: "-40px",
-            whiteSpace: "nowrap",
-            content: "'Хочу получить'",
-        }
-    },
-    num3: {
-        position: "relative",
-        '&::after': {
-            position: "absolute",
-            top: "30px",
-            left: "-40px",
-            whiteSpace: "nowrap",
-            content: "'Адрес доставки'",
-        }
     }
-   
 })

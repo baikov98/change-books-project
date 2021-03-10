@@ -22,7 +22,7 @@ const getBookInput = (state: RootState) => {
   return state.bookInfoFields.main
 }
 
-const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
+const Step1: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit } = tabsData
   const classes = useStyles();
   const bookInput = useSelector(getBookInput)
@@ -36,7 +36,7 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
   
-  const handleNext = handleSubmit(submit)
+  const handleNextButtonClick = handleSubmit(submit)
   return (
       <Box className={classes.wrapper}>
         <form>
@@ -66,11 +66,11 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
             <Categories step={step} control={control} data={storeData} setValue={setValue} />
           </Box>
         </Box>
-        <FormButtons step={step} handleNext={handleNext} />
+        <FormButtons step={step} handleNextButtonClick={handleNextButtonClick} />
         </form>
       </Box>
 
   );
 };
 //
-export default IwantToExchange;
+export default Step1;
