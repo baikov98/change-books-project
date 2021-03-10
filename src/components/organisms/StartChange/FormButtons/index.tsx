@@ -1,9 +1,5 @@
 import React from "react";
-
-import ArrowForward from '@material-ui/icons/ArrowForward';
-import ArrowBack from '@material-ui/icons/ArrowBack'; 
 import { Box } from "@material-ui/core";
-
 import { useStyles } from "./styles";
 import ButtonItem from "../../../atoms/ButtonItem";
 
@@ -15,17 +11,16 @@ interface IProps {
 
 const FormButtons: React.FC<IProps> = ({ step, handleBack, handleNext }) => {
   const classes = useStyles();
-  const nextText = step !== 2 ? ('Далее') : 
-                                  'Подтвердить данные'
+  const nextText = step !== 2 ? 'Далее' : 'Подтвердить данные'
   return (
         <Box className={classes.btnBox}>
           {step === 0 ? <Box /> : <ButtonItem
-                type="back"
-                className={classes.btn}
-                size="large"
-                disabled={step === 0}
-                onClick={handleBack}
-            >Назад</ButtonItem>  }
+                                    type="back"
+                                    className={classes.btn}
+                                    size="large"
+                                    disabled={step === 0}
+                                    onClick={handleBack}
+                                  >Назад</ButtonItem>  }
 
           <ButtonItem
                 type={step !== 2 ? 'forward' : 'solid'}

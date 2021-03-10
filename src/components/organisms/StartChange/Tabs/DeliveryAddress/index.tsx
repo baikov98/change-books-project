@@ -1,14 +1,14 @@
 import React from "react";
 
 import { Box, Typography } from "@material-ui/core";
-import { useForm, Controller, Control, FieldErrors } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../../../constants";
 
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store";
-import {IRegFields} from '../../../../../store/models/regFields'
+import { IRegFields } from '../../../../../store/models/regFields'
 
 import InputItem from '../../../../atoms/InputItem'
 import FormButtons from '../../FormButtons'
@@ -36,16 +36,12 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
     handleSubmit,
     control,
     errors,
-    reset,
-    setError,
-    clearErrors,
   } = useForm({
     resolver: yupResolver(VALIDATION.DELIVERY_INFO)
   });
   const handleNext = handleSubmit(submit)
 
   return (
- 
       <Box className={classes.wrapper}>
         <form>
           <Typography>Адрес доставки</Typography>
@@ -68,7 +64,7 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
                 )}
               />
               ))}
-            </Box>
+           </Box>
 
           <Box className={classes.inputRow}>
               {adressInput.map((item: IRegFields, index:number) => (
@@ -89,8 +85,8 @@ const DeliveryAddress: React.FC<IProps> = ({ tabsData }) => {
                     )}
                   />
                   ))}
-            </Box>
-            <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
+          </Box>
+          <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
           </form>
       </Box>
 

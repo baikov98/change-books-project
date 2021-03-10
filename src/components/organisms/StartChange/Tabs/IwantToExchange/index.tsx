@@ -13,12 +13,13 @@ import InputItem from '../../../../atoms/InputItem'
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
-const getBookInput = (state: RootState) => {
-  return state.bookInfoFields.main
-}
 
 interface IProps {
   tabsData: ITabsData;
+}
+
+const getBookInput = (state: RootState) => {
+  return state.bookInfoFields.main
 }
 
 const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
@@ -31,15 +32,12 @@ const IwantToExchange: React.FC<IProps> = ({ tabsData }) => {
     handleSubmit,
     control,
     errors,
-    reset,
-    setError,
-    clearErrors,
   } = useForm({
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
+  
   const handleNext = handleSubmit(submit)
   return (
- 
       <Box className={classes.wrapper}>
         <form>
         <Box className={classes.content}>

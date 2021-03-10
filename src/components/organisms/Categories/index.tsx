@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import {Controller, Control} from 'react-hook-form'
 import { useStyles } from "./styles";
 
@@ -24,10 +24,10 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
   const classes = useStyles();
   const isGet = step ? 'Get' : ''
   const removeAllChecked = () => {
-    listOfCategories.forEach((val, i) => {
-      val.opts.forEach((val, i) => {
-        setValue(val[1], false)
-        if (isGet) setValue(val[1]+isGet, false)
+    listOfCategories.forEach((val) => {
+      val.opts.forEach((val) => {
+        if (!isGet) setValue(val[1], false)
+        else setValue(val[1]+isGet, false)
       }) 
     })
   }
@@ -35,7 +35,8 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
       <>
       <Box className={classes.textBox}>
         <Typography className={classes.textGray}>Категории</Typography>
-        <Typography className={classes.checkBoxRemover} onClick={removeAllChecked}>Снять все выделения</Typography>
+        <Typography className={classes.checkBoxRemover} 
+                    onClick={removeAllChecked}>Снять все выделения</Typography>
       </Box>
       {listOfCategories.map((item, index) => (
           <Accordion key={item.title+index} className={classes.accordion}>
@@ -53,7 +54,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                           name={item[1]+isGet} 
                           control={control} 
                           rules={{ required: false }}
-                          defaultValue={data[`${item[1]+isGet}`] || false} // получение данных
+                          defaultValue={data[`${item[1]+isGet}`] || false}
                           render={(props) => (
                             <FormControlLabel
                             control={<CheckBox  

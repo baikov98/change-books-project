@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, FieldErrors } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 import Categories from "../../../Categories";
@@ -18,13 +18,9 @@ const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
     handleSubmit,
     control,
     errors,
-    reset,
-    setError,
-    clearErrors,
   } = useForm({});
   const handleNext = handleSubmit(submit)
   return (
- 
       <Box className={classes.wrapper}>
         <Typography>Хочу получить</Typography>
         <form>
@@ -32,7 +28,6 @@ const IwantToGet: React.FC<IProps> = ({ tabsData }) => {
           <FormButtons step={step} handleBack={handleBack} handleNext={handleNext} />
         </form>
       </Box>
-
   );
 };
 
