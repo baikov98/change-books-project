@@ -1,25 +1,21 @@
 import React from "react";
-import { useForm, Controller, Control, FieldErrors } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../../../constants";
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
 import { IBookInfoFields } from '../../../../../store/models/bookInfoFields'
 
 import InputItem from '../../../../atoms/InputItem'
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
+import { getBookInput } from './selectors'
 
 interface IProps {
   tabsData: ITabsData;
-}
-
-const getBookInput = (state: RootState) => {
-  return state.bookInfoFields.main
 }
 
 const Step1: React.FC<IProps> = ({ tabsData }) => {
