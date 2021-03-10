@@ -17,7 +17,7 @@ const initialState = {
      },
      {
       title: "Мои обмены",
-      link: "/userChange"
+      link: "/userChange/offer"
      },
      {
         title: "Обратная связь",

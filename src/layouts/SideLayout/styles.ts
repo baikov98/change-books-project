@@ -16,9 +16,25 @@ export const useStyles = makeStyles(() => ({
         background: Colors.white,
         borderBottom: `1px solid ${Colors.bg}`
     },
+    contentContainer:{
+        maxWidth: 1180,
+        marginTop: 48,
+        height: '100%',
+    },
     content: {
         display: "flex",
         maxWidth: 1180,
-    }
-
-}))
+    },
+    sideBarLeft: {
+      height: "100%",
+      backgroundColor: Colors.white,
+      overflowX: "hidden",
+      borderRight: "1px solid",
+      borderRightColor: Colors.bg,
+      zIndex: 100,
+      "&::-webkit-scrollbar": {
+        width: 0
+      },
+    },
+    
+}));

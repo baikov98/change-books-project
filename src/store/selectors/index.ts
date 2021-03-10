@@ -6,4 +6,8 @@ export const getList = (state: RootState) => {
 
 export const getUser = (state: RootState) => {
     return state.user.currentUser;
-  };
+};
+
+export const getNavList = (state: RootState) => {
+  return state.navbar.list;
+};

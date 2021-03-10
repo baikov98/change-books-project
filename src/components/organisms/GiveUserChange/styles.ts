@@ -9,7 +9,7 @@ export const useStyles = makeStyles({
   },
   wrapper:{
     background: Colors.white,
-    minHeight: 500,
+    minHeight: '100%',
     padding: 24,
   },  
 }, {index: 3});
