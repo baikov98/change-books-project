@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const Step3: React.FC<IProps> = ({ tabsData }) => {
-  const { step, storeData, submit, handleBack } = tabsData
+  const { step, storeData, submit, handleBackButtonClick } = tabsData
   const classes = useStyles();
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
@@ -79,7 +79,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   />
                   ))}
           </Box>
-          <FormButtons step={step} handleBack={handleBack} handleNextButtonClick={handleNextButtonClick} />
+          <FormButtons step={step} handleBackButtonClick={handleBackButtonClick} handleNextButtonClick={handleNextButtonClick} />
           </form>
       </Box>
 
