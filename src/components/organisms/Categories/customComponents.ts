@@ -12,7 +12,6 @@ export const Accordion = withStyles({
         display: 'none',
       },
     },
-    expanded: {},
   })(MuiAccordion);
   
 export const AccordionSummary = withStyles({
