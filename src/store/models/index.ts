@@ -4,6 +4,7 @@ import { regFields } from './regFields'
 import { startExchange } from './startExchange'
 import { bookInfoFields } from './bookInfoFields'
 import { user } from './user'
+import { navbar } from './navbar'
 
 
 export interface RootModel extends Models<RootModel> {
@@ -12,6 +13,7 @@ export interface RootModel extends Models<RootModel> {
     startExchange: typeof startExchange;
     bookInfoFields: typeof bookInfoFields;
     user: typeof user;
+    navbar: typeof navbar;
 }
 
 export const models: RootModel = { 
@@ -19,5 +21,6 @@ export const models: RootModel = {
     regFields,
     startExchange,
     bookInfoFields,
-    user
+    user,
+    navbar
  }
