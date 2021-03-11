@@ -1,10 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Colors } from "../../../styles/Colors";
 
 export const useStyles = makeStyles({
-  root: {
-    color: Colors.text,
-    height: "100%",
+  btnBox: {
+    display: 'flex',
     width: '100%',
+    justifyContent: 'space-between',
+    marginTop:24,
+  },
+  btn: {
+    width: "280px",
   },
 }, {index: 3});

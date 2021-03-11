@@ -1,90 +1,72 @@
 import React from "react";
-
+import { RootState } from '../../../store'
+import { useSelector, useDispatch } from 'react-redux'
 import { useStyles } from "./styles";
-import { Box, TextField, Typography } from "@material-ui/core";
-import { Controller, useForm } from "react-hook-form";
-import ButtonItem from "../../atoms/ButtonItem";
+import { useHistory } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { VALIDATION } from "../../../constants";
 
-type IFormInput = {
-  book: string;
-  author: string;
-  isbn: string;
-  year: string;
-};
+import { Box, Typography } from "@material-ui/core";
 
-const StartChange: React.FC = () => {
+import ProgressIndicator from "../../atoms/ProgressIndicator"
+import Step1 from "./Tabs/Step1"
+import Step2 from "./Tabs/Step2"
+import Step3 from "./Tabs/Step3"
+ 
+interface IStoreData {
+  [key: string]: string;
+}
+
+export interface ITabsData {
+  step: number; 
+  storeData: IStoreData; 
+  submit: (data: IStoreData) => void;
+  handleBackButtonClick: () => void;
+}
+
+function getStepContent(tabsData: ITabsData) { 
+  switch (tabsData.step) {
+    case 0:
+      return <Step1 tabsData={tabsData} />;  
+    case 1:
+      return <Step2 tabsData={tabsData} />; 
+    case 2:
+      return <Step3 tabsData={tabsData} />;
+  }
+}
+interface IProps {}
+
+const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
+  const currentStep = useSelector((state: RootState) => state.startExchange)
+  const step = currentStep.step
+  const storeData = currentStep.data as IStoreData
+  const dispatch = useDispatch()
+  const history = useHistory();
   const {
-    handleSubmit,
     control,
     errors,
-    reset,
-    setError,
-    clearErrors,
-  } = useForm<IFormInput>({});
+  } = useForm({
+    resolver: yupResolver(VALIDATION.BOOK_INFO)
+  });
 
-  const submit = () => {};
-
+  const submit = (data: IStoreData) => { 
+    dispatch.startExchange.SET_EXCHANGE_DATA(data)
+    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step)
+    if (step === 2) history.push('userChange')
+  }
+  const handleBackButtonClick = () => {
+    dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
+  };
+  const tabsData = {
+    step, storeData, control, errors, submit, handleBackButtonClick
+  } 
   return (
     <Box className={classes.root}>
-      <Box className={classes.wrapper}>
-        <Typography>Мои обмены</Typography>
-        <Box className={classes.stepper}> Stepper </Box>
-        <form className={classes.form}>
-          <Box className={classes.content}>
-            <Box className={classes.formBox}>
-              <Typography>Данные книги</Typography>
-              <Controller
-                name="author"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField placeholder="Фамилия и имя автора" {...props} />
-                )}
-              />
-              <Controller
-                name="book"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField placeholder="Название книги" {...props} />
-                )}
-              />
-              <Controller
-                name="isbn"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => <TextField placeholder="ISBN" {...props} />}
-              />
-              <Controller
-                name="year"
-                control={control}
-                rules={{ required: true }}
-                defaultValue=""
-                render={(props) => (
-                  <TextField placeholder="Год издания" {...props} />
-                )}
-              />
-            </Box>
-            <Box className={classes.categoryBox}>
-              <Typography>Категории</Typography>
-            </Box>
-          </Box>
-          <Box className={classes.btnBox}>
-            <ButtonItem
-              btnType="submit"
-              size="large"
-              type="solid"
-              className={classes.btn}
-            >
-              Далее
-            </ButtonItem>
-          </Box>
-        </form>
-      </Box>
+      <Typography>Бланк обмена</Typography>
+      <ProgressIndicator step={step} />
+      {getStepContent(tabsData)}     
     </Box>
   );
 };
