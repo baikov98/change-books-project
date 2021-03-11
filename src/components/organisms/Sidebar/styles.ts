@@ -4,7 +4,6 @@ import { Colors } from "../../../styles/Colors";
 export const useStyles = makeStyles(() => ({
   root: {
     backgroundColor:  Colors.white,
-    width: 280,
   },
   nav:{
     display: 'flex',

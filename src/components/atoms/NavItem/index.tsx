@@ -20,7 +20,7 @@ const NavItem: React.FC<IProps> = ({
 
   return (
     <NavLink
-      exact
+      strict
       to={`${link}`}
       activeStyle={activeLink}
       className={classText}

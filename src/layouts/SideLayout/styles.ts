@@ -23,7 +23,6 @@ export const useStyles = makeStyles(() => ({
     },
     content: {
         display: "flex",
-        maxWidth: 1180,
     },
     sideBarLeft: {
       height: "100%",

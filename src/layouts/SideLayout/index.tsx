@@ -21,10 +21,10 @@ const SideLayout: React.FC<IProps> = ({
       </Grid>
 
       <Grid container component={"div"} className={classes.contentContainer}>
-        <Grid item className={classes.sideBarLeft} component={"div"}>
+        <Grid item xs={3} className={classes.sideBarLeft} component={"div"}>
           {sideBarLeft}
         </Grid>
-        <Grid item className={classes.content} component={"div"}>
+        <Grid item xs={9} className={classes.content} component={"div"}>
           {children}
         </Grid>
       </Grid>

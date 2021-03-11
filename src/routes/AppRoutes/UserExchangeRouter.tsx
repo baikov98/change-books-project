@@ -8,12 +8,14 @@ import { Switch, Route } from "react-router-dom";
 
 import GiveUserChangePage from "../../pages/GiveUserChangePage";
 import OfferUserChangePage from "../../pages/OfferUserChangePage";
+import ExchangeCardPage from "../../pages/ExchangeCardPage";
 
 const UserChangeRouter = () => (
   <SideLayout header={<Header />} sideBarLeft={<Sidebar />}>
     <Switch>
       <Route component={OfferUserChangePage} exact path={routes.offer} />
       <Route component={GiveUserChangePage} exact path={routes.giveaway} />
+      <Route component={ExchangeCardPage} exact path={routes.exchangeCard} />
     </Switch>
   </SideLayout>
 );
