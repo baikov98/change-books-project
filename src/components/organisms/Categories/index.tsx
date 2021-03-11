@@ -1,5 +1,5 @@
 import React from "react";
-import {Controller, Control} from 'react-hook-form'
+import {Controller, Control, ControllerRenderProps, FieldValues} from 'react-hook-form'
 import { useStyles } from "./styles";
 
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -31,6 +31,9 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
       }) 
     })
   }
+  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>) => 
+                                 (event: React.ChangeEvent<HTMLInputElement>) => 
+                                    props.onChange(event.target.checked)           
   return (
       <>
       <Box className={classes.textBox}>
@@ -58,7 +61,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                               render={(props) => (
                                 <FormControlLabel
                                   control={<CheckBox  
-                                            onChange={e => props.onChange(e.target.checked)}
+                                            onChange={handleCheckBoxOnChange(props)}
                                             checked={props.value} />}
                                             label={item[0]}
                                   />

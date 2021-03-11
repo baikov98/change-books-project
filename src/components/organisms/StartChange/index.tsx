@@ -22,7 +22,7 @@ export interface ITabsData {
   step: number; 
   storeData: IStoreData; 
   submit: (data: IStoreData) => void;
-  handleBack: () => void;
+  handleBackButtonClick: () => void;
 }
 
 function getStepContent(tabsData: ITabsData) { 
@@ -56,11 +56,11 @@ const StartChange: React.FC<IProps> = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step)
     if (step === 2) history.push('userChange')
   }
-  const handleBack = () => {
+  const handleBackButtonClick = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };
   const tabsData = {
-    step, storeData, control, errors, submit, handleBack
+    step, storeData, control, errors, submit, handleBackButtonClick
   } 
   return (
     <Box className={classes.root}>
