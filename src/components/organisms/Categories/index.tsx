@@ -37,7 +37,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                                  (event: React.ChangeEvent<HTMLInputElement>) => 
                                     props.onChange(event.target.checked)           
   return (
-      <>
+      <Box>
       <Box className={classes.textBox}>
         <Typography className={classes.textGray}>Категории</Typography>
         <Typography className={classes.checkBoxRemover} 
@@ -76,7 +76,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
           </Accordion>
         )
       )}
-      </>
+      </Box>
   );
 };
 

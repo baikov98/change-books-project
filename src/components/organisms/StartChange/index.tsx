@@ -4,7 +4,7 @@ import { getBookCategories } from '../../../store/selectors'
 import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { useForm, Control, FieldErrors } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 
@@ -16,8 +16,9 @@ import Step2 from "./Tabs/Step2"
 import Step3 from "./Tabs/Step3"
 import TitleItem from '../../atoms/TitleItem'
  
+
 interface IStoreData {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 export interface ITabsData {
@@ -25,6 +26,8 @@ export interface ITabsData {
   storeData: IStoreData; 
   submit: (data: IStoreData) => void;
   handleBackButtonClick: () => void;
+  control: Control;
+  errors: FieldErrors;
 }
 
 function getStepContent(tabsData: ITabsData) { 
@@ -58,11 +61,20 @@ const StartChange: React.FC<IProps> = () => {
     for (let key in data) {
       if (!data[key]) delete data[key]
     }
+    listOfCategories.forEach((item, index) => {
+      const title = item.title[1]
+      item.opts.forEach((i, indx) => {
+        if (data.hasOwnProperty(i[1])) {
+          data[title] ? data[title].push(i) : data[title] = [i]
+          console.log(data[title])
+        }
+      })
+    })
     dispatch.startExchange.SET_EXCHANGE_DATA(data)
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
     if (step === 2) {
-      dispatch.requestData.SET_REQUEST_DATA(startExchange.data)
       history.push('userChange')
+      dispatch.requestData.SET_REQUEST_DATA(startExchange.data)
     }
   }
   const handleBackButtonClick = () => {

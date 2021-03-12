@@ -12,4 +12,7 @@ export const useStyles = makeStyles({
     minHeight: '100%',
     padding: 24,
   },  
+  title: {
+    marginBottom: '40px'
+  }
 }, {index: 3});
