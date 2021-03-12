@@ -55,6 +55,15 @@ const other = [
     },
 ]
 
+const bookInfo =  [
+    { category: "Год издания", value: "2007" },
+    { category: "Обложка", value: "Оригинальная" },
+    { category: "ISBN", value: "978-5-353-02907-6" },
+    { category: "Экранизация", value: "Да" },
+    { category: "Жанр", value: "Детские книги, Фантастика" },
+    { category: "Язык издания", value: "Русский" },
+    { category: "Состояние", value: "Хорошее" },
+];
 
 export const offersExchange = createModel<RootModel>()({
   state: {
@@ -62,6 +71,7 @@ export const offersExchange = createModel<RootModel>()({
     full,
     part,
     other,
+    bookInfo,
   },
   reducers: {
   },

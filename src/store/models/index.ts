@@ -6,6 +6,7 @@ import { bookInfoFields } from './bookInfoFields'
 import { user } from './user'
 import { navbar } from './navbar'
 import { offersExchange } from './offersExchange'
+import { activeExchange } from './activeExchange'
 
 
 export interface RootModel extends Models<RootModel> {
@@ -16,6 +17,7 @@ export interface RootModel extends Models<RootModel> {
     user: typeof user;
     navbar: typeof navbar;
     offersExchange: typeof offersExchange;
+    activeExchange: typeof activeExchange;
 }
 
 export const models: RootModel = { 
@@ -25,5 +27,6 @@ export const models: RootModel = {
     bookInfoFields,
     user,
     navbar,
-    offersExchange
+    offersExchange,
+    activeExchange
  }

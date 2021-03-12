@@ -3,18 +3,26 @@ import React from "react";
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getBookInfo } from "../../../store/selectors";
 
 import Crumbs from "../../molecules/Crumbs";
-import CatAndValue from "../../atoms/CatAndValue";
 import ButtonItem from "../../atoms/ButtonItem";
+import BookList from "../../molecules/BookList";
 
 const ExchangeCard: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
+  const data = useSelector(getBookInfo);
+
+  const type = () => {
+    const value = location.pathname.split("/").indexOf("offer");
+    return value !== -1 ? "Предложение для обмена" : "Активные обмены";
+  };
 
   const crumbs = [
     {
-      value: "Предложение для обмена",
+      value: type(),
       link: location.pathname.split("/").splice(0, 3).join("/"),
     },
     { value: "Карточка обмена", link: location.pathname },
@@ -29,32 +37,7 @@ const ExchangeCard: React.FC = () => {
             <Typography className={classes.title}>
               Хочу получить (полное совпадение)
             </Typography>
-            <Typography className={classes.bookTitle}>Книга</Typography>
-            <CatAndValue
-              className={classes.catValue}
-              category="Пользователь"
-              value="Хитрый Перец"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Город"
-              value="Хабаровск"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
-            />
+            <BookList data={data} title={"Книга"} />
             <Box className={classes.underBox}>
               <Typography className={classes.warning}>
                 Обмен со стороны данного пользователя ещё не подтверждён!
@@ -70,31 +53,9 @@ const ExchangeCard: React.FC = () => {
             <Typography className={classes.title}>
               Хочу отдать (полное совпадение)
             </Typography>
-            <Typography className={classes.bookTitle}>Книга</Typography>
-            <CatAndValue
-              className={classes.catValue}
-              category="Пользователь"
-              value="Хитрый Перец"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Город"
-              value="Хабаровск"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
-            />
-            <CatAndValue
-              className={classes.catValue}
-              category="Рейтинг"
-              value="4.7"
+            <BookList
+              data={data}
+              title={"Джоан Роулинг “Гарри Поттер и Дары Смерти”"}
             />
             <Box className={classes.underBox}>
               <ButtonItem type="border" size="large">
