@@ -12,7 +12,7 @@ import InputItem from '../../../../atoms/InputItem'
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
-import { getBookInput } from './selectors'
+import { getBookInput } from '../../../../../store/selectors'
 
 interface IProps {
   tabsData: ITabsData;
@@ -31,7 +31,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
   } = useForm({
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
-  
+
   const handleNextButtonClick = handleSubmit(submit)
   return (
       <Box className={classes.wrapper}>

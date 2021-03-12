@@ -1,13 +1,13 @@
 import React from "react";
 import {Controller, Control, ControllerRenderProps, FieldValues} from 'react-hook-form'
 import { useStyles } from "./styles";
-
+import { useSelector } from "react-redux";
+import { getBookCategories } from '../../../store/selectors'
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box,  Typography } from "@material-ui/core";
 
-import listOfCategories from './listOfCategories'
 import { Accordion, AccordionSummary } from './customComponents'
 import CheckBox from '../../atoms/CheckBox'
 
@@ -23,6 +23,8 @@ interface IProps {
 const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
   const classes = useStyles();
   const getStr = step ? 'Get' : ''
+  const listOfCategories = useSelector(getBookCategories)
+
   const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
@@ -42,12 +44,12 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                     onClick={hangleRemoveAllChecked}>Снять все выделения</Typography>
       </Box>
       {listOfCategories.map((item, index) => (
-          <Accordion key={item.title+index} className={classes.accordion}>
+          <Accordion key={item.title[0]+index} className={classes.accordion}>
               <AccordionSummary
                 expandIcon={<KeyboardArrowRightIcon />}
                 aria-controls="panel1a-content"
               >
-                <Typography className={classes.accordionTitle}>{item.title}</Typography>
+                <Typography className={classes.accordionTitle}>{item.title[0]}</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
                 {item.opts.map((item, index) => {
