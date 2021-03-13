@@ -15,12 +15,13 @@ const GiveUserChange: React.FC = () => {
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
-        <Box className={classes.title}><TitleItem>Хочу отдать</TitleItem></Box>
+        <Box className={classes.title}>
+          <TitleItem>Хочу отдать</TitleItem>
+        </Box>
         {requestData.map((item, index) => (
           <BookForExchange key={'item'+index}
                            data={item} 
-                           bookCategories={bookCategories} 
-                           onClick={() => null} />
+                           bookCategories={bookCategories} />
         ))}
       </Box>
     </Box>

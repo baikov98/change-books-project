@@ -34,12 +34,8 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
     <Box className={classes.wrapper}>
     <form>
     <Box className={classes.content}>
-      <Box>
-        <BookInfo storeData={storeData} step={step} control={control} errors={errors} setValue={setValue} />
-      </Box>
-      <Box>
+        <BookInfo data={storeData} control={control} errors={errors} />
         <Categories step={step} control={control} data={storeData} setValue={setValue} />
-      </Box>
     </Box>
     <FormButtons step={step} handleNextButtonClick={handleNextButtonClick} />
     </form>

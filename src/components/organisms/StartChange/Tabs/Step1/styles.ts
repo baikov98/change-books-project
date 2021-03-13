@@ -5,12 +5,11 @@ export const useStyles = makeStyles({
   wrapper:{
     background: Colors.white,
     width: "1080px",
-
   },
   content:{
     display: 'grid',
     gridTemplateColumns: '1fr 3fr',
-    gridColumnGap: "3rem",
+    gridColumnGap: "1rem",
   },
   textGray: {
     fontSize: "12px",

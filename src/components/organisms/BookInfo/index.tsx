@@ -2,7 +2,7 @@ import React from "react";
 import { Controller } from 'react-hook-form';
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
-
+import { Control, FieldErrors } from 'react-hook-form';
 import { useSelector } from "react-redux";
 import { IBookInfoFields } from '../../../store/models/bookInfoFields'
 
@@ -12,15 +12,14 @@ import { getBookInput } from '../../../store/selectors'
 
 
 interface IProps {
-  //tabsData: ITabsData;
-  storeData: any;
-  step?: any;
-  control: any;
-  errors: any;
-  setValue?: any;
+  data: {
+    [key: string]: any;
+  };
+  control: Control;
+  errors: FieldErrors;
 }
 
-const BookInfo: React.FC<IProps> = ({ storeData, control, errors }) => { 
+const BookInfo: React.FC<IProps> = ({ data, control, errors }) => { 
   const classes = useStyles();
   const bookInput = useSelector(getBookInput)
   return (
@@ -32,7 +31,7 @@ const BookInfo: React.FC<IProps> = ({ storeData, control, errors }) => {
                 name={name}
                 control={control}
                 rules={{ required: required }}
-                defaultValue={storeData[name] || ''}
+                defaultValue={data[name] || ''}
                 render={(props) => (
                   <InputItem
                     label={label}

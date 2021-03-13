@@ -15,12 +15,10 @@ interface IProps {
   data: {
     [key: string]: string
   };
-  step?: number;
   bookCategories: IBookInfoFields[];
-  onClick: () => void;
 }
 
-const BookForExchange: React.FC<IProps> = ({ data, step, bookCategories, onClick }) => {
+const BookForExchange: React.FC<IProps> = ({ data, bookCategories }) => {
   const [editState, setEditState] = useState(false)
   const handleSwitchEditState = () => {
     setEditState(!editState)
@@ -45,7 +43,7 @@ const BookForExchange: React.FC<IProps> = ({ data, step, bookCategories, onClick
   return (
     <Box>
       {editState ? <Box className={classes.editForm}>
-                      <BookInfo storeData={data} control={control} errors={errors} />
+                      <BookInfo data={data} control={control} errors={errors} /> 
                       <Categories step={1} control={control} data={data} setValue={setValue} />
                       <ButtonItem size='large' type='solid' onClick={handleSwitchEditState}>Сохранить</ButtonItem>
                     </Box>
