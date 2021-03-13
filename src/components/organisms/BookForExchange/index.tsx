@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useStyles } from "./styles";
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,11 +16,17 @@ interface IProps {
   data: {
     [key: string]: string
   };
+  objectKey: string;
   bookCategories: IBookInfoFields[];
 }
 
-const BookForExchange: React.FC<IProps> = ({ data, bookCategories }) => {
+interface IStoreData {
+  [key: string]: any;
+}
+
+const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
+  const dispatch = useDispatch()
   const handleSwitchEditState = () => {
     setEditState(!editState)
   }
@@ -40,13 +47,20 @@ const BookForExchange: React.FC<IProps> = ({ data, bookCategories }) => {
                            /> 
     }
   }))
+  const submit = (data: IStoreData) => {
+    dispatch.requestData.SET_REQUEST_DATA({[objectKey]: data})
+    handleSwitchEditState()
+  }
+  const handleEditFormSubmit = handleSubmit(submit)
   return (
     <Box>
-      {editState ? <Box className={classes.editForm}>
-                      <BookInfo data={data} control={control} errors={errors} /> 
-                      <Categories step={1} control={control} data={data} setValue={setValue} />
-                      <ButtonItem size='large' type='solid' onClick={handleSwitchEditState}>Сохранить</ButtonItem>
-                    </Box>
+      {editState ? <form>
+                      <Box className={classes.editForm}>
+                        <BookInfo data={data} control={control} errors={errors} /> 
+                        <Categories step={1} control={control} data={data} setValue={setValue} />
+                        <ButtonItem size='large' type='solid' onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
+                      </Box>
+                    </form>
                      : 
                      <><Box className={classes.header}>
                       <Box className={classes.title}>{`${data.author} "${data.book}"`}</Box>

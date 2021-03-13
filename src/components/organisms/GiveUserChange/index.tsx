@@ -16,7 +16,7 @@ interface IReaquestData {
 
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
-  const requestData = useSelector(getRequestData)
+  const requestData: any = useSelector(getRequestData)
   const bookCategories = useSelector(getBookCategories)
   return (
     <Box className={classes.root}>
@@ -24,9 +24,10 @@ const GiveUserChange: React.FC = () => {
         <Box className={classes.title}>
           <TitleItem>Хочу отдать</TitleItem>
         </Box>
-        {Object.values(requestData).map((item, index) => (
+        {Object.keys(requestData).map((item, index) => (
           <BookForExchange key={'item'+index}
-                           data={item} 
+                           data={requestData[item]}
+                           objectKey={item}
                            bookCategories={bookCategories} />
         ))
         }
