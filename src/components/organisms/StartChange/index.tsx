@@ -1,9 +1,10 @@
 import React from "react";
-import { RootState } from '../../../store'
 import { useSelector, useDispatch } from 'react-redux'
+import { getBookCategories } from '../../../store/selectors'
+import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { useForm, Control, FieldErrors } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 
@@ -13,9 +14,10 @@ import ProgressIndicator from "../../atoms/ProgressIndicator"
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
 import Step3 from "./Tabs/Step3"
+import TitleItem from '../../atoms/TitleItem'
  
-interface IStoreData {
-  [key: string]: string;
+export interface IStoreData {
+  [key: string]: string | boolean | Array<string[]>
 }
 
 export interface ITabsData {
@@ -23,6 +25,8 @@ export interface ITabsData {
   storeData: IStoreData; 
   submit: (data: IStoreData) => void;
   handleBackButtonClick: () => void;
+  control: Control;
+  errors: FieldErrors;
 }
 
 function getStepContent(tabsData: ITabsData) { 
@@ -39,9 +43,10 @@ interface IProps {}
 
 const StartChange: React.FC<IProps> = () => {
   const classes = useStyles();
-  const currentStep = useSelector((state: RootState) => state.startExchange)
-  const step = currentStep.step
-  const storeData = currentStep.data as IStoreData
+  const startExchange = useSelector(getStartExchangeState)
+  const listOfCategories = useSelector(getBookCategories)
+  const step = startExchange.step
+  const storeData = startExchange.data as IStoreData
   const dispatch = useDispatch()
   const history = useHistory();
   const {
@@ -52,9 +57,26 @@ const StartChange: React.FC<IProps> = () => {
   });
 
   const submit = (data: IStoreData) => { 
+    for (let key in data) {
+      if (!data[key]) delete data[key]
+    }
+    listOfCategories.forEach((item, index) => {
+      const title = item.title[1]
+      item.opts.forEach((i, indx) => {
+        if (data.hasOwnProperty(i[1])) {
+          let dataTitle = data[title] as Array<string[]>
+          console.log(typeof data[title])
+          if (!dataTitle) dataTitle = [i];
+          if (dataTitle) dataTitle.push(i)
+        }
+      })
+    })
     dispatch.startExchange.SET_EXCHANGE_DATA(data)
-    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step)
-    if (step === 2) history.push('userChange')
+    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+    if (step === 2) {
+      history.push('userChange')
+      dispatch.requestData.SET_REQUEST_DATA(startExchange.data)
+    }
   }
   const handleBackButtonClick = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
@@ -64,7 +86,7 @@ const StartChange: React.FC<IProps> = () => {
   } 
   return (
     <Box className={classes.root}>
-      <Typography>Бланк обмена</Typography>
+      <TitleItem>Бланк обмена</TitleItem>
       <ProgressIndicator step={step} />
       {getStepContent(tabsData)}     
     </Box>

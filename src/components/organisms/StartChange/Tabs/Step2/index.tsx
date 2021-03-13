@@ -22,10 +22,11 @@ const Step2: React.FC<IProps> = ({ tabsData }) => {
   const handleNextButtonClick = handleSubmit(submit)
   return (
       <Box className={classes.wrapper}>
-        <Typography>Хочу получить</Typography>
         <form>
           <Categories step={step} control={control} data={storeData} setValue={setValue} /> 
-          <FormButtons step={step} handleBackButtonClick={handleBackButtonClick} handleNextButtonClick={handleNextButtonClick} />
+          <FormButtons step={step} 
+                       handleBackButtonClick={handleBackButtonClick}
+                       handleNextButtonClick={handleNextButtonClick} />
         </form>
       </Box>
   );

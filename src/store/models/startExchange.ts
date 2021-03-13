@@ -26,5 +26,4 @@ export const startExchange = createModel<RootModel>()({
         }
     },
   },
-
-  });
+});

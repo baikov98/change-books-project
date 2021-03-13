@@ -3,11 +3,13 @@ import { menu } from './menu'
 import { regFields } from './regFields'
 import { startExchange } from './startExchange'
 import { bookInfoFields } from './bookInfoFields'
+import { bookCategories } from './bookCategories'
 import { user } from './user'
 import { navbar } from './navbar'
 import { offersExchange } from './offersExchange'
 import { activeExchange } from './activeExchange'
 
+import { requestData } from './requestData'
 
 export interface RootModel extends Models<RootModel> {
     menu: typeof menu;
@@ -18,6 +20,8 @@ export interface RootModel extends Models<RootModel> {
     navbar: typeof navbar;
     offersExchange: typeof offersExchange;
     activeExchange: typeof activeExchange;
+    bookCategories: typeof bookCategories;
+    requestData: typeof requestData;
 }
 
 export const models: RootModel = { 
@@ -28,5 +32,7 @@ export const models: RootModel = {
     user,
     navbar,
     offersExchange,
-    activeExchange
+    activeExchange,
+    bookCategories,
+    requestData
  }
