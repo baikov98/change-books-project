@@ -11,17 +11,12 @@ import EditButton from '../../atoms/EditButton'
 import BookInfo from '../BookInfo'
 import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
+import { IStoreData } from '../StartChange'
 
 interface IProps {
-  data: {
-    [key: string]: string
-  };
+  data: IStoreData;
   objectKey: string;
   bookCategories: IBookInfoFields[];
-}
-
-interface IStoreData {
-  [key: string]: any;
 }
 
 const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
@@ -39,7 +34,7 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   } = useForm({
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
-  const result = bookCategories.map((i) => i.opts.map((item) => {
+  const bookDetailsArray = bookCategories.map((i) => i.opts.map((item) => {
     if (data.hasOwnProperty(item[1])) { 
       return <CatAndValue key={item[0]}
                           category={i.title[0]} 
@@ -52,26 +47,34 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
     handleSwitchEditState()
   }
   const handleEditFormSubmit = handleSubmit(submit)
+  const bookFormItem = <form>
+                        <Box className={classes.editForm}>
+                            <BookInfo data={data} 
+                                      control={control} 
+                                      errors={errors} /> 
+                            <Categories step={1} 
+                                        control={control} 
+                                        data={data} 
+                                        setValue={setValue} />
+                            <ButtonItem size='large' 
+                                        type='solid' 
+                                        onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
+                        </Box>
+                       </form>
+  const bookInfoItem = <>
+                <Box className={classes.header}>
+                  <Box className={classes.title}>{`${data.author} "${data.book}"`}</Box>
+                  <EditButton onClick={handleSwitchEditState} />
+                </Box >
+                <Box className={classes.content}>
+                  {data.year && <CatAndValue category='Год издания' value={data.year as string}/> }
+                  {data.isbn && <CatAndValue category='ISBN' value={data.isbn as string}/>}
+                  {bookDetailsArray}
+                </Box>
+              </>
   return (
     <Box>
-      {editState ? <form>
-                      <Box className={classes.editForm}>
-                        <BookInfo data={data} control={control} errors={errors} /> 
-                        <Categories step={1} control={control} data={data} setValue={setValue} />
-                        <ButtonItem size='large' type='solid' onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
-                      </Box>
-                    </form>
-                     : 
-                     <><Box className={classes.header}>
-                      <Box className={classes.title}>{`${data.author} "${data.book}"`}</Box>
-                      <EditButton onClick={handleSwitchEditState} />
-                    </Box >
-                    <Box className={classes.content}>
-                      {data.year ? <CatAndValue category='Год издания' value={data.year}/> : ''}
-                      {data.isbn ? <CatAndValue category='ISBN' value={data.isbn}/> : ''}
-                      {result}
-                    </Box></>
-                    }
+      {editState ? bookInfoItem : bookFormItem}
       <Box className={classes.bottomLine}></Box>
     </Box>
   );

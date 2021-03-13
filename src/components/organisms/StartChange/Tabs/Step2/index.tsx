@@ -5,7 +5,6 @@ import { useStyles } from "./styles";
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
- 
 
 interface IProps {
   tabsData: ITabsData;

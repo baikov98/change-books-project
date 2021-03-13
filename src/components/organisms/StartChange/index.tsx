@@ -16,9 +16,8 @@ import Step2 from "./Tabs/Step2"
 import Step3 from "./Tabs/Step3"
 import TitleItem from '../../atoms/TitleItem'
  
-
-interface IStoreData {
-  [key: string]: any;
+export interface IStoreData {
+  [key: string]: string | boolean | Array<string[]>
 }
 
 export interface ITabsData {
@@ -65,8 +64,10 @@ const StartChange: React.FC<IProps> = () => {
       const title = item.title[1]
       item.opts.forEach((i, indx) => {
         if (data.hasOwnProperty(i[1])) {
-          data[title] ? data[title].push(i) : data[title] = [i]
-          console.log(data[title])
+          let dataTitle = data[title] as Array<string[]>
+          console.log(typeof data[title])
+          if (!dataTitle) dataTitle = [i];
+          if (dataTitle) dataTitle.push(i)
         }
       })
     })

@@ -7,16 +7,15 @@ import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import BookForExchange from '../BookForExchange'
 import TitleItem from '../../atoms/TitleItem'
+import { IStoreData } from '../StartChange'
 
 interface IReaquestData {
-  [key: string]: {
-    [key: string]: string | boolean | number
-  }
+  [key: string]:  string | boolean | number | IStoreData
 }
 
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
-  const requestData: any = useSelector(getRequestData)
+  const requestData: IReaquestData = useSelector(getRequestData)
   const bookCategories = useSelector(getBookCategories)
   return (
     <Box className={classes.root}>
@@ -26,7 +25,7 @@ const GiveUserChange: React.FC = () => {
         </Box>
         {Object.keys(requestData).map((item, index) => (
           <BookForExchange key={'item'+index}
-                           data={requestData[item]}
+                           data={requestData[item] as IStoreData}
                            objectKey={item}
                            bookCategories={bookCategories} />
         ))

@@ -10,13 +10,12 @@ import { Box,  Typography } from "@material-ui/core";
 
 import { Accordion, AccordionSummary } from './customComponents'
 import CheckBox from '../../atoms/CheckBox'
+import { IStoreData } from '../StartChange'
 
 interface IProps {
   step: number;
   control: Control;
-  data: {
-    [key: string]: string;
-  };
+  data: IStoreData
   setValue: (name: string, value: string | boolean) => void;
 }
 

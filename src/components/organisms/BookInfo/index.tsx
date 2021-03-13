@@ -8,12 +8,10 @@ import { IBookInfoFields } from '../../../store/models/bookInfoFields'
 
 import InputItem from '../../atoms/InputItem'
 import { getBookInput } from '../../../store/selectors'
-
+import { IStoreData } from '../StartChange'
 
 interface IProps {
-  data: {
-    [key: string]: any;
-  };
+  data: IStoreData;
   control: Control;
   errors: FieldErrors;
 }

@@ -9,7 +9,7 @@ import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index' 
 import BookInfo from '../../../BookInfo'
 import Categories from '../../../Categories' 
-import { getBookInput } from '../../../../../store/selectors'
+
 interface IProps {
   tabsData: ITabsData;
 }
@@ -26,10 +26,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
   } = useForm({
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
-  const bookInput = useSelector(getBookInput)
   const handleNextButtonClick = handleSubmit(submit) 
-  const formButtons = <FormButtons step={step} 
-                                   handleNextButtonClick={handleNextButtonClick} />
   return (
     <Box className={classes.wrapper}>
     <form>

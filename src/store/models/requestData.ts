@@ -23,7 +23,11 @@ const initialState = {
 }
 
 export interface IStartExchange {
-    data: object
+    data: {
+      [key: string]: {
+        [key: string]: string | boolean
+      }
+    }
 }
 
 export const requestData = createModel<RootModel>()({
