@@ -8,6 +8,12 @@ import { Box, Typography } from "@material-ui/core";
 import BookForExchange from '../BookForExchange'
 import TitleItem from '../../atoms/TitleItem'
 
+interface IReaquestData {
+  [key: string]: {
+    [key: string]: string | boolean | number
+  }
+}
+
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
   const requestData = useSelector(getRequestData)
@@ -18,11 +24,12 @@ const GiveUserChange: React.FC = () => {
         <Box className={classes.title}>
           <TitleItem>Хочу отдать</TitleItem>
         </Box>
-        {requestData.map((item, index) => (
+        {Object.values(requestData).map((item, index) => (
           <BookForExchange key={'item'+index}
                            data={item} 
                            bookCategories={bookCategories} />
-        ))}
+        ))
+        }
       </Box>
     </Box>
   );

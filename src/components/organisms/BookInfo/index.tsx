@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { IBookInfoFields } from '../../../store/models/bookInfoFields'
 
 import InputItem from '../../atoms/InputItem'
-import { ITabsData } from '../StartChange'
 import { getBookInput } from '../../../store/selectors'
 
 

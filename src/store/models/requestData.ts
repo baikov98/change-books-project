@@ -23,19 +23,23 @@ const initialState = {
 }
 
 export interface IStartExchange {
-    data: Array<{}>
+    data: object
 }
 
 export const requestData = createModel<RootModel>()({
     state: {
-      data: [initialState, initialState, initialState]
+      data: {
+        book1: initialState, 
+        book2: initialState, 
+        book3: initialState
+      }
     } as IStartExchange,
 
     reducers: {
       SET_REQUEST_DATA: (state: IStartExchange, payload: object) => {
         return {
           ...state,
-          data: [...state.data, payload ]
+          data: {...state.data, ...payload }
         }
     },
   },

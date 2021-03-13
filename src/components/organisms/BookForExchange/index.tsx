@@ -58,7 +58,6 @@ const BookForExchange: React.FC<IProps> = ({ data, bookCategories }) => {
                       {result}
                     </Box></>
                     }
-          
       <Box className={classes.bottomLine}></Box>
     </Box>
   );
