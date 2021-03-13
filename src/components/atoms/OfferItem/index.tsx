@@ -4,19 +4,19 @@ import { useStyles } from "./styles";
 
 interface IProps {
   userName: string; 
-  sity: string;
+  city: string;
   rating: number | string;
   onClick: (e?: React.MouseEvent<HTMLElement>) => void
 }
 
-const OfferItem: React.FC<IProps> = ({ userName, sity, rating, onClick }) => {
+const OfferItem: React.FC<IProps> = ({ userName, city, rating, onClick }) => {
   const classes = useStyles();
   const ratingInteger = Number(rating).toFixed(1)
   return (
     <Box className={classes.offerBox}>
         <Box onClick={onClick} 
             className={classes.useName}>{userName}</Box>
-        <Box className={classes.city}>{sity}</Box>
+        <Box className={classes.city}>{city}</Box>
         <Box className={classes.rating}>{ratingInteger}</Box>
     </Box>
   );

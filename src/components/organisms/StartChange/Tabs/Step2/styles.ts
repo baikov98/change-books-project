@@ -5,11 +5,8 @@ export const useStyles = makeStyles({
   wrapper:{
     background: Colors.white,
     minHeight: 500,
-    padding: 24,
   },
   categoryBox:{
     background: Colors.bg,
   },
-
-
 }, {index: 3});

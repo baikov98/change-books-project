@@ -12,7 +12,8 @@ import { IRegFields } from '../../../../../store/models/regFields'
 import InputItem from '../../../../atoms/InputItem'
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
-import { getMainInput, getAdressInput } from './selectors'
+import { getMainInput, getAdressInput } from '../../../../../store/selectors' 
+
 
 interface IProps {
   tabsData: ITabsData;
@@ -79,7 +80,9 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   />
                   ))}
           </Box>
-          <FormButtons step={step} handleBackButtonClick={handleBackButtonClick} handleNextButtonClick={handleNextButtonClick} />
+          <FormButtons step={step} 
+                       handleBackButtonClick={handleBackButtonClick} 
+                       handleNextButtonClick={handleNextButtonClick} />
           </form>
       </Box>
 
