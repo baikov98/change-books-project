@@ -7,7 +7,7 @@ export const useStyles = makeStyles(() => ({
         flexGrow: 1,
         flexDirection: "column",
         flexWrap: "nowrap",
-        alignItems: "center",
+        paddingLeft: 'calc(50vw - 590px)',
         backgroundColor: Colors.white,
     },
     header:{

@@ -7,22 +7,17 @@ import { useSelector } from "react-redux";
 import { getBookInfo } from "../../../store/selectors";
 
 import Crumbs from "../../molecules/Crumbs";
-import ButtonItem from "../../atoms/ButtonItem";
 import BookList from "../../molecules/BookList";
+import ExchangeStatus from "../../molecules/ExchangeStatus";
 
 const ExchangeCard: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
   const data = useSelector(getBookInfo);
 
-  const type = () => {
-    const value = location.pathname.split("/").indexOf("offer");
-    return value !== -1 ? "Предложение для обмена" : "Активные обмены";
-  };
-
   const crumbs = [
     {
-      value: type(),
+      value: "Активные обмены",
       link: location.pathname.split("/").splice(0, 3).join("/"),
     },
     { value: "Карточка обмена", link: location.pathname },
@@ -32,38 +27,46 @@ const ExchangeCard: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
-        <Box className={classes.content}>
-          <Box className={classes.book}>
-            <Typography className={classes.title}>
-              Хочу получить (полное совпадение)
-            </Typography>
-            <BookList data={data} title={"Книга"} />
-            <Box className={classes.underBox}>
-              <Typography className={classes.warning}>
-                Обмен со стороны данного пользователя ещё не подтверждён!
-              </Typography>
-              <Typography className={classes.explanation}>
-                Готовы обменяться? Для этого вам необходимо отправить ему
-                запрос, нажав на кнопку “МЕНЯЮСЬ”
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box className={classes.book}>
-            <Typography className={classes.title}>
-              Хочу отдать (полное совпадение)
-            </Typography>
-            <BookList
-              data={data}
-              title={"Джоан Роулинг “Гарри Поттер и Дары Смерти”"}
-            />
-            <Box className={classes.underBox}>
-              <ButtonItem type="border" size="large">
-                МЕНЯЮСЬ
-              </ButtonItem>
-            </Box>
-          </Box>
+        <Box className={classes.titleLine}>
+          <Typography className={classes.title}>Хочу получить</Typography>
+          <Typography className={classes.title}>Хочу отдать</Typography>
         </Box>
+
+        {!!data.length &&
+          data.map((item, index) =>
+            index === 0 ? (
+              <>
+                <Box
+                  className={classes.contentLine}
+                  key={`contentLine-${index} - ${item.id}`}
+                >
+                  <Box>
+                    <Box className={classes.book}>
+                      <BookList
+                        data={item?.info.lines}
+                        title={item?.info.title}
+                      />
+                    </Box>
+                    <Box className={classes.book}>
+                      <BookList data={item?.info?.user} title={"От кого:"} />
+                    </Box>
+                  </Box>
+
+                  <Box className={classes.book}>
+                    <BookList
+                      data={item?.book.lines}
+                      title={item?.book.title}
+                    />
+                  </Box>
+                </Box>
+
+                <Box className={classes.contentLine}>
+                  <ExchangeStatus id={item?.info.status} />
+                  <ExchangeStatus id={item?.book.status} />
+                </Box>
+              </>
+            ) : null
+          )}
       </Box>
     </Box>
   );

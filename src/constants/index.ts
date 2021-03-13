@@ -69,5 +69,8 @@ export const VALIDATION = {
         buildNumber: yup.string().trim().max(64),
         flatNumber: yup.string().trim().max(64),
     }),
+    TRACKING: yup.object().shape({
+        track: yup.string().trim().max(15).required('Введите трек номер'),
+    }),
 
 }   

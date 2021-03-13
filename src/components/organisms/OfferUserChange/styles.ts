@@ -17,7 +17,5 @@ export const useStyles = makeStyles({
     marginTop: 40,
     width: '100%',
   },
-  last:{
-    borderBottom: 0,
-  },
+
 }, {index: 3});

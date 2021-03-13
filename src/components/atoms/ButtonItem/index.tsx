@@ -10,6 +10,7 @@ interface IProps {
   btnType?: "button" | "submit" | "reset";
   size: "small" | "medium" | "large";
   className?: string;
+  btnClassName?: string;
   type: "solid" | "border" | "back" | "forward" | "disabled";
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
@@ -18,6 +19,7 @@ interface IProps {
 const ButtonItem: React.FC<IProps> = ({
   btnType,
   className,
+  btnClassName,
   disabled,
   onClick,
   size = "large",
@@ -27,13 +29,14 @@ const ButtonItem: React.FC<IProps> = ({
   const classes = useStyles();
 
   const classText = cn(classes.text, classes[type || "solid"], className);
+  const classButton = cn(classes.button, btnClassName);
 
   return (
     <Button
       disableTouchRipple
       disableRipple
       type={btnType}
-      className={classes.button}
+      className={classButton}
       disabled={disabled}
       onClick={onClick}
       size={size}

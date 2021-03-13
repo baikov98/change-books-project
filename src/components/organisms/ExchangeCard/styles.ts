@@ -13,18 +13,25 @@ export const useStyles = makeStyles({
         padding: '10px 20px',
         width: '100%',
     },
-    content:{
-        marginTop: 20,
+    titleLine:{
+        marginTop: 40,
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit,minmax(200px, 1fr))',
         gridColumnGap: 12,
         width: '100%',
+      },
+    contentLine:{
+        marginTop: 0,
+        display: 'grid',
+        gridTemplateColumns: 'minmax(200px, 1fr) minmax(200px, 1fr)',
+        gridColumnGap: 12,
+        width: '100%',
+        cursor: 'pointer',
     },
     title:{
         fontSize: 14,
         fontWeight: 500,
         color: Colors.darkGray,
-        marginBottom: 20,
     },
     book:{
         marginTop: 24,
@@ -40,6 +47,9 @@ export const useStyles = makeStyles({
     underBox:{
         marginTop: 40,
         width: '100%',
+    },
+    btn:{
+        marginTop: 12,
     },
     warning:{
         fontWeight: 500,

@@ -1,19 +1,21 @@
 import React from "react";
-import OfferItem from "../../atoms/OfferItem";
 import cn from "classnames";
 
 import { useStyles } from "./styles";
-import { Box, Typography } from "@material-ui/core";
-import { useHistory } from "react-router";
-import { links } from "../../../routes";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Typography,
+} from "@material-ui/core";
+import BookList from "../../molecules/BookList";
+import ButtonItem from "../../atoms/ButtonItem";
+import { useDispatch } from "react-redux";
 
-interface IData {
-  username: string;
-  city: string;
-  rating: string;
-}
 interface IProps {
-  data: IData[];
+  data: any; //Any - демонстартивные данные, изменение после добавления backend
   title: string;
   className?: string;
 }
@@ -24,26 +26,56 @@ const OffersLine: React.FC<IProps> = ({
   title = "",
 }: IProps) => {
   const classes = useStyles();
-  const history = useHistory();
-
+  const dispatch = useDispatch();
   const classBox = cn(classes.offersBox, className);
 
-  const handleClick = (value: string) => {
-    history.push(links.exchangeCard(value));
+  const handleClick = (id: number) => {
+    // dispatch to ACTIVE model - после добавления backend
   };
 
   return (
     <Box className={classBox}>
       {title && <Typography className={classes.title}>{title}</Typography>}
       {!!data.length &&
-        data.map((item, index) => (
-          <OfferItem
-            key={`Full-offers${index}`}
-            userName={item.username}
-            city={item.city}
-            rating={item.rating}
-            onClick={() => handleClick(item.username)}
-          />
+        data.map((item: any, index: number) => (
+          <Accordion className={classes.accordion} key={`accordion-${index}`}>
+            <AccordionSummary
+              expandIcon={<KeyboardArrowRightIcon />}
+              classes={{
+                expandIcon: classes.expandIcon,
+              }}
+            >
+              <Box className={classes.wrapperAccordionSummary}>
+                <Box className={classes.mainInfo}>
+                  <Typography className={classes.accordionTitle}>
+                    {item?.info?.title}
+                  </Typography>
+                  <Typography className={classes.accordionTitle}>
+                    {item?.info?.city}
+                  </Typography>
+                  <Typography className={classes.accordionTitle}>
+                    {item?.info?.rating}
+                  </Typography>
+                </Box>
+                <Typography className={classes.accordionTitle}>
+                  {item?.book?.title}
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails className={classes.accordionDetails}>
+              <BookList data={item.info.lines} />
+              <BookList data={item.info.user} />
+              <ButtonItem
+                btnClassName={classes.btn}
+                btnType="button"
+                type="border"
+                size="small"
+                onClick={() => handleClick(item?.id)}
+              >
+                Меняюсь
+              </ButtonItem>
+            </AccordionDetails>
+          </Accordion>
         ))}
     </Box>
   );
