@@ -23,4 +23,13 @@ export const useStyles =  makeStyles(() => ({
       fontWeight: 500,
       marginLeft: 8,
     },
+    endIcon:{
+      fill: Colors.darkGray,
+      width: 16,
+      height: 16,
+      cursor: 'pointer',
+      '&:hover': {
+        fill: Colors.textGray,
+      }
+    },
 }), {index:1});

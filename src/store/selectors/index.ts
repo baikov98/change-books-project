@@ -1,8 +1,13 @@
 import { RootState } from './../index';
 
+// NAVIGATION
 export const getList = (state: RootState) => state.menu.list;
-export const getUser = (state: RootState) => state.user.currentUser;
 export const getNavList = (state: RootState) => state.navbar.list;
+
+// USER
+export const getUser = (state: RootState) => state.user.currentUser;
+export const getUserPersonalData = (state: RootState) => state.user.personalData;
+
 
 //REGISTRATION 
 export const getMainInput = (state: RootState) => state.regFields.main;

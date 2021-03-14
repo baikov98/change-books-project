@@ -37,14 +37,8 @@ const SignUp: React.FC = () => {
   const adressInput = useSelector(getAdressInput);
   const dispatch = useDispatch();
 
-  const {
-    handleSubmit,
-    control,
-    errors,
-    reset,
-    setError,
-    clearErrors,
-  } = useForm<IFormInput>({
+  const { handleSubmit, control, errors, reset } = useForm<IFormInput>({
+    mode: "onChange",
     resolver: yupResolver(VALIDATION.SIGN_UP),
   });
 
