@@ -7,20 +7,27 @@ interface IProps {
   category: string;
   value: string;
   valueBold?: boolean;
-  onClick?: (e?: React.MouseEvent<HTMLElement>) => void;
+  className?: string;
+  onClick?: (event?: React.MouseEvent<HTMLElement>) => void;
 }
 
-const CatAndValue: React.FC<IProps> = ({ category, value, valueBold, onClick }) => {
+const CatAndValue: React.FC<IProps> = ({
+  category,
+  value,
+  valueBold,
+  onClick,
+  className,
+}) => {
   const classes = useStyles();
-  const pointer = onClick ? classes.pointer : ''
-  const classValue = valueBold ? classes.valueBold : classes.value
-  const classText = cn(classValue, pointer)
+  const pointer = onClick ? classes.pointer : "";
+  const classValue = valueBold ? classes.valueBold : classes.value;
+  const classText = cn(classValue, pointer);
+  const classBox = cn(classes.categoryBox, className);
   return (
-    <Box className={classes.categoryBox}>
+    <Box className={classBox}>
       <Box className={classes.category}>{category}</Box>
-      <Box className={classText}
-           onClick={onClick}
-        >{value}
+      <Box className={classText} onClick={onClick}>
+        {value}
       </Box>
     </Box>
   );

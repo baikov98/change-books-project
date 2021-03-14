@@ -4,12 +4,18 @@ import { Colors } from "../../../styles/Colors";
 export const useStyles = makeStyles({
   root: {
     color: Colors.text,
-    overflow:"auto",
+    overflowX:"auto",
     width:"100%"
   },
   wrapper:{
     background: Colors.white,
     minHeight: '100%',
-    padding: 24,
-  },  
+    padding: '10px 20px',
+    width: '100%',
+  },
+  content:{
+    marginTop: 40,
+    width: '100%',
+  },
+
 }, {index: 3});
