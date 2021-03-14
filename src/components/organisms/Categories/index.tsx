@@ -15,20 +15,17 @@ import { IStoreData } from '../StartChange'
 interface IProps {
   step: number;
   control: Control;
-  data: IStoreData
+  data: any;
   setValue: (name: string, value: string | boolean) => void;
 }
 
 const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
-  const classes = useStyles();
-  const getStr = step ? 'Get' : ''
+  const classes = useStyles(); 
   const listOfCategories = useSelector(getBookCategories)
-
   const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
-        if (!getStr) setValue(val[1], false)
-        else setValue(val[1]+getStr, false)
+        setValue(val[1], false)
       }) 
     })
   }
@@ -53,12 +50,18 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
               <AccordionDetails className={classes.accordionDetails}>
                 {item.opts.map((item, index) => {
                   const name = item[1]
+                  const valuesArray: [] = []
+                  const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
+                  correctPath?.categoryList?.map((item: any) => item.value.map((i: any) => valuesArray.push(i[1] as never)))
+                   
+                  const defaultValue = valuesArray.some((i: any) => name === i)
+
                   return <Box key={name}>
                           <Controller
-                              name={name+getStr} 
+                              name={name} 
                               control={control} 
                               rules={{ required: false }}
-                              defaultValue={data[`${name+getStr}`] || false}
+                              defaultValue={defaultValue}
                               render={(props) => (
                                 <FormControlLabel
                                   control={<CheckBox  

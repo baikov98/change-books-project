@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+//import { getActiveExchange } from '../../../store/models/startExchange'
+//import { RootState } from '../../../store/index'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { getStartExchangeState } from '../../../store/selectors'
@@ -7,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import { useForm, Control, FieldErrors } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
-
+import filterFormData from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
 
 import ProgressIndicator from "../../atoms/ProgressIndicator"
@@ -57,21 +60,9 @@ const StartChange: React.FC<IProps> = () => {
   });
 
   const submit = (data: IStoreData) => { 
-    for (let key in data) {
-      if (!data[key]) delete data[key]
-    }
-    listOfCategories.forEach((item, index) => {
-      const title = item.title[1]
-      item.opts.forEach((i, indx) => {
-        if (data.hasOwnProperty(i[1])) {
-          let dataTitle = data[title] as Array<string[]>
-          console.log(typeof data[title])
-          if (!dataTitle) dataTitle = [i];
-          if (dataTitle) dataTitle.push(i)
-        }
-      })
-    })
-    dispatch.startExchange.SET_EXCHANGE_DATA(data)
+    const filteredData = filterFormData(data, listOfCategories)
+    const stepLabel = `step${step+1}`
+    dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
     if (step === 2) {
       history.push('userChange')

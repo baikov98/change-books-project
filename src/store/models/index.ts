@@ -7,6 +7,8 @@ import { bookCategories } from './bookCategories'
 import { user } from './user'
 import { navbar } from './navbar'
 import { requestData } from './requestData'
+import { requestExchangeBooks } from './requestExchangeBooks'
+import { requestWishBooks } from './requestWishBooks'
 
 export interface RootModel extends Models<RootModel> {
     menu: typeof menu;
@@ -17,6 +19,8 @@ export interface RootModel extends Models<RootModel> {
     navbar: typeof navbar;
     bookCategories: typeof bookCategories;
     requestData: typeof requestData;
+    requestExchangeBooks: typeof requestExchangeBooks;
+    requestWishBooks: typeof requestWishBooks;
 }
 
 export const models: RootModel = { 
@@ -27,5 +31,7 @@ export const models: RootModel = {
     user,
     navbar,
     bookCategories,
-    requestData
+    requestData,
+    requestExchangeBooks,
+    requestWishBooks
  }

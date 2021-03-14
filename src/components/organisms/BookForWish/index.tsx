@@ -19,25 +19,23 @@ interface IProps {
   data: IStoreData;
   objectKey: string;
   bookCategories: IBookInfoFields[];
+  bookNum: number;
 }
 
-const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
+const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
   const exchangeBook: any = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
-  const handleSwitchEditState = () => {
-    setEditState(!editState)
-  }
+  const handleSwitchEditState = () => setEditState(!editState)
+  
   const classes = useStyles();
   const {
     setValue,
     handleSubmit,
     control,
     errors,
-  } = useForm({
-    resolver: yupResolver(VALIDATION.BOOK_INFO)
-  });
+  } = useForm({});
   const bookDetailsArray = 
     exchangeBook.categoryList.map((item: any) => {
       const value = item.value.map((i: any) => i[0])
@@ -49,16 +47,12 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
        
   const submit = (formData: IStoreData) => {
     const filteredData = filterFormData(formData, listOfCategories)
-    dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
-    console.log({[objectKey]: filteredData})
+    dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
     handleSwitchEditState()
   }
   const handleEditFormSubmit = handleSubmit(submit)
   const bookFormItem = <form>
                         <Box className={classes.editForm}>
-                            <BookInfo data={data} 
-                                      control={control} 
-                                      errors={errors} /> 
                             <Categories step={3} 
                                         control={control} 
                                         data={data} 
@@ -71,13 +65,11 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   const bookInfoItem = <>
                 <Box className={classes.header}>
                   <Box className={classes.title}>
-                    {`${exchangeBook.authorName} ${exchangeBook.authorSurname} "${exchangeBook.book}"`}
+                    {`Книга ${bookNum+1}`}
                   </Box>
                   <EditButton onClick={handleSwitchEditState} />
                 </Box >
                 <Box className={classes.content}>
-                  {exchangeBook.year && <CatAndValue category='Год издания' value={exchangeBook.year as string}/> }
-                  {exchangeBook.isbn && <CatAndValue category='ISBN' value={exchangeBook.isbn as string}/>}
                   {bookDetailsArray}
                 </Box>
               </>
@@ -89,4 +81,4 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   );
 };
 
-export default BookForExchange;
+export default BookForWish;
