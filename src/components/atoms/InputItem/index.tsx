@@ -14,6 +14,8 @@ export interface IProps {
   inputType?: string;
   className?: string;
   error?: string;
+  multiline?: boolean;
+  rows?: number;
   clearClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }
 
@@ -30,6 +32,8 @@ const InputItem = React.forwardRef<HTMLInputElement, IProps>(
       inputType,
       className,
       clearClick,
+      multiline,
+      rows,
     } = props;
     const classes = useStyles(props);
     const inputClass = cn(classes.input, className);
@@ -56,6 +60,8 @@ const InputItem = React.forwardRef<HTMLInputElement, IProps>(
           type={inputType}
           placeholder={placeholder}
           helperText={errorText}
+          multiline={multiline}
+          rows={rows}
         />
         {error && (
           <Typography className={classes.error}>{`* ${error}`}</Typography>

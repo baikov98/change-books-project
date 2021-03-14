@@ -88,5 +88,8 @@ export const VALIDATION = {
     TRACKING: yup.object().shape({
         track: yup.string().trim().max(15).required('Введите трек номер'),
     }),
-
+    ASK_QUESTION: yup.object().shape({
+        topic: yup.string().trim().max(64).required('Укажите пожалуйста тему обращения'),
+        text: yup.string().trim().max(255).required('Это поле не может быть пустым'),
+    }),
 }   

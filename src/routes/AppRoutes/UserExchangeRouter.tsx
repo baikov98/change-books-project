@@ -11,6 +11,7 @@ import OfferUserChangePage from "../../pages/OfferUserChangePage";
 import ExchangeCardPage from "../../pages/ExchangeCardPage";
 import ActiveExchangePage from "../../pages/ActiveExchangePage";
 import PersonalDataPage from "../../pages/PersonalDataPage";
+import AskQuestionPage from "../../pages/AskQuestionPage";
 
 const UserChangeRouter = () => (
   <SideLayout header={<Header />} sideBarLeft={<Sidebar />}>
@@ -21,6 +22,7 @@ const UserChangeRouter = () => (
       <Route component={ActiveExchangePage} exact path={routes.active} />
       <Route component={ExchangeCardPage} exact path={routes.activeCard} />
       <Route component={PersonalDataPage} exact path={routes.personal} />
+      <Route component={AskQuestionPage} exact path={routes.ask} />
     </Switch>
   </SideLayout>
 );
