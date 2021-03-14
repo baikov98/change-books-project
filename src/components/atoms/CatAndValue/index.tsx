@@ -8,7 +8,7 @@ interface IProps {
   value: string;
   valueBold?: boolean;
   className?: string;
-  onClick?: (e?: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (event?: React.MouseEvent<HTMLElement>) => void;
 }
 
 const CatAndValue: React.FC<IProps> = ({

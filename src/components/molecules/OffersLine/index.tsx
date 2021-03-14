@@ -41,6 +41,7 @@ const OffersLine: React.FC<IProps> = ({
           <Accordion className={classes.accordion} key={`accordion-${index}`}>
             <AccordionSummary
               expandIcon={<KeyboardArrowRightIcon />}
+              className={classes.accordionSummary}
               classes={{
                 expandIcon: classes.expandIcon,
               }}

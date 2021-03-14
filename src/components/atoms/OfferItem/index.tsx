@@ -6,7 +6,7 @@ interface IProps {
   userName: string;
   city: string;
   rating: number | string;
-  onClick: (e?: React.MouseEvent<HTMLElement>) => void;
+  onClick: (event?: React.MouseEvent<HTMLElement>) => void;
 }
 
 const OfferItem: React.FC<IProps> = ({ userName, city, rating, onClick }) => {
