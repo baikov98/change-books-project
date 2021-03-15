@@ -7,7 +7,7 @@ import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import BookForWish from '../BookForWish'
 import TitleItem from '../../atoms/TitleItem'
-import { IStoreData } from '../StartChange'
+
 
 interface ICategoryListItem {
   category: string;
