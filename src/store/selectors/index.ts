@@ -1,16 +1,24 @@
 import { RootState } from './../index';
 
-export const getList = (state: RootState) => {
-    return state.menu.list;
-  };
+// NAVIGATION
+export const getList = (state: RootState) => state.menu.list;
+export const getNavList = (state: RootState) => state.navbar.list;
 
-export const getUser = (state: RootState) => {
-    return state.user.currentUser;
-};
+// USER
+export const getUser = (state: RootState) => state.user.currentUser;
+export const getUserPersonalData = (state: RootState) => state.user.personalData;
 
-export const getNavList = (state: RootState) => {
-  return state.navbar.list;
-};
+
+//REGISTRATION 
+export const getMainInput = (state: RootState) => state.regFields.main;
+export const getAdressInput = (state: RootState) => state.regFields.adress;
+
+// OFFERS LIST
+export const getBookInfo = (state: RootState) => state.offersExchange.bookInfo;
+
+// ACTIVE EXCHANGE
+export const getActiveExchange = (state: RootState) => state.activeExchange.list;
+
 
 export const getBookCategories = (state: RootState) => {
   return state.bookCategories.main;
@@ -23,14 +31,6 @@ export const getBookInput = (state: RootState) => {
 export const getRequestData = (state: RootState) => {
   return state.requestData.data;
 };
-
-export const getMainInput = (state: RootState) => {
-  return state.regFields.main
-}
-
-export const getAdressInput = (state: RootState) => {
-  return state.regFields.adress
-}
 
 export const getStartExchangeState = (state: RootState) => {
   return state.startExchange

@@ -7,7 +7,7 @@ export const useStyles = makeStyles(() => ({
         flexGrow: 1,
         flexDirection: "column",
         flexWrap: "nowrap",
-        alignItems: "center",
+        paddingLeft: 'calc(50vw - 590px)',
         backgroundColor: Colors.white,
     },
     header:{
@@ -23,7 +23,6 @@ export const useStyles = makeStyles(() => ({
     },
     content: {
         display: "flex",
-        maxWidth: 1180,
     },
     sideBarLeft: {
       height: "100%",

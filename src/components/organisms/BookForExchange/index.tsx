@@ -40,16 +40,11 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
   const handleSwitchEditState = () => {
-    setEditState(!editState)
-  }
+    setEditState(!editState);
+  };
   const classes = useStyles();
-  const {
-    setValue,
-    handleSubmit,
-    control,
-    errors,
-  } = useForm({
-    resolver: yupResolver(VALIDATION.BOOK_INFO)
+  const { setValue, handleSubmit, control, errors } = useForm({
+    resolver: yupResolver(VALIDATION.BOOK_INFO),
   });
   const bookDetailsArray = 
     exchangeBook.categoryList.map((item) => {

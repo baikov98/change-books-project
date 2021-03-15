@@ -5,12 +5,12 @@ export const useStyles = makeStyles({
   root: {
     color: Colors.text,
     overflow:"auto",
-    width: '700px'
+    width: '100%',
   },
   wrapper:{
     background: Colors.white,
     minHeight: '100%',
-    padding: 24,
+    padding: '24px 0px 24px 24px',
   },  
   title: {
     marginBottom: '40px'

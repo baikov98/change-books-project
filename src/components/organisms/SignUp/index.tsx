@@ -1,8 +1,7 @@
 import { Box, Typography, TextField, Checkbox } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import { useStyles } from "./styles";
 import cn from "classnames";
-import { useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import ButtonItem from "../../atoms/ButtonItem";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import SocialItems from "../../atoms/SocialItems";
 import CheckBox from "../../atoms/CheckBox";
+import { getMainInput, getAdressInput } from "../../../store/selectors";
 
 type IFormInput = {
   name: string;
@@ -31,27 +31,14 @@ type IFormInput = {
   terms: boolean;
 };
 
-const getMainInput = (state: RootState) => {
-  return state.regFields.main;
-};
-const getAdressInput = (state: RootState) => {
-  return state.regFields.adress;
-};
-
 const SignUp: React.FC = () => {
   const classes = useStyles();
   const mainInput = useSelector(getMainInput);
   const adressInput = useSelector(getAdressInput);
   const dispatch = useDispatch();
 
-  const {
-    handleSubmit,
-    control,
-    errors,
-    reset,
-    setError,
-    clearErrors,
-  } = useForm<IFormInput>({
+  const { handleSubmit, control, errors, reset } = useForm<IFormInput>({
+    mode: "onChange",
     resolver: yupResolver(VALIDATION.SIGN_UP),
   });
 
