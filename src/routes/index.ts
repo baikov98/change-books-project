@@ -1,6 +1,7 @@
 const mainRoutes = {
     main: "/",
     start: "/start",
+    accessEmail: "/access",
     userChange: "/userChange",
     feedback: "/feedback",
     forgetPass: "/forgetPass",
@@ -10,7 +11,6 @@ const mainRoutes = {
     active: "/userChange/active",
     personal: "/userChange/personal",
     messages: "/userChange/messages",
-    ask: "/userChange/ask",
     archive: "/userChange/archive",
     review: "/userChange/review",
     exit: "/userChange/exit",

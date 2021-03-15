@@ -10,6 +10,7 @@ import SignUpPage from "../../pages/Auth/SignUpPage";
 import ForgetPassPage from "../../pages/Auth/ForgetPassPage";
 import StartChangePage from "../../pages/StartChangePage";
 import FeedbackPage from "../../pages/FeedbackPage";
+import AccessEmailPage from "../../pages/Auth/AccessEmailPage";
 
 const MainRouter = () => (
   <MainLayout header={<Header />}>
@@ -19,6 +20,7 @@ const MainRouter = () => (
       <Route component={FeedbackPage} exact path={routes.feedback} />
       <Route component={SignUpPage} exact path={routes.signup} />
       <Route component={ForgetPassPage} exact path={routes.forgetPass} />
+      <Route component={AccessEmailPage} exact path={routes.accessEmail} />
     </Switch>
   </MainLayout>
 );

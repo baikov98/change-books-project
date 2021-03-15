@@ -1,4 +1,4 @@
-import { baseURL } from './../../constants/index';
+import { baseURL } from '../../constants/index';
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import axios from 'axios'
@@ -8,7 +8,7 @@ export interface IRequest {
   text: string;
 }
 
-export const askQuestion = createModel<RootModel>()({
+export const feedBack = createModel<RootModel>()({
   state: {
     error: null,
   },
