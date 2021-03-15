@@ -80,7 +80,7 @@ export const user = createModel<RootModel>()({
                     uid,
                     token
                 });
-                console.log(response);
+                // console.log(response);
             } catch (error) {
             console.error('Failed to activation account - ', error);
             }

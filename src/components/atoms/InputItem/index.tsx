@@ -16,7 +16,7 @@ export interface IProps {
   error?: string;
   multiline?: boolean;
   rows?: number;
-  clearClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  clearClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }
 
 const InputItem = React.forwardRef<HTMLInputElement, IProps>(
