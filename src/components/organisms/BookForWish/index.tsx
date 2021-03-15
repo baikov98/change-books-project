@@ -4,16 +4,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
 import EditButton from '../../atoms/EditButton'
-import BookInfo from '../BookInfo'
 import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
-import { IStoreData } from '../StartChange'
+
 
 interface ICategoryListItem {
   category: string;
@@ -54,7 +51,7 @@ const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategorie
                    /> 
     })
        
-  const submit = (formData: IStoreData) => {
+  const submit = (formData: any) => {
     const filteredData = filterFormData(formData, listOfCategories)
     dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
     handleSwitchEditState()

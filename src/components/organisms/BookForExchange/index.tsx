@@ -13,7 +13,6 @@ import EditButton from '../../atoms/EditButton'
 import BookInfo from '../BookInfo'
 import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
-import { IStoreData } from '../StartChange'
 
 interface ICategoryListItem {
   category: string;
@@ -61,10 +60,9 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                    /> 
     })
        
-  const submit = (formData: IStoreData) => {
+  const submit = (formData: any) => {
     const filteredData = filterFormData(formData, listOfCategories)
     dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
-    console.log({[objectKey]: filteredData})
     handleSwitchEditState()
   }
   const handleEditFormSubmit = handleSubmit(submit)
@@ -90,8 +88,8 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                   <EditButton onClick={handleSwitchEditState} />
                 </Box >
                 <Box className={classes.content}>
-                  {exchangeBook.year && <CatAndValue category='Год издания' value={exchangeBook.year as string}/> }
-                  {exchangeBook.isbn && <CatAndValue category='ISBN' value={exchangeBook.isbn as string}/>}
+                  {exchangeBook.year && <CatAndValue category='Год издания' value={exchangeBook.year}/> }
+                  {exchangeBook.isbn && <CatAndValue category='ISBN' value={exchangeBook.isbn}/>}
                   {bookDetailsArray}
                 </Box>
               </>

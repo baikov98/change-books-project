@@ -5,18 +5,22 @@ interface IListCategories {
 }
 
 interface ICategoryListItem {
-    [key: string]: string 
+    category: string;
+    value: string[][]
 }
-// поставил any т.к. значения у объекта data могут быть string | Array<string[]>
-// = TS ругается на push
-const filterFormData = (data: any, listOfCategories: IListCategories[]) => { 
+
+interface IData {
+    [key: string]: string | boolean | ICategoryListItem[]
+}
+
+const filterFormData = (data: IData, listOfCategories: IListCategories[]) => { 
     for (let key in data) {
         if (!data[key]) delete data[key]
     }
     data.categoryList = []
     const catList = data.categoryList
     listOfCategories.forEach((item, index) => {
-        const title = item.title[0]
+        const title = item.title[0] as string
         item.opts.forEach((i, indx) => {
             const findEl = catList.find((val: ICategoryListItem) => val.category === title)
             if (data.hasOwnProperty(i[1])) {

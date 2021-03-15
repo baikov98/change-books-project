@@ -27,16 +27,25 @@ interface IStartExchangeData {
   step3: {},
 }
 
+interface ICategoryListItem {
+  category: string;
+  value: string[][]
+}
+
+interface IData {
+  [key: string]: string | boolean | ICategoryListItem[]
+}
+
 export interface ITabsData {
   step: number; 
-  storeData: IStartExchangeData; 
+  storeData: IData; 
   submit: (data: IStoreData) => void;
   handleBackButtonClick: () => void;
   control: Control;
   errors: FieldErrors;
 }
 
-function getStepContent(tabsData: ITabsData) { 
+function getStepContent(tabsData: any) { 
   switch (tabsData.step) {
     case 0:
       return <Step1 tabsData={tabsData} />;  
@@ -63,7 +72,7 @@ const StartChange: React.FC<IProps> = () => {
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
 
-  const submit = (data: IStoreData) => { 
+  const submit = (data: IData) => { 
     const filteredData = filterFormData(data, listOfCategories)
     const stepLabel = `step${step+1}`
     dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
