@@ -15,7 +15,6 @@ export const useStyles = makeStyles({
     },
     value: {
         color: Colors.text,
-        whiteSpace: 'nowrap',
     },
     valueBold: {
         color: Colors.orange,

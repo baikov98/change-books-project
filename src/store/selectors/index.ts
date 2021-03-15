@@ -35,3 +35,11 @@ export const getRequestData = (state: RootState) => {
 export const getStartExchangeState = (state: RootState) => {
   return state.startExchange
 }
+
+export const getRequestExchangeBooks = (state: RootState) => {
+  return state.requestExchangeBooks.data
+}
+
+export const requestWishBooks = (state: RootState) => {
+  return state.requestWishBooks.data
+}

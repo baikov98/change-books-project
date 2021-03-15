@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { getStartExchangeState } from '../../../store/selectors'
@@ -7,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import { useForm, Control, FieldErrors } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
-
+import filterFormData from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
 
 import ProgressIndicator from "../../atoms/ProgressIndicator"
@@ -20,16 +21,31 @@ export interface IStoreData {
   [key: string]: string | boolean | Array<string[]>
 }
 
+interface IStartExchangeData {
+  step1: {},
+  step2: {},
+  step3: {},
+}
+
+interface ICategoryListItem {
+  category: string;
+  value: string[][]
+}
+
+interface IData {
+  [key: string]: string | boolean | ICategoryListItem[]
+}
+
 export interface ITabsData {
   step: number; 
-  storeData: IStoreData; 
+  storeData: IData; 
   submit: (data: IStoreData) => void;
   handleBackButtonClick: () => void;
   control: Control;
   errors: FieldErrors;
 }
 
-function getStepContent(tabsData: ITabsData) { 
+function getStepContent(tabsData: any) { 
   switch (tabsData.step) {
     case 0:
       return <Step1 tabsData={tabsData} />;  
@@ -46,7 +62,7 @@ const StartChange: React.FC<IProps> = () => {
   const startExchange = useSelector(getStartExchangeState)
   const listOfCategories = useSelector(getBookCategories)
   const step = startExchange.step
-  const storeData = startExchange.data as IStoreData
+  const storeData = startExchange.data
   const dispatch = useDispatch()
   const history = useHistory();
   const {
@@ -56,26 +72,15 @@ const StartChange: React.FC<IProps> = () => {
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
 
-  const submit = (data: IStoreData) => { 
-    for (let key in data) {
-      if (!data[key]) delete data[key]
-    }
-    listOfCategories.forEach((item, index) => {
-      const title = item.title[1]
-      item.opts.forEach((i, indx) => {
-        if (data.hasOwnProperty(i[1])) {
-          let dataTitle = data[title] as Array<string[]>
-          console.log(typeof data[title])
-          if (!dataTitle) dataTitle = [i];
-          if (dataTitle) dataTitle.push(i)
-        }
-      })
-    })
-    dispatch.startExchange.SET_EXCHANGE_DATA(data)
+  const submit = (data: IData) => { 
+    const filteredData = filterFormData(data, listOfCategories)
+    const stepLabel = `step${step+1}`
+    dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
     if (step === 2) {
+      dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
+      dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
       history.push('userChange')
-      dispatch.requestData.SET_REQUEST_DATA(startExchange.data)
     }
   }
   const handleBackButtonClick = () => {

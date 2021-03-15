@@ -1,46 +1,64 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 
-
-const initialState = {
-    author: "Михаил Булгаков",
-    book: "Название книги",
-    year: "1898",
-    isbn: '1238291',
-    nobel: true,
-    detective: true,
-    childbooksGet: true,
-    historyGet: true,
-    secondName: "11111",
-    name: "11111",
-    thirdName: "11111",
-    indexLocation: "11111",
-    city: "11111",
-    street: "11111",
-    homeNumber: "11111",
-    buildNumber: "11",
-    flatNumber: "11",
+const exchange1 = {
+  authorName: "Михаил",
+  authorSurname: "Булгаков",
+  book: "Название книги",
+  year: "1898",
+  isbn: '1238291',
+  categoryList: [
+    {category: 'Жанр', 
+     value: [
+      ['детектив', 'detective'],
+      ['фантастика', 'fantasy']
+    ]},
+    {category: 'Обложка', 
+     value: [
+      ['жесткая', 'tough'],
+    ]},
+    {category: 'Область наук', 
+     value: [
+      ['биология', 'biology'],
+      ['медицина', 'medicine']
+    ]},
+  ]
 }
 
-export interface IStartExchange {
-    data: {
-      [key: string]: {
-        [key: string]: string | boolean
-      }
-    }
+const wish1 = {
+  categoryList: [
+    {category: 'Жанр', 
+     value: [
+      ['детектив', 'detective'],
+      ['фантастика', 'fantasy']
+    ]},
+    {category: 'Область наук', 
+     value: [
+      ['биология', 'biology'],
+      ['медицина', 'medicine']
+    ]},
+  ]
+}
+
+
+interface ICategoryListItem {
+  [key: string]: any
+}
+interface IWishBookItem {
+  [key: string]: ICategoryListItem
 }
 
 export const requestData = createModel<RootModel>()({
     state: {
       data: {
-        book1: initialState, 
-        book2: initialState, 
-        book3: initialState
+        exchangeBooks: {
+          book1: exchange1
+        },
       }
-    } as IStartExchange,
+    } as IWishBookItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IStartExchange, payload: object) => {
+      SET_REQUEST_DATA: (state: IWishBookItem, payload: object) => {
         return {
           ...state,
           data: {...state.data, ...payload }

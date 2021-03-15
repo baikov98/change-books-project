@@ -1,45 +1,41 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getRequestExchangeBooks } from '../../../store/selectors'
+import { requestWishBooks } from '../../../store/selectors'
 import { getBookCategories } from '../../../store/selectors'
 
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
-import BookForExchange from '../BookForExchange'
+import BookForWish from '../BookForWish'
 import TitleItem from '../../atoms/TitleItem'
 import { IStoreData } from '../StartChange'
 
 interface ICategoryListItem {
   category: string;
-  value: string[][];
+  value: string[][]
 }
 
 interface IBookListItem {
-  [key: string]: {
-    authorName: string,
-    authorSurname: string,
-    book: string,
-    year?: string,
-    isbn?: string,
-    categoryList: ICategoryListItem[]
-  }
+    [key: string]: {
+      categoryList: ICategoryListItem[]
+    }
 }
 
-const GiveUserChange: React.FC = () => {
+const GetUserChange: React.FC = () => {
   const classes = useStyles();
-  const requestData: IBookListItem = useSelector(getRequestExchangeBooks)
+  const requestData: IBookListItem = useSelector(requestWishBooks)
   const bookCategories = useSelector(getBookCategories)
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Box className={classes.title}>
-          <TitleItem>Хочу отдать</TitleItem>
+          <TitleItem>Хочу получить</TitleItem>
         </Box>
         {Object.keys(requestData).map((item, index) => (
-          <BookForExchange key={'item'+index}
-                           data={requestData[item]}
-                           objectKey={item}
-                           bookCategories={bookCategories} />
+          <BookForWish  key={'item'+index}
+                        bookNum={index}
+                        data={requestData[item]}
+                        objectKey={item}
+                        bookCategories={bookCategories} />
         ))
         }
       </Box>
@@ -47,4 +43,4 @@ const GiveUserChange: React.FC = () => {
   );
 };
 
-export default GiveUserChange;
+export default GetUserChange;

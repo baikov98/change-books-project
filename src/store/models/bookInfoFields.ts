@@ -4,12 +4,20 @@ import { RootModel } from ".";
 const initialState = {
     main: [
       {
-        name: "author",
+        name: "authorName",
         required: true,
-        label: 'Фамилия и имя автора*',
+        label: 'Имя автора*',
         type: '',
-        placeholder: 'Фамилия и имя автора',
-        error: 'author',
+        placeholder: 'Имя автора',
+        error: 'authorName',
+      },
+      {
+        name: "authorSurname",
+        required: true,
+        label: 'Фамилия автора*',
+        type: '',
+        placeholder: 'Фамилия автора',
+        error: 'authorSurname',
       },
       {
         name: "book",
@@ -38,7 +46,7 @@ const initialState = {
     ]
 }
 
-type errorType = 'author' | 'book' | 'isbn' | 'year'
+type errorType = 'authorName' | 'authorSurname' | 'book' | 'isbn' | 'year'
 
 export interface IBookInfoFields {
     name: string;

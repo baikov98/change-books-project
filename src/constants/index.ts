@@ -69,7 +69,8 @@ export const VALIDATION = {
         .required("Email обязательное поле"),
     }),
     BOOK_INFO: yup.object().shape({
-        author: yup.string().trim().max(50).required(texts.author),
+        authorName: yup.string().trim().max(50).required(texts.author),
+        authorSurname: yup.string().trim().max(50).required(texts.author),
         book: yup.string().trim().max(50).required(texts.book),
         isbn: yup.string().trim().max(13),
         year: yup.string().trim().max(4).required(texts.year),

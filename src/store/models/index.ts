@@ -11,6 +11,8 @@ import { activeExchange } from './activeExchange'
 import { askQuestion } from './askQuestion'
 
 import { requestData } from './requestData'
+import { requestExchangeBooks } from './requestExchangeBooks'
+import { requestWishBooks } from './requestWishBooks'
 
 export interface RootModel extends Models<RootModel> {
     menu: typeof menu;
@@ -23,6 +25,8 @@ export interface RootModel extends Models<RootModel> {
     activeExchange: typeof activeExchange;
     bookCategories: typeof bookCategories;
     requestData: typeof requestData;
+    requestExchangeBooks: typeof requestExchangeBooks;
+    requestWishBooks: typeof requestWishBooks;
     askQuestion: typeof askQuestion;
 }
 
@@ -37,5 +41,7 @@ export const models: RootModel = {
     activeExchange,
     bookCategories,
     requestData,
-    askQuestion
+    requestExchangeBooks,
+    requestWishBooks,
+    askQuestion,
  }

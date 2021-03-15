@@ -11,7 +11,7 @@ import { getBookInput } from '../../../store/selectors'
 import { IStoreData } from '../StartChange'
 
 interface IProps {
-  data: IStoreData;
+  data: any;  // пока неизвестен точный формат данных, приходящих с бэка
   control: Control;
   errors: FieldErrors;
 }
@@ -19,27 +19,29 @@ interface IProps {
 const BookInfo: React.FC<IProps> = ({ data, control, errors }) => { 
   const classes = useStyles();
   const bookInput = useSelector(getBookInput)
+  
   return (
           <Box>
             <Typography className={classes.textGray}>Данные книги</Typography>
-            {bookInput.map(({name, required, placeholder, label, type, error}: IBookInfoFields, index:number) => (
-              <Controller
-                key={`input-${index}`}
-                name={name}
-                control={control}
-                rules={{ required: required }}
-                defaultValue={data[name] || ''}
-                render={(props) => (
-                  <InputItem
-                    label={label}
-                    inputType={type}
-                    error={errors[error]?.message}
-                    placeholder={placeholder}
-                    {...props}
-                  />
-              )}
-            />
-            ))}
+            {bookInput.map(({name, required, placeholder, label, type, error}: IBookInfoFields, index: number) => 
+            { let defaultValue = data ? data[name] || data.step1[name] : ''
+              return <Controller
+                        key={`input-${index}`}
+                        name={name}
+                        control={control}
+                        rules={{ required: required }}
+                        defaultValue={defaultValue}
+                        render={(props) => (
+                          <InputItem
+                            label={label}
+                            inputType={type}
+                            error={errors[error]?.message}
+                            placeholder={placeholder}
+                            {...props}
+                          />
+                        )}
+                      />
+            })}
           </Box>
         );
 };
