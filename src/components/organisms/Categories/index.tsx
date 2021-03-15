@@ -1,5 +1,5 @@
 import React from "react";
-import {Controller, Control, ControllerRenderProps, FieldValues} from 'react-hook-form'
+import { Controller, Control, ControllerRenderProps, FieldValues, FieldErrors } from 'react-hook-form'
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { getBookCategories } from '../../../store/selectors'
@@ -10,18 +10,23 @@ import { Box,  Typography } from "@material-ui/core";
 
 import { Accordion, AccordionSummary } from './customComponents'
 import CheckBox from '../../atoms/CheckBox'
-import { IStoreData } from '../StartChange'
+
+interface ICategory {
+  title: string[];
+  opts: string[][]
+}
 
 interface IProps {
   step: number;
   control: Control;
   data: any;        // пока неизвестен точный формат данных, приходящих с бэка
   setValue: (name: string, value: string | boolean) => void;
+  checkLimit?: boolean
 }
 
-const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
+const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimit }) => {
   const classes = useStyles(); 
-  const listOfCategories = useSelector(getBookCategories)
+  const listOfCategories: ICategory[] = useSelector(getBookCategories)
   const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
@@ -29,9 +34,19 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
       }) 
     })
   }
-  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>) => 
-                                 (event: React.ChangeEvent<HTMLInputElement>) => 
-                                    props.onChange(event.target.checked)           
+  const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка', 'Экранизация', 'Язык издания']
+  const handleRemovedCheckedInCategory = (category: ICategory) => {
+    if (onlyOneCheckBoxCategoryArray.includes(category.title[0])) {
+      category.opts.forEach(val => {
+        setValue(val[1], false)
+      })
+    }
+  }
+  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>, item: ICategory) =>  
+                                 (event: React.ChangeEvent<HTMLInputElement>) => {
+                                      if (checkLimit) handleRemovedCheckedInCategory(item)
+                                      props.onChange(event.target.checked)    
+                                  }       
   return (
       <Box>
       <Box className={classes.textBox}>
@@ -48,11 +63,11 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                 <Typography className={classes.accordionTitle}>{item.title[0]}</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
-                {item.opts.map((item, index) => {
-                  const name = item[1]
+                {item.opts.map((val, index) => {
+                  const name = val[1]
                   const valuesArray: [] = []
                   const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
-                  correctPath?.categoryList?.map((item: any) => item.value.map((i: any) => valuesArray.push(i[1] as never)))
+                  correctPath?.categoryList?.map((val: any) => val.value.map((i: any) => valuesArray.push(i[1] as never)))
                    
                   const defaultValue = valuesArray.some((i: any) => name === i)
 
@@ -65,9 +80,9 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                               render={(props) => (
                                 <FormControlLabel
                                   control={<CheckBox  
-                                            onChange={handleCheckBoxOnChange(props)}
+                                            onChange={handleCheckBoxOnChange(props, item)}
                                             checked={props.value} />}
-                                            label={item[0]}
+                                            label={val[0]}
                                   />
                                   )}
                           />

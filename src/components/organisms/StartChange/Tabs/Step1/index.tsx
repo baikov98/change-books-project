@@ -32,7 +32,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
     <form>
     <Box className={classes.content}>
         <BookInfo data={storeData} control={control} errors={errors} />
-        <Categories step={step} control={control} data={storeData} setValue={setValue} />
+        <Categories step={step} control={control} data={storeData} setValue={setValue} checkLimit={true} />
     </Box>
     <FormButtons step={step} handleNextButtonClick={handleNextButtonClick} />
     </form>
