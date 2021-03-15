@@ -11,7 +11,7 @@ import { getBookInput } from '../../../store/selectors'
 import { IStoreData } from '../StartChange'
 
 interface IProps {
-  data: any;
+  data: any;  // пока неизвестен точный формат данных, приходящих с бэка
   control: Control;
   errors: FieldErrors;
 }

@@ -15,7 +15,7 @@ import { IStoreData } from '../StartChange'
 interface IProps {
   step: number;
   control: Control;
-  data: any;
+  data: any;        // пока неизвестен точный формат данных, приходящих с бэка
   setValue: (name: string, value: string | boolean) => void;
 }
 

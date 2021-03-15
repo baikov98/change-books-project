@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-//import { getActiveExchange } from '../../../store/models/startExchange'
-//import { RootState } from '../../../store/index'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
@@ -23,9 +21,15 @@ export interface IStoreData {
   [key: string]: string | boolean | Array<string[]>
 }
 
+interface IStartExchangeData {
+  step1: {},
+  step2: {},
+  step3: {},
+}
+
 export interface ITabsData {
   step: number; 
-  storeData: IStoreData; 
+  storeData: IStartExchangeData; 
   submit: (data: IStoreData) => void;
   handleBackButtonClick: () => void;
   control: Control;
@@ -49,7 +53,7 @@ const StartChange: React.FC<IProps> = () => {
   const startExchange = useSelector(getStartExchangeState)
   const listOfCategories = useSelector(getBookCategories)
   const step = startExchange.step
-  const storeData = startExchange.data as any
+  const storeData = startExchange.data
   const dispatch = useDispatch()
   const history = useHistory();
   const {

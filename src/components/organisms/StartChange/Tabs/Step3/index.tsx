@@ -46,7 +46,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   name={item.name}
                   control={control}
                   rules={{ required: item.required }}
-                  defaultValue={storeData[item.name] || ''}
+                  defaultValue=''
                   render={(props) => (
                     <InputItem
                       label={item.label}
@@ -67,7 +67,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                     name={item.name}
                     control={control}
                     rules={{ required: item.required }}
-                    defaultValue={storeData[item.name] || ''}
+                    defaultValue=''
                     render={(props) => (
                       <InputItem
                         label = {item.label}

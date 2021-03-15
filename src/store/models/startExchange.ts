@@ -1,9 +1,14 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import { RootState } from '../'
+
 export interface IStartExchange {
     step: number,
-    data: object
+    data: {
+      step1: {},
+      step2: {},
+      step3: {}
+    }
 }
 
 export const startExchange = createModel<RootModel>()({
