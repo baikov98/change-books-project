@@ -9,13 +9,20 @@ import BookForWish from '../BookForWish'
 import TitleItem from '../../atoms/TitleItem'
 import { IStoreData } from '../StartChange'
 
-interface IReaquestData {
-  [key: string]:  string | boolean | number | IStoreData
+interface ICategoryListItem {
+  category: string;
+  value: string[][]
+}
+
+interface IBookListItem {
+    [key: string]: {
+      categoryList: ICategoryListItem[]
+    }
 }
 
 const GetUserChange: React.FC = () => {
   const classes = useStyles();
-  const requestData: IReaquestData = useSelector(requestWishBooks)
+  const requestData: IBookListItem = useSelector(requestWishBooks)
   const bookCategories = useSelector(getBookCategories)
   return (
     <Box className={classes.root}>
@@ -26,7 +33,7 @@ const GetUserChange: React.FC = () => {
         {Object.keys(requestData).map((item, index) => (
           <BookForWish  key={'item'+index}
                         bookNum={index}
-                        data={requestData[item] as IStoreData}
+                        data={requestData[item]}
                         objectKey={item}
                         bookCategories={bookCategories} />
         ))

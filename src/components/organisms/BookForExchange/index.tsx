@@ -15,15 +15,29 @@ import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 import { IStoreData } from '../StartChange'
 
+interface ICategoryListItem {
+  category: string;
+  value: string[][];
+}
+
+interface IBookListItem {
+    authorName: string,
+    authorSurname: string,
+    book: string,
+    year?: string,
+    isbn?: string,
+    categoryList: ICategoryListItem[]
+}
+
 interface IProps {
-  data: IStoreData;
+  data: IBookListItem;
   objectKey: string;
   bookCategories: IBookInfoFields[];
 }
 
 const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
-  const exchangeBook: any = data
+  const exchangeBook = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
   const handleSwitchEditState = () => {
@@ -39,8 +53,8 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
   const bookDetailsArray = 
-    exchangeBook.categoryList.map((item: any) => {
-      const value = item.value.map((i: any) => i[0])
+    exchangeBook.categoryList.map((item) => {
+      const value = item.value.map((i) => i[0])
       return <CatAndValue key={item.category}
                    category={item.category} 
                    value={value.join(', ')}

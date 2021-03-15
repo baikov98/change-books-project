@@ -49,7 +49,7 @@ const StartChange: React.FC<IProps> = () => {
   const startExchange = useSelector(getStartExchangeState)
   const listOfCategories = useSelector(getBookCategories)
   const step = startExchange.step
-  const storeData = startExchange.data as IStoreData
+  const storeData = startExchange.data as any
   const dispatch = useDispatch()
   const history = useHistory();
   const {
@@ -65,9 +65,9 @@ const StartChange: React.FC<IProps> = () => {
     dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
     if (step === 2) {
-      //history.push('userChange')
       dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
       dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
+      history.push('userChange')
     }
   }
   const handleBackButtonClick = () => {

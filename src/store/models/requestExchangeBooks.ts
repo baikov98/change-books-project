@@ -25,13 +25,31 @@ const exchange1 = {
   ]
 }
 
-
 interface ICategoryListItem {
-  [key: string]: string | Array<any>
+  category: string;
+  value: string[][];
 }
 
 interface IBookListItem {
-  [key: string]: any
+    data: {
+      [key: string]: {
+        authorName: string,
+        authorSurname: string,
+        book: string,
+        year?: string,
+        isbn?: string,
+        categoryList: ICategoryListItem[]
+      }
+    }
+}
+
+interface IPayload {
+  authorName: string,
+  authorSurname: string,
+  book: string,
+  year?: string,
+  isbn?: string,
+  categoryList: ICategoryListItem[]
 }
 
 export const requestExchangeBooks = createModel<RootModel>()({
@@ -50,7 +68,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
           data: {...state.data, ...payload }
         }
       },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
         return {
           ...state,
           data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }

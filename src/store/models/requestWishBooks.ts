@@ -56,11 +56,20 @@ const exchange3 = {
 }
 
 interface ICategoryListItem {
-  [key: string]: string | Array<any>
+  category: string;
+  value: string[][];
 }
 
 interface IBookListItem {
-  [key: string]: any
+    data: {
+      [key: string]: {
+        categoryList: ICategoryListItem[]
+      }
+    }
+}
+
+interface IPayload {
+  categoryList: ICategoryListItem[]
 }
 
 export const requestWishBooks = createModel<RootModel>()({
@@ -79,11 +88,11 @@ export const requestWishBooks = createModel<RootModel>()({
           data: {...state.data, ...payload }
         }
       },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
         return {
           ...state,
           data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
         }
       },
-  },
+    },
 });

@@ -9,13 +9,25 @@ import BookForExchange from '../BookForExchange'
 import TitleItem from '../../atoms/TitleItem'
 import { IStoreData } from '../StartChange'
 
-interface IReaquestData {
-  [key: string]:  string | boolean | number | IStoreData
+interface ICategoryListItem {
+  category: string;
+  value: string[][];
+}
+
+interface IBookListItem {
+  [key: string]: {
+    authorName: string,
+    authorSurname: string,
+    book: string,
+    year?: string,
+    isbn?: string,
+    categoryList: ICategoryListItem[]
+  }
 }
 
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
-  const requestData: IReaquestData = useSelector(getRequestExchangeBooks)
+  const requestData: IBookListItem = useSelector(getRequestExchangeBooks)
   const bookCategories = useSelector(getBookCategories)
   return (
     <Box className={classes.root}>
@@ -25,7 +37,7 @@ const GiveUserChange: React.FC = () => {
         </Box>
         {Object.keys(requestData).map((item, index) => (
           <BookForExchange key={'item'+index}
-                           data={requestData[item] as IStoreData}
+                           data={requestData[item]}
                            objectKey={item}
                            bookCategories={bookCategories} />
         ))
