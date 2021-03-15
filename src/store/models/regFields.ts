@@ -113,7 +113,8 @@ const initialState = {
    ],
 }
 
-type errorType = "email"
+type fieldsType = 
+    "email"
   | "password"
   | "confirmPassword"
   | "name"
@@ -129,12 +130,12 @@ type errorType = "email"
 
 
 export interface IRegFields {
-  name: string;
+  name: fieldsType;
   required: boolean;
   label: string;
   type: string;
   placeholder: string;
-  error:errorType;
+  error:fieldsType;
 }
 
 interface IInputs {
