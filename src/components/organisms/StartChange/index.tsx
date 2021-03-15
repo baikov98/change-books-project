@@ -65,8 +65,9 @@ const StartChange: React.FC<IProps> = () => {
     dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
     dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
     if (step === 2) {
-      history.push('userChange')
-      dispatch.requestData.SET_REQUEST_DATA(startExchange.data)
+      //history.push('userChange')
+      dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
+      dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
     }
   }
   const handleBackButtonClick = () => {

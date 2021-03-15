@@ -53,7 +53,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
       ADD_REQUEST_DATA: (state: IBookListItem, payload: object) => {
         return {
           ...state,
-          data: {...state.data, [`book${Object.keys.length+1}`]: payload }
+          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
         }
       },
   },

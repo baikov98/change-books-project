@@ -78,6 +78,12 @@ export const requestWishBooks = createModel<RootModel>()({
           ...state,
           data: {...state.data, ...payload }
         }
-    },
+      },
+      ADD_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+        return {
+          ...state,
+          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
+        }
+      },
   },
 });
