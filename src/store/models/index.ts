@@ -8,7 +8,6 @@ import { user } from './user'
 import { navbar } from './navbar'
 import { offersExchange } from './offersExchange'
 import { activeExchange } from './activeExchange'
-import { askQuestion } from './askQuestion'
 import { requestExchangeBooks } from './requestExchangeBooks'
 import { requestWishBooks } from './requestWishBooks'
 import { archiveExchange } from './archiveExchange' 
@@ -25,7 +24,6 @@ export interface RootModel extends Models<RootModel> {
     bookCategories: typeof bookCategories;
     requestExchangeBooks: typeof requestExchangeBooks;
     requestWishBooks: typeof requestWishBooks;
-    askQuestion: typeof askQuestion;
     archiveExchange: typeof archiveExchange;
 }
 
@@ -41,6 +39,5 @@ export const models: RootModel = {
     bookCategories,
     requestExchangeBooks,
     requestWishBooks,
-    askQuestion,
     archiveExchange
  }

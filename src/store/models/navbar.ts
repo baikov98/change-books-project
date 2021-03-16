@@ -37,10 +37,6 @@ const initialState = {
         link: routes.messages
      },
      {
-        title: "Задать вопрос",
-        link: routes.ask
-     },
-     {
         title: "Архив",
         link: routes.archive
      },

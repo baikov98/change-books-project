@@ -10,7 +10,6 @@ const mainRoutes = {
     active: "/userChange/active",
     personal: "/userChange/personal",
     messages: "/userChange/messages",
-    ask: "/userChange/ask",
     archive: "/userChange/archive",
     review: "/userChange/review",
     exit: "/userChange/exit",

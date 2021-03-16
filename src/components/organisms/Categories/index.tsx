@@ -15,6 +15,11 @@ interface ICategory {
   opts: string[][]
 }
 
+interface IRequestCatList {
+  title: string;
+  value: string[][]
+}
+
 interface IProps {
   step: number;
   control: Control;
@@ -69,7 +74,8 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
                   const name = val[1]
                   const valuesArray: [] = []
                   const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
-                  correctPath?.categoryList?.map((val: any) => val.value.map((i: any) => valuesArray.push(i[1] as never)))
+                  correctPath?.categoryList?.map((val: IRequestCatList) => 
+                  val.value.map((i: string[]) => valuesArray.push(i[1] as never)))
                    
                   const defaultValue = valuesArray.some((i: any) => name === i)
 

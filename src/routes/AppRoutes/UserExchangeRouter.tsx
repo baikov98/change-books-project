@@ -12,7 +12,6 @@ import GetUserChangePage from "../../pages/GetUserChangePage";
 import ExchangeCardPage from "../../pages/ExchangeCardPage";
 import ActiveExchangePage from "../../pages/ActiveExchangePage";
 import PersonalDataPage from "../../pages/PersonalDataPage";
-import AskQuestionPage from "../../pages/AskQuestionPage";
 import ArchivePage from "../../pages/ArchivePage";
 import ArchiveCardPage from "../../pages/ArchiveCardPage";
 
@@ -26,7 +25,6 @@ const UserChangeRouter = () => (
       <Route component={ActiveExchangePage} exact path={routes.active} />
       <Route component={ExchangeCardPage} exact path={routes.activeCard} />
       <Route component={PersonalDataPage} exact path={routes.personal} />
-      <Route component={AskQuestionPage} exact path={routes.ask} />
       <Route component={ArchiveCardPage} exact path={routes.archiveCard} />
       <Route component={ArchivePage} exact path={routes.archive} />
     </Switch>
