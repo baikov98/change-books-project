@@ -7,6 +7,7 @@ import { Box,  Typography } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
+import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
 import EditButton from '../../atoms/EditButton'
@@ -34,6 +35,7 @@ interface IProps {
   bookCategories: IBookInfoFields[];
 }
 
+
 const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
   const exchangeBook = data
@@ -55,7 +57,7 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                    /> 
     })
        
-  const submit = (formData: any) => {
+  const submit = (formData: IData) => {
     const filteredData = filterFormData(formData, listOfCategories)
     dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
     handleSwitchEditState()

@@ -9,7 +9,7 @@ interface ICategoryListItem {
     value: string[][]
 }
 
-interface IData {
+export interface IData {
     [key: string]: string | boolean | ICategoryListItem[]
 }
 

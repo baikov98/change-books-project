@@ -8,7 +8,7 @@ import { IBookInfoFields } from '../../../store/models/bookInfoFields'
 
 import InputItem from '../../atoms/InputItem'
 import { getBookInput } from '../../../store/selectors'
-import { IStoreData } from '../StartChange'
+
 
 interface IProps {
   data: any;  // пока неизвестен точный формат данных, приходящих с бэка
