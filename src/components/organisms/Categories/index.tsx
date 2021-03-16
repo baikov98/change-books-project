@@ -3,12 +3,11 @@ import { Controller, Control, ControllerRenderProps, FieldValues, FieldErrors } 
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { getBookCategories } from '../../../store/selectors'
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box,  Typography } from "@material-ui/core";
-
-import { Accordion, AccordionSummary } from './customComponents'
+  
 import CheckBox from '../../atoms/CheckBox'
 
 interface ICategory {
@@ -58,7 +57,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
           <Accordion key={item.title[0]+index} className={classes.accordion}>
               <AccordionSummary
                 expandIcon={<KeyboardArrowRightIcon />}
-                aria-controls="panel1a-content"
+                className={classes.accordionSummary}
                 classes={{
                   expandIcon: classes.expandIcon,
                 }}
@@ -74,7 +73,7 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
                    
                   const defaultValue = valuesArray.some((i: any) => name === i)
 
-                  return <Box key={name}>
+                  return <Box key={name} className={classes.accordionCheckbox} >
                           <Controller
                               name={name} 
                               control={control} 
