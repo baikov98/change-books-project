@@ -12,10 +12,12 @@ import StartChangePage from "../../pages/StartChangePage";
 import FeedbackPage from "../../pages/FeedbackPage";
 import AccessEmailPage from "../../pages/Auth/AccessEmailPage";
 import PoliticsPage from "../../pages/PoliticsPage";
+import UserChangePage from "../../pages/UserChangePage";
 
 const MainRouter = () => (
   <MainLayout header={<Header />}>
     <Switch>
+      <Route component={UserChangePage} strict path={routes.userChange} />
       <Route component={MainPage} exact path={routes.main} />
       <Route component={StartChangePage} exact path={routes.start} />
       <Route component={FeedbackPage} exact path={routes.feedback} />
