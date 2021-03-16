@@ -17,7 +17,6 @@ const AccessEmail: React.FC = () => {
   return (
     <Box className={classes.root}>
       <Typography className={classes.title}>
-        {" "}
         Ваш e-mail успешно подтверждён!
       </Typography>
       <ButtonItem
@@ -26,7 +25,6 @@ const AccessEmail: React.FC = () => {
         btnClassName={classes.btn}
         onClick={handleClick}
       >
-        {" "}
         Начать обмен
       </ButtonItem>
     </Box>

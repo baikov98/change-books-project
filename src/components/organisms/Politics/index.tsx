@@ -8,7 +8,6 @@ const Politics: React.FC = () => {
   return (
     <Box className={classes.root}>
       <Typography className={classes.title}>
-        {" "}
         Политика конфиденциальности
       </Typography>
     </Box>
