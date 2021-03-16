@@ -57,3 +57,7 @@ deploy-to-review:
     - test
     - master
     - devops
+  when: manual
+  tags:
+    - docker
+
