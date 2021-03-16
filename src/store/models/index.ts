@@ -9,10 +9,9 @@ import { navbar } from './navbar'
 import { offersExchange } from './offersExchange'
 import { activeExchange } from './activeExchange'
 import { feedBack } from './feedBack'
-
-import { requestData } from './requestData'
 import { requestExchangeBooks } from './requestExchangeBooks'
 import { requestWishBooks } from './requestWishBooks'
+import { archiveExchange } from './archiveExchange' 
 
 export interface RootModel extends Models<RootModel> {
     menu: typeof menu;
@@ -24,10 +23,10 @@ export interface RootModel extends Models<RootModel> {
     offersExchange: typeof offersExchange;
     activeExchange: typeof activeExchange;
     bookCategories: typeof bookCategories;
-    requestData: typeof requestData;
     requestExchangeBooks: typeof requestExchangeBooks;
     requestWishBooks: typeof requestWishBooks;
     feedBack: typeof feedBack;
+    archiveExchange: typeof archiveExchange;
 }
 
 export const models: RootModel = { 
@@ -40,8 +39,8 @@ export const models: RootModel = {
     offersExchange,
     activeExchange,
     bookCategories,
-    requestData,
     requestExchangeBooks,
     requestWishBooks,
     feedBack,
+    archiveExchange
  }

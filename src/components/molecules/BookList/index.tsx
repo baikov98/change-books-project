@@ -14,6 +14,7 @@ interface IProps {
   title?: string;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  icon?: boolean;
 }
 
 const BookList: React.FC<IProps> = ({
@@ -21,6 +22,7 @@ const BookList: React.FC<IProps> = ({
   className,
   onClick,
   title = "",
+  icon,
 }: IProps) => {
   const classes = useStyles();
 
@@ -28,7 +30,8 @@ const BookList: React.FC<IProps> = ({
 
   return (
     <Box className={classBox} onClick={onClick}>
-      {title && <Typography className={classes.title}>{title}</Typography>}
+      {title && <Typography className={icon ? classes.exchangeTitle : classes.title}
+                  >{title}</Typography>}
       {!!data.length &&
         data.map((item: IData, index: number) => (
           <CatAndValue

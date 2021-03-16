@@ -10,6 +10,6 @@ const AppRoutes = () => (
     <Route component={UserExchangeRouter} strict path={routes.userChange} />
     <Route component={MainRouter} path={routes.main} />
   </Switch>
-);
+); 
 
 export default AppRoutes;

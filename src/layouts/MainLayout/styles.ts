@@ -14,7 +14,7 @@ export const useStyles = makeStyles(() => ({
         height: 80,
         maxWidth: 1180,
         background: Colors.white,
-        borderBottom: `1px solid ${Colors.bg}`
+        borderBottom: `1px solid ${Colors.bg}`,
     },
     content: {
         display: "flex",

@@ -127,6 +127,14 @@ const ExchangeStatus = ({ id }: IProps) => {
           </ButtonItem>
         </Box>
       );
+    case 7:
+      return (
+        <Box className={classes.underBox}>
+          <Typography className={classes.warning}>
+            Обмен завершён
+          </Typography>
+        </Box>
+      )
     default:
       return null;
   }

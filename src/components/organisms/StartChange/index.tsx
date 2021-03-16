@@ -9,6 +9,7 @@ import { useForm, Control, FieldErrors } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData";
+import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
 
 import ProgressIndicator from "../../atoms/ProgressIndicator"
@@ -21,31 +22,19 @@ export interface IStoreData {
   [key: string]: string | boolean | Array<string[]>
 }
 
-interface IStartExchangeData {
-  step1: {},
-  step2: {},
-  step3: {},
-}
-
-interface ICategoryListItem {
-  category: string;
-  value: string[][]
-}
-
-interface IData {
-  [key: string]: string | boolean | ICategoryListItem[]
+interface IStepData {
+  step1: IData;
+  step2: IData;
 }
 
 export interface ITabsData {
   step: number; 
-  storeData: IData; 
-  submit: (data: IStoreData) => void;
+  storeData: IStepData; 
+  submit: (data: IData) => void;
   handleBackButtonClick: () => void;
-  control: Control;
-  errors: FieldErrors;
 }
 
-function getStepContent(tabsData: any) { 
+function getStepContent(tabsData: ITabsData) { 
   switch (tabsData.step) {
     case 0:
       return <Step1 tabsData={tabsData} />;  
@@ -80,9 +69,9 @@ const StartChange: React.FC<IProps> = () => {
     if (step === 2) {
       dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
       dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
-      history.push('userChange')
+      history.push('userChange/offer')
     }
-  }
+  } 
   const handleBackButtonClick = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };

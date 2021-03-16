@@ -92,6 +92,7 @@ export const requestWishBooks = createModel<RootModel>()({
         return {
           ...state,
           data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
+          // эта страшная конструкция тут до появления бэка
         }
       },
     },
