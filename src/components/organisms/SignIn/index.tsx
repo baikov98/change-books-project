@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useStyles } from "./styles";
 
 import { Typography, Box } from "@material-ui/core";
@@ -6,12 +6,14 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoginModal } from "../../../store/selectors";
+
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
 import CloseIcon from "@material-ui/icons/Close";
 import Popover from "@material-ui/core/Popover";
 import SocialItems from "../../atoms/SocialItems";
-import { useDispatch } from "react-redux";
 
 type IFormInput = {
   email: string;
@@ -20,9 +22,19 @@ type IFormInput = {
 
 const SignIn: React.FC = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const componentRef = useRef<HTMLDivElement>(null);
+  const isOpen = useSelector(getLoginModal);
+  const [open, setOpen] = useState<boolean>(isOpen);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLDivElement>(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setOpen(isOpen);
+  }, [isOpen]);
+
+  useEffect(() => {
+    setAnchorEl(componentRef.current);
+  }, []);
 
   const history = useHistory();
   const {
@@ -30,8 +42,6 @@ const SignIn: React.FC = () => {
     control,
     errors,
     reset,
-    setError,
-    register,
     clearErrors,
   } = useForm<IFormInput>({
     resolver: yupResolver(VALIDATION.SIGN_IN),
@@ -40,7 +50,7 @@ const SignIn: React.FC = () => {
   const handleClose = () => {
     reset();
     setOpen(false);
-    setAnchorEl(null);
+    dispatch.menu.SET_MODAL(false);
   };
 
   const submit = (data: IFormInput) => {
@@ -54,14 +64,17 @@ const SignIn: React.FC = () => {
     history.push("/forgetPass");
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const handleClick = () => {
     setOpen((prev) => !prev);
   };
 
   return (
     <Box className={classes.root}>
-      <Typography onClick={handleClick} className={classes.enter}>
+      <Typography
+        onClick={handleClick}
+        className={classes.enter}
+        ref={componentRef}
+      >
         Войти
       </Typography>
       <Popover
