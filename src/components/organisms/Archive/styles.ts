@@ -46,6 +46,11 @@ export const useStyles = makeStyles({
       width: '100%',
       marginTop: 32,
   },
+  link: {
+    color: Colors.blue,
+    cursor: 'pointer',
+    marginTop: 22,
+  },
   last:{
     borderBottom: 0,
   },

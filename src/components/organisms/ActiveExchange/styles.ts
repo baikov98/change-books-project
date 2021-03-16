@@ -26,7 +26,7 @@ export const useStyles = makeStyles({
     gridColumnGap: 12,
     width: '100%',
     borderBottom: `1px solid ${Colors.gray}`,
-    cursor: 'pointer',
+    
   },
   title:{
       fontSize: 14,
@@ -45,6 +45,11 @@ export const useStyles = makeStyles({
   status:{
       width: '100%',
       marginTop: 32,
+  },
+  link: {
+    color: Colors.blue,
+    cursor: 'pointer',
+    marginTop: 22,
   },
   last:{
     borderBottom: 0,

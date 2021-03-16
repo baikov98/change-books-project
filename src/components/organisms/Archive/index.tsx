@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { getArchiveExchange } from "../../../store/selectors";
 import { links } from "../../../routes";
 
-import ArchiveList from "../../molecules/ArchiveList";
+import BookList from "../../molecules/BookList";
 import CatAndValue from "../../atoms/CatAndValue";
 import Crumbs from "../../molecules/Crumbs";
 
@@ -36,11 +36,10 @@ const Archive: React.FC = () => {
                 classes.contentLine,
                 index === data.length - 1 ? classes.last : ""
               )}
-              onClick={() => handleClick(item?.id)}
               key={`contentLine-${index} - ${item.id}`}
             >
               <Box className={classes.book}>
-                <ArchiveList data={item?.info.lines} title={item?.info.title} />
+                <BookList data={item?.info.lines} title={item?.info.title} />
 
                 <Box className={classes.status}>
                   <CatAndValue
@@ -49,12 +48,16 @@ const Archive: React.FC = () => {
                     value={item?.status}
                   />
                 </Box>
+                <Box className={classes.link}
+                     onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
               </Box>
               <Box className={classes.book}>
-                <ArchiveList data={item?.info.user} title='От кого' />
+                <BookList data={item?.info.user} title='От кого' />
               </Box>
               <Box className={classes.book}>
-                <ArchiveList data={item?.book.lines} title={item?.book.title} titleIcon={true} />
+                <BookList data={item?.book.lines} 
+                                title={item?.book.title} 
+                                icon={true} />
               </Box>
             </Box>
           ))}

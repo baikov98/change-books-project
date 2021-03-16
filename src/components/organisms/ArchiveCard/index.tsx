@@ -10,14 +10,14 @@ import Crumbs from "../../molecules/Crumbs";
 import BookList from "../../molecules/BookList";
 import ExchangeStatus from "../../molecules/ExchangeStatus";
 
-const ExchangeCard: React.FC = () => {
+const ArchiveCard: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
   const data = useSelector(getBookInfo);
 
   const crumbs = [
     {
-      value: "Активные обмены",
+      value: "Архив",
       link: location.pathname.split("/").splice(0, 3).join("/"),
     },
     { value: "Карточка обмена", link: location.pathname },
@@ -53,8 +53,7 @@ const ExchangeCard: React.FC = () => {
                   </Box>
                 </Box>
                 <Box>
-                  <ExchangeStatus id={item?.info.status} />
-                  <ExchangeStatus id={item?.book.status} />
+                  <ExchangeStatus id={7} />
                 </Box>
               </>
             ) : null
@@ -64,4 +63,4 @@ const ExchangeCard: React.FC = () => {
   );
 };
 
-export default ExchangeCard;
+export default ArchiveCard;

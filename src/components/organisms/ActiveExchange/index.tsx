@@ -28,22 +28,13 @@ const ActiveExchange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
-        <Box className={classes.titleLine}>
-          <Typography className={classes.title}>
-            Хочу получить (полное совпадение)
-          </Typography>
-          <Typography className={classes.title}>
-            Хочу отдать (полное совпадение)
-          </Typography>
-        </Box>
         {!!data.length &&
           data.map((item, index) => (
             <Box
               className={cn(
-                classes.contentLine,
+                classes.contentLine, 
                 index === data.length - 1 ? classes.last : ""
               )}
-              onClick={() => handleClick(item?.id)}
               key={`contentLine-${index} - ${item.id}`}
             >
               <Box className={classes.book}>
@@ -56,10 +47,14 @@ const ActiveExchange: React.FC = () => {
                     value={item?.status}
                   />
                 </Box>
+                <Box className={classes.link}
+                     onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
               </Box>
-
               <Box className={classes.book}>
-                <BookList data={item?.book.lines} title={item?.book.title} />
+                <BookList data={item?.info.user} title={'От кого'} />
+              </Box>
+              <Box className={classes.book}>
+                <BookList data={item?.book.lines} title={item?.book.title} icon={true} />
               </Box>
             </Box>
           ))}

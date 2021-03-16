@@ -24,7 +24,7 @@ const list =  [
       title: "Меняюсь",
       lines : [  
                 { category: "Автор", value: "Джоан Роулинг" },
-                { category: "Название", value: "Гарри Поттер и Дары Смерти" },
+                { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
                 { category: "Год издания", value: "2007" },
                 { category: "ISBN", value: "978-5-353-02907-6" },
               ], 
@@ -52,7 +52,7 @@ const list =  [
       title: "Меняюсь",
       lines : [  
                 { category: "Автор", value: "Джоан Роулинг" },
-                { category: "Название", value: "Гарри Поттер и Дары Смерти" },
+                { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
                 { category: "Год издания", value: "2007" },
                 { category: "ISBN", value: "978-5-353-02907-6" },
               ], 
@@ -80,7 +80,7 @@ const list =  [
         title: "Меняюсь",
         lines : [  
                   { category: "Автор", value: "Джоан Роулинг" },
-                  { category: "Название", value: "Гарри Поттер и Дары Смерти" },
+                  { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
                   { category: "Год издания", value: "2007" },
                   { category: "ISBN", value: "978-5-353-02907-6" },
                 ], 

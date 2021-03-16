@@ -5,7 +5,7 @@ export const useStyles = makeStyles({
     root: {
         color: Colors.text,
         overflowX:"auto",
-        width:"100%"
+        width:"100%",
     },
     wrapper:{
         background: Colors.white,
