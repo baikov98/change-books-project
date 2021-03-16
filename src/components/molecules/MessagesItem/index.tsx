@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import cn from "classnames";
 import { useStyles } from "./styles";
 
-import {
-  Box,
-  Typography,
-} from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 
 
 interface IProps {
@@ -16,10 +12,11 @@ const MessagesItem: React.FC<IProps> = ({data}: IProps) => {
   const [readmore, setReadmore] = useState(true)
   const classes = useStyles(); 
   const readmoreButtonText = readmore ? 'Читать полностью' : 'Свернуть'
+  const opened = classes.opened
   const handleClick = () => {
     setReadmore(!readmore)
   };
-  const opened = classes.opened
+  
   return (
     <Box className={classes.root} >
       <Typography className={readmore ? classes.topic : opened}>{data.topic}</Typography>
@@ -28,7 +25,7 @@ const MessagesItem: React.FC<IProps> = ({data}: IProps) => {
         <Typography className={classes.button}
                     onClick={handleClick}
             >{readmoreButtonText}
-          </Typography>
+        </Typography>
       </Typography>
       <Typography>{data.date}</Typography>
     </Box>

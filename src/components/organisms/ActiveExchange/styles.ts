@@ -21,12 +21,14 @@ export const useStyles = makeStyles({
   },
   contentLine:{
     marginTop: 12,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(200px, 1fr))',
-    gridColumnGap: 12,
+    display: 'flex',
     width: '100%',
+  },
+  contextBox: {
     borderBottom: `1px solid ${Colors.gray}`,
-    
+  },
+  statusBox: {
+    marginBottom: 22,
   },
   title:{
       fontSize: 14,
@@ -38,13 +40,12 @@ export const useStyles = makeStyles({
     fontSize: 18,
     fontWeight: 500,
   },
-  book:{
+  book: {
       marginTop: 12,
-      paddingBottom: 20,
+      marginRight: '5rem',
   },  
   status:{
       width: '100%',
-      marginTop: 32,
   },
   link: {
     color: Colors.blue,

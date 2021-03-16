@@ -30,6 +30,7 @@ const ActiveExchange: React.FC = () => {
         <Crumbs data={crumbs} />
         {!!data.length &&
           data.map((item, index) => (
+          <Box className={classes.contextBox}>
             <Box
               className={cn(
                 classes.contentLine, 
@@ -39,24 +40,26 @@ const ActiveExchange: React.FC = () => {
             >
               <Box className={classes.book}>
                 <BookList data={item?.info.lines} title={item?.info.title} />
-
-                <Box className={classes.status}>
-                  <CatAndValue
-                    valueBold
-                    category={"Статус обмена"}
-                    value={item?.status}
-                  />
-                </Box>
-                <Box className={classes.link}
-                     onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
               </Box>
               <Box className={classes.book}>
-                <BookList data={item?.info.user} title={'От кого'} />
+                <BookList data={item?.info.user} 
+                          title={`${item?.book.lines[0].value} "${item?.book.lines[1].value}"`}
+                          icon={true} />
               </Box>
-              <Box className={classes.book}>
-                <BookList data={item?.book.lines} title={item?.book.title} icon={true} />
-              </Box>
+              
             </Box>
+            <Box className={classes.statusBox}>
+              <Box className={classes.status}>
+                <CatAndValue
+                  valueBold
+                  category={"Статус обмена"}
+                  value={item?.status}
+                />
+              </Box>
+              <Box className={classes.link}
+                      onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
+            </Box>
+        </Box>
           ))}
       </Box>
     </Box>
@@ -64,3 +67,7 @@ const ActiveExchange: React.FC = () => {
 };
 
 export default ActiveExchange;
+
+/* <Box className={classes.book}>
+                <BookList data={item?.book.lines} title={item?.book.title} icon={true} />
+              </Box> */
