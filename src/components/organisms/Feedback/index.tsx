@@ -180,7 +180,8 @@ const Feedback: React.FC = () => {
                   <CheckBox
                     error={errors.terms?.message}
                     label={`Нажимая кнопку "ОТПРАВИТЬ" вы соглашаетесь с полититкой хранения и обработки персональных данных 
-                  в соответствии с политикой конфиденциальности`}
+                  в соответствии с `}
+                    labelLink={"политикой конфиденциальности"}
                     onChange={(e) => onChange(e.target.checked)}
                     checked={value}
                   />

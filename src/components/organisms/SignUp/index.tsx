@@ -156,7 +156,8 @@ const SignUp: React.FC = () => {
               <CheckBox
                 error={errors.terms?.message}
                 label={`Нажимая кнопку "СОЗДАТЬ АККАУНТ" вы соглашаетесь с полититкой хранения и обработки персональных данных 
-                  в соответствии с политикой конфиденциальности данных`}
+                  в соответствии с `}
+                labelLink={"политикой конфиденциальности"}
                 onChange={(e) => onChange(e.target.checked)}
                 checked={value}
               />
