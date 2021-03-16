@@ -21,6 +21,8 @@ export const getActiveExchange = (state: RootState) => state.activeExchange.list
 
 export const getArchiveExchange = (state: RootState) => state.archiveExchange.list;
 
+export const getMessages = (state: RootState) => state.messages.list;
+
 export const getBookCategories = (state: RootState) => {
   return state.bookCategories.main;
 };
