@@ -12,7 +12,7 @@ const initialState = {
       link: "/"
      },
      {
-      title: "Начать обмены",
+      title: "Начать обмен",
       link: "/start"
      },
      {

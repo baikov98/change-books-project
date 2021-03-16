@@ -13,6 +13,8 @@ import { VALIDATION } from "../../../constants";
 import SocialItems from "../../atoms/SocialItems";
 import CheckBox from "../../atoms/CheckBox";
 import { getMainInput, getAdressInput } from "../../../store/selectors";
+import DialogItem from "../../molecules/DialogItem";
+import { useHistory } from "react-router-dom";
 
 type IFormInput = {
   name: string;
@@ -36,8 +38,15 @@ const SignUp: React.FC = () => {
   const mainInput = useSelector(getMainInput);
   const adressInput = useSelector(getAdressInput);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const { handleSubmit, control, errors, reset } = useForm<IFormInput>({
+  const {
+    handleSubmit,
+    control,
+    errors,
+    reset,
+    formState,
+  } = useForm<IFormInput>({
     mode: "onChange",
     resolver: yupResolver(VALIDATION.SIGN_UP),
   });
@@ -46,6 +55,24 @@ const SignUp: React.FC = () => {
     reset();
     dispatch.user.registration(data);
   };
+
+  const handleDialogClick = () => {
+    history.push("/");
+  };
+
+  if (formState.isSubmitSuccessful) {
+    return (
+      <DialogItem
+        title={"Спасибо за регистрацию!"}
+        value={
+          "Вам на почту должна придти ссылка на подтверждение регистрации. Проверьте также папку 'Спам'"
+        }
+        open={formState.isSubmitSuccessful}
+        onClose={handleDialogClick}
+        onClick={handleDialogClick}
+      />
+    );
+  }
 
   return (
     <Box className={classes.root}>
@@ -129,7 +156,8 @@ const SignUp: React.FC = () => {
               <CheckBox
                 error={errors.terms?.message}
                 label={`Нажимая кнопку "СОЗДАТЬ АККАУНТ" вы соглашаетесь с полититкой хранения и обработки персональных данных 
-                  в соответствии с политикой конфиденциальности данных`}
+                  в соответствии с `}
+                labelLink={"политикой конфиденциальности"}
                 onChange={(e) => onChange(e.target.checked)}
                 checked={value}
               />

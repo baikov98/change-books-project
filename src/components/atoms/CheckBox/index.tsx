@@ -3,9 +3,11 @@ import cn from "classnames";
 import { FormControlLabel, Box, Checkbox, Typography } from "@material-ui/core";
 
 import { useStyles } from "./styles";
+import { Link } from "react-router-dom";
 
 export interface IProps {
   label?: string;
+  labelLink?: string;
   checked: boolean;
   disabled?: boolean;
   className?: string;
@@ -20,10 +22,18 @@ const CheckBox: React.FC<IProps> = ({
   error,
   label,
   disabled,
+  labelLink,
 }) => {
   const classes = useStyles();
 
   const classBox = cn(classes.wrapper, className);
+
+  const link = (
+    <Link className={classes.link} to="/politics">
+      {labelLink}
+    </Link>
+  );
+
   return (
     <Box className={classBox}>
       <FormControlLabel
@@ -44,7 +54,11 @@ const CheckBox: React.FC<IProps> = ({
             className={classes.checkbox}
           />
         }
-        label={<Typography className={classes.label}>{label}</Typography>}
+        label={
+          <Typography className={classes.label}>
+            {label} {labelLink ? link : null}
+          </Typography>
+        }
       />
       {error && <Typography className={classes.error}>{error}</Typography>}
     </Box>

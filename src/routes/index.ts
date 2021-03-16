@@ -1,6 +1,8 @@
 const mainRoutes = {
     main: "/",
     start: "/start",
+    accessEmail: "/access",
+    politics: "/politics",
     userChange: "/userChange",
     feedback: "/feedback",
     forgetPass: "/forgetPass",

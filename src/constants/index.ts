@@ -89,8 +89,22 @@ export const VALIDATION = {
     TRACKING: yup.object().shape({
         track: yup.string().trim().max(15).required('Введите трек номер'),
     }),
-    ASK_QUESTION: yup.object().shape({
-        topic: yup.string().trim().max(64).required('Укажите пожалуйста тему обращения'),
-        text: yup.string().trim().max(255).required('Это поле не может быть пустым'),
-    }),
+    FEEDBACK: {
+        AUTH: yup.object().shape({
+            topic: yup.string().trim().max(100).required('Укажите пожалуйста тему обращения'),
+            text: yup.string().trim().max(1024).required('Это поле не может быть пустым'),
+        }),
+        NOT_AUTH: yup.object().shape({
+            topic: yup.string().trim().max(100).required('Укажите пожалуйста тему обращения'),
+            text: yup.string().trim().max(1024).required('Это поле не может быть пустым'),
+            name: yup.string().trim().max(64).required(texts.name),
+            secondName: yup.string().trim().max(64).required(texts.secondName),
+            email: yup
+            .string()
+            .matches(emailMatches, "Email не корректен ")
+            .required("Email обязательное поле"),
+            terms: yup.boolean().oneOf([true], 'Данное поле должно быть выбранно').required('Это обязательное поле')
+        }),
+        
+    },
 }   

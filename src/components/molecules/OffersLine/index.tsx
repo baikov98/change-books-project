@@ -38,7 +38,10 @@ const OffersLine: React.FC<IProps> = ({
       {title && <Typography className={classes.title}>{title}</Typography>}
       {!!data.length &&
         data.map((item: any, index: number) => (
-          <Accordion className={classes.accordion} key={`accordion-${index}`}>
+          <Accordion
+            className={classes.accordion}
+            key={`accordion-${index}-${new Date()}`}
+          >
             <AccordionSummary
               expandIcon={<KeyboardArrowRightIcon />}
               className={classes.accordionSummary}
