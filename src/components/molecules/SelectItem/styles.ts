@@ -5,10 +5,14 @@ import { IProps } from "./index";
 export const useStyles =  makeStyles(() => ({
     input:{
         width: "100%",
-        marginTop: 12,
         border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid ${Colors.bg}`,
-        padding: 12,
+        padding: '18px 12px',
+        position: 'relative',
+        outline: 'none',
         borderRadius: 4,
+        '&:focus': {
+          background: Colors.white,
+        },
     },
     inputLabel:{
       fontSize: 14,
@@ -24,13 +28,31 @@ export const useStyles =  makeStyles(() => ({
       fontWeight: 500,
       marginLeft: 8,
     },
-    endIcon:{
+    formControl: {
+      width: '100%',
+      marginTop: 12,
+    },
+    selectEmpty: {
+      borderRadius: 0,
+    },
+    menuItem:{
+      // background: Colors.white,
+    },
+    paper:{
+      boxShadow: 'none',
+      borderBottomRightRadius: 4,
+      borderBottomLeftRadius: 4,
+      border: `1px solid ${Colors.bg}`,
+      borderTop: 'none',
+    },
+    icon:{
+      marginRight: 12,
       fill: Colors.darkGray,
-      width: 16,
-      height: 16,
-      cursor: 'pointer',
-      '&:hover': {
-        fill: Colors.textGray,
+      '&:active': {
+        transform: 'rotate(90deg)',
       }
     },
+    iconOpen:{
+      transform: 'rotate(180deg)',
+    }
 }), {index:1});

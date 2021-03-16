@@ -14,6 +14,7 @@ import ActiveExchangePage from "../../pages/ActiveExchangePage";
 import PersonalDataPage from "../../pages/PersonalDataPage";
 import ArchivePage from "../../pages/ArchivePage";
 import ArchiveCardPage from "../../pages/ArchiveCardPage";
+import ReviewPage from "../../pages/ReviewPage";
 
 const UserChangeRouter = () => (
   <SideLayout header={<Header />} sideBarLeft={<Sidebar />}>
@@ -27,6 +28,7 @@ const UserChangeRouter = () => (
       <Route component={PersonalDataPage} exact path={routes.personal} />
       <Route component={ArchiveCardPage} exact path={routes.archiveCard} />
       <Route component={ArchivePage} exact path={routes.archive} />
+      <Route component={ReviewPage} exact path={routes.review} />
     </Switch>
   </SideLayout>
 );
