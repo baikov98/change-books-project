@@ -16,6 +16,7 @@ build in gitlab:
     - develop
     - test
     - master
+    - devops
   when: manual
   tags:
     - docker
@@ -35,6 +36,7 @@ build in dockerhub:
     - develop
     - test
     - master
+    - devops
   when: manual
   tags:
     - docker
