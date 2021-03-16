@@ -47,7 +47,7 @@ const ArchiveCard: React.FC = () => {
                   <Box className={classes.book}>
                     <BookList
                       data={item?.book.lines}
-                      title={item?.book.title}
+                      title={'Меняюсь'}
                       icon={true}
                     />
                   </Box>

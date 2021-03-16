@@ -23,7 +23,7 @@ const bookInfo =  [
             rating: "4.9"
             },
           book : {
-            title: "Меняюсь",
+            title: 'Джоан Роулинг "Гарри Поттер и Дары Смерти"',
             status: 4,
             lines : [  
                       { category: "Автор", value: "Джоан Роулинг" },
@@ -56,7 +56,7 @@ const bookInfo =  [
             rating: "4.6"
             },
           book : {
-            title: "Меняюсь",
+            title: 'Джоан Роулинг "Гарри Поттер и Дары Смерти"',
             status: 4,
             lines : [  
                       { category: "Автор", value: "Джоан Роулинг" },
