@@ -47,20 +47,19 @@ const OffersLine: React.FC<IProps> = ({
               }}
             >
               <Box className={classes.wrapperAccordionSummary}>
-                <Box className={classes.mainInfo}>
-                  <Typography className={classes.accordionTitle}>
+                
+                  <Typography className={classes.accordionBook}>
                     {item?.info?.title}
                   </Typography>
                   <Typography className={classes.accordionTitle}>
                     {item?.info?.city}
                   </Typography>
-                  <Typography className={classes.accordionTitle}>
+                  <Typography className={classes.accordionIcon}>
                     {item?.info?.rating}
                   </Typography>
-                </Box>
-                <Typography className={classes.accordionTitle}>
-                  {item?.book?.title}
-                </Typography>
+                  <Typography className={classes.accordionBookDetails}>
+                    {item?.book?.title}
+                  </Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>

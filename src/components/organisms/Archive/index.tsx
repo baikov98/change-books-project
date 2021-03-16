@@ -5,34 +5,35 @@ import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getActiveExchange } from "../../../store/selectors";
+import { getArchiveExchange } from "../../../store/selectors";
 import { links } from "../../../routes";
 
 import BookList from "../../molecules/BookList";
 import CatAndValue from "../../atoms/CatAndValue";
 import Crumbs from "../../molecules/Crumbs";
 
-const ActiveExchange: React.FC = () => {
+const Archive: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
-  const data = useSelector(getActiveExchange);
+  const data = useSelector(getArchiveExchange);
 
-  const crumbs = [{ value: "Активные обмены", link: location.pathname }];
+  const crumbs = [{ value: "Архив", link: location.pathname }];
 
   const handleClick = (value: number) => {
-    history.push(links.activeCard(value.toString()));
+    history.push(links.archiveCard(value.toString()));
   };
 
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
+
         {!!data.length &&
           data.map((item, index) => (
             <Box
               className={cn(
-                classes.contentLine, 
+                classes.contentLine,
                 index === data.length - 1 ? classes.last : ""
               )}
               key={`contentLine-${index} - ${item.id}`}
@@ -51,10 +52,12 @@ const ActiveExchange: React.FC = () => {
                      onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
               </Box>
               <Box className={classes.book}>
-                <BookList data={item?.info.user} title={'От кого'} />
+                <BookList data={item?.info.user} title='От кого' />
               </Box>
               <Box className={classes.book}>
-                <BookList data={item?.book.lines} title={item?.book.title} icon={true} />
+                <BookList data={item?.book.lines} 
+                                title={item?.book.title} 
+                                icon={true} />
               </Box>
             </Box>
           ))}
@@ -63,4 +66,4 @@ const ActiveExchange: React.FC = () => {
   );
 };
 
-export default ActiveExchange;
+export default Archive;

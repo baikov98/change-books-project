@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Colors } from "../../../styles/Colors";
+import star from "../../../assets/svg/star.svg";
+import exchange from "../../../assets/svg/exchange.svg";
 
 export const useStyles = makeStyles({
     title:{
@@ -40,9 +42,8 @@ export const useStyles = makeStyles({
         },
     },
     wrapperAccordionSummary:{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 3fr',
         width: '100%',
     },
     mainInfo:{
@@ -74,6 +75,38 @@ export const useStyles = makeStyles({
         '&:last-child':{
         marginRight: 0,
         }
+    },
+    accordionBook: {
+        fontWeight: 700,
+        fontSize: 14,
+    },
+    accordionBookDetails: {
+        fontWeight: 700,
+        fontSize: 14,
+        position: 'relative',
+        '&::before': {
+            content: "' '",
+            display: 'block',
+            position: 'absolute',
+            left: -26,
+            top: -2,
+            height: 24,
+            width: 24,
+            backgroundImage: `url(${exchange})`
+          }
+    },
+    accordionIcon: {
+        position: 'relative',
+        '&::before': {
+            content: "' '",
+            display: 'block',
+            position: 'absolute',
+            left: -20,
+            top: 4,
+            height: 16,
+            width: 16,
+            backgroundImage: `url(${star})`
+          }
     },
     expandIcon: { 
         '&.Mui-expanded': {

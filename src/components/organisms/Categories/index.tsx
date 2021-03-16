@@ -1,27 +1,36 @@
 import React from "react";
-import {Controller, Control, ControllerRenderProps, FieldValues} from 'react-hook-form'
+import { Controller, Control, ControllerRenderProps, FieldValues, FieldErrors } from 'react-hook-form'
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
 import { getBookCategories } from '../../../store/selectors'
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box,  Typography } from "@material-ui/core";
-
-import { Accordion, AccordionSummary } from './customComponents'
+  
 import CheckBox from '../../atoms/CheckBox'
-import { IStoreData } from '../StartChange'
+
+interface ICategory {
+  title: string[];
+  opts: string[][]
+}
+
+interface IRequestCatList {
+  title: string;
+  value: string[][]
+}
 
 interface IProps {
   step: number;
   control: Control;
   data: any;        // пока неизвестен точный формат данных, приходящих с бэка
   setValue: (name: string, value: string | boolean) => void;
+  checkLimit?: boolean
 }
 
-const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
+const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimit }) => {
   const classes = useStyles(); 
-  const listOfCategories = useSelector(getBookCategories)
+  const listOfCategories: ICategory[] = useSelector(getBookCategories)
   const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
@@ -29,9 +38,19 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
       }) 
     })
   }
-  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>) => 
-                                 (event: React.ChangeEvent<HTMLInputElement>) => 
-                                    props.onChange(event.target.checked)           
+  const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка', 'Экранизация', 'Язык издания']
+  const handleRemovedCheckedInCategory = (category: ICategory) => {
+    if (onlyOneCheckBoxCategoryArray.includes(category.title[0])) {
+      category.opts.forEach(val => {
+        setValue(val[1], false)
+      })
+    }
+  }
+  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>, item: ICategory) =>  
+                                 (event: React.ChangeEvent<HTMLInputElement>) => {
+                                      if (checkLimit) handleRemovedCheckedInCategory(item)
+                                      props.onChange(event.target.checked)    
+                                  }       
   return (
       <Box>
       <Box className={classes.textBox}>
@@ -43,20 +62,24 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
           <Accordion key={item.title[0]+index} className={classes.accordion}>
               <AccordionSummary
                 expandIcon={<KeyboardArrowRightIcon />}
-                aria-controls="panel1a-content"
+                className={classes.accordionSummary}
+                classes={{
+                  expandIcon: classes.expandIcon,
+                }}
               >
                 <Typography className={classes.accordionTitle}>{item.title[0]}</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.accordionDetails}>
-                {item.opts.map((item, index) => {
-                  const name = item[1]
+                {item.opts.map((val, index) => {
+                  const name = val[1]
                   const valuesArray: [] = []
                   const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
-                  correctPath?.categoryList?.map((item: any) => item.value.map((i: any) => valuesArray.push(i[1] as never)))
+                  correctPath?.categoryList?.map((val: IRequestCatList) => 
+                  val.value.map((i: string[]) => valuesArray.push(i[1] as never)))
                    
                   const defaultValue = valuesArray.some((i: any) => name === i)
 
-                  return <Box key={name}>
+                  return <Box key={name} className={classes.accordionCheckbox} >
                           <Controller
                               name={name} 
                               control={control} 
@@ -65,9 +88,9 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue }) => {
                               render={(props) => (
                                 <FormControlLabel
                                   control={<CheckBox  
-                                            onChange={handleCheckBoxOnChange(props)}
+                                            onChange={handleCheckBoxOnChange(props, item)}
                                             checked={props.value} />}
-                                            label={item[0]}
+                                            label={val[0]}
                                   />
                                   )}
                           />
