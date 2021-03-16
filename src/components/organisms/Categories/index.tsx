@@ -59,6 +59,9 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
               <AccordionSummary
                 expandIcon={<KeyboardArrowRightIcon />}
                 aria-controls="panel1a-content"
+                classes={{
+                  expandIcon: classes.expandIcon,
+                }}
               >
                 <Typography className={classes.accordionTitle}>{item.title[0]}</Typography>
               </AccordionSummary>

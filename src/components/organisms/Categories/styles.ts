@@ -6,6 +6,14 @@ export const useStyles = makeStyles({
   accordionDetails: {
     display: 'block'
   },
+  expandIcon: { 
+    '&.Mui-expanded': {
+    transform: 'rotate(90deg)',
+    },
+    '& > .MuiTouchRipple-root': {
+    display: 'none'
+    }
+  },
   textGray: {
     fontSize: '12px',
     color: Colors.textGray,

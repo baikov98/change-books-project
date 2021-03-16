@@ -69,7 +69,7 @@ const StartChange: React.FC<IProps> = () => {
     if (step === 2) {
       dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
       dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
-      history.push('userChange')
+      history.push('userChange/offer')
     }
   } 
   const handleBackButtonClick = () => {
