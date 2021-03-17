@@ -4,32 +4,38 @@ import FormControl from "@material-ui/core/FormControl";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Select from "@material-ui/core/Select";
 import { Controller, Control } from "react-hook-form";
-import { Box, Typography } from "@material-ui/core";
+import { Box, MenuItem, Typography } from "@material-ui/core";
+
+interface IBook {
+  id: number;
+  idAuthor: number;
+  name: string;
+}
 
 export interface IProps {
   placeholder?: string;
   label?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
-  error?: string;
   name: string;
   control: Control;
   defaultValue?: string;
-  children: ReactChild[];
+  required?: boolean;
+  children?: ReactChild[] | ReactChild;
+  data: IBook[];
 }
 
-const SelectItem = (props: IProps) => {
-  const {
-    name,
-    label,
-    control,
-    defaultValue,
-    children,
-    error,
-    placeholder,
-  } = props;
-
-  const classes = useStyles(props);
+const SelectItem = ({
+  name,
+  label,
+  control,
+  defaultValue,
+  children,
+  placeholder,
+  required,
+  data,
+}: IProps) => {
+  const classes = useStyles();
   return (
     <Box className={classes.inputBox}>
       {label && <Typography className={classes.inputLabel}>{label}</Typography>}
@@ -41,6 +47,7 @@ const SelectItem = (props: IProps) => {
               disableUnderline
               IconComponent={ExpandMoreIcon}
               displayEmpty
+              required={required}
               className={classes.selectEmpty}
               placeholder={placeholder}
               classes={{
@@ -57,7 +64,12 @@ const SelectItem = (props: IProps) => {
                 classes: { paper: classes.paper },
               }}
             >
-              {children}
+              {!!data.length &&
+                data.map((item: IBook, index: number) => (
+                  <MenuItem key={`${index}-${item?.id}`} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
             </Select>
           }
           name={name}
@@ -65,9 +77,6 @@ const SelectItem = (props: IProps) => {
           defaultValue={defaultValue}
         />
       </FormControl>
-      {error && (
-        <Typography className={classes.error}>{`* ${error}`}</Typography>
-      )}
     </Box>
   );
 };

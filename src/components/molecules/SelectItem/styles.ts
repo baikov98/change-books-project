@@ -1,11 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Colors } from '../../../styles/Colors'
-import { IProps } from "./index";
+
 
 export const useStyles =  makeStyles(() => ({
     input:{
         width: "100%",
-        border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid ${Colors.bg}`,
+        border: `1px solid ${Colors.bg}`,
         padding: '18px 12px',
         position: 'relative',
         outline: 'none',
@@ -16,7 +16,7 @@ export const useStyles =  makeStyles(() => ({
     },
     inputLabel:{
       fontSize: 14,
-      color: ({error}: IProps) => error ? Colors.red: Colors.orange,
+      color:  Colors.orange,
       fontWeight: 700,
     },
     inputBox:{

@@ -38,6 +38,11 @@ export const useStyles = makeStyles({
     marginBottom:20,
     fontWeight: 700,
   },
+  btnSend:{
+    marginTop:20,
+    fontWeight: 700,
+    width: 270,
+  },
   buttonWrapper:{
     display: 'flex',
     justifyContent:'space-between',

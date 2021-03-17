@@ -107,4 +107,16 @@ export const VALIDATION = {
         }),
         
     },
+    REVIEW:{
+        STEP_1: yup.object().shape({
+            author: yup.string().trim().max(50).required(texts.author),
+            book: yup.string().trim().required("Выбирите произведение")
+        }),
+        STEP_2: yup.object().shape({
+            author: yup.string().trim().max(50).required(texts.author),
+            book: yup.string().trim().required("Выбирите произведение"),
+            text: yup.string().trim().max(1024).required('Это поле не может быть пустым'),
+        }),
+    } 
+    
 }   
