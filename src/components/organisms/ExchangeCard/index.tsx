@@ -9,7 +9,6 @@ import { getBookInfo } from "../../../store/selectors";
 import Crumbs from "../../molecules/Crumbs";
 import BookList from "../../molecules/BookList";
 import ExchangeStatus from "../../molecules/ExchangeStatus";
-import exchange from "../../../assets/svg/exchange.svg";
 
 const ExchangeCard: React.FC = () => {
   const classes = useStyles();

@@ -46,7 +46,6 @@ const ActiveExchange: React.FC = () => {
                           title={`${item?.book.lines[0].value} "${item?.book.lines[1].value}"`}
                           icon={true} />
               </Box>
-              
             </Box>
             <Box className={classes.statusBox}>
               <Box className={classes.status}>
@@ -67,7 +66,3 @@ const ActiveExchange: React.FC = () => {
 };
 
 export default ActiveExchange;
-
-/* <Box className={classes.book}>
-                <BookList data={item?.book.lines} title={item?.book.title} icon={true} />
-              </Box> */
