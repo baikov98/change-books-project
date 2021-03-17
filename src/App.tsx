@@ -7,6 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./App.css";
+import cookie from "./services/CookieService";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,6 +19,9 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
+  if (process.env.NODE_ENV === "development") {
+    cookie.set("token", "develop", { path: "/" }); //Удалить на продакшене
+  }
 
   return (
     <BrowserRouter>

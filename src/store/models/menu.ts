@@ -5,8 +5,8 @@ export interface IMenuItem {
   title: string;
   link: string;
 }
-const initialState = {
-   list: [
+
+const list = [
      {
       title: "Главная",
       link: "/"
@@ -23,15 +23,23 @@ const initialState = {
         title: "Обратная связь",
         link: "/feedback"
      },
-   ]
-}
+]
+
+const loginModal = false
 
 export const menu = createModel<RootModel>()({
   state: {
     error: null,
-    ...initialState,
+    list,
+    loginModal,
   },
   reducers: {
+    SET_MODAL: (state, payload: boolean) => {
+      return {
+        ...state,
+        loginModal: payload
+      }
+    },
   },
   effects: (dispatch) => ({
   

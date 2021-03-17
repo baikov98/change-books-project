@@ -3,6 +3,7 @@ import { RootState } from './../index';
 // NAVIGATION
 export const getList = (state: RootState) => state.menu.list;
 export const getNavList = (state: RootState) => state.navbar.list;
+export const getLoginModal = (state: RootState) => state.menu.loginModal;
 
 // USER
 export const getUser = (state: RootState) => state.user.currentUser;
