@@ -1,7 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Colors } from "../../../styles/Colors";
-import star from "../../../assets/svg/star.svg";
-import exchange from "../../../assets/svg/exchange.svg";
 
 export const useStyles = makeStyles({
     root: {
@@ -24,9 +22,7 @@ export const useStyles = makeStyles({
         overflow: 'hidden',
         textOverflow: 'ellipsis', 
     },
-    opened: {
-
-    },
+    opened: {},
     button: {
         cursor: 'pointer',
         color: Colors.blue,

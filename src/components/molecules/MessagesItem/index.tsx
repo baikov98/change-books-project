@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useStyles } from "./styles";
-
 import { Box, Typography } from "@material-ui/core";
-
 
 interface IProps {
   data: any; // демонстративные данные

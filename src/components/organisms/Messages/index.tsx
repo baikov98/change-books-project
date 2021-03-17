@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getMessages } from "../../../store/selectors";
-
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import MessagesItem from '../../molecules/MessagesItem'
@@ -22,7 +21,6 @@ const Messages: React.FC = () => {
         {messagesList.map((item) => (
           <MessagesItem data={item} />
         ))}
-
       </Box>
     </Box>
   );
