@@ -26,7 +26,6 @@ export const useStyles = makeStyles({
     gridColumnGap: 12,
     width: '100%',
     borderBottom: `1px solid ${Colors.gray}`,
-    cursor: 'pointer',
   },
   title:{
       fontSize: 14,
