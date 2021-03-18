@@ -33,7 +33,6 @@ const filterFormData = (data: IData, listOfCategories: IListCategories[]) => {
     for (let key in data) {
         if (typeof data[key] === 'boolean') delete data[key]
     }
-
     return data
 }
 

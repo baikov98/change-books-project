@@ -78,6 +78,9 @@ export const useStyles = makeStyles({
     textTransform: "lowercase",
     marginLeft: 20,
     marginBottom: 8,
+  },
+  formControl: {
+    display: 'block'
   }
 }, 
 );

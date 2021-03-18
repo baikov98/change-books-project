@@ -3,6 +3,10 @@ import { Colors } from "../../../styles/Colors";
 
 export const useStyles = makeStyles({
   root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
     color: Colors.text,
     overflow:"auto",
     width:"100%",
@@ -40,6 +44,7 @@ export const useStyles = makeStyles({
   }, 
   btn:{
     marginTop: 40,
+    width: 280,
   },
   imageBlock:{
     flex: '0 1 40%',
@@ -47,4 +52,23 @@ export const useStyles = makeStyles({
   image:{
     maxWidth: '100%',
   },
+  bold: {
+    fontWeight: 700
+  },
+  numContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gridColumnGap: 80,
+    marginTop: 100
+  },
+  containerItem: {},
+  bigNum: {
+    color: Colors.orange,
+    fontWeight: 700,
+    fontSize: 40,
+    textAlign: 'center'
+  },
+  numText: {
+    textAlign: 'center',
+  }
 }, {index: 3});

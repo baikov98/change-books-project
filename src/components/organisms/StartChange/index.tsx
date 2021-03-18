@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
-import { useForm, Control, FieldErrors } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData";
+import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
-
 import ProgressIndicator from "../../atoms/ProgressIndicator"
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
@@ -32,6 +29,9 @@ export interface ITabsData {
   storeData: IStepData; 
   submit: (data: IData) => void;
   handleBackButtonClick: () => void;
+  genresCheck: {
+    current: boolean
+  };
 }
 
 function getStepContent(tabsData: ITabsData) { 
@@ -47,6 +47,7 @@ function getStepContent(tabsData: ITabsData) {
 interface IProps {}
 
 const StartChange: React.FC<IProps> = () => {
+
   const classes = useStyles();
   const startExchange = useSelector(getStartExchangeState)
   const listOfCategories = useSelector(getBookCategories)
@@ -54,18 +55,15 @@ const StartChange: React.FC<IProps> = () => {
   const storeData = startExchange.data
   const dispatch = useDispatch()
   const history = useHistory();
-  const {
-    control,
-    errors,
-  } = useForm({
-    resolver: yupResolver(VALIDATION.BOOK_INFO)
-  });
-
-  const submit = (data: IData) => { 
+  const genresCheck = useRef(true)
+  const submit = (data: IData) => {
+    genresCheck.current = genresChecker(data)
     const filteredData = filterFormData(data, listOfCategories)
     const stepLabel = `step${step+1}`
-    dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
-    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+    if (genresCheck.current) {
+      dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
+      dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+    }
     if (step === 2) {
       dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
       dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
@@ -76,7 +74,7 @@ const StartChange: React.FC<IProps> = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };
   const tabsData = {
-    step, storeData, control, errors, submit, handleBackButtonClick
+    step, storeData, submit, handleBackButtonClick, genresCheck
   } 
   return (
     <Box className={classes.root}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, Control, ControllerRenderProps, FieldValues, FieldErrors } from 'react-hook-form'
 import { useStyles } from "./styles";
 import { useSelector } from "react-redux";
@@ -6,8 +6,8 @@ import { getBookCategories } from '../../../store/selectors'
 import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Box,  Typography } from "@material-ui/core";
-  
+import { Box, Typography, FormControl, FormHelperText } from "@material-ui/core";
+import { onlyOneCheckBoxCategoryArray } from '../../../store/models/bookCategories'
 import CheckBox from '../../atoms/CheckBox'
 
 interface ICategory {
@@ -26,9 +26,22 @@ interface IProps {
   data: any;        // пока неизвестен точный формат данных, приходящих с бэка
   setValue: (name: string, value: string | boolean) => void;
   checkLimit?: boolean
+  getValues?: (name?: string | string[]) => void
+  genresCheck?: {
+    current: boolean
+  };
 }
 
-const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimit }) => {
+const Categories: React.FC<IProps> = ({ 
+  step, 
+  control, 
+  data, 
+  setValue, 
+  checkLimit, 
+  getValues,
+  genresCheck
+}) => {
+
   const classes = useStyles(); 
   const listOfCategories: ICategory[] = useSelector(getBookCategories)
   const hangleRemoveAllChecked = () => {
@@ -38,7 +51,6 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
       }) 
     })
   }
-  const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка', 'Экранизация', 'Язык издания']
   const handleRemovedCheckedInCategory = (category: ICategory) => {
     if (onlyOneCheckBoxCategoryArray.includes(category.title[0])) {
       category.opts.forEach(val => {
@@ -52,12 +64,13 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
                                       props.onChange(event.target.checked)    
                                   }       
   return (
-      <Box>
+      <FormControl error={!genresCheck?.current} className={classes.formControl} > 
       <Box className={classes.textBox}>
         <Typography className={classes.textGray}>Категории</Typography>
         <Typography className={classes.checkBoxRemover} 
                     onClick={hangleRemoveAllChecked}>Снять все выделения</Typography>
       </Box>
+      <Box>
       {listOfCategories.map((item, index) => (
           <Accordion key={item.title[0]+index} className={classes.accordion}>
               <AccordionSummary
@@ -102,6 +115,8 @@ const Categories: React.FC<IProps> = ({ step, control, data, setValue, checkLimi
         )
       )}
       </Box>
+      {!genresCheck?.current ? (<FormHelperText>* Необходимо выбрать минимум 1 жанр</FormHelperText>) : null}
+      </FormControl>
   );
 };
 

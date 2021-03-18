@@ -25,7 +25,7 @@ export const useStyles = makeStyles({
   }, 
   editForm: {
     display: 'grid',
-    gridTemplateColumns: '1fr 2fr',
+    gridTemplateColumns: '1.5fr 3fr',
     gridColumnGap: 12,
   },
   btn:{

@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const Step2: React.FC<IProps> = ({ tabsData }) => {
-  const { step, storeData, submit, handleBackButtonClick } = tabsData
+  const { step, storeData, submit, handleBackButtonClick, genresCheck } = tabsData
   const classes = useStyles();
   const {
     setValue,
@@ -21,14 +21,16 @@ const Step2: React.FC<IProps> = ({ tabsData }) => {
   } = useForm({});
   const handleNextButtonClick = handleSubmit(submit)
   return (
-      <Box className={classes.wrapper}>
         <form>
-          <Categories step={step} control={control} data={storeData} setValue={setValue} /> 
+          <Categories step={step} 
+                      control={control} 
+                      data={storeData} 
+                      setValue={setValue}
+                      genresCheck={genresCheck} /> 
           <FormButtons step={step} 
                        handleBackButtonClick={handleBackButtonClick}
                        handleNextButtonClick={handleNextButtonClick} />
         </form>
-      </Box>
   );
 };
 
