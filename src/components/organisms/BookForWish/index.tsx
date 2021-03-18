@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import filterFormData from "../../../utils/filterFormData"; 
+import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
@@ -31,6 +32,7 @@ interface IProps {
 
 const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
+  const genresCheck = useRef(true)
   const exchangeBook = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
@@ -53,21 +55,26 @@ const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategorie
     })
        
   const submit = (formData: IData) => {
+    for (let key in formData) if (!formData[key]) delete formData[key]
+    genresCheck.current = Object.keys(formData).some((i) => genresCheckBoxNameArray.includes(i))
     const filteredData = filterFormData(formData, listOfCategories)
-    dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
-    handleSwitchEditState()
+    if (genresCheck.current) {
+      dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      handleSwitchEditState()
+    }
   }
   const handleEditFormSubmit = handleSubmit(submit)
   const bookFormItem = <form>
-                        <Box className={classes.editForm}>
-                            <Categories step={3} 
-                                        control={control} 
-                                        data={data} 
-                                        setValue={setValue} />
+                            <Box>
+                              <Categories step={3} 
+                                          control={control} 
+                                          data={data} 
+                                          setValue={setValue}
+                                          genresCheck={genresCheck} />
+                            </Box>
                             <ButtonItem size='large' 
                                         type='solid' 
                                         onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
-                        </Box>
                        </form>
   const bookInfoItem = <>
                 <Box className={classes.header}>

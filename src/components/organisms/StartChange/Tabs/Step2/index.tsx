@@ -21,7 +21,6 @@ const Step2: React.FC<IProps> = ({ tabsData }) => {
   } = useForm({});
   const handleNextButtonClick = handleSubmit(submit)
   return (
-      <Box className={classes.wrapper}>
         <form>
           <Categories step={step} 
                       control={control} 
@@ -32,7 +31,6 @@ const Step2: React.FC<IProps> = ({ tabsData }) => {
                        handleBackButtonClick={handleBackButtonClick}
                        handleNextButtonClick={handleNextButtonClick} />
         </form>
-      </Box>
   );
 };
 

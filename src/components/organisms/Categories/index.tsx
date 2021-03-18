@@ -64,12 +64,13 @@ const Categories: React.FC<IProps> = ({
                                       props.onChange(event.target.checked)    
                                   }       
   return (
-      <FormControl error={!genresCheck?.current} > 
+      <FormControl error={!genresCheck?.current} className={classes.formControl} > 
       <Box className={classes.textBox}>
         <Typography className={classes.textGray}>Категории</Typography>
         <Typography className={classes.checkBoxRemover} 
                     onClick={hangleRemoveAllChecked}>Снять все выделения</Typography>
       </Box>
+      <Box>
       {listOfCategories.map((item, index) => (
           <Accordion key={item.title[0]+index} className={classes.accordion}>
               <AccordionSummary
@@ -113,6 +114,7 @@ const Categories: React.FC<IProps> = ({
           </Accordion>
         )
       )}
+      </Box>
       {!genresCheck?.current ? (<FormHelperText>* Необходимо выбрать минимум 1 жанр</FormHelperText>) : null}
       </FormControl>
   );

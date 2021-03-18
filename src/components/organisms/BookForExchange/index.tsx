@@ -80,10 +80,11 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                                         setValue={setValue}
                                         checkLimit={true} 
                                         genresCheck={genresCheck} /> 
-                            <ButtonItem size='large' 
+                            
+                        </Box>
+                        <ButtonItem size='large' 
                                         type='solid' 
                                         onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
-                        </Box>
                        </form>
   const bookInfoItem = <>
                 <Box className={classes.header}>

@@ -5,9 +5,6 @@ import { getBookCategories } from '../../../store/selectors'
 import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
-import { useForm, Control, FieldErrors } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup";
-import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
