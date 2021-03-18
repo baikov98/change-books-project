@@ -1,0 +1,15 @@
+
+version: '3.7'
+
+services:
+  web:
+    image: frontend
+    restart: always
+    ports:
+      - 8080:80
+    networks:
+      - backend_webappnetwork
+
+networks:
+  backend_webappnetwork:
+    external: true
