@@ -8,6 +8,7 @@ export const useStyles =  makeStyles(() => ({
         marginTop: 12,
         border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid ${Colors.bg}`,
         padding: 12,
+        borderRadius: 4,
     },
     inputLabel:{
       fontSize: 14,

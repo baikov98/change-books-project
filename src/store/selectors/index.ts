@@ -47,3 +47,8 @@ export const getRequestExchangeBooks = (state: RootState) => {
 export const requestWishBooks = (state: RootState) => {
   return state.requestWishBooks.data
 }
+
+
+// REVIEWS
+export const getBooksByAuthor = (state: RootState) => state.reviews.books 
+export const getReviewsByBook = (state: RootState) => state.reviews.reviewList 
