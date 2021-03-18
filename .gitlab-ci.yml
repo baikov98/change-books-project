@@ -43,6 +43,7 @@ build in dockerhub:
     - docker
 
 deploy-to-review:
+  image: docker:latest
   stage: deploy
   before_script:
     - eval $(ssh-agent -s)
