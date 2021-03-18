@@ -51,10 +51,10 @@ deploy-to-review:
 #    - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
     - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
 #    - echo "$SSH_PRIVATE_KEY" | ssh-add -
 #    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
-    - scp ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
+    - scp -i "$SSH_PRIVATE_KEY" ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
     - ssh student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
   environment:
     name: devops/$CI_COMMIT_REF_NAME
