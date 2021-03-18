@@ -1,4 +1,3 @@
-
 version: '3.7'
 
 services:
@@ -6,7 +5,7 @@ services:
     image: registry.gitlab.com/simbirsoft1/spring-training-2021/books-exchange/frontend:latest
     restart: always
     ports:
-      - 8080:80
+      - 80:80
     networks:
       - backend_webappnetwork
 
