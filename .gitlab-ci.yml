@@ -45,11 +45,13 @@ build in dockerhub:
 deploy-to-review:
   image: docker:latest
   stage: deploy
-  before_script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
+#  before_script:
+#    - eval $(ssh-agent -s)
+#    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
 #    - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
     - scp ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
     - ssh student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
   environment:
