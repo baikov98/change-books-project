@@ -28,6 +28,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.BOOK_INFO)
   });
   const handleNextButtonClick = handleSubmit(submit) 
+
   return (
     <form>
       <Box className={classes.content}>

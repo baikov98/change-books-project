@@ -6,9 +6,9 @@ import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
 import filterFormData from "../../../utils/filterFormData";
+import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
-import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
 import ProgressIndicator from "../../atoms/ProgressIndicator"
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
@@ -47,6 +47,7 @@ function getStepContent(tabsData: ITabsData) {
 interface IProps {}
 
 const StartChange: React.FC<IProps> = () => {
+
   const classes = useStyles();
   const startExchange = useSelector(getStartExchangeState)
   const listOfCategories = useSelector(getBookCategories)
@@ -56,8 +57,7 @@ const StartChange: React.FC<IProps> = () => {
   const history = useHistory();
   const genresCheck = useRef(true)
   const submit = (data: IData) => {
-    for (let key in data) if (!data[key]) delete data[key]
-    genresCheck.current = Object.keys(data).some((i) => genresCheckBoxNameArray.includes(i))
+    genresCheck.current = genresChecker(data)
     const filteredData = filterFormData(data, listOfCategories)
     const stepLabel = `step${step+1}`
     if (genresCheck.current) {

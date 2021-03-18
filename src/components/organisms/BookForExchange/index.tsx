@@ -7,7 +7,7 @@ import { Box,  Typography } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
-import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
+import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
@@ -59,8 +59,7 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
     })
 
   const submit = (formData: IData) => {
-    for (let key in formData) if (!formData[key]) delete formData[key]
-    genresCheck.current = Object.keys(formData).some((i) => genresCheckBoxNameArray.includes(i))
+    genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
       dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})

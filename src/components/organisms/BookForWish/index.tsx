@@ -5,7 +5,7 @@ import { getBookCategories } from '../../../store/selectors'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import filterFormData from "../../../utils/filterFormData"; 
-import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
+import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
@@ -55,8 +55,7 @@ const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategorie
     })
        
   const submit = (formData: IData) => {
-    for (let key in formData) if (!formData[key]) delete formData[key]
-    genresCheck.current = Object.keys(formData).some((i) => genresCheckBoxNameArray.includes(i))
+    genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
       dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
