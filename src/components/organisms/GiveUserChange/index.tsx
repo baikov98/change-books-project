@@ -38,7 +38,7 @@ const GiveUserChange: React.FC = () => {
             key={"item" + index}
             data={requestData[item]}
             objectKey={item}
-            bookCategories={bookCategories}
+            bookCategories={bookCategories} 
           />
         ))}
       </Box>

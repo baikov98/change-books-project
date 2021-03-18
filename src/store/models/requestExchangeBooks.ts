@@ -6,7 +6,7 @@ const exchange1 = {
   authorSurname: "Булгаков",
   book: "Название книги",
   year: "1898",
-  isbn: '1234567890123',
+  isbn: '2-266-11156-6',
   categoryList: [
     {category: 'Жанр', 
      value: [

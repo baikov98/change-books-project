@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
@@ -11,7 +11,7 @@ import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
-
+import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
 import ProgressIndicator from "../../atoms/ProgressIndicator"
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
@@ -32,6 +32,9 @@ export interface ITabsData {
   storeData: IStepData; 
   submit: (data: IData) => void;
   handleBackButtonClick: () => void;
+  genresCheck: {
+    current: boolean
+  };
 }
 
 function getStepContent(tabsData: ITabsData) { 
@@ -54,18 +57,16 @@ const StartChange: React.FC<IProps> = () => {
   const storeData = startExchange.data
   const dispatch = useDispatch()
   const history = useHistory();
-  const {
-    control,
-    errors,
-  } = useForm({
-    resolver: yupResolver(VALIDATION.BOOK_INFO)
-  });
-
-  const submit = (data: IData) => { 
+  const genresCheck = useRef(true)
+  const submit = (data: IData) => {
+    for (let key in data) if (!data[key]) delete data[key]
+    genresCheck.current = Object.keys(data).some((i) => genresCheckBoxNameArray.includes(i))
     const filteredData = filterFormData(data, listOfCategories)
     const stepLabel = `step${step+1}`
-    dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
-    dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+    if (genresCheck.current) {
+      dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
+      dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+    }
     if (step === 2) {
       dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
       dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
@@ -76,7 +77,7 @@ const StartChange: React.FC<IProps> = () => {
     dispatch.startExchange.SET_EXCHANGE_STEP(step-1)
   };
   const tabsData = {
-    step, storeData, control, errors, submit, handleBackButtonClick
+    step, storeData, submit, handleBackButtonClick, genresCheck
   } 
   return (
     <Box className={classes.root}>

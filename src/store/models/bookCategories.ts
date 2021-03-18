@@ -56,6 +56,11 @@ const initialState =
         ]
     }
 
+export const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка', 'Экранизация', 'Язык издания']
+
+export const genresCheckBoxNameArray = ['detective', 'childbooks', 'history', 
+                                          'memoirs', 'adventures', 'psychology',
+                                          'fantasy', 'esoterics']
 
 export interface IBookInfoFields {
     title: Array<string>;

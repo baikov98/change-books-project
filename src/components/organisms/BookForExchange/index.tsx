@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
@@ -7,6 +7,7 @@ import { Box,  Typography } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
+import { genresCheckBoxNameArray } from '../../../store/models/bookCategories'
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
 import CatAndValue from '../../atoms/CatAndValue'
@@ -38,6 +39,7 @@ interface IProps {
 
 const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
+  const genresCheck = useRef(true)
   const exchangeBook = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
@@ -56,11 +58,15 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                    value={value.join(', ')}
                    /> 
     })
-       
+
   const submit = (formData: IData) => {
+    for (let key in formData) if (!formData[key]) delete formData[key]
+    genresCheck.current = Object.keys(formData).some((i) => genresCheckBoxNameArray.includes(i))
     const filteredData = filterFormData(formData, listOfCategories)
-    dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
-    handleSwitchEditState()
+    if (genresCheck.current) {
+      dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      handleSwitchEditState()
+    }
   }
   const handleEditFormSubmit = handleSubmit(submit)
   const bookFormItem = <form>
@@ -72,7 +78,8 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                                         control={control} 
                                         data={data} 
                                         setValue={setValue}
-                                        checkLimit={true} /> 
+                                        checkLimit={true} 
+                                        genresCheck={genresCheck} /> 
                             <ButtonItem size='large' 
                                         type='solid' 
                                         onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
