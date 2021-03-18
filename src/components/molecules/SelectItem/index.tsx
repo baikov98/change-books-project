@@ -1,4 +1,4 @@
-import React, { ReactChild } from "react";
+import React from "react";
 import { useStyles } from "./styles";
 import FormControl from "@material-ui/core/FormControl";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
