@@ -47,7 +47,7 @@ deploy-to-review:
   stage: deploy
   before_script:
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - ssh-add < echo $SSH_PRIVATE_KEY
   script:
     - scp ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
     - ssh student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
