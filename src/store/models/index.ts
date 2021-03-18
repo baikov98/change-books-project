@@ -13,6 +13,7 @@ import { requestExchangeBooks } from './requestExchangeBooks'
 import { requestWishBooks } from './requestWishBooks'
 import { archiveExchange } from './archiveExchange' 
 import { reviews } from './reviews' 
+import { messages } from './messages' 
 
 export interface RootModel extends Models<RootModel> {
     menu: typeof menu;
@@ -29,6 +30,7 @@ export interface RootModel extends Models<RootModel> {
     feedBack: typeof feedBack;
     archiveExchange: typeof archiveExchange;
     reviews: typeof reviews;
+    messages: typeof messages;
 }
 
 export const models: RootModel = { 
@@ -46,4 +48,5 @@ export const models: RootModel = {
     feedBack,
     archiveExchange,
     reviews
+    messages
  }

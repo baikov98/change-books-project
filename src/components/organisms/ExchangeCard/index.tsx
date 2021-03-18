@@ -40,15 +40,20 @@ const ExchangeCard: React.FC = () => {
                         data={item?.info.lines}
                         title={item?.info.title}
                       />
+                      <Box className={classes.fromWho}>
+                        <BookList data={item?.info?.user} title={"От кого:"} />
+                      </Box>
                     </Box>
-                    <Box className={classes.book}>
-                      <BookList data={item?.info?.user} title={"От кого:"} />
+                    <Box className={classes.middleBox}>
+                      <Box className={classes.middleLine} />
+                      <Box className={classes.iconBack}>
+                        <Box className={classes.icon} />
+                      </Box>
                     </Box>
                   <Box className={classes.book}>
                     <BookList
                       data={item?.book.lines}
                       title={'Меняюсь'}
-                      icon={true}
                     />
                   </Box>
                 </Box>

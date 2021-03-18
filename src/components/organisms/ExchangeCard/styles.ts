@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Colors } from "../../../styles/Colors";
+import exchange from "../../../assets/svg/exchange.svg";
 
 export const useStyles = makeStyles({
     root: {
@@ -20,13 +21,42 @@ export const useStyles = makeStyles({
         gridColumnGap: 6,
         width: '100%',
       },
-    contentLine:{
-        marginTop: 0,
+    contentLine: {
         display: 'grid',
-        gridTemplateColumns: 'minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr)',
-        gridColumnGap: 6,
+        marginTop: 24,
+        gridTemplateColumns: 'auto auto auto',
         width: '100%',
         cursor: 'pointer',
+    },
+    middleBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        width: '200px',
+        position: 'relative',
+    },
+    middleLine: {
+        position: 'absolute',
+        left: '50%',
+        backgroundColor: Colors.gray,
+        width: '2px',
+        height: '100%',
+    },
+    icon: {
+        width: '24px',
+        height: '24px',
+        backgroundImage: `url(${exchange})`,
+        zIndex: 4,
+    },
+    iconBack: {
+        width: '24px',
+        height: '24px',
+        backgroundColor: Colors.white,
+        zIndex: 2,
+    },
+    fromWho: {
+        marginTop: '24px',
     },
     title:{
         fontSize: 14,
@@ -34,7 +64,7 @@ export const useStyles = makeStyles({
         color: Colors.darkGray,
     },
     book:{
-        marginTop: 24,
+        
     },
     bookTitle:{
         fontWeight: 500,
