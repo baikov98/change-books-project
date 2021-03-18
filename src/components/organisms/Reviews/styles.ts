@@ -50,5 +50,16 @@ export const useStyles = makeStyles({
     maxWidth: 270, 
     marginTop:40, 
   },
+  reviewsWrapper:{
+    marginTop: 48,
+  },
+  listHeader: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 1fr 6fr',
+    gridColumnGap: 20,
+  },
+  headerItem: {
+    fontWeight: 700
+  },
   
 }, {index: 3});

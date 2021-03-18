@@ -54,5 +54,10 @@ export const useStyles =  makeStyles(() => ({
     },
     iconOpen:{
       transform: 'rotate(180deg)',
-    }
+    },
+    placeholder:{
+      color:Colors.darkGray,
+      fontWeight: 350,
+    },
+
 }), {index:1});

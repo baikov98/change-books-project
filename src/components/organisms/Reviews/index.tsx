@@ -5,13 +5,13 @@ import { Controller, useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
-import { useHistory } from "react-router-dom";
-import { getBooksByAuthor } from "../../../store/selectors";
+import { getBooksByAuthor, getReviewsByBook } from "../../../store/selectors";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import SelectItem from "../../molecules/SelectItem";
 import DialogItem from "../../molecules/DialogItem";
 import InputItem from "../../atoms/InputItem";
+import ReviewsItem from "../../molecules/ReviewsItem";
 
 type IInputData = {
   author?: string;
@@ -21,9 +21,9 @@ type IInputData = {
 
 const Reviews: React.FC = () => {
   const classes = useStyles();
+  const reviewsList = useSelector(getReviewsByBook);
   const [step, setStep] = useState<Number>(1);
   const [open, setOpen] = useState<boolean>(false);
-  const history = useHistory();
   const dispatch = useDispatch();
   const books = useSelector(getBooksByAuthor);
 
@@ -35,6 +35,7 @@ const Reviews: React.FC = () => {
     formState,
     setError,
     watch,
+    setValue,
   } = useForm<IInputData>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -45,23 +46,37 @@ const Reviews: React.FC = () => {
   });
   const { isDirty: isFormEdited, isValid: isNoErrors } = formState;
   const watchAuthor = watch("author");
+  const watchBook = watch("book");
 
-  //Для ожидания остановки печатания 2 сек
   useEffect(() => {
+    if (watchBook === "") {
+      return;
+    }
+    if (step === 3) {
+      dispatch.reviews.getReviewsList(watchBook);
+    }
+  }, [watchBook]);
+
+  //Для ожидания остановки печатания 1 сек
+  useEffect(() => {
+    if (watchAuthor === "") {
+      return;
+    }
+    setStep(1);
+    setValue("book", "");
     const delayTyping = setTimeout(() => {
-      console.log(watchAuthor);
+      dispatch.reviews.getBooksName(watchAuthor);
       setError("book", {
         message: "",
       });
-      dispatch.reviews.getBooksName(watchAuthor);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(delayTyping);
   }, [watchAuthor]);
 
   const submit = (data: IInputData) => {
     if (data) {
-      console.log("Data submitted = ", data);
+      dispatch.reviews.sendReview(data);
       setStep(1);
       setOpen(true);
     }
@@ -81,6 +96,7 @@ const Reviews: React.FC = () => {
 
   const handleVeiwAllClick = () => {
     setStep(3);
+    dispatch.reviews.getReviewsList(watchBook);
   };
 
   const handleDialogClick = () => {
@@ -101,7 +117,6 @@ const Reviews: React.FC = () => {
     );
   }
 
-  console.log("Errors = ", errors);
   return (
     <Box className={classes.root}>
       <Typography className={classes.title}>Отзывы на книги</Typography>
@@ -135,6 +150,32 @@ const Reviews: React.FC = () => {
           />
         </Box>
 
+        {step === 1 && (
+          <Box className={classes.buttonWrapper}>
+            <ButtonItem
+              btnType="button"
+              size="large"
+              type={checkDisabled() ? "disabled" : "solid"}
+              disabled={checkDisabled()}
+              btnClassName={classes.btn}
+              onClick={handleStayReviewClick}
+            >
+              Оставить отзыв
+            </ButtonItem>
+
+            <ButtonItem
+              btnType="button"
+              size="large"
+              type={checkDisabled() ? "disabled" : "solid"}
+              disabled={checkDisabled()}
+              onClick={handleVeiwAllClick}
+              btnClassName={classes.btn}
+            >
+              Посмотреть отзыв
+            </ButtonItem>
+          </Box>
+        )}
+
         {step === 2 && (
           <>
             <Controller
@@ -167,29 +208,27 @@ const Reviews: React.FC = () => {
           </>
         )}
 
-        {step === 1 && (
-          <Box className={classes.buttonWrapper}>
-            <ButtonItem
-              btnType="button"
-              size="large"
-              type={checkDisabled() ? "disabled" : "solid"}
-              disabled={checkDisabled()}
-              btnClassName={classes.btn}
-              onClick={handleStayReviewClick}
-            >
-              Оставить отзыв
-            </ButtonItem>
+        {step === 3 && (
+          <Box className={classes.reviewsWrapper}>
+            {reviewsList.length === 0 && (
+              <Typography> Отзывов на данную книгу нет</Typography>
+            )}
 
-            <ButtonItem
-              btnType="button"
-              size="large"
-              type={checkDisabled() ? "disabled" : "solid"} //
-              disabled={checkDisabled()}
-              onClick={handleVeiwAllClick}
-              btnClassName={classes.btn}
-            >
-              Посмотреть отзыв
-            </ButtonItem>
+            {!!reviewsList.length && (
+              <>
+                <Box className={classes.listHeader}>
+                  <Typography className={classes.headerItem}>
+                    Пользователь
+                  </Typography>
+                  <Typography className={classes.headerItem}>Дата</Typography>
+                  <Typography className={classes.headerItem}>Отзыв</Typography>
+                </Box>
+
+                {reviewsList.map((item: any, index: number) => (
+                  <ReviewsItem key={`${index}-itemReviews`} data={item} />
+                ))}
+              </>
+            )}
           </Box>
         )}
       </form>

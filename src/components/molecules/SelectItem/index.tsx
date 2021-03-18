@@ -21,7 +21,6 @@ export interface IProps {
   control: Control;
   defaultValue?: string;
   required?: boolean;
-  children?: ReactChild[] | ReactChild;
   data: IBook[];
 }
 
@@ -30,7 +29,6 @@ const SelectItem = ({
   label,
   control,
   defaultValue,
-  children,
   placeholder,
   required,
   data,
@@ -64,6 +62,10 @@ const SelectItem = ({
                 classes: { paper: classes.paper },
               }}
             >
+              <MenuItem disabled value="">
+                <span className={classes.placeholder}>{placeholder}</span>
+              </MenuItem>
+
               {!!data.length &&
                 data.map((item: IBook, index: number) => (
                   <MenuItem key={`${index}-${item?.id}`} value={item.name}>

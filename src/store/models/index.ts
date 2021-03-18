@@ -47,6 +47,6 @@ export const models: RootModel = {
     requestWishBooks,
     feedBack,
     archiveExchange,
-    reviews
+    reviews,
     messages
  }

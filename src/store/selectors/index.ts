@@ -51,3 +51,4 @@ export const requestWishBooks = (state: RootState) => {
 
 // REVIEWS
 export const getBooksByAuthor = (state: RootState) => state.reviews.books 
+export const getReviewsByBook = (state: RootState) => state.reviews.reviewList 
