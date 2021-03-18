@@ -36,7 +36,6 @@ interface IProps {
   bookCategories: IBookInfoFields[];
 }
 
-
 const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
   const [editState, setEditState] = useState(false)
   const genresCheck = useRef(true)
@@ -70,21 +69,20 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   }
   const handleEditFormSubmit = handleSubmit(submit)
   const bookFormItem = <form>
-                        <Box className={classes.editForm}>
-                            <BookInfo data={data} 
-                                      control={control} 
-                                      errors={errors} /> 
-                            <Categories step={3} 
+                          <Box className={classes.editForm}>
+                              <BookInfo data={data} 
                                         control={control} 
-                                        data={data} 
-                                        setValue={setValue}
-                                        checkLimit={true} 
-                                        genresCheck={genresCheck} /> 
-                            
-                        </Box>
-                        <ButtonItem size='large' 
-                                        type='solid' 
-                                        onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
+                                        errors={errors} /> 
+                              <Categories step={3} 
+                                          control={control} 
+                                          data={data} 
+                                          setValue={setValue}
+                                          checkLimit={true} 
+                                          genresCheck={genresCheck} /> 
+                          </Box>
+                          <ButtonItem size='large' 
+                                          type='solid' 
+                                          onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
                        </form>
   const bookInfoItem = <>
                 <Box className={classes.header}>

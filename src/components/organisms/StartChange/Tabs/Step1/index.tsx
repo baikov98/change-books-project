@@ -29,7 +29,6 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
   });
   const handleNextButtonClick = handleSubmit(submit) 
   return (
-    <Box className={classes.wrapper}>
     <form>
       <Box className={classes.content}>
           <BookInfo data={storeData} 
@@ -45,9 +44,6 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
       </Box>
       <FormButtons step={step} handleNextButtonClick={handleNextButtonClick} />
     </form>
-  </Box>
-
-
   );
 };
 //
