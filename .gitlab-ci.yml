@@ -51,6 +51,7 @@ deploy-to-review:
     - scp -i $SSH_PRIVATE_KEY ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com
 #    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
 #    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash .docker/deploy.sh'
+    - chmod 600 $SSH_PRIVATE_KEY
     - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash .docker/deploy.sh'
   environment:
     name: devops/$CI_COMMIT_REF_NAME
