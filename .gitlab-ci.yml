@@ -43,21 +43,14 @@ build in dockerhub:
     - docker
 
 deploy-to-review:
-  image: docker:latest
   stage: deploy
-#  before_script:
-#    - eval $(ssh-agent -s)
-#    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
-#    - echo "$SSH_PRIVATE_KEY" | ssh-add -
-  script:
+  before_script:
     - eval $(ssh-agent -s)
-#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#    - echo "$SSH_PRIVATE_KEY" | ssh-add -
-#    - echo "$SSH_PRIVATE_KEY"  | tr -d '\r' | ssh-add -
-    - scp -i "$SSH_PRIVATE_KEY" ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
-    - ssh student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
+  script:
+    - scp -i $SSH_PRIVATE_KEY ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com
+    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
   environment:
-    name: devops/$CI_COMMIT_REF_NAME
+  name: devops/$CI_COMMIT_REF_NAME
   only:
     - develop
     - test
@@ -66,4 +59,3 @@ deploy-to-review:
   when: manual
   tags:
     - docker
-
