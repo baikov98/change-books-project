@@ -48,7 +48,7 @@ deploy-to-review:
   before_script:
     - eval $(ssh-agent -s)
   script:
-    - scp -i $SSH_PRIVATE_KEY ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:~/docker
+    - scp -i $SSH_PRIVATE_KEY ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com
 #    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
 #    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash .docker/deploy.sh'
     - chmod 600 $SSH_PRIVATE_KEY
