@@ -5,62 +5,70 @@ const initialState =
     { main: [
         {title: ['Жанр', 'genre'],
          opts: [
-                ['детектив', 'detective'], 
-                ['детские книги', 'childbooks'], 
-                ['история', 'history'], 
-                ['мемуары', 'memoirs'], 
-                ['приключения', 'adventures'], 
-                ['психология', 'psychology'], 
-                ['фантастика', 'fantasy'], 
-                ['эзотерика', 'esoterics']
-               ]}, 
-        {title: ['Область наук', 'scienceField'],
-         opts: [
-                ['биология', 'biology'], 
-                ['медицина', 'medicine'], 
-                ['физика', 'physics'], 
-                ['химия', 'chemistry']
+                ['Боевик', 'thriller'],
+                ['Бизнес', 'business'],
+                ['Детектив', 'detective'], 
+                ['Для детей', 'childbooks'], 
+                ['Зарубежная литература', 'foreign'],
+                ['История', 'history'],
+                ['Классическая литература', 'classic'], 
+                ['Компьютеры', 'computers'],
+                ['Красота и здоровье', 'beauty'],
+                ['Культура и искусство', 'culture'],
+                ['Любовный роман', 'lovestory'],
+                ['Наука и образование', 'science'],
+                ['Поэзия и драматургия', 'poetry'],
+                ['Приключения', 'adventures'], 
+                ['Публицистика', 'journalism'], 
+                ['Религия', 'religion'],
+                ['Современная проза', 'prose'],
+                ['Ужасы', 'horror'],
+                ['Фантастика', 'fantastic'],
+                ['Фэнтэзи', 'fantasy'],
+                ['Хобби и досуг', 'hobbies'],
+                ['Эзотерика', 'esoterics'],
+                ['Эротика', 'erotic'], 
+                ['Юмор', 'humor'],
                ]}, 
         {title: ['Состояние', 'shape'],
          opts: [
-                ['новая', 'fresh'], 
-                ['в хорошем состоянии', 'goodshape'], 
-                ['б/у', 'boo'], 
-                ['потрепана', 'shabby']
+                ['Новая', 'fresh'], 
+                ['Хорошее', 'goodshape'], 
+                ['Удовлетворительное', 'satisfactory'], 
+                ['Потрепана', 'shabby']
                ]}, 
         {title: ['Обложка', 'jacket'],
          opts: [
-                ['суперобложка', 'dustjacket'], 
-                ['жесткая', 'tough'], 
-                ['мягкая', 'soft'], 
-                ['без обложки', 'withoutcover']
+                ['Суперобложка', 'dustjacket'], 
+                ['Жесткая', 'tough'], 
+                ['Мягкая', 'soft'], 
+                ['Без обложки', 'withoutcover']
                ]}, 
         {title: ['Лауреат', 'laureate'],
          opts: [
-                ['нобелевская', 'nobel'], 
-                ['пулитцеровская', 'pylit'], 
-                ['гонкуровская', 'gonkyr'], 
-                ['букеровская', 'buker'], 
-                ['русский Букер', 'rusbuker']
+                ['Нобелевская', 'nobel'], 
+                ['Пулитцеровская', 'pylit'], 
+                ['Гонкуровская', 'gonkyr'], 
+                ['Букеровская', 'buker'], 
+                ['Русский Букер', 'rusbuker']
                ]}, 
-        {title: ['Экранизация', 'filmAdaptation'],
+        {title: ['Дополнительно', 'additionally'],
          opts: [
-                ['экранизирована', 'filmed'], 
-                ['не экранизирована', 'notfilmed']
+                ['Экранизирована', 'filmed'], 
+                ['Подарочное издание', 'giftedition'],
+                ['Ограниченный тираж', 'limitededition'],
+                ['Иностранный язык', 'foreignlanguage'],
                ]}, 
-        {title: ['Язык издания', 'language'],
-         opts: [
-                ['русский', 'russian'], 
-                ['английский', 'english']
-               ]}
+       
         ]
     }
 
-export const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка', 'Экранизация', 'Язык издания']
+export const onlyOneCheckBoxCategoryArray = ['Состояние', 'Обложка']
 
-export const genresCheckBoxNameArray = ['detective', 'childbooks', 'history', 
-                                          'memoirs', 'adventures', 'psychology',
-                                          'fantasy', 'esoterics']
+export const genresCheckBoxNameArray = ['thriller', 'business', 'detective', 'childbooks', 
+'foreign', 'history', 'classic', 'computers', 'beauty', 'culture', 'lovestory', 'science', 'poetry', 
+'adventures', 'journalism', 'religion', 'prose','horror', 'fantastic', 'fantasy', 'hobbies', 
+'esoterics', 'erotic', 'humor']
 
 export interface IBookInfoFields {
     title: Array<string>;

@@ -58,6 +58,7 @@ const StartChange: React.FC<IProps> = () => {
   const genresCheck = useRef(true)
   const submit = (data: IData) => {
     genresCheck.current = genresChecker(data)
+    console.log(data)
     const filteredData = filterFormData(data, listOfCategories)
     const stepLabel = `step${step+1}`
     if (genresCheck.current) {
