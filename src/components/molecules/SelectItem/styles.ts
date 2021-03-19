@@ -35,9 +35,6 @@ export const useStyles =  makeStyles(() => ({
     selectEmpty: {
       borderRadius: 0,
     },
-    menuItem:{
-      // background: Colors.white,
-    },
     paper:{
       boxShadow: 'none',
       borderBottomRightRadius: 4,

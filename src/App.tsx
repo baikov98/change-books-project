@@ -19,9 +19,9 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
-  if (process.env.NODE_ENV === "development") {
-    cookie.set("token", "develop", { path: "/" }); //Удалить на продакшене
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   cookie.set("token", "develop", { path: "/" }); //Удалить на продакшене
+  // }
 
   return (
     <BrowserRouter>

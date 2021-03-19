@@ -6,8 +6,7 @@ export const getNavList = (state: RootState) => state.navbar.list;
 export const getLoginModal = (state: RootState) => state.menu.loginModal;
 
 // USER
-export const getUser = (state: RootState) => state.user.currentUser;
-export const getUserPersonalData = (state: RootState) => state.user.personalData;
+export const getUser = (state: RootState) => state.user.personalData;
 
 
 //REGISTRATION 

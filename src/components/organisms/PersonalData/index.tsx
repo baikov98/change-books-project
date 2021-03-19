@@ -12,14 +12,14 @@ import { VALIDATION } from "../../../constants";
 import {
   getMainInput,
   getAdressInput,
-  getUserPersonalData,
+  getUser,
 } from "../../../store/selectors";
 
 const PersonalData: React.FC = () => {
   const classes = useStyles();
   const mainInput = useSelector(getMainInput);
   const adressInput = useSelector(getAdressInput);
-  const personalData: IPerosnalData = useSelector(getUserPersonalData);
+  const personalData: IPerosnalData = useSelector(getUser);
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -36,7 +36,7 @@ const PersonalData: React.FC = () => {
 
   const submit = (data: IPerosnalData) => {
     if (data) {
-      dispatch.user.SET_PERSONAL_DATA(data);
+      dispatch.user.SET_USER(data);
     }
     reset();
   };
