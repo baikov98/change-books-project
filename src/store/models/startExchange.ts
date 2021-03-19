@@ -4,6 +4,24 @@ import { RootModel } from ".";
 import api from '../../services/api'
 import cookie from '../../services/CookieService'
 
+interface IGenreItem {
+  category: string;
+  value: string[][]
+}
+
+interface IOfferData {
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  isbn?: string;
+  year: string;
+  categoryList: IGenreItem[];
+}
+
+interface IWishData {
+  categoryList: IGenreItem[];
+}
+
 export interface IStartExchange {
     step: number,
     data: {
@@ -13,6 +31,7 @@ export interface IStartExchange {
         book: string;
         isbn?: string;
         year: string;
+        categoryList: IGenreItem[];
       },
       step2: {},
       step3: {}
@@ -45,8 +64,12 @@ export const startExchange = createModel<RootModel>()({
   },
   effects: (dispatch) => {
     return {
-    async requestOfferList(offerData) {
+    async requestOfferList(offerData: IOfferData) {
       try {
+        const genreArray = offerData.categoryList.map((i) => {
+          const catString = i.value.map(val => val[0])
+          return {[i.category]: catString.join(', ')}
+        })
         const data = {
           book: {
             author: {
@@ -54,10 +77,10 @@ export const startExchange = createModel<RootModel>()({
               last_name: offerData.authorSurname
             },
             name: offerData.book,
-            note: ''
             },
           isbn: offerData.isbn || '',
-          year_publishing: +offerData.year
+          year_publishing: +offerData.year,
+          categories: genreArray
         }
         const response = await api.post(`/api/v1/request/offer_list/create/`, data);
         console.log(response);
@@ -66,18 +89,24 @@ export const startExchange = createModel<RootModel>()({
         console.error('Failed to send offer data - ', error);
         }
     },
-    async requestWishList(wishData) {
+    async requestWishList(deliveryData, rootState) {
       try {
+        const catList = rootState.startExchange.data.step2 as IWishData
+        const genreArray = catList.categoryList.map((i) => {
+          const catString = i.value.map(val => val[0])
+          return {[i.category]: catString.join(', ')}
+        })
         const data = {
           address: {
-            index: wishData.indexLocation,
-            city: wishData.city,
-            street: wishData.street,
-            house: wishData.homeNumber,
-            structure: wishData.buildNumber,
-            apart: wishData.flatNumber,
-            is_default: !!wishData.is_default
-          }
+            index: deliveryData.indexLocation,
+            city: deliveryData.city,
+            street: deliveryData.street,
+            house: deliveryData.homeNumber,
+            structure: deliveryData.buildNumber,
+            apart: deliveryData.flatNumber,
+            is_default: !!deliveryData.is_default
+          },
+          categories: genreArray
         }
         const response = await api.post(`/api/v1/request/wish_list/create/`, data);
         console.log(response);

@@ -63,9 +63,9 @@ const StartChange: React.FC<IProps> = () => {
       //history.push('userChange/offer')
     } else {
       genresCheck.current = genresChecker(data)
-      const filteredData = filterFormData(data, listOfCategories)
-      const stepLabel = `step${step+1}`
       if (genresCheck.current) {
+        const filteredData = filterFormData(data, listOfCategories)
+        const stepLabel = `step${step+1}`
         dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
         dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
       }
