@@ -3,7 +3,7 @@ import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
 import { useForm } from 'react-hook-form';
-import { Box,  Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
@@ -34,9 +34,16 @@ interface IProps {
   data: IBookListItem;
   objectKey: string;
   bookCategories: IBookInfoFields[];
+  editable: boolean;
+  handleEditable: (value: boolean) => void
 }
 
-const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) => {
+const BookForExchange: React.FC<IProps> = ({ 
+  data, 
+  objectKey, 
+  editable, 
+  handleEditable 
+}) => {
   const [editState, setEditState] = useState(false)
   const genresCheck = useRef(true)
   const exchangeBook = data
@@ -45,6 +52,12 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
   const handleSwitchEditState = () => {
     setEditState(!editState);
   };
+  const handleEditButtonClick = () => {
+    if (editable) {
+      setEditState(!editState)
+      handleEditable(false)
+    }
+  }
   const classes = useStyles();
   const { setValue, handleSubmit, control, errors } = useForm({
     resolver: yupResolver(VALIDATION.BOOK_INFO),
@@ -63,6 +76,7 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
       dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      handleEditable(true)
       handleSwitchEditState()
     }
   }
@@ -81,14 +95,15 @@ const BookForExchange: React.FC<IProps> = ({ data, objectKey, bookCategories }) 
                           </Box>
                           <ButtonItem size='large' 
                                           type='solid' 
-                                          onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
+                                          onClick={handleEditFormSubmit}
+                                          className={classes.btnSave}>Сохранить</ButtonItem>
                        </form>
   const bookInfoItem = <>
                 <Box className={classes.header}>
                   <Box className={classes.title}>
                     {`${exchangeBook.authorName} ${exchangeBook.authorSurname} "${exchangeBook.book}"`}
                   </Box>
-                  <EditButton onClick={handleSwitchEditState} />
+                  <EditButton onClick={handleEditButtonClick} />
                 </Box >
                 <Box className={classes.content}>
                   {exchangeBook.year && <CatAndValue category='Год издания' value={exchangeBook.year}/> }

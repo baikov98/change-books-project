@@ -28,16 +28,31 @@ interface IProps {
   objectKey: string;
   bookCategories: IBookInfoFields[];
   bookNum: number;
+  editable: boolean;
+  handleEditable: (value: boolean) => void
 }
 
-const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategories }) => {
+const BookForWish: React.FC<IProps> = ({ 
+  data, 
+  bookNum, 
+  objectKey, 
+  editable, 
+  handleEditable 
+}) => {
   const [editState, setEditState] = useState(false)
   const genresCheck = useRef(true)
   const exchangeBook = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
-  const handleSwitchEditState = () => setEditState(!editState)
-  
+  const handleSwitchEditState = () => {
+      setEditState(!editState)
+  }
+  const handleEditButtonClick = () => {
+    if (editable) {
+      setEditState(!editState)
+      handleEditable(false)
+    }
+  }
   const classes = useStyles();
   const {
     setValue,
@@ -59,6 +74,7 @@ const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategorie
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
       dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      handleEditable(true)
       handleSwitchEditState()
     }
   }
@@ -73,14 +89,15 @@ const BookForWish: React.FC<IProps> = ({ data, bookNum, objectKey, bookCategorie
                             </Box>
                             <ButtonItem size='large' 
                                         type='solid' 
-                                        onClick={handleEditFormSubmit}>Сохранить</ButtonItem>
+                                        onClick={handleEditFormSubmit}
+                                        className={classes.btnSave}>Сохранить</ButtonItem>
                        </form>
   const bookInfoItem = <>
                 <Box className={classes.header}>
                   <Box className={classes.title}>
                     {`Книга ${bookNum+1}`}
                   </Box>
-                  <EditButton onClick={handleSwitchEditState} />
+                  <EditButton onClick={handleEditButtonClick} />
                 </Box >
                 <Box className={classes.content}>
                   {bookDetailsArray}

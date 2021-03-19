@@ -1,5 +1,5 @@
 import React from "react";
-
+import CheckBox from "../../../../atoms/CheckBox";
 import { Box, Typography } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -80,6 +80,18 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   />
                   ))}
           </Box>
+          <Controller
+            name="is_default"
+            control={control}
+            defaultValue={true}
+            render={({ value, onChange }) => (
+              <CheckBox
+                label={'Сделать адресом по умолчанию'}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.checked)}
+                checked={value}
+              />
+            )}
+          />
           <FormButtons step={step} 
                        handleBackButtonClick={handleBackButtonClick} 
                        handleNextButtonClick={handleNextButtonClick} />

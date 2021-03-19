@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
         color: Colors.darkGray,
         fontWeight: 700,
         whiteSpace: 'nowrap',
-        width: '100px',
+        width: '110px',
         marginRight: '16px',
     },
     value: {

@@ -8,14 +8,13 @@ const exchange1 = {
       ['приключения', 'adventures'],
       ['фантастика', 'fantasy']
     ]},
-    {category: 'Лауреат', 
+    {category: 'Состояние', 
      value: [
-      ['пулитцеровская', 'pylit'],
+      ['Новая', 'fresh'], 
     ]},
-    {category: 'Область наук', 
+    {category: 'Дополнительно', 
      value: [
-      ['химия', 'chemistry'],
-      ['физика', 'physics']
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
@@ -24,16 +23,16 @@ const exchange2 = {
   categoryList: [
     {category: 'Жанр', 
      value: [
-      ['детские книги', 'childbooks'],
+      ['приключения', 'adventures'],
       ['фантастика', 'fantasy']
-    ]},
-    {category: 'Область наук', 
-     value: [
-      ['эзотерика', 'esoterics']
     ]},
     {category: 'Состояние', 
      value: [
-      ['в хорошем состоянии', 'goodshape'],
+      ['Новая', 'fresh'], 
+    ]},
+    {category: 'Дополнительно', 
+     value: [
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
@@ -42,15 +41,16 @@ const exchange3 = {
   categoryList: [
     {category: 'Жанр', 
      value: [
-      ['психология', 'psychology'],
+      ['приключения', 'adventures'],
+      ['фантастика', 'fantasy']
     ]},
-    {category: 'Лауреат', 
+    {category: 'Состояние', 
      value: [
-      ['гонкуровская', 'gonkyr'],
+      ['Новая', 'fresh'], 
     ]},
-    {category: 'Экранизация', 
+    {category: 'Дополнительно', 
      value: [
-      ['экранизирована', 'filmed'],
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }

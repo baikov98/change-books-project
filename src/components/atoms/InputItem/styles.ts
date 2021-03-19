@@ -5,9 +5,9 @@ import { IProps } from "./index";
 export const useStyles =  makeStyles(() => ({
     input:{
         width: "100%",
-        marginTop: 12,
+        marginTop: 4,
         border: ({error}: IProps) => error ? `1px solid ${Colors.red}`: `1px solid ${Colors.bg}`,
-        padding: 12,
+        padding: 8,
         borderRadius: 4,
     },
     inputLabel:{

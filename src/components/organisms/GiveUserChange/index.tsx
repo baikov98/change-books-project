@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRequestExchangeBooks } from "../../../store/selectors";
 import { getBookCategories } from "../../../store/selectors";
@@ -27,6 +27,8 @@ interface IBookListItem {
 
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
+  const [editable, setEditable] = useState(true)
+  const handleEditable = (value: boolean) => setEditable(value)
   const requestData: IBookListItem = useSelector(getRequestExchangeBooks);
   const bookCategories = useSelector(getBookCategories);
   return (
@@ -39,6 +41,8 @@ const GiveUserChange: React.FC = () => {
             data={requestData[item]}
             objectKey={item}
             bookCategories={bookCategories} 
+            editable={editable}
+            handleEditable={handleEditable}
           />
         ))}
       </Box>

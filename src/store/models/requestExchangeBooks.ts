@@ -10,17 +10,16 @@ const exchange1 = {
   categoryList: [
     {category: 'Жанр', 
      value: [
-      ['детектив', 'detective'],
+      ['приключения', 'adventures'],
       ['фантастика', 'fantasy']
     ]},
-    {category: 'Обложка', 
+    {category: 'Состояние', 
      value: [
-      ['жесткая', 'tough'],
+      ['Новая', 'fresh'], 
     ]},
-    {category: 'Область наук', 
+    {category: 'Дополнительно', 
      value: [
-      ['биология', 'biology'],
-      ['медицина', 'medicine']
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
