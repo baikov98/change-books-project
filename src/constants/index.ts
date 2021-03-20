@@ -23,10 +23,7 @@ const emailMatches = /^(([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\
 
 export const VALIDATION = {
     SIGN_IN: yup.object().shape({
-        email: yup
-        .string()
-        .matches(emailMatches, "Email не корректен ")
-        .required(texts.email),
+        nickname: yup.string().required(texts.nickname).min(3, 'Минимальная длина 3 символа').matches(/^([a-zA-Z][a-zA-Z0-9-_\.]+)|([А-Яа-я][А-Яа-я0-9-_\.]+){1,50}$/, 'Вы используете запрещенные символы').trim().max(50, 'Максимальная длина 50 символов'),
         password: yup.string().trim().max(64).required(texts.pass),
     }),
     SIGN_UP: yup.object().shape({

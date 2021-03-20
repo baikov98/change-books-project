@@ -1,22 +1,11 @@
+import { RootState } from './../index';
 import { createModel} from "@rematch/core"
 import { RootModel } from "."
 
 import api from '../../services/api'
 import cookie from '../../services/CookieService'
+import { isEmpty } from '../../utils/isObjectEmpty';
 
-const personalData = {
-    name: "Александр",
-    secondName: 'Волков',
-    thirdName: 'Игоревич',
-    nickname: 'BookReader',
-    email: 'volkov@gmail.com',
-    indexLocation: '124223',
-    city: 'Москва',
-    street: 'Братиславская',
-    homeNumber: '31',
-    buildNumber: '1',
-    flatNumber: '45',
-}
 export interface IPerosnalData {
     name?: string,
     secondName?: string,
@@ -53,41 +42,82 @@ export interface IUser {
 }
 
 interface IProps {
+    error: string | null,
+    isAuth: boolean,
     personalData: IPerosnalData,
 }
 
 export const user = createModel<RootModel>()({
     state: {
-        personalData,
+        error: null,
+        isAuth: false,
+        personalData: {},
     }as IProps,
     reducers: {
+        setError: (state: IProps,error:string) => {
+            return {
+                ...state,
+                error,
+            }
+        },
         SET_USER: (state: IProps, personalData: IPerosnalData) => {
             return {
                 ...state,
                 personalData,
+                isAuth: true,
             }
         },
         LOGOUT_USER: (state: IProps) => {
             return {
                 ...state,
                 personalData: {},
+                isAuth: false,
             }
         },
        
     },
     effects: (dispatch) =>  ({
+        async checkAuth (_, rootState) {
+            console.log("CHECK AUTH METHODS")
+            const {personalData: user} = rootState?.user
+            const token = cookie.get('token');
+            if (isEmpty(user) && !isEmpty(token)) {
+                console.log("APP HAS TOKEN , NO USER!")
+                dispatch.user.getUser();
+            }
+        },
+        async getUser (){
+            try {
+                const response = await api.get(`/api/v1/profile/`);
+                console.log("GET USER = ", response);
+                const newUser = {
+                    name: response.data?.user?.first_name,
+                    secondName: response.data?.user?.second_name,
+                    thirdName: response.data?.user?.last_name,
+                    nickname: response.data?.user?.username,
+                    email: response.data?.user?.email,
+                    indexLocation: response.data?.index,
+                    city: response.data?.city,
+                    street: response.data?.street,
+                    homeNumber: response.data?.house,
+                    buildNumber: response.data?.structure,
+                    flatNumber: response.data?.apart,
+                }
+                dispatch.user.SET_USER(newUser)
+            } catch (error) {
+                console.error('Failed to GET USER - ', error);
+                dispatch.user.setError(error)
+                // dispatch.user.logout()
+                //Если есть токен, но ошибка получения пользователя. Причины : недоступен сервер, 
+            }
+        },
         async activationAccount ({uid, token}){
             try {
                 const response = await api.post(`/auth/users/activation`, {
                     uid,
                     token
                 });
-                console.log(response);
-                const auth_token = {
-                    access: response.data?.access,
-                    refresh: response.data?.refresh,
-                }
-                cookie.set('token',auth_token, {path : '/'})
+                console.log(response); 
             } catch (error) {
             console.error('Failed to activation account - ', error);
             }
@@ -124,10 +154,11 @@ export const user = createModel<RootModel>()({
                 
                 const response = await api.post(`/api/v1/auth/users/`, data);
                 console.log(response);
+                //Под вопросом стоил ли записывать юзера
                 const newUser = {
                     name: response.data?.first_name,
-                    secondName: response.data?.last_name,
-                    thirdName: response.data?.second_name,
+                    secondName: response.data?.second_name,
+                    thirdName: response.data?.last_name,
                     nickname: response.data?.username,
                     email: response.data?.email,
                     indexLocation: response.data?.address?.index,
@@ -137,12 +168,12 @@ export const user = createModel<RootModel>()({
                     buildNumber: response.data?.address?.structure,
                     flatNumber: response.data?.address?.apart,
                 }
-                dispatch.SET_USER(newUser)
+                dispatch.user.SET_USER(newUser)
             } catch (error) {
-            console.error('Failed to reset password - ', error);
+                console.error('Failed to registration - ', error);
             }
         },
-        async login({email, password}) {
+        async login({username, password}) {
             try {
                 const data = {
                     username: "test_user",
@@ -155,8 +186,12 @@ export const user = createModel<RootModel>()({
                     refresh: response.data?.refresh,
                 }
                 cookie.set('token',token, {path : '/'})
+                
+                dispatch.user.getUser()
+                dispatch.menu.SET_MODAL(false);
             } catch (error) {
                 console.error('Failed to auth token - ', error);
+                //Тут ошибка получения токена → недоступен сервер, неудалост создать токен, нет такого пользователя
             }
         },
         async changeUserData({secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber}) {
@@ -182,8 +217,8 @@ export const user = createModel<RootModel>()({
             }
         },
 
-        logout(){
-            cookie.remove('token')
+        async logout(){
+            cookie.remove('token', { path: '/' })
             dispatch.user.LOGOUT_USER()
         }
     })

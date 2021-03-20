@@ -16,7 +16,7 @@ import Popover from "@material-ui/core/Popover";
 import SocialItems from "../../atoms/SocialItems";
 
 type IFormInput = {
-  email: string;
+  nickname: string;
   password: string;
 };
 
@@ -27,6 +27,7 @@ const SignIn: React.FC = () => {
   const [open, setOpen] = useState<boolean>(isOpen);
   const [anchorEl, setAnchorEl] = useState<null | HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     setOpen(isOpen);
@@ -36,7 +37,6 @@ const SignIn: React.FC = () => {
     setAnchorEl(componentRef.current);
   }, []);
 
-  const history = useHistory();
   const {
     handleSubmit,
     control,
@@ -57,6 +57,7 @@ const SignIn: React.FC = () => {
     clearErrors();
     reset();
     dispatch.user.login(data);
+    history.push("/start");
   };
 
   const handleForgetClick = () => {
@@ -100,14 +101,14 @@ const SignIn: React.FC = () => {
           <form className={classes.form} onSubmit={handleSubmit(submit)}>
             <Box className={classes.inputWrapper}>
               <Controller
-                name="email"
+                name="nickname"
                 control={control}
                 rules={{ required: true }}
                 defaultValue=""
                 render={({ onChange, value }) => (
                   <InputItem
-                    label={"Email *"}
-                    error={errors.email?.message}
+                    label={"Логин *:"}
+                    error={errors.nickname?.message}
                     onChange={onChange}
                     value={value}
                     placeholder="example@example.com"
@@ -121,7 +122,7 @@ const SignIn: React.FC = () => {
                 defaultValue=""
                 render={({ onChange, value }) => (
                   <InputItem
-                    label={"Пароль *"}
+                    label={"Пароль *:"}
                     onChange={onChange}
                     value={value}
                     error={errors.password?.message}
