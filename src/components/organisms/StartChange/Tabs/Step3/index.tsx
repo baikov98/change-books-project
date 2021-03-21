@@ -34,7 +34,6 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.DELIVERY_INFO)
   });
   const handleNextButtonClick = handleSubmit(submit)
-
   return (
       <Box className={classes.wrapper}>
         <form>
@@ -46,7 +45,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   name={item.name}
                   control={control}
                   rules={{ required: item.required }}
-                  defaultValue=''
+                  defaultValue={storeData.step3[item.name]} 
                   render={(props) => (
                     <InputItem
                       label={item.label}
@@ -67,7 +66,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                     name={item.name}
                     control={control}
                     rules={{ required: item.required }}
-                    defaultValue=''
+                    defaultValue={storeData.step3[item.name]}
                     render={(props) => (
                       <InputItem
                         label = {item.label}

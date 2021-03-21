@@ -1,5 +1,6 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
+import api from '../../services/api'
 
 const exchange1 = {
   authorName: "Михаил",
@@ -67,12 +68,17 @@ export const requestExchangeBooks = createModel<RootModel>()({
           data: {...state.data, ...payload }
         }
       },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
-        return {
-          ...state,
-          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
-          // эта страшная конструкция тут до появления бэка
-        }
-      },
   },
+  effects: (dispatch) => {
+    const { requestExchangeBooks } = dispatch
+    return {
+    async requestOfferList() {
+      try {
+        const response = await api.get(`/api/v1/request/offerlist/`);
+        console.log(response);
+      } catch (error) {
+        console.error('Failed to requestOfferList - ', error);
+        }
+    },
+  }}
 });

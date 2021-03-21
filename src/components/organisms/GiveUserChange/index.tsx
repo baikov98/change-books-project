@@ -27,6 +27,8 @@ interface IBookListItem {
 
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  const resp = dispatch.requestExchangeBooks.requestOfferList()
   const [editable, setEditable] = useState(true)
   const handleEditable = (value: boolean) => setEditable(value)
   const requestData: IBookListItem = useSelector(getRequestExchangeBooks);

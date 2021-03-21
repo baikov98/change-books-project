@@ -22,6 +22,7 @@ export interface IStoreData {
 interface IStepData {
   step1: IData;
   step2: IData;
+  step3: IData;
 }
 
 export interface ITabsData {
@@ -64,6 +65,7 @@ const StartChange: React.FC<IProps> = () => {
     } else {
       genresCheck.current = genresChecker(data)
       if (genresCheck.current) {
+        if (step === 0) dispatch.startExchange.getPersonalData()
         const filteredData = filterFormData(data, listOfCategories)
         const stepLabel = `step${step+1}`
         dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})

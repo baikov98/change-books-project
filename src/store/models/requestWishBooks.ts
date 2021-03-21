@@ -1,5 +1,6 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
+import api from '../../services/api'
 
 const exchange1 = {
   categoryList: [
@@ -88,12 +89,17 @@ export const requestWishBooks = createModel<RootModel>()({
           data: {...state.data, ...payload }
         }
       },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
-        return {
-          ...state,
-          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
-          // эта страшная конструкция тут до появления бэка
-        }
-      },
     },
+    effects: (dispatch) => {
+      const { requestWishBooks } = dispatch
+      return {
+      async requestWishList() {
+        try {
+          const response = await api.get(`/api/v1/request/wishlist/`);
+          console.log(response);
+        } catch (error) {
+          console.error('Failed to requestWishList - ', error);
+          }
+      },
+    }}
 });
