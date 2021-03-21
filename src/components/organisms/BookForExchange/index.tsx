@@ -10,29 +10,16 @@ import filterFormData from "../../../utils/filterFormData";
 import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields } from '../../../store/models/bookCategories'
+import { ICategoryListItem, IBookData } from '../../../store/models/requestExchangeBooks'
 import CatAndValue from '../../atoms/CatAndValue'
 import EditButton from '../../atoms/EditButton'
 import BookInfo from '../BookInfo'
 import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 
-interface ICategoryListItem {
-  category: string;
-  value: string[][];
-}
-
-interface IBookListItem {
-    authorName: string,
-    authorSurname: string,
-    book: string,
-    year?: string,
-    isbn?: string,
-    categoryList: ICategoryListItem[]
-}
-
 interface IProps {
-  data: IBookListItem;
-  objectKey: string;
+  data: IBookData;
+  objectId: string;
   bookCategories: IBookInfoFields[];
   editable: boolean;
   handleEditable: (value: boolean) => void
@@ -40,7 +27,7 @@ interface IProps {
 
 const BookForExchange: React.FC<IProps> = ({ 
   data, 
-  objectKey, 
+  objectId,  
   editable, 
   handleEditable 
 }) => {
@@ -75,7 +62,7 @@ const BookForExchange: React.FC<IProps> = ({
     genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
-      dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectId]: filteredData})
       handleEditable(true)
       handleSwitchEditState()
     }

@@ -3,6 +3,7 @@ import { RootModel } from ".";
 import api from '../../services/api'
 
 const exchange1 = {
+  id: '123',
   authorName: "Михаил",
   authorSurname: "Булгаков",
   book: "Название книги",
@@ -25,22 +26,22 @@ const exchange1 = {
   ]
 }
 
-interface ICategoryListItem {
+export interface ICategoryListItem {
   category: string;
   value: string[][];
 }
 
+export interface IBookData {
+  id: string;
+  authorName: string,
+  authorSurname: string,
+  book: string,
+  year?: string,
+  isbn?: string,
+  categoryList: ICategoryListItem[]
+}
 interface IBookListItem {
-    data: {
-      [key: string]: {
-        authorName: string,
-        authorSurname: string,
-        book: string,
-        year?: string,
-        isbn?: string,
-        categoryList: ICategoryListItem[]
-      }
-    }
+  data: IBookData[]
 }
 
 interface IPayload {
@@ -54,18 +55,18 @@ interface IPayload {
 
 export const requestExchangeBooks = createModel<RootModel>()({
     state: {
-      data: {
-          book1: exchange1,
-          book2: exchange1,
-          book3: exchange1,
-      }
+      data: [
+          exchange1,
+          exchange1,
+          exchange1,
+      ]
     } as IBookListItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: []) => {
         return {
           ...state,
-          data: {...state.data, ...payload }
+          data: payload
         }
       },
   },
@@ -75,6 +76,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
     async requestOfferList() {
       try {
         const response = await api.get(`/api/v1/request/offerlist/`);
+        //requestExchangeBooks.SET_REQUEST_DATA(response)
         console.log(response);
       } catch (error) {
         console.error('Failed to requestOfferList - ', error);

@@ -3,6 +3,7 @@ import { RootModel } from ".";
 import api from '../../services/api'
 
 const exchange1 = {
+  id: '123',
   categoryList: [
     {category: 'Жанр', 
      value: [
@@ -21,6 +22,7 @@ const exchange1 = {
 }
 
 const exchange2 = {
+  id: '124',
   categoryList: [
     {category: 'Жанр', 
      value: [
@@ -39,6 +41,7 @@ const exchange2 = {
 }
 
 const exchange3 = {
+  id: '125',
   categoryList: [
     {category: 'Жанр', 
      value: [
@@ -56,37 +59,32 @@ const exchange3 = {
   ]
 }
 
-interface ICategoryListItem {
+export interface ICategoryListItem {
   category: string;
   value: string[][];
 }
 
-interface IBookListItem {
-    data: {
-      [key: string]: {
-        categoryList: ICategoryListItem[]
-      }
-    }
+export interface IBookData {
+  id: string;
+  categoryList: ICategoryListItem[];
 }
 
-interface IPayload {
-  categoryList: ICategoryListItem[]
+interface IBookListItem {
+    data: IBookData[]
 }
 
 export const requestWishBooks = createModel<RootModel>()({
     state: {
-      data: {
-          book1: exchange1,
-          book2: exchange2,
-          book3: exchange3,
-      }
+      data: [
+        exchange1, exchange2, exchange3
+      ]
     } as IBookListItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: []) => {
         return {
           ...state,
-          data: {...state.data, ...payload }
+          data: payload
         }
       },
     },

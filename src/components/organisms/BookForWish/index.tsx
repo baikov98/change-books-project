@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
+import { ICategoryListItem, IBookData } from '../../../store/models/requestWishBooks'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import filterFormData from "../../../utils/filterFormData"; 
@@ -13,18 +14,8 @@ import EditButton from '../../atoms/EditButton'
 import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 
-
-interface ICategoryListItem {
-  category: string;
-  value: string[][]
-}
-
-interface IBookListItem {
-    categoryList: ICategoryListItem[]
-}
-
 interface IProps {
-  data: IBookListItem;
+  data: IBookData;
   objectKey: string;
   bookCategories: IBookInfoFields[];
   bookNum: number;
@@ -41,7 +32,6 @@ const BookForWish: React.FC<IProps> = ({
 }) => {
   const [editState, setEditState] = useState(false)
   const genresCheck = useRef(true)
-  const exchangeBook = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
   const handleSwitchEditState = () => {
@@ -61,7 +51,7 @@ const BookForWish: React.FC<IProps> = ({
     errors,
   } = useForm({});
   const bookDetailsArray = 
-    exchangeBook.categoryList.map((item) => {
+    data.categoryList.map((item) => {
       const value = item.value.map((i) => i[0])
       return <CatAndValue key={item.category}
                    category={item.category} 
@@ -73,7 +63,7 @@ const BookForWish: React.FC<IProps> = ({
     genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
-      dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
+      //dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
       handleEditable(true)
       handleSwitchEditState()
     }
