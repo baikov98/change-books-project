@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoginModal } from "../../../store/selectors";
+import { getLoginModal, getUserError } from "../../../store/selectors";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
@@ -24,7 +24,9 @@ const SignIn: React.FC = () => {
   const classes = useStyles();
   const componentRef = useRef<HTMLDivElement>(null);
   const isOpen = useSelector(getLoginModal);
+  const loginError = useSelector(getUserError);
   const [open, setOpen] = useState<boolean>(isOpen);
+  const [logError, setLogError] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLDivElement>(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,6 +52,7 @@ const SignIn: React.FC = () => {
   const handleClose = () => {
     reset();
     setOpen(false);
+    setLogError(false);
     dispatch.menu.SET_MODAL(false);
   };
 
@@ -57,7 +60,12 @@ const SignIn: React.FC = () => {
     clearErrors();
     reset();
     dispatch.user.login(data);
-    history.push("/start");
+    if (!loginError) {
+      dispatch.menu.SET_MODAL(false);
+      history.push("/start");
+    } else {
+      setLogError(true);
+    }
   };
 
   const handleForgetClick = () => {
@@ -146,6 +154,11 @@ const SignIn: React.FC = () => {
               Войти
             </ButtonItem>
           </form>
+
+          {loginError && logError && (
+            <Typography className={classes.error}>{loginError}</Typography>
+          )}
+
           <Typography
             className={classes.forgetText}
             onClick={handleForgetClick}

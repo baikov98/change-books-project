@@ -1,4 +1,3 @@
-import { RootState } from './../index';
 import { createModel} from "@rematch/core"
 import { RootModel } from "."
 
@@ -22,25 +21,6 @@ export interface IPerosnalData {
     confirmPassword?: string,
 }
 
-export interface IUser {
-    id?: number,
-    name?: string,
-    secondName?: string,
-    thirdName?: string,
-    nickname?: string,
-    email?: string,
-    address?: {
-        indexLocation?: string,
-        city?: string,
-        street?: string,
-        homeNumber?: string,
-        buildNumber?: string,
-        flatNumber?: string,
-        is_default?: boolean
-    },
-    confirmPassword?: string,
-}
-
 interface IProps {
     error: string | null,
     isAuth: boolean,
@@ -60,6 +40,10 @@ export const user = createModel<RootModel>()({
                 error,
             }
         },
+        resetError: (state: IProps) => ({
+            ...state,
+            error: null,
+          }),
         SET_USER: (state: IProps, personalData: IPerosnalData) => {
             return {
                 ...state,
@@ -78,18 +62,16 @@ export const user = createModel<RootModel>()({
     },
     effects: (dispatch) =>  ({
         async checkAuth (_, rootState) {
-            console.log("CHECK AUTH METHODS")
+            //Метод проверки авторизации пользователя
             const {personalData: user} = rootState?.user
             const token = cookie.get('token');
             if (isEmpty(user) && !isEmpty(token)) {
-                console.log("APP HAS TOKEN , NO USER!")
                 dispatch.user.getUser();
             }
         },
         async getUser (){
             try {
                 const response = await api.get(`/api/v1/profile/`);
-                console.log("GET USER = ", response);
                 const newUser = {
                     name: response.data?.user?.first_name,
                     secondName: response.data?.user?.second_name,
@@ -104,10 +86,11 @@ export const user = createModel<RootModel>()({
                     flatNumber: response.data?.apart,
                 }
                 dispatch.user.SET_USER(newUser)
+                dispatch.user.resetError()
             } catch (error) {
                 console.error('Failed to GET USER - ', error);
-                dispatch.user.setError(error)
-                // dispatch.user.logout()
+                dispatch.user.setError("*Данные этого пользователя не найдены")
+                dispatch.user.logout()
                 //Если есть токен, но ошибка получения пользователя. Причины : недоступен сервер, 
             }
         },
@@ -117,9 +100,8 @@ export const user = createModel<RootModel>()({
                     uid,
                     token
                 });
-                console.log(response); 
             } catch (error) {
-            console.error('Failed to activation account - ', error);
+                console.error('Failed to activation account - ', error);
             }
         },
         async resetPassword({email}) {
@@ -127,9 +109,11 @@ export const user = createModel<RootModel>()({
                 const response = await api.post(`/auth/users/reset_password`, {
                     email
                 });
-                console.log(response);
+                dispatch.user.resetError()
+                
             } catch (error) {
-            console.error('Failed to reset password - ', error);
+                console.error('Failed to reset password - ', error);
+                dispatch.user.setError('*На сервере произошла ошибка или введён не верный Email')
             }
         },
         async registration({secondName, name, thirdName, nickname, email, password, confirmPassword, indexLocation, city, street, homeNumber, buildNumber, flatNumber}) {
@@ -153,31 +137,17 @@ export const user = createModel<RootModel>()({
                    }
                 
                 const response = await api.post(`/api/v1/auth/users/`, data);
-                console.log(response);
-                //Под вопросом стоил ли записывать юзера
-                const newUser = {
-                    name: response.data?.first_name,
-                    secondName: response.data?.second_name,
-                    thirdName: response.data?.last_name,
-                    nickname: response.data?.username,
-                    email: response.data?.email,
-                    indexLocation: response.data?.address?.index,
-                    city: response.data?.address?.city,
-                    street: response.data?.address?.street,
-                    homeNumber: response.data?.address?.house,
-                    buildNumber: response.data?.address?.structure,
-                    flatNumber: response.data?.address?.apart,
-                }
-                dispatch.user.SET_USER(newUser)
+                dispatch.user.resetError()
             } catch (error) {
                 console.error('Failed to registration - ', error);
+                dispatch.user.setError('Ошибка в регистрации пользователя')
             }
         },
         async login({username, password}) {
             try {
                 const data = {
-                    username: "test_user",
-                    password: "test_user", 
+                    username,
+                    password, 
                 }
                 const response = await api.post(`/api/v1/auth/jwt/create/`, data);
                 console.log("response = ", response);
@@ -186,12 +156,13 @@ export const user = createModel<RootModel>()({
                     refresh: response.data?.refresh,
                 }
                 cookie.set('token',token, {path : '/'})
-                
                 dispatch.user.getUser()
-                dispatch.menu.SET_MODAL(false);
+                dispatch.user.resetError()
+               
             } catch (error) {
                 console.error('Failed to auth token - ', error);
-                //Тут ошибка получения токена → недоступен сервер, неудалост создать токен, нет такого пользователя
+                dispatch.user.setError("* Пользователь не найден")
+                //Тут ошибка получения токена → недоступен сервер, неудалось создать токен, нет такого пользователя
             }
         },
         async changeUserData({secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber}) {
@@ -200,7 +171,7 @@ export const user = createModel<RootModel>()({
                        email,
                        name,
                        secondName,
-                       thirdName, //утчнить название у бэка
+                       thirdName,
                        username: nickname,
                        postcode: indexLocation,
                        city,

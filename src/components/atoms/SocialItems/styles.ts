@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
     },
     title:{
         marginRight: 12,
-        fontSize: 14,
+        fontSize: 16,
     },
     buttons:{
         display: 'flex',

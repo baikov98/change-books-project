@@ -70,5 +70,11 @@ export const useStyles = makeStyles({
           cursor: "pointer",
       }
   },
+  error:{
+    color: Colors.red,
+    fontSize: 12,
+    fontWeight: 500,
+    marginLeft: 8,
+  },
   
 }, {index: 3});
