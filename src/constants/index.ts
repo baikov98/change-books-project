@@ -36,7 +36,7 @@ export const VALIDATION = {
         name: yup.string().trim().max(25, 'Максимальная длина 25 символов').required(texts.name).matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
         secondName: yup.string().trim().max(50, 'Максимальная длина 50 символов').required(texts.secondName).matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
         thirdName: yup.string().trim().max(25, 'Максимальная длина 25 символов').matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
-        indexLocation: yup.string().trim().required(texts.index).matches(/^\d+$/, 'Разрешены только цифры').max(6, 'Максимальная длина 6 символов'),
+        indexLocation: yup.string().trim().required(texts.index).matches(/^\d+$/, 'Разрешены только цифры').min(6, 'Минимальная длина 6 символов').max(6, 'Максимальная длина 6 символов'),
         city: yup.string().trim().max(20, 'Максимальная длина 20 символов').required(texts.city).matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
         nickname: yup.string().required(texts.nickname).matches(/^([a-zA-Z][a-zA-Z0-9-_\.]+)|([А-Яа-я][А-Яа-я0-9-_\.]+){1,50}$/, 'Вы используете запрещенные символы').trim().max(50, 'Максимальная длина 50 символов'),
         street: yup.string().trim().max(25, 'Максимальная длина 25 символов').required(texts.street).matches(/^[а-яА-Я\d- ]+$/, 'Разрешена только кириллица и цифры'),
