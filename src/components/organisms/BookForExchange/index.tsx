@@ -62,7 +62,7 @@ const BookForExchange: React.FC<IProps> = ({
     genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
-      dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectId]: filteredData})
+      //dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectId]: filteredData})
       handleEditable(true)
       handleSwitchEditState()
     }
@@ -88,13 +88,13 @@ const BookForExchange: React.FC<IProps> = ({
   const bookInfoItem = <>
                 <Box className={classes.header}>
                   <Box className={classes.title}>
-                    {`${exchangeBook.book.author.name} ${exchangeBook.book.author.last_name} "${exchangeBook.book.name}"`}
+                    {`${exchangeBook.authorName} ${exchangeBook.authorSurname} "${exchangeBook.book}"`}
                   </Box>
                   <EditButton onClick={handleEditButtonClick} />
                 </Box >
                 <Box className={classes.content}>
-                  {exchangeBook.year_publishing && 
-                  <CatAndValue category='Год издания' value={exchangeBook.year_publishing}/> }
+                  {exchangeBook.year && 
+                  <CatAndValue category='Год издания' value={exchangeBook.year}/> }
                   {exchangeBook.isbn && <CatAndValue category='ISBN' value={exchangeBook.isbn}/>}
                   {bookDetailsArray}
                 </Box>

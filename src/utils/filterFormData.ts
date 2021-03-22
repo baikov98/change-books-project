@@ -1,14 +1,10 @@
 import {IBookInfoFields, ICategoryListItem} from '../store/models/bookCategories'
-import { useSelector, useDispatch } from 'react-redux'
-import { getBookCategories } from '../store/selectors'
 
 export interface IData {
     [key: string]: string | boolean | ICategoryListItem[]
 }
 
 const useFilterFormData = (data: IData, listOfCategories: IBookInfoFields[]) => {
-    //const listOfCategories = useSelector(getBookCategories) as IBookInfoFields[]
-    
     for (let key in data) {
         if (!data[key]) delete data[key]
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRequestExchangeBooks } from "../../../store/selectors";
 import { getBookCategories } from "../../../store/selectors";
@@ -10,7 +10,9 @@ import BookForExchange from "../BookForExchange";
 const GiveUserChange: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  const resp = dispatch.requestExchangeBooks.requestOfferList()
+  useEffect(() => {
+    dispatch.requestExchangeBooks.requestOfferList()
+  }, [])
   const [editable, setEditable] = useState(true)
   const handleEditable = (value: boolean) => setEditable(value)
   const requestData: IBookData[] = useSelector(getRequestExchangeBooks);

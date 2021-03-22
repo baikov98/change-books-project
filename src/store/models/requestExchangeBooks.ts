@@ -4,18 +4,23 @@ import api from '../../services/api'
 import filterServerData from '../../utils/filterServerData'
 
 const exTest = {
+  id: '123',
   book: {
     author: {
-      "name": "string",
-      "last_name": "string"
+      name: "Джоан",
+      last_name: "Роулинг"
     },
-    name: "string"
+    name: "Гарри Поттер"
   },
-  isbn: "string",
+  isbn: "2-266-11156-6",
   year_publishing: 1210,
   categories: [
     {
       name: "Фантастика",
+      children: []
+    },
+    {
+      name: "Юмор",
       children: []
     },
     {
@@ -24,17 +29,14 @@ const exTest = {
     }
   ]
 }
+const testResponse = [exTest, exTest, exTest]
 
 const exchange1 = {
   id: '123',
-  book: {
-    author: {
-      name: "Михаил",
-      last_name: "Булгаков"
-    },
-    name: "Название книги"
-  },
-  year_publishing: "1898",
+  authorName: "Михаил",
+  authorSurname: "Булгаков",
+  book: "Название книги",
+  year: "1898",
   isbn: '2-266-11156-6',
   categories: [
     {category: 'Жанр', 
@@ -53,6 +55,20 @@ const exchange1 = {
   ]
 }
 
+interface IResponceData {
+  id: string;
+  book: {
+    author: {
+      name: string;
+      last_name: string;
+    },
+    name: string;
+  },
+  isbn: string;
+  year_publishing: string;
+  categories: []
+}
+
 export interface ICategoryListItem {
   category: string;
   value: string[][];
@@ -60,15 +76,11 @@ export interface ICategoryListItem {
 
 export interface IBookData {
   id: string;
-  book: {
-    author: {
-      name: string,
-      last_name: string
-    },
-    name: string
-  };
-  year_publishing?: string,
-  isbn?: string,
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  year: string;
+  isbn: string
   categories: ICategoryListItem[]
 }
 interface IBookListItem {
@@ -85,7 +97,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
     } as IBookListItem, 
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: []) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: any[]) => {
         return {
           ...state,
           data: payload
@@ -95,13 +107,23 @@ export const requestExchangeBooks = createModel<RootModel>()({
   effects: (dispatch) => {
     const { requestExchangeBooks } = dispatch
     return {
-    async requestOfferList() {
+    async requestOfferList(payload, rootState) {
       try {
-        const filteredResponce = filterServerData(exTest.categories)
-        console.log(filteredResponce) 
+        const filteredResponce = filterServerData(exTest.categories, rootState.bookCategories.main)
+        console.log(filteredResponce)
         const response = await api.get(`/api/v1/request/offerlist/`);
-        
-        requestExchangeBooks.SET_REQUEST_DATA(response.data)
+        const stateArray = response.data.map((item: IResponceData) => {
+          return {
+            id: item.id,
+            authorName: item.book.author.name,
+            authorSurname: item.book.author.last_name,
+            book: item.book.name,
+            year: item.year_publishing,
+            isbn: item.isbn,
+            categories: filterServerData(item.categories, rootState.bookCategories.main)
+          }
+        })
+        requestExchangeBooks.SET_REQUEST_DATA(stateArray)
         console.log(response);
       } catch (error) {
         console.error('Failed to requestOfferList - ', error);
