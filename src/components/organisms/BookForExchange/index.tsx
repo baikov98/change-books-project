@@ -50,7 +50,7 @@ const BookForExchange: React.FC<IProps> = ({
     resolver: yupResolver(VALIDATION.BOOK_INFO),
   });
   const bookDetailsArray = 
-    exchangeBook.categoryList.map((item) => {
+    exchangeBook.categories.map((item) => {
       const value = item.value.map((i) => i[0])
       return <CatAndValue key={item.category}
                    category={item.category} 
@@ -88,12 +88,13 @@ const BookForExchange: React.FC<IProps> = ({
   const bookInfoItem = <>
                 <Box className={classes.header}>
                   <Box className={classes.title}>
-                    {`${exchangeBook.authorName} ${exchangeBook.authorSurname} "${exchangeBook.book}"`}
+                    {`${exchangeBook.book.author.name} ${exchangeBook.book.author.last_name} "${exchangeBook.book.name}"`}
                   </Box>
                   <EditButton onClick={handleEditButtonClick} />
                 </Box >
                 <Box className={classes.content}>
-                  {exchangeBook.year && <CatAndValue category='Год издания' value={exchangeBook.year}/> }
+                  {exchangeBook.year_publishing && 
+                  <CatAndValue category='Год издания' value={exchangeBook.year_publishing}/> }
                   {exchangeBook.isbn && <CatAndValue category='ISBN' value={exchangeBook.isbn}/>}
                   {bookDetailsArray}
                 </Box>

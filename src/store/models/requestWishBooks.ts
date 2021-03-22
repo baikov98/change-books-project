@@ -94,9 +94,18 @@ export const requestWishBooks = createModel<RootModel>()({
       async requestWishList() {
         try {
           const response = await api.get(`/api/v1/request/wishlist/`);
+          requestWishBooks.SET_REQUEST_DATA(response.data)
           console.log(response);
         } catch (error) {
-          console.error('Failed to requestWishList - ', error);
+            console.error('Failed to requestWishList - ', error);
+          }
+      },
+      async putWishList(id: string) {
+        try {
+          const response = await api.put(`/api/v1/request/wishlist/${id}/`);
+          console.log(response);
+        } catch (error) {
+            console.error('Failed to requestWishList - ', error);
           }
       },
     }}

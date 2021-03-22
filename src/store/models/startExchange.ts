@@ -10,7 +10,8 @@ interface IGenreItem {
   value: string[][]
 }
 interface IRequestOfferList {
-  name?: string
+  name?: string;
+  children: []
 }
 
 interface IOfferData {
@@ -19,10 +20,6 @@ interface IOfferData {
   book: string;
   isbn?: string;
   year: string;
-  categoryList: IGenreItem[];
-}
-
-interface IWishData {
   categoryList: IGenreItem[];
 }
 
@@ -76,7 +73,10 @@ export const startExchange = createModel<RootModel>()({
         const genreArray = [] as IRequestOfferList[]
         offerData.categoryList.forEach((i) => {
           i.value.forEach((val) => {
-            genreArray.push({name: val[0]}) 
+            genreArray.push({
+              name: val[0],
+              children: []
+            }) 
           })
         })
         
@@ -106,7 +106,10 @@ export const startExchange = createModel<RootModel>()({
         const genreArray = [] as IRequestOfferList[]
         offerData.categoryList.forEach((i) => {
           i.value.forEach((val) => {
-            genreArray.push({name: val[0]}) 
+            genreArray.push({
+              name: val[0],
+              children: []
+            }) 
           })
         })
         const data = {

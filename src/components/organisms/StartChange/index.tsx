@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
-
-import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
+import { useSelector, useDispatch } from 'react-redux'
 import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
@@ -48,10 +47,9 @@ function getStepContent(tabsData: ITabsData) {
 interface IProps {}
 
 const StartChange: React.FC<IProps> = () => {
-
+  const listOfCategories = useSelector(getBookCategories)
   const classes = useStyles();
   const startExchange = useSelector(getStartExchangeState)
-  const listOfCategories = useSelector(getBookCategories)
   const step = startExchange.step
   const storeData = startExchange.data
   const dispatch = useDispatch()

@@ -74,6 +74,11 @@ export interface IBookInfoFields {
     title: Array<string>;
     opts: Array<string[]>;
 }
+   
+export interface ICategoryListItem {
+    category: string;
+    value: string[][]
+} 
 
 interface IInputs {
     main: IBookInfoFields[],
