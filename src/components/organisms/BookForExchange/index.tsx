@@ -62,7 +62,7 @@ const BookForExchange: React.FC<IProps> = ({
     genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
-      //dispatch.requestExchangeBooks.SET_REQUEST_DATA({[objectId]: filteredData})
+      dispatch.requestExchangeBooks.putEditedOffer(filteredData, objectId)
       handleEditable(true)
       handleSwitchEditState()
     }

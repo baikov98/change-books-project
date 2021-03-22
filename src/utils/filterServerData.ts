@@ -1,10 +1,11 @@
 import {IBookInfoFields, ICategoryListItem} from '../store/models/bookCategories'
 
-interface IData {
-    [key: string]: string | boolean | ICategoryListItem[]
+interface IServerDataCatItem {
+    name: string;
+    children: []
 }
 
-const useFilterServerData = (data: IData[], listOfCategories: IBookInfoFields[]) => { 
+const useFilterServerData = (data: IServerDataCatItem[], listOfCategories: IBookInfoFields[]) => { 
     const result = [] as ICategoryListItem[]
     listOfCategories.forEach(i => {
         const title = i.title[0]

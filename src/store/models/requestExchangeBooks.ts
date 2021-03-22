@@ -3,39 +3,49 @@ import { RootModel } from ".";
 import api from '../../services/api'
 import filterServerData from '../../utils/filterServerData'
 
-const exTest = {
-  id: '123',
+interface IRequestOfferItem {
+  name: string;
+  children: []
+}
+
+interface IResponceData {
+  id: string;
   book: {
     author: {
-      name: "Джоан",
-      last_name: "Роулинг"
+      name: string;
+      last_name: string;
     },
-    name: "Гарри Поттер"
+    name: string;
   },
-  isbn: "2-266-11156-6",
-  year_publishing: 1210,
-  categories: [
-    {
-      name: "Фантастика",
-      children: []
-    },
-    {
-      name: "Юмор",
-      children: []
-    },
-    {
-      name: "Хорошее",
-      children: []
-    }
-  ]
+  isbn: string;
+  year_publishing: string;
+  category: IRequestOfferItem[] 
 }
-const testResponse = [exTest, exTest, exTest]
+
+export interface ICategoryListItem {
+  category: string;
+  value: string[][];
+}
+
+export interface IBookData {
+  id?: string;
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  year: string;
+  isbn: string
+  categories: ICategoryListItem[]
+}
+
+interface IBookListItem {
+  data: IBookData[]
+}
 
 const exchange1 = {
   id: '123',
-  authorName: "Михаил",
-  authorSurname: "Булгаков",
-  book: "Название книги",
+  authorName: "ТестИмя",
+  authorSurname: "ТестФамилия",
+  book: "Тест Название книги",
   year: "1898",
   isbn: '2-266-11156-6',
   categories: [
@@ -55,37 +65,33 @@ const exchange1 = {
   ]
 }
 
-interface IResponceData {
-  id: string;
+const exTest: IResponceData = {
+  id: '123',
   book: {
     author: {
-      name: string;
-      last_name: string;
+      name: "1Джоан1",
+      last_name: "1Роулинг1"
     },
-    name: string;
+    name: "Гарри Поттер"
   },
-  isbn: string;
-  year_publishing: string;
-  categories: []
+  isbn: "2-266-11156-1",
+  year_publishing: "1210",
+  category: [
+    {
+      name: "Фантастика",
+      children: []
+    },
+    {
+      name: "Юмор",
+      children: []
+    },
+    {
+      name: "Хорошее",
+      children: []
+    }
+  ]
 }
-
-export interface ICategoryListItem {
-  category: string;
-  value: string[][];
-}
-
-export interface IBookData {
-  id: string;
-  authorName: string;
-  authorSurname: string;
-  book: string;
-  year: string;
-  isbn: string
-  categories: ICategoryListItem[]
-}
-interface IBookListItem {
-  data: IBookData[]
-}
+const testResponse = [exTest, exTest, exTest]
 
 export const requestExchangeBooks = createModel<RootModel>()({
     state: {
@@ -97,7 +103,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
     } as IBookListItem, 
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: any[]) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: IBookData[]) => {
         return {
           ...state,
           data: payload
@@ -109,10 +115,8 @@ export const requestExchangeBooks = createModel<RootModel>()({
     return {
     async requestOfferList(payload, rootState) {
       try {
-        const filteredResponce = filterServerData(exTest.categories, rootState.bookCategories.main)
-        console.log(filteredResponce)
         const response = await api.get(`/api/v1/request/offerlist/`);
-        const stateArray = response.data.map((item: IResponceData) => {
+        const stateArray: IBookData[] = response.data.map((item: IResponceData) => { 
           return {
             id: item.id,
             authorName: item.book.author.name,
@@ -120,13 +124,43 @@ export const requestExchangeBooks = createModel<RootModel>()({
             book: item.book.name,
             year: item.year_publishing,
             isbn: item.isbn,
-            categories: filterServerData(item.categories, rootState.bookCategories.main)
+            categories: filterServerData(item.category, rootState.bookCategories.main)
           }
         })
         requestExchangeBooks.SET_REQUEST_DATA(stateArray)
         console.log(response);
       } catch (error) {
         console.error('Failed to requestOfferList - ', error);
+        }
+    },
+    async putEditedOffer(payload: IBookData, rootState, id) {
+      try {
+        const genreArray: IRequestOfferItem[] = []
+        payload.categories.forEach(item => {
+          item.value.forEach(val => {
+            genreArray.push({
+              name: val[0],
+              children: []
+            })
+          })
+        })
+        const data = {
+          book: {
+            author: {
+              name: payload.authorName,
+              last_name: payload.authorSurname
+            },
+              name: payload.book
+          },
+          isbn: payload.isbn,
+          year_publishing: payload.year,
+          categories: genreArray
+        }
+        const response = await api.put(`/api/v1/request/offerlist/${id}/`, data);
+        
+        console.log(response);
+      } catch (error) {
+          console.error('Failed to requestOfferList - ', error);
         }
     },
   }}

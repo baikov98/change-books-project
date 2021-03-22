@@ -8,8 +8,8 @@ const useFilterFormData = (data: IData, listOfCategories: IBookInfoFields[]) => 
     for (let key in data) {
         if (!data[key]) delete data[key]
     }
-    data.categoryList = []
-    const catList = data.categoryList
+    data.categories = []
+    const catList = data.categories
     listOfCategories.forEach((item, index) => {
         const title = item.title[0]
         item.opts.forEach((i, indx) => { 
@@ -24,7 +24,6 @@ const useFilterFormData = (data: IData, listOfCategories: IBookInfoFields[]) => 
     for (let key in data) {
         if (typeof data[key] === 'boolean') delete data[key]
     }
-
     return data
 }
 

@@ -1,9 +1,7 @@
 import { createModel } from "@rematch/core";
-import { start } from "node:repl";
 import { RootModel } from ".";
-
 import api from '../../services/api'
-import cookie from '../../services/CookieService'
+
 
 interface IGenreItem {
   category: string;
@@ -20,7 +18,7 @@ interface IOfferData {
   book: string;
   isbn?: string;
   year: string;
-  categoryList: IGenreItem[];
+  categories: IGenreItem[];
 }
 
 export interface IStartExchange {
@@ -32,10 +30,10 @@ export interface IStartExchange {
         book: string;
         isbn?: string;
         year: string;
-        categoryList: IGenreItem[];
+        categories: IGenreItem[];
       },
       step2: {
-        categoryList: IGenreItem[]
+        categories: IGenreItem[]
       },
       step3: {}
     }
@@ -71,7 +69,7 @@ export const startExchange = createModel<RootModel>()({
     async requestOfferList(offerData: IOfferData) {
       try {
         const genreArray = [] as IRequestOfferList[]
-        offerData.categoryList.forEach((i) => {
+        offerData.categories.forEach((i) => {
           i.value.forEach((val) => {
             genreArray.push({
               name: val[0],
@@ -103,8 +101,8 @@ export const startExchange = createModel<RootModel>()({
     async requestWishList(deliveryData, rootState) {
       try {
         const offerData = rootState.startExchange.data.step2
-        const genreArray = [] as IRequestOfferList[]
-        offerData.categoryList.forEach((i) => {
+        const genreArray: IRequestOfferList[] = []
+        offerData.categories.forEach((i) => {
           i.value.forEach((val) => {
             genreArray.push({
               name: val[0],
