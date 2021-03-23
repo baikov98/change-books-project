@@ -13,7 +13,7 @@ export const useStyles = makeStyles({
     offersBox:{
         marginTop: 30,
         width: '100%',
-    }, 
+    },  
     accordionSummary:{
         "&.MuiAccordionSummary-root": {
             transition: "none",

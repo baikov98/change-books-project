@@ -89,7 +89,7 @@ export const startExchange = createModel<RootModel>()({
           year_publishing: +offerData.year,
           categories: genreArray.flat()
         }
-        const response = await api.post(`/api/v1/request/offer_list/create/`, data);
+        const response = await api.post(`/api/v1/request/offerlist`, data);
       } catch (error) {
         console.error('Failed to send offer data - ', error);
         }
@@ -117,7 +117,7 @@ export const startExchange = createModel<RootModel>()({
           },
           categories: genreArray.flat()
         }
-        const response = await api.post(`/api/v1/request/wish_list/create/`, data);
+        const response = await api.post(`/api/v1/request/wishlist`, data);
         
       } catch (error) {
         console.error('Failed to send wish data - ', error);
@@ -132,12 +132,12 @@ export const startExchange = createModel<RootModel>()({
             name: data?.first_name,
             secondName: data?.second_name,
             thirdName: data?.last_name,
-            indexLocation: data?.address.index,
-            city: data?.address.city,
-            street: data?.address.street,
-            homeNumber: data?.address.house,
-            buildNumber: data?.address.structure,
-            flatNumber: data?.address.apart,
+            indexLocation: data?.address[0].index,
+            city: data?.address[0].city,
+            street: data?.address[0].street,
+            homeNumber: data?.address[0].house,
+            buildNumber: data?.address[0].structure,
+            flatNumber: data?.address[0].apart,
           }
         })
         

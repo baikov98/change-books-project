@@ -3,11 +3,8 @@ import { Colors } from "../../../styles/Colors";
 
 export const useStyles = makeStyles({
 
-  accordionDetails: {
-    display: 'block',
-    backgroundColor: Colors.white,
-  },
   accordion: {
+    display: 'block',
     backgroundColor: Colors.lightGray,
     boxShadow: 'none',
     marginTop: 4,
@@ -46,6 +43,10 @@ export const useStyles = makeStyles({
         margin: 0,
     },
 },
+  accordionDetails: {
+    display: 'block !important',
+    backgroundColor: Colors.white,
+  },
   expandIcon: { 
     '&.Mui-expanded': {
     transform: 'rotate(90deg)',
