@@ -72,7 +72,7 @@ deploy to test:
     - chmod 600 $SSH_PRIVATE_KEY_TEST
     - scp -i $SSH_PRIVATE_KEY_TEST -o StrictHostKeyChecking=no ./.docker/docker-compose-standing.yml student@books-exchange-test.spring-intensive-2021.simbirsoft1.com:/home/student/docker
     - scp -i $SSH_PRIVATE_KEY_TEST -o StrictHostKeyChecking=no ./.docker/deploy.sh student@books-exchange-test.spring-intensive-2021.simbirsoft1.com:/home/student/docker
-    - ssh -i $SSH_PRIVATE_KEY_TEST -o StrictHostKeyChecking=no student@books-exchange-test.spring-intensive-2021.simbirsoft1.com 'sudo bash /home/student/docker/deploy.sh'
+    - ssh -i $SSH_PRIVATE_KEY_TEST -o StrictHostKeyChecking=no student@books-exchange-test.spring-intensive-2021.simbirsoft1.com 'bash /home/student/docker/deploy.sh'
   environment:
     name: devops/$CI_COMMIT_REF_NAME
   only:
