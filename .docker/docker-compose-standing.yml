@@ -10,5 +10,5 @@ services:
       - backend_webappnetwork
 
 networks:
-  backend_webappnetwork:
+  docker_webappnetwork:
     external: true
