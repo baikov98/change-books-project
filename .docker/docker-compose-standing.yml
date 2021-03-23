@@ -7,7 +7,7 @@ services:
     ports:
       - 80:80
     networks:
-      - backend_webappnetwork
+      - docker_webappnetwork
 
 networks:
   docker_webappnetwork:
