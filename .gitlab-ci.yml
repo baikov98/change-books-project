@@ -42,7 +42,7 @@ build in dockerhub:
   tags:
     - docker
 
-deploy-to-review:
+deploy to dev:
   image: docker:latest
   stage: deploy
   before_script:
@@ -51,10 +51,28 @@ deploy-to-review:
     - chmod 600 $SSH_PRIVATE_KEY
     - scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no ./.docker/docker-compose-standing.yml student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:/home/student/docker
     - scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no ./.docker/deploy.sh student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com:/home/student/docker
-#    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash -s' < ./.docker/deploy.sh
-#    - ssh -i $SSH_PRIVATE_KEY student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'bash .docker/deploy.sh'
-    - chmod 600 $SSH_PRIVATE_KEY
     - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no student@books-exchange-dev.spring-intensive-2021.simbirsoft1.com 'sudo bash /home/student/docker/deploy.sh'
+  environment:
+    name: devops/$CI_COMMIT_REF_NAME
+  only:
+    - develop
+    - test
+    - master
+    - devops
+  when: manual
+  tags:
+    - docker
+
+deploy to test:
+  image: docker:latest
+  stage: deploy
+  before_script:
+    - eval $(ssh-agent -s)
+  script:
+    - chmod 600 $SSH_PRIVATE_KEY
+    - scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no ./.docker/docker-compose-standing.yml student@books-exchange-test.spring-intensive-2021.simbirsoft1.com:/home/student/docker
+    - scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no ./.docker/deploy.sh student@books-exchange-test.spring-intensive-2021.simbirsoft1.com:/home/student/docker
+    - ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no student@books-exchange-test.spring-intensive-2021.simbirsoft1.com 'bash /home/student/docker/deploy.sh'
   environment:
     name: devops/$CI_COMMIT_REF_NAME
   only:
