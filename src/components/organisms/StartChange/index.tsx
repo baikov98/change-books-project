@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
-
-import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
+import { useSelector, useDispatch } from 'react-redux'
 import { getStartExchangeState } from '../../../store/selectors'
 import { useStyles } from "./styles";
 import { useHistory } from "react-router-dom";
@@ -22,6 +21,7 @@ export interface IStoreData {
 interface IStepData {
   step1: IData;
   step2: IData;
+  step3: IData;
 }
 
 export interface ITabsData {
@@ -47,27 +47,28 @@ function getStepContent(tabsData: ITabsData) {
 interface IProps {}
 
 const StartChange: React.FC<IProps> = () => {
-
+  const listOfCategories = useSelector(getBookCategories)
   const classes = useStyles();
   const startExchange = useSelector(getStartExchangeState)
-  const listOfCategories = useSelector(getBookCategories)
   const step = startExchange.step
   const storeData = startExchange.data
   const dispatch = useDispatch()
   const history = useHistory();
   const genresCheck = useRef(true)
   const submit = (data: IData) => {
-    genresCheck.current = genresChecker(data)
-    const filteredData = filterFormData(data, listOfCategories)
-    const stepLabel = `step${step+1}`
-    if (genresCheck.current) {
-      dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
-      dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
-    }
     if (step === 2) {
-      dispatch.requestExchangeBooks.ADD_REQUEST_DATA(storeData.step1)
-      dispatch.requestWishBooks.ADD_REQUEST_DATA(storeData.step2)
-      history.push('userChange/offer')
+      dispatch.startExchange.requestOfferList(storeData.step1)
+      dispatch.startExchange.requestWishList(data)
+      //history.push('userChange/offer')
+    } else {
+      genresCheck.current = genresChecker(data)
+      if (genresCheck.current) {
+        if (step === 0) dispatch.startExchange.getPersonalData()
+        const filteredData = filterFormData(data, listOfCategories)
+        const stepLabel = `step${step+1}`
+        dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
+        dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+      }
     }
   } 
   const handleBackButtonClick = () => {

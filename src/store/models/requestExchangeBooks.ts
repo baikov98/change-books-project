@@ -1,79 +1,167 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
+import api from '../../services/api'
+import filterServerData from '../../utils/filterServerData'
 
-const exchange1 = {
-  authorName: "Михаил",
-  authorSurname: "Булгаков",
-  book: "Название книги",
-  year: "1898",
-  isbn: '2-266-11156-6',
-  categoryList: [
-    {category: 'Жанр', 
-     value: [
-      ['детектив', 'detective'],
-      ['фантастика', 'fantasy']
-    ]},
-    {category: 'Обложка', 
-     value: [
-      ['жесткая', 'tough'],
-    ]},
-    {category: 'Область наук', 
-     value: [
-      ['биология', 'biology'],
-      ['медицина', 'medicine']
-    ]},
-  ]
+interface IRequestOfferItem {
+  name: string;
+  children: []
 }
 
-interface ICategoryListItem {
+interface IResponceData {
+  id: string;
+  book: {
+    author: {
+      name: string;
+      last_name: string;
+    },
+    name: string;
+  },
+  isbn: string;
+  year_publishing: string;
+  category: IRequestOfferItem[] 
+}
+
+export interface ICategoryListItem {
   category: string;
   value: string[][];
 }
 
-interface IBookListItem {
-    data: {
-      [key: string]: {
-        authorName: string,
-        authorSurname: string,
-        book: string,
-        year?: string,
-        isbn?: string,
-        categoryList: ICategoryListItem[]
-      }
-    }
+export interface IBookData {
+  id?: string;
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  year: string;
+  isbn: string
+  categories: ICategoryListItem[]
 }
 
-interface IPayload {
-  authorName: string,
-  authorSurname: string,
-  book: string,
-  year?: string,
-  isbn?: string,
-  categoryList: ICategoryListItem[]
+interface IBookListItem {
+  data: IBookData[]
 }
+
+const exchange1 = {
+  id: '123',
+  authorName: "ТестИмя",
+  authorSurname: "ТестФамилия",
+  book: "Тест Название книги",
+  year: "1898",
+  isbn: '2-266-11156-6',
+  categories: [
+    {category: 'Жанр', 
+     value: [
+      ['приключения', 'adventures'],
+      ['фантастика', 'fantasy']
+    ]},
+    {category: 'Состояние', 
+     value: [
+      ['Новая', 'fresh'], 
+    ]},
+    {category: 'Дополнительно', 
+     value: [
+      ['Иностранный язык', 'foreignlanguage'], 
+    ]},
+  ]
+}
+
+const exTest: IResponceData = {
+  id: '123',
+  book: {
+    author: {
+      name: "1Джоан1",
+      last_name: "1Роулинг1"
+    },
+    name: "Гарри Поттер"
+  },
+  isbn: "2-266-11156-1",
+  year_publishing: "1210",
+  category: [
+    {
+      name: "Фантастика",
+      children: []
+    },
+    {
+      name: "Юмор",
+      children: []
+    },
+    {
+      name: "Хорошее",
+      children: []
+    }
+  ]
+}
+const testResponse = [exTest, exTest, exTest]
 
 export const requestExchangeBooks = createModel<RootModel>()({
     state: {
-      data: {
-          book1: exchange1,
-          book2: exchange1,
-          book3: exchange1,
-      }
-    } as IBookListItem,
+      data: [
+          exchange1,
+          exchange1,
+          exchange1,
+      ]
+    } as IBookListItem, 
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: IBookData[]) => {
         return {
           ...state,
-          data: {...state.data, ...payload }
-        }
-      },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
-        return {
-          ...state,
-          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
-          // эта страшная конструкция тут до появления бэка
+          data: payload
         }
       },
   },
+  effects: (dispatch) => {
+    const { requestExchangeBooks } = dispatch
+    return {
+    async requestOfferList(payload, rootState) {
+      try {
+        const response = await api.get(`/api/v1/request/offerlist/`);
+        const stateArray: IBookData[] = response.data.map((item: IResponceData) => { 
+          return {
+            id: item.id,
+            authorName: item.book.author.name,
+            authorSurname: item.book.author.last_name,
+            book: item.book.name,
+            year: item.year_publishing,
+            isbn: item.isbn,
+            categories: filterServerData(item.category, rootState.bookCategories.main)
+          }
+        })
+        requestExchangeBooks.SET_REQUEST_DATA(stateArray)
+        console.log(response);
+      } catch (error) {
+        console.error('Failed to requestOfferList - ', error);
+        }
+    },
+    async putEditedOffer(payload: IBookData, rootState, id) {
+      try {
+        const genreArray: IRequestOfferItem[] = []
+        payload.categories.forEach(item => {
+          item.value.forEach(val => {
+            genreArray.push({
+              name: val[0],
+              children: []
+            })
+          })
+        })
+        const data = {
+          book: {
+            author: {
+              name: payload.authorName,
+              last_name: payload.authorSurname
+            },
+              name: payload.book
+          },
+          isbn: payload.isbn,
+          year_publishing: payload.year,
+          categories: genreArray
+        }
+        const response = await api.put(`/api/v1/request/offerlist/${id}/`, data);
+        
+        console.log(response);
+      } catch (error) {
+          console.error('Failed to requestOfferList - ', error);
+        }
+    },
+  }}
 });

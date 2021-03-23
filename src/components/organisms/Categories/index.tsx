@@ -87,7 +87,7 @@ const Categories: React.FC<IProps> = ({
                   const name = val[1]
                   const valuesArray: [] = []
                   const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
-                  correctPath?.categoryList?.map((val: IRequestCatList) => 
+                  correctPath?.categories?.map((val: IRequestCatList) => 
                   val.value.map((i: string[]) => valuesArray.push(i[1] as never)))
                    
                   const defaultValue = valuesArray.some((i: any) => name === i)

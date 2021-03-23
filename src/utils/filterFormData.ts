@@ -1,27 +1,18 @@
-
-interface IListCategories {
-    title: Array<string>;
-    opts: Array<string[]>;
-}
-
-interface ICategoryListItem {
-    category: string;
-    value: string[][]
-}
+import {IBookInfoFields, ICategoryListItem} from '../store/models/bookCategories'
 
 export interface IData {
     [key: string]: string | boolean | ICategoryListItem[]
 }
 
-const filterFormData = (data: IData, listOfCategories: IListCategories[]) => { 
+const useFilterFormData = (data: IData, listOfCategories: IBookInfoFields[]) => {
     for (let key in data) {
         if (!data[key]) delete data[key]
     }
-    data.categoryList = []
-    const catList = data.categoryList
+    data.categories = []
+    const catList = data.categories
     listOfCategories.forEach((item, index) => {
-        const title = item.title[0] as string
-        item.opts.forEach((i, indx) => {
+        const title = item.title[0]
+        item.opts.forEach((i, indx) => { 
             const findEl = catList.find((val: ICategoryListItem) => val.category === title)
             if (data.hasOwnProperty(i[1])) {
                 findEl ? findEl.value.push(i) :
@@ -36,4 +27,4 @@ const filterFormData = (data: IData, listOfCategories: IListCategories[]) => {
     return data
 }
 
-export default filterFormData
+export default useFilterFormData

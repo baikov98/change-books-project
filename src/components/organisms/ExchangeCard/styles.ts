@@ -26,7 +26,6 @@ export const useStyles = makeStyles({
         marginTop: 24,
         gridTemplateColumns: 'auto auto auto',
         width: '100%',
-        cursor: 'pointer',
     },
     middleBox: {
         display: 'flex',

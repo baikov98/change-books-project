@@ -25,6 +25,9 @@ export const useStyles = makeStyles({
   }, 
   editForm: {
     display: 'block',
+  },
+  btnSave: {
+    marginTop: 30
   }
 }, 
 );

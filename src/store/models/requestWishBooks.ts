@@ -1,99 +1,112 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
+import api from '../../services/api'
 
 const exchange1 = {
+  id: '123',
   categoryList: [
     {category: 'Жанр', 
      value: [
       ['приключения', 'adventures'],
       ['фантастика', 'fantasy']
     ]},
-    {category: 'Лауреат', 
+    {category: 'Состояние', 
      value: [
-      ['пулитцеровская', 'pylit'],
+      ['Новая', 'fresh'], 
     ]},
-    {category: 'Область наук', 
+    {category: 'Дополнительно', 
      value: [
-      ['химия', 'chemistry'],
-      ['физика', 'physics']
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
 
 const exchange2 = {
+  id: '124',
   categoryList: [
     {category: 'Жанр', 
      value: [
-      ['детские книги', 'childbooks'],
+      ['приключения', 'adventures'],
       ['фантастика', 'fantasy']
-    ]},
-    {category: 'Область наук', 
-     value: [
-      ['эзотерика', 'esoterics']
     ]},
     {category: 'Состояние', 
      value: [
-      ['в хорошем состоянии', 'goodshape'],
+      ['Новая', 'fresh'], 
+    ]},
+    {category: 'Дополнительно', 
+     value: [
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
 
 const exchange3 = {
+  id: '125',
   categoryList: [
     {category: 'Жанр', 
      value: [
-      ['психология', 'psychology'],
+      ['приключения', 'adventures'],
+      ['фантастика', 'fantasy']
     ]},
-    {category: 'Лауреат', 
+    {category: 'Состояние', 
      value: [
-      ['гонкуровская', 'gonkyr'],
+      ['Новая', 'fresh'], 
     ]},
-    {category: 'Экранизация', 
+    {category: 'Дополнительно', 
      value: [
-      ['экранизирована', 'filmed'],
+      ['Иностранный язык', 'foreignlanguage'], 
     ]},
   ]
 }
 
-interface ICategoryListItem {
+export interface ICategoryListItem {
   category: string;
   value: string[][];
 }
 
-interface IBookListItem {
-    data: {
-      [key: string]: {
-        categoryList: ICategoryListItem[]
-      }
-    }
+export interface IBookData {
+  id: string;
+  categoryList: ICategoryListItem[];
 }
 
-interface IPayload {
-  categoryList: ICategoryListItem[]
+interface IBookListItem {
+    data: IBookData[]
 }
 
 export const requestWishBooks = createModel<RootModel>()({
     state: {
-      data: {
-          book1: exchange1,
-          book2: exchange2,
-          book3: exchange3,
-      }
+      data: [
+        exchange1, exchange2, exchange3
+      ]
     } as IBookListItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: object) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: []) => {
         return {
           ...state,
-          data: {...state.data, ...payload }
-        }
-      },
-      ADD_REQUEST_DATA: (state: IBookListItem, payload: IPayload) => {
-        return {
-          ...state,
-          data: {...state.data, [`book${Object.keys(state.data).length+1}`]: payload }
-          // эта страшная конструкция тут до появления бэка
+          data: payload
         }
       },
     },
+    effects: (dispatch) => {
+      const { requestWishBooks } = dispatch
+      return {
+      async requestWishList() {
+        try {
+          const response = await api.get(`/api/v1/request/wishlist/`);
+          requestWishBooks.SET_REQUEST_DATA(response.data)
+          console.log(response);
+        } catch (error) {
+            console.error('Failed to requestWishList - ', error);
+          }
+      },
+      async putWishList(id: string) {
+        try {
+          const response = await api.put(`/api/v1/request/wishlist/${id}/`);
+          console.log(response);
+        } catch (error) {
+            console.error('Failed to requestWishList - ', error);
+          }
+      },
+    }}
 });

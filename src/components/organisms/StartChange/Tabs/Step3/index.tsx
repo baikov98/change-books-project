@@ -1,5 +1,5 @@
 import React from "react";
-
+import CheckBox from "../../../../atoms/CheckBox";
 import { Box, Typography } from "@material-ui/core";
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -34,7 +34,6 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.DELIVERY_INFO)
   });
   const handleNextButtonClick = handleSubmit(submit)
-
   return (
       <Box className={classes.wrapper}>
         <form>
@@ -46,7 +45,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   name={item.name}
                   control={control}
                   rules={{ required: item.required }}
-                  defaultValue=''
+                  defaultValue={storeData.step3[item.name]} 
                   render={(props) => (
                     <InputItem
                       label={item.label}
@@ -67,7 +66,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                     name={item.name}
                     control={control}
                     rules={{ required: item.required }}
-                    defaultValue=''
+                    defaultValue={storeData.step3[item.name]}
                     render={(props) => (
                       <InputItem
                         label = {item.label}
@@ -80,6 +79,18 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                   />
                   ))}
           </Box>
+          <Controller
+            name="is_default"
+            control={control}
+            defaultValue={true}
+            render={({ value, onChange }) => (
+              <CheckBox
+                label={'Сделать адресом по умолчанию'}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.checked)}
+                checked={value}
+              />
+            )}
+          />
           <FormButtons step={step} 
                        handleBackButtonClick={handleBackButtonClick} 
                        handleNextButtonClick={handleNextButtonClick} />
