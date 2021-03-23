@@ -21,8 +21,8 @@ const initialState = {
      },
      {
       name: "thirdName",
-      required: false,
-      label: 'Отчество:',
+      required: true,
+      label: 'Отчество*:',
       type: '',
       placeholder: 'Введите отчество',
       error: 'thirdName',
@@ -97,7 +97,7 @@ const initialState = {
         {
         name: "buildNumber",
         required: true,
-        label: 'Номер корпуса/строения:',
+        label: 'Номер корпуса/строения*:',
         type: '',
         placeholder: 'Номер корпуса/строения',
         error: 'buildNumber',
@@ -105,7 +105,7 @@ const initialState = {
         {
         name: "flatNumber",
         required: true,
-        label: 'Номер квартиры:',
+        label: 'Номер квартиры*:',
         type: '',
         placeholder: 'Номер квартиры',
         error: 'flatNumber',
