@@ -73,17 +73,17 @@ export const user = createModel<RootModel>()({
             try {
                 const response = await api.get(`/api/v1/profile/`);
                 const newUser = {
-                    name: response.data?.user?.first_name,
-                    secondName: response.data?.user?.second_name,
-                    thirdName: response.data?.user?.last_name,
-                    nickname: response.data?.user?.username,
-                    email: response.data?.user?.email,
-                    indexLocation: response.data?.index,
-                    city: response.data?.city,
-                    street: response.data?.street,
-                    homeNumber: response.data?.house,
-                    buildNumber: response.data?.structure,
-                    flatNumber: response.data?.apart,
+                    name: response.data?.first_name,
+                    secondName: response.data?.last_name,
+                    thirdName: response.data?.second_name,
+                    nickname: response.data?.username,
+                    email: response.data?.email,
+                    indexLocation: response.data?.address[0]?.index || '',
+                    city: response.data?.address[0]?.city || '',
+                    street: response.data?.address[0]?.street || '',
+                    homeNumber: response.data?.address[0]?.house || '',
+                    buildNumber: response.data?.address[0]?.structure || '',
+                    flatNumber: response.data?.address[0]?.apart || '',
                 }
                 dispatch.user.SET_USER(newUser)
                 dispatch.user.resetError()
@@ -96,7 +96,7 @@ export const user = createModel<RootModel>()({
         },
         async activationAccount ({uid, token}){
             try {
-                const response = await api.post(`/auth/users/activation`, {
+                const response = await api.post(`/api/v1/auth/users/activation/`, {
                     uid,
                     token
                 });
@@ -106,7 +106,7 @@ export const user = createModel<RootModel>()({
         },
         async resetPassword({email}) {
             try {
-                const response = await api.post(`/auth/users/reset_password`, {
+                const response = await api.post(`/api/v1/auth/users/reset_password/`, {
                     email
                 });
                 dispatch.user.resetError()
