@@ -4,11 +4,10 @@ import { Box, Typography } from "@material-ui/core";
 import SignIn from "../SignIn";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getList, getUser } from "../../../store/selectors";
+import { getList, getUser, getAuth } from "../../../store/selectors";
 import { IMenuItem } from "../../../store/models/menu";
 import Logo from "../../../assets/image/LOGO.png";
 import MenuItem from "../../atoms/MenuItem";
-import cookie from "../../../services/CookieService";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const Header: React.FC = () => {
@@ -16,7 +15,7 @@ const Header: React.FC = () => {
   const history = useHistory();
   const menu = useSelector(getList);
   const user = useSelector(getUser);
-  const auth = cookie.get("token");
+  const auth = useSelector(getAuth);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -47,7 +46,7 @@ const Header: React.FC = () => {
       {auth && (
         <Box className={classes.loginMenu}>
           <AccountCircleIcon fontSize={"small"} />
-          <Typography>{user.name || "UserName"}</Typography>
+          <Typography>{user?.name || " UserName"}</Typography>
         </Box>
       )}
     </Box>

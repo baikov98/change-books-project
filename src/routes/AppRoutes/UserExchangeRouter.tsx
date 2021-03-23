@@ -16,6 +16,7 @@ import ArchivePage from "../../pages/ArchivePage";
 import ArchiveCardPage from "../../pages/ArchiveCardPage";
 import ReviewPage from "../../pages/ReviewPage";
 import MessagesPage from "../../pages/MessagesPage";
+import ExitPage from "../../pages/ExitPage";
 
 const UserChangeRouter = () => (
   <SideLayout header={<Header />} sideBarLeft={<Sidebar />}>
@@ -31,6 +32,7 @@ const UserChangeRouter = () => (
       <Route component={ArchivePage} exact path={routes.archive} />
       <Route component={ReviewPage} exact path={routes.review} />
       <Route component={MessagesPage} exact path={routes.messages} />
+      <Route component={ExitPage} exact path={routes.exit} />
     </Switch>
   </SideLayout>
 );

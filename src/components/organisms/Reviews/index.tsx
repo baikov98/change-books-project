@@ -22,7 +22,7 @@ type IInputData = {
 const Reviews: React.FC = () => {
   const classes = useStyles();
   const reviewsList = useSelector(getReviewsByBook);
-  const [step, setStep] = useState<Number>(1);
+  const [step, setStep] = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const books = useSelector(getBooksByAuthor);

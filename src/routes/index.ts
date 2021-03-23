@@ -1,7 +1,7 @@
 const mainRoutes = {
     main: "/",
     start: "/start",
-    accessEmail: "/access",
+    accessEmail: "/access/:uid/:token",
     politics: "/politics",
     userChange: "/userChange",
     feedback: "/feedback",

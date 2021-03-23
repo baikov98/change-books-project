@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 
@@ -12,6 +12,7 @@ import ButtonItem from "../../atoms/ButtonItem";
 import CheckBox from "../../atoms/CheckBox";
 import DialogItem from "../../molecules/DialogItem";
 import { useHistory } from "react-router";
+import { getAuth } from "../../../store/selectors";
 
 interface IInputData {
   name?: string;
@@ -25,7 +26,7 @@ interface IInputData {
 const Feedback: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const auth = cookie.get("token");
+  const auth = useSelector(getAuth);
   const history = useHistory();
   const {
     handleSubmit,

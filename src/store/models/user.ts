@@ -1,98 +1,119 @@
 import { createModel} from "@rematch/core"
 import { RootModel } from "."
-import { baseURL } from "../../constants"
 
-import axios from 'axios'
+import api from '../../services/api'
 import cookie from '../../services/CookieService'
+import { isEmpty } from '../../utils/isObjectEmpty';
 
-const personalData = {
-    name: "Александр",
-    secondName: 'Волков',
-    thirdName: 'Игоревич',
-    nickname: 'BookReader',
-    email: 'volkov@gmail.com',
-    indexLocation: '124223',
-    city: 'Москва',
-    street: 'Братиславская',
-    homeNumber: '31',
-    buildNumber: '1',
-    flatNumber: '45',
-}
 export interface IPerosnalData {
-    name: string,
-    secondName: string,
-    thirdName: string,
-    nickname: string,
-    email: string,
-    indexLocation: string,
-    city: string,
-    street: string,
-    homeNumber: string,
-    buildNumber: string,
-    flatNumber: string,
-    password: string,
-    confirmPassword: string,
-}
-
-interface IUser {
     name?: string,
-    secondName?: string, //фамилия
+    secondName?: string,
     thirdName?: string,
+    nickname?: string,
     email?: string,
-    userName?: string,
-    token?: null,
+    indexLocation?: string,
+    city?: string,
+    street?: string,
+    homeNumber?: string,
+    buildNumber?: string,
+    flatNumber?: string,
+    password?: string,
+    confirmPassword?: string,
 }
 
 interface IProps {
-    currentUser: IUser,
+    error: string | null,
+    isAuth: boolean,
     personalData: IPerosnalData,
 }
 
 export const user = createModel<RootModel>()({
     state: {
-        currentUser: {},
-        personalData,
+        error: null,
+        isAuth: false,
+        personalData: {},
     }as IProps,
     reducers: {
-        SET_USER: (state: IProps, currentUser:IUser) => {
+        setError: (state: IProps,error:string) => {
             return {
                 ...state,
-                currentUser,
+                error,
+            }
+        },
+        resetError: (state: IProps) => ({
+            ...state,
+            error: null,
+          }),
+        SET_USER: (state: IProps, personalData: IPerosnalData) => {
+            return {
+                ...state,
+                personalData,
+                isAuth: true,
             }
         },
         LOGOUT_USER: (state: IProps) => {
             return {
                 ...state,
-                currentUser: {},
+                personalData: {},
+                isAuth: false,
             }
         },
-        SET_PERSONAL_DATA: (state: IProps, personalData: IPerosnalData) => {
-            return {
-                ...state,
-                personalData,
-            }
-        }
+       
     },
     effects: (dispatch) =>  ({
+        async checkAuth (_, rootState) {
+            //Метод проверки авторизации пользователя
+            const {personalData: user} = rootState?.user
+            const token = cookie.get('token');
+            if (isEmpty(user) && !isEmpty(token)) {
+                dispatch.user.getUser();
+            }
+        },
+        async getUser (){
+            try {
+                const response = await api.get(`/api/v1/profile/`);
+                const newUser = {
+                    name: response.data?.user?.first_name,
+                    secondName: response.data?.user?.second_name,
+                    thirdName: response.data?.user?.last_name,
+                    nickname: response.data?.user?.username,
+                    email: response.data?.user?.email,
+                    indexLocation: response.data?.index,
+                    city: response.data?.city,
+                    street: response.data?.street,
+                    homeNumber: response.data?.house,
+                    buildNumber: response.data?.structure,
+                    flatNumber: response.data?.apart,
+                }
+                dispatch.user.SET_USER(newUser)
+                dispatch.user.resetError()
+            } catch (error) {
+                console.error('Failed to GET USER - ', error);
+                dispatch.user.setError("*Данные этого пользователя не найдены")
+                dispatch.user.logout()
+                //Если есть токен, но ошибка получения пользователя. Причины : недоступен сервер, 
+            }
+        },
         async activationAccount ({uid, token}){
             try {
-                const response = await axios.post(`${baseURL}/auth/users/activation`, {
+                const response = await api.post(`/auth/users/activation`, {
                     uid,
                     token
                 });
-                // console.log(response);
             } catch (error) {
-            console.error('Failed to activation account - ', error);
+                console.error('Failed to activation account - ', error);
             }
         },
         async resetPassword({email}) {
             try {
-                const response = await axios.post(`${baseURL}/auth/users/reset_password`, {
+                const response = await api.post(`/auth/users/reset_password`, {
                     email
                 });
-                console.log(response);
+                dispatch.user.resetError()
+                
             } catch (error) {
-            console.error('Failed to reset password - ', error);
+                console.error('Failed to reset password - ', error);
+                dispatch.user.setError('*На сервере произошла ошибка или введён не верный Email')
             }
         },
         async registration({secondName, name, thirdName, nickname, email, password, confirmPassword, indexLocation, city, street, homeNumber, buildNumber, flatNumber}) {
@@ -114,37 +135,34 @@ export const user = createModel<RootModel>()({
                             apart: flatNumber,
                        }
                    }
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                }
-                const response = await axios.post(`${baseURL}/auth/users`, data, {headers});
-                console.log(response);
-                cookie.set('token', response.data?.token, {path : '/'})
-                dispatch.SET_USER(response)
+                
+                const response = await api.post(`/api/v1/auth/users/`, data);
+                dispatch.user.resetError()
             } catch (error) {
-            console.error('Failed to reset password - ', error);
+                console.error('Failed to registration - ', error);
+                dispatch.user.setError('Ошибка в регистрации пользователя')
             }
         },
-        async login({email, password}) {
+        async login({nickname, password}) {
             try {
-                   const data = {
-                       email,
-                       password, 
-                   }
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
+                const data = {
+                    username: nickname,
+                    password, 
                 }
-                const response = await axios.post(`${baseURL}/auth/token`, data, {headers});
-                console.log(response);
+                const response = await api.post(`/api/v1/auth/jwt/create/`, data);
+                console.log("response = ", response);
                 const token = {
                     access: response.data?.access,
                     refresh: response.data?.refresh,
                 }
                 cookie.set('token',token, {path : '/'})
+                dispatch.user.getUser()
+                dispatch.user.resetError()
+               
             } catch (error) {
                 console.error('Failed to auth token - ', error);
+                dispatch.user.setError("* Пользователь не найден")
+                //Тут ошибка получения токена → недоступен сервер, неудалось создать токен, нет такого пользователя
             }
         },
         async changeUserData({secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber}) {
@@ -153,7 +171,7 @@ export const user = createModel<RootModel>()({
                        email,
                        name,
                        secondName,
-                       thirdName, //утчнить название у бэка
+                       thirdName,
                        username: nickname,
                        postcode: indexLocation,
                        city,
@@ -162,21 +180,17 @@ export const user = createModel<RootModel>()({
                        buildNumber,
                        flatNumber,  
                    }
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                }
-                // TODO - после оформления бэка
-                // const response = await axios.post(`${baseURL}/auth/token`, data, {headers}); АПИ не готово 
-                // console.log(response);
+              
+                const response = await api.post(`/auth/token`, data);
+                console.log(response);
             } catch (error) {
                 console.error('Failed to change person data - ', error);
             }
         },
 
-        logout(){
-            cookie.remove('token')
-            dispatch.LOGOUT_USER()
+        async logout(){
+            cookie.remove('token', { path: '/' })
+            dispatch.user.LOGOUT_USER()
         }
     })
 })
