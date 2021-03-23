@@ -34,6 +34,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
     resolver: yupResolver(VALIDATION.DELIVERY_INFO)
   });
   const handleNextButtonClick = handleSubmit(submit)
+
   return (
       <Box className={classes.wrapper}>
         <form>
@@ -86,7 +87,7 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
             render={({ value, onChange }) => (
               <CheckBox
                 label={'Сделать адресом по умолчанию'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.checked)}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.checked)}
                 checked={value}
               />
             )}

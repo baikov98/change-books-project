@@ -128,22 +128,20 @@ export const requestExchangeBooks = createModel<RootModel>()({
           }
         })
         requestExchangeBooks.SET_REQUEST_DATA(stateArray)
-        console.log(response);
       } catch (error) {
         console.error('Failed to requestOfferList - ', error);
         }
     },
     async putEditedOffer(payload: IBookData, rootState, id) {
       try {
-        const genreArray: IRequestOfferItem[] = []
-        payload.categories.forEach(item => {
-          item.value.forEach(val => {
-            genreArray.push({
+        const genreArray = payload.categories.map(item => (
+          item.value.map(val => (
+            {
               name: val[0],
               children: []
-            })
-          })
-        })
+            }
+          ))
+        ))
         const data = {
           book: {
             author: {
@@ -154,11 +152,9 @@ export const requestExchangeBooks = createModel<RootModel>()({
           },
           isbn: payload.isbn,
           year_publishing: payload.year,
-          categories: genreArray
+          categories: genreArray.flat()
         }
         const response = await api.put(`/api/v1/request/offerlist/${id}/`, data);
-        
-        console.log(response);
       } catch (error) {
           console.error('Failed to requestOfferList - ', error);
         }

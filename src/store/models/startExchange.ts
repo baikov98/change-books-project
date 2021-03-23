@@ -90,10 +90,7 @@ export const startExchange = createModel<RootModel>()({
           year_publishing: +offerData.year,
           categories: genreArray
         }
-        console.log(data)
         const response = await api.post(`/api/v1/request/offer_list/create/`, data);
-        console.log(response);
-        
       } catch (error) {
         console.error('Failed to send offer data - ', error);
         }
@@ -101,15 +98,14 @@ export const startExchange = createModel<RootModel>()({
     async requestWishList(deliveryData, rootState) {
       try {
         const offerData = rootState.startExchange.data.step2
-        const genreArray: IRequestOfferList[] = []
-        offerData.categories.forEach((i) => {
-          i.value.forEach((val) => {
-            genreArray.push({
+        const genreArray = offerData.categories.map(item => (
+          item.value.map(val => (
+            {
               name: val[0],
               children: []
-            }) 
-          })
-        })
+            }
+          ))
+        ))
         const data = {
           address: {
             index: deliveryData.indexLocation,
@@ -120,11 +116,9 @@ export const startExchange = createModel<RootModel>()({
             apart: deliveryData.flatNumber,
             is_default: !!deliveryData.is_default
           },
-          categories: genreArray
+          categories: genreArray.flat()
         }
-        console.log(data)
         const response = await api.post(`/api/v1/request/wish_list/create/`, data);
-        console.log(response);
         
       } catch (error) {
         console.error('Failed to send wish data - ', error);
@@ -147,10 +141,9 @@ export const startExchange = createModel<RootModel>()({
             flatNumber: data?.apart,
           }
         })
-        console.log(response);
         
       } catch (error) {
-        console.error('Failed to get presonal data - ', error);
+        console.error('Failed to get personal data - ', error);
         }
     },
     

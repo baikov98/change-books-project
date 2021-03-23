@@ -13,7 +13,7 @@ const GetUserChange: React.FC = () => {
   const dispatch = useDispatch()
   const resp = dispatch.requestWishBooks.requestWishList()
   const handleEditable = (value: boolean) => setEditable(value)
-  const requestData: IBookData[] = useSelector(requestWishBooks);
+  const requestData = useSelector(requestWishBooks);
   const bookCategories = useSelector(getBookCategories);
   return (
     <Box className={classes.root}>

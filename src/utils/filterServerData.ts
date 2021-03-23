@@ -6,24 +6,21 @@ interface IServerDataCatItem {
 }
 
 const useFilterServerData = (data: IServerDataCatItem[], listOfCategories: IBookInfoFields[]) => { 
-    const result = [] as ICategoryListItem[]
-    listOfCategories.forEach(i => {
+    const result = listOfCategories.map(i => {
         const title = i.title[0]
-        const obj = {
+        const obj: ICategoryListItem = {
             category: title,
             value: []
-        } as ICategoryListItem
+        }
         data.forEach(item => {
-            const word = item.name
             i.opts.forEach(val => {
-                if (val[0] === word) {
-                    obj.value.push(val)
-                }
+                if (val[0] === item.name) obj.value.push(val)
             })
         })
-        if (obj.value.length) result.push(obj)
+        if (obj.value.length) return obj
     })
-    return result
+    const res = result.filter(element => element);
+    return res
 }
 
 export default useFilterServerData

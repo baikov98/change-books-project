@@ -15,7 +15,7 @@ const GiveUserChange: React.FC = () => {
   }, [])
   const [editable, setEditable] = useState(true)
   const handleEditable = (value: boolean) => setEditable(value)
-  const requestData: IBookData[] = useSelector(getRequestExchangeBooks);
+  const requestData = useSelector(getRequestExchangeBooks);
   const bookCategories = useSelector(getBookCategories);
   return (
     <Box className={classes.root}>
