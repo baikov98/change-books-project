@@ -6,6 +6,6 @@ DC_FILE=docker-compose-standing.yml
 cd $DIRECTORY;
  
 #set -o allexport; . $ENV_FILE;
-docker-compose -f $DC_FILE pull;
-docker-compose -f $DC_FILE down;
-docker-compose -f $DC_FILE up -d;
+sudo docker-compose -f $DC_FILE pull;
+sudo docker-compose -f $DC_FILE down;
+sudo docker-compose -f $DC_FILE up -d;
