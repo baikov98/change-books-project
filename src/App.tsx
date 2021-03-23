@@ -25,7 +25,7 @@ function App() {
   dispatch.user.checkAuth();
   const auth = useSelector(getAuth);
   console.log("APP is AUTH = ", auth);
-
+  console.log("ENV = ", process.env.NODE_ENV);
   return (
     <BrowserRouter>
       <CssBaseline />
