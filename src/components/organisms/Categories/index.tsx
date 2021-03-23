@@ -23,7 +23,7 @@ interface IRequestCatList {
 interface IProps {
   step: number;
   control: Control;
-  data: any;        // пока неизвестен точный формат данных, приходящих с бэка
+  data: any;
   setValue: (name: string, value: string | boolean) => void;
   checkLimit?: boolean
   getValues?: (name?: string | string[]) => void
