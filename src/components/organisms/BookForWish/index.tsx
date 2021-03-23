@@ -63,7 +63,6 @@ const BookForWish: React.FC<IProps> = ({
     genresCheck.current = genresChecker(formData)
     const filteredData = filterFormData(formData, listOfCategories)
     if (genresCheck.current) {
-      //dispatch.requestWishBooks.SET_REQUEST_DATA({[objectKey]: filteredData})
       handleEditable(true)
       handleSwitchEditState()
     }
