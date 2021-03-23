@@ -8,6 +8,7 @@ export const useStyles = makeStyles({
     backgroundColor: Colors.white,
   },
   accordion: {
+    display: 'block',
     backgroundColor: Colors.lightGray,
     boxShadow: 'none',
     marginTop: 4,
@@ -75,6 +76,7 @@ export const useStyles = makeStyles({
     fontWeight: 'bold'
   },
   accordionCheckbox: {
+    display: 'block',
     textTransform: "lowercase",
     marginLeft: 20,
     marginBottom: 8,
