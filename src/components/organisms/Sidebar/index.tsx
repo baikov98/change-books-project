@@ -6,11 +6,12 @@ import User from "../../../assets/image/user.png";
 import { useSelector } from "react-redux";
 import { useStyles } from "./styles";
 import { Typography } from "@material-ui/core";
-import { getNavList } from "../../../store/selectors";
+import { getNavList, getUser } from "../../../store/selectors";
 import { ReactComponent as StarIcon } from "../../../assets/svg/star.svg";
 
 const Sidebar: React.FC = () => {
   const classes = useStyles();
+  const user = useSelector(getUser);
   const nav = useSelector(getNavList);
 
   return (
@@ -19,7 +20,7 @@ const Sidebar: React.FC = () => {
         <Box className={classes.logo}>
           <img src={User} />
         </Box>
-        <Typography className={classes.title}>Смелый заяц</Typography>
+        <Typography className={classes.title}>{user?.name}</Typography>
       </Box>
 
       <Typography className={classes.subtitle}>

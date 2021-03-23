@@ -44,5 +44,11 @@ export const useStyles = makeStyles({
     padding: '12px 60px',
     fontWeight: 700,
   },
+  error:{
+    color: Colors.red,
+    fontSize: 12,
+    fontWeight: 500,
+    marginLeft: 8,
+  },
   
 }, {index: 3});

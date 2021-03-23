@@ -130,15 +130,15 @@ export const startExchange = createModel<RootModel>()({
         let data = await response.data
         startExchange.SET_EXCHANGE_DATA({
           step3: {
-            name: data?.user?.first_name,
-            secondName: data?.user?.second_name,
-            thirdName: data?.user?.last_name,
-            indexLocation: data?.index,
-            city: data?.city,
-            street: data?.street,
-            homeNumber: data?.house,
-            buildNumber: data?.structure,
-            flatNumber: data?.apart,
+            name: data?.first_name,
+            secondName: data?.second_name,
+            thirdName: data?.last_name,
+            indexLocation: data?.address.index,
+            city: data?.address.city,
+            street: data?.address.street,
+            homeNumber: data?.address.house,
+            buildNumber: data?.address.structure,
+            flatNumber: data?.address.apart,
           }
         })
         

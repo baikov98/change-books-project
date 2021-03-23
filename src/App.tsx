@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-
-import "./App.css";
 import cookie from "./services/CookieService";
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuth } from "./store/selectors";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,6 +20,11 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  // Успею ли я получить пользователя, что бы выставить флаг isAuth в true
+  dispatch.user.checkAuth();
+  const auth = useSelector(getAuth);
+  console.log("APP is AUTH = ", auth);
 
   return (
     <BrowserRouter>
@@ -29,7 +35,7 @@ function App() {
         disableGutters
         component={"div"}
       >
-        <AppRoutes />
+        <AppRoutes auth={auth} />
       </Container>
     </BrowserRouter>
   );

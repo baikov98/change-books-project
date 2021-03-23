@@ -12,7 +12,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import SocialItems from "../../atoms/SocialItems";
 import CheckBox from "../../atoms/CheckBox";
-import { getMainInput, getAdressInput } from "../../../store/selectors";
+import {
+  getMainInput,
+  getAdressInput,
+  getUserError,
+} from "../../../store/selectors";
 import DialogItem from "../../molecules/DialogItem";
 import { useHistory } from "react-router-dom";
 
@@ -37,6 +41,7 @@ const SignUp: React.FC = () => {
   const classes = useStyles();
   const mainInput = useSelector(getMainInput);
   const adressInput = useSelector(getAdressInput);
+  const regError = useSelector(getUserError);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -63,9 +68,11 @@ const SignUp: React.FC = () => {
   if (formState.isSubmitSuccessful) {
     return (
       <DialogItem
-        title={"Спасибо за регистрацию!"}
+        title={regError ? "Ошибка" : "Спасибо за регистрацию!"}
         value={
-          "Вам на почту должна придти ссылка на подтверждение регистрации. Проверьте также папку 'Спам'"
+          regError
+            ? regError
+            : "Вам на почту должна придти ссылка на подтверждение регистрации. Проверьте также папку 'Спам'"
         }
         open={formState.isSubmitSuccessful}
         onClose={handleDialogClick}

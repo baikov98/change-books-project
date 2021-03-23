@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoginModal } from "../../../store/selectors";
+import { getLoginModal, getUserError } from "../../../store/selectors";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
@@ -16,7 +16,7 @@ import Popover from "@material-ui/core/Popover";
 import SocialItems from "../../atoms/SocialItems";
 
 type IFormInput = {
-  email: string;
+  nickname: string;
   password: string;
 };
 
@@ -24,9 +24,12 @@ const SignIn: React.FC = () => {
   const classes = useStyles();
   const componentRef = useRef<HTMLDivElement>(null);
   const isOpen = useSelector(getLoginModal);
+  const loginError = useSelector(getUserError);
   const [open, setOpen] = useState<boolean>(isOpen);
+  const [logError, setLogError] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLDivElement>(null);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     setOpen(isOpen);
@@ -36,7 +39,6 @@ const SignIn: React.FC = () => {
     setAnchorEl(componentRef.current);
   }, []);
 
-  const history = useHistory();
   const {
     handleSubmit,
     control,
@@ -50,6 +52,7 @@ const SignIn: React.FC = () => {
   const handleClose = () => {
     reset();
     setOpen(false);
+    setLogError(false);
     dispatch.menu.SET_MODAL(false);
   };
 
@@ -57,6 +60,12 @@ const SignIn: React.FC = () => {
     clearErrors();
     reset();
     dispatch.user.login(data);
+    if (!loginError) {
+      dispatch.menu.SET_MODAL(false);
+      history.push("/start");
+    } else {
+      setLogError(true);
+    }
   };
 
   const handleForgetClick = () => {
@@ -100,14 +109,14 @@ const SignIn: React.FC = () => {
           <form className={classes.form} onSubmit={handleSubmit(submit)}>
             <Box className={classes.inputWrapper}>
               <Controller
-                name="email"
+                name="nickname"
                 control={control}
                 rules={{ required: true }}
                 defaultValue=""
                 render={({ onChange, value }) => (
                   <InputItem
-                    label={"Email *"}
-                    error={errors.email?.message}
+                    label={"Логин *:"}
+                    error={errors.nickname?.message}
                     onChange={onChange}
                     value={value}
                     placeholder="example@example.com"
@@ -121,7 +130,7 @@ const SignIn: React.FC = () => {
                 defaultValue=""
                 render={({ onChange, value }) => (
                   <InputItem
-                    label={"Пароль *"}
+                    label={"Пароль *:"}
                     onChange={onChange}
                     value={value}
                     error={errors.password?.message}
@@ -145,6 +154,11 @@ const SignIn: React.FC = () => {
               Войти
             </ButtonItem>
           </form>
+
+          {loginError && logError && (
+            <Typography className={classes.error}>{loginError}</Typography>
+          )}
+
           <Typography
             className={classes.forgetText}
             onClick={handleForgetClick}
