@@ -1,8 +1,10 @@
 import axios from 'axios'
 import cookie from './CookieService';
 
-  const defaultOptions = {
-    // baseURL: `http://books-exchange-test.spring-intensive-2021.simbirsoft1.com:8000/`, //ONLY for dev
+const base = process.env.NODE_ENV === "development" ? `http://books-exchange-dev.spring-intensive-2021.simbirsoft1.com:8000/` : `http://books-exchange-test.spring-intensive-2021.simbirsoft1.com:80/`
+
+const defaultOptions = {
+    baseURL: base,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
