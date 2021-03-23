@@ -66,17 +66,16 @@ export const startExchange = createModel<RootModel>()({
   effects: (dispatch) => {
     const { startExchange } = dispatch
     return {
-    async requestOfferList(offerData: IOfferData) {
+    async requestOfferList(offerData: IOfferData, rootState) {
       try {
-        const genreArray = [] as IRequestOfferList[]
-        offerData.categories.forEach((i) => {
-          i.value.forEach((val) => {
-            genreArray.push({
+        const genreArray = offerData.categories.map(item => (
+          item.value.map(val => (
+            {
               name: val[0],
               children: []
-            }) 
-          })
-        })
+            }
+          ))
+        ))
         
         const data = {
           book: {
@@ -88,7 +87,7 @@ export const startExchange = createModel<RootModel>()({
             },
           isbn: offerData.isbn || '',
           year_publishing: +offerData.year,
-          categories: genreArray
+          categories: genreArray.flat()
         }
         const response = await api.post(`/api/v1/request/offer_list/create/`, data);
       } catch (error) {
