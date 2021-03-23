@@ -143,10 +143,10 @@ export const user = createModel<RootModel>()({
                 dispatch.user.setError('Ошибка в регистрации пользователя')
             }
         },
-        async login({username, password}) {
+        async login({nickname, password}) {
             try {
                 const data = {
-                    username,
+                    username: nickname,
                     password, 
                 }
                 const response = await api.post(`/api/v1/auth/jwt/create/`, data);
