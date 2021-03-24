@@ -59,7 +59,7 @@ const StartChange: React.FC<IProps> = () => {
     step2: {},
     step3: {},
   }
-  const submit = (data: IData) => {
+  const submit = (data: IData) => { 
     if (step === 2) {
       dispatch.startExchange.requestOfferList(storeData.step1)
       dispatch.startExchange.SET_EXCHANGE_DATA(emptyData)
