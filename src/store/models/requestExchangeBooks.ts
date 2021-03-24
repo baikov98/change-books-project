@@ -28,12 +28,6 @@ export interface IBookData {
   categories: ICategoryListItem[]
 } 
 
-interface MyType {
-  typesafeProp1?: number,
-  requiredProp1: string,
-  [key: string]: any
-}
-
 interface IBookListItem {
   data: IBookData[]
 }
