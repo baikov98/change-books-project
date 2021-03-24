@@ -8,8 +8,9 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box, Typography, FormControl, FormHelperText } from "@material-ui/core";
 import { onlyOneCheckBoxCategoryArray, 
-         IBookInfoFields } from '../../../store/models/bookCategories'
-import { ICategoryListItem, IBookData } from '../../../store/models/requestExchangeBooks'
+         IBookInfoFields,
+         ICategoryListItem } from '../../../store/models/bookCategories'
+import { IBookData } from '../../../store/models/requestExchangeBooks'
 import CheckBox from '../../atoms/CheckBox'
 
 interface IProps {
@@ -33,7 +34,7 @@ const Categories: React.FC<IProps> = ({
   getValues,
   genresCheck
 }) => {
-
+  
   const classes = useStyles(); 
   const listOfCategories: IBookInfoFields[] = useSelector(getBookCategories)
   const hangleRemoveAllChecked = () => {

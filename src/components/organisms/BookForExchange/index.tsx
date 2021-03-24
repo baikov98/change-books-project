@@ -9,8 +9,8 @@ import { VALIDATION } from "../../../constants";
 import filterFormData from "../../../utils/filterFormData"; 
 import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData"; 
-import { IBookInfoFields } from '../../../store/models/bookCategories'
-import { ICategoryListItem, IBookData } from '../../../store/models/requestExchangeBooks'
+import { IBookInfoFields, ICategoryListItem } from '../../../store/models/bookCategories'
+import { IBookData } from '../../../store/models/requestExchangeBooks'
 import CatAndValue from '../../atoms/CatAndValue'
 import EditButton from '../../atoms/EditButton'
 import BookInfo from '../BookInfo'

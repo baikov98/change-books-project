@@ -1,14 +1,10 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import api from '../../services/api'
-
-interface IGenreItem {
-  category: string;
-  value: string[][]
-}
+import { ICategoryListItem } from './bookCategories'
 
 export interface IWishData {
-  categories: IGenreItem[];
+  categories: ICategoryListItem[];
 }
 
 export interface IOfferData {
@@ -17,7 +13,7 @@ export interface IOfferData {
   book: string;
   isbn?: string;
   year: string;
-  categories: IGenreItem[];
+  categories: ICategoryListItem[];
 }
 
 interface IStartExchange {

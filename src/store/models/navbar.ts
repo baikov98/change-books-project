@@ -13,7 +13,7 @@ const initialState = {
       link: routes.offer
      },
      {
-      title: "Хочу отдать",
+      title: "Хочу обменять",
       link: routes.giveaway
      },
      {

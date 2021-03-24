@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
-import { ICategoryListItem, IBookData } from '../../../store/models/requestWishBooks'
+import { IBookData } from '../../../store/models/requestWishBooks'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import filterFormData from "../../../utils/filterFormData"; 

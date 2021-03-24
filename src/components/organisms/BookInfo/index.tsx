@@ -5,13 +5,12 @@ import { useStyles } from "./styles";
 import { Control, FieldErrors } from 'react-hook-form';
 import { useSelector } from "react-redux";
 import { IBookInfoFields } from '../../../store/models/bookInfoFields'
-
+import { IBookData } from '../../../store/models/requestExchangeBooks'
 import InputItem from '../../atoms/InputItem'
 import { getBookInput } from '../../../store/selectors'
 
-
 interface IProps {
-  data: any;  // пока неизвестен точный формат данных, приходящих с бэка
+  data: any; 
   control: Control;
   errors: FieldErrors;
 }
@@ -24,13 +23,13 @@ const BookInfo: React.FC<IProps> = ({ data, control, errors }) => {
           <Box>
             <Typography className={classes.textGray}>Данные книги</Typography>
             {bookInput.map(({name, required, placeholder, label, type, error}: IBookInfoFields, index: number) => 
-            { let defaultValue = data ? data[name] || data.step1[name] : ''
+            { 
               return <Controller
                         key={`input-${index}`}
                         name={name}
                         control={control}
                         rules={{ required: required }}
-                        defaultValue={defaultValue}
+                        defaultValue={data[name]} 
                         render={(props) => (
                           <InputItem
                             label={label}
