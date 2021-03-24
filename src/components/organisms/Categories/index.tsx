@@ -7,23 +7,15 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Box, Typography, FormControl, FormHelperText } from "@material-ui/core";
-import { onlyOneCheckBoxCategoryArray } from '../../../store/models/bookCategories'
+import { onlyOneCheckBoxCategoryArray, 
+         IBookInfoFields } from '../../../store/models/bookCategories'
+import { ICategoryListItem, IBookData } from '../../../store/models/requestExchangeBooks'
 import CheckBox from '../../atoms/CheckBox'
-
-interface ICategory {
-  title: string[];
-  opts: string[][]
-}
-
-interface IRequestCatList {
-  title: string;
-  value: string[][]
-}
 
 interface IProps {
   step: number;
   control: Control;
-  data: any;
+  data: IBookData;
   setValue: (name: string, value: string | boolean) => void;
   checkLimit?: boolean
   getValues?: (name?: string | string[]) => void
@@ -43,7 +35,7 @@ const Categories: React.FC<IProps> = ({
 }) => {
 
   const classes = useStyles(); 
-  const listOfCategories: ICategory[] = useSelector(getBookCategories)
+  const listOfCategories: IBookInfoFields[] = useSelector(getBookCategories)
   const hangleRemoveAllChecked = () => {
     listOfCategories.forEach((val) => {
       val.opts.forEach((val) => {
@@ -51,14 +43,14 @@ const Categories: React.FC<IProps> = ({
       }) 
     })
   }
-  const handleRemovedCheckedInCategory = (category: ICategory) => {
+  const handleRemovedCheckedInCategory = (category: IBookInfoFields) => {
     if (onlyOneCheckBoxCategoryArray.includes(category.title[0])) {
       category.opts.forEach(val => {
         setValue(val[1], false)
       })
     }
   }
-  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>, item: ICategory) =>  
+  const handleCheckBoxOnChange = (props: ControllerRenderProps<FieldValues>, item: IBookInfoFields) =>  
                                  (event: React.ChangeEvent<HTMLInputElement>) => {
                                       if (checkLimit) handleRemovedCheckedInCategory(item)
                                       props.onChange(event.target.checked)    
@@ -86,11 +78,9 @@ const Categories: React.FC<IProps> = ({
                 {item.opts.map((val, index) => {
                   const name = val[1]
                   const valuesArray: [] = []
-                  const correctPath = step === 0 ? data.step1 : step === 1 ? data.step2 : data
-                  correctPath?.categories?.map((val: IRequestCatList) => 
-                  val.value.map((i: string[]) => valuesArray.push(i[1] as never)))
-                   
-                  const defaultValue = valuesArray.some((i: any) => name === i)
+                  data?.categories?.forEach((val: ICategoryListItem) => 
+                      val.value.forEach((i: string[]) => valuesArray.push(i[1] as never)))
+                  const defaultValue = valuesArray.some(i => name === i)
 
                   return <Box key={name} className={classes.accordionCheckbox} >
                           <Controller

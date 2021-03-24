@@ -71,8 +71,8 @@ export const genresCheckBoxNameArray = ['thriller', 'business', 'detective', 'ch
 'esoterics', 'erotic', 'humor']
 
 export interface IBookInfoFields {
-    title: Array<string>;
-    opts: Array<string[]>;
+    title: string[];
+    opts: string[][];
 }
    
 export interface ICategoryListItem {

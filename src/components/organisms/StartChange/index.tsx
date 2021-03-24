@@ -9,19 +9,18 @@ import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
 import ProgressIndicator from "../../atoms/ProgressIndicator"
+import { IOfferData, IWishData } from '../../../store/models/startExchange'
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
 import Step3 from "./Tabs/Step3"
 import TitleItem from '../../atoms/TitleItem'
- 
-export interface IStoreData {
-  [key: string]: string | boolean | Array<string[]>
-}
 
 interface IStepData {
-  step1: IData;
-  step2: IData;
-  step3: IData;
+  step1: IOfferData;
+  step2: IWishData;
+  step3: {
+    [key: string]: string
+  };
 }
 
 export interface ITabsData {

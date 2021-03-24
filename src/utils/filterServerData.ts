@@ -1,11 +1,11 @@
-import {IBookInfoFields, ICategoryListItem} from '../store/models/bookCategories'
+import { IBookInfoFields, ICategoryListItem } from '../store/models/bookCategories'
 
 interface IServerDataCatItem {
     name: string;
     children: []
 }
 
-const useFilterServerData = (data: IServerDataCatItem[], listOfCategories: IBookInfoFields[]) => { 
+const filterServerData = (data: IServerDataCatItem[], listOfCategories: IBookInfoFields[]) => { 
     const result = listOfCategories.map(i => {
         const title = i.title[0]
         const obj: ICategoryListItem = {
@@ -23,4 +23,4 @@ const useFilterServerData = (data: IServerDataCatItem[], listOfCategories: IBook
     return res
 }
 
-export default useFilterServerData
+export default filterServerData

@@ -1,48 +1,20 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import api from '../../services/api'
+import filterServerData from '../../utils/filterServerData'
+
+interface IRequestOfferItem {
+  name: string;
+  children: []
+}
+
+interface IResponceData {
+  category: IRequestOfferItem[] 
+}
 
 const exchange1 = {
   id: '123',
-  categoryList: [
-    {category: 'Жанр', 
-     value: [
-      ['приключения', 'adventures'],
-      ['фантастика', 'fantasy']
-    ]},
-    {category: 'Состояние', 
-     value: [
-      ['Новая', 'fresh'], 
-    ]},
-    {category: 'Дополнительно', 
-     value: [
-      ['Иностранный язык', 'foreignlanguage'], 
-    ]},
-  ]
-}
-
-const exchange2 = {
-  id: '124',
-  categoryList: [
-    {category: 'Жанр', 
-     value: [
-      ['приключения', 'adventures'],
-      ['фантастика', 'fantasy']
-    ]},
-    {category: 'Состояние', 
-     value: [
-      ['Новая', 'fresh'], 
-    ]},
-    {category: 'Дополнительно', 
-     value: [
-      ['Иностранный язык', 'foreignlanguage'], 
-    ]},
-  ]
-}
-
-const exchange3 = {
-  id: '125',
-  categoryList: [
+  categories: [
     {category: 'Жанр', 
      value: [
       ['приключения', 'adventures'],
@@ -66,7 +38,7 @@ export interface ICategoryListItem {
 
 export interface IBookData {
   id: string;
-  categoryList: ICategoryListItem[];
+  categories: ICategoryListItem[];
 }
 
 interface IBookListItem {
@@ -76,12 +48,11 @@ interface IBookListItem {
 export const requestWishBooks = createModel<RootModel>()({
     state: {
       data: [
-        exchange1, exchange2, exchange3
       ]
     } as IBookListItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: []) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: IBookData[]) => { 
         return {
           ...state,
           data: payload
@@ -91,10 +62,15 @@ export const requestWishBooks = createModel<RootModel>()({
     effects: (dispatch) => {
       const { requestWishBooks } = dispatch
       return {
-      async requestWishList() {
+      async requestWishList(payload, rootState) {
         try {
           const response = await api.get(`/api/v1/request/wishlist/`);
-          requestWishBooks.SET_REQUEST_DATA(response.data)
+          const stateArray: IBookData[] = response.data.map((item: IResponceData) => { 
+            return {
+              categories: filterServerData(item.category, rootState.bookCategories.main)
+            }
+          })
+          requestWishBooks.SET_REQUEST_DATA(stateArray)
         } catch (error) {
             console.error('Failed to requestWishList - ', error);
           }
@@ -103,7 +79,7 @@ export const requestWishBooks = createModel<RootModel>()({
         try {
           const response = await api.put(`/api/v1/request/wishlist/${id}/`);
         } catch (error) {
-            console.error('Failed to requestWishList - ', error);
+            console.error('Failed to putWishList - ', error);
           }
       },
     }}

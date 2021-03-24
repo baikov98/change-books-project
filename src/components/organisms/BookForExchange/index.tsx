@@ -50,7 +50,7 @@ const BookForExchange: React.FC<IProps> = ({
     resolver: yupResolver(VALIDATION.BOOK_INFO),
   });
   const bookDetailsArray = 
-    exchangeBook.categories.map((item) => {
+    exchangeBook?.categories.map((item) => {
       const value = item.value.map((i) => i[0])
       return <CatAndValue key={item.category}
                    category={item.category} 
