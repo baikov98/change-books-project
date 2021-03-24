@@ -80,6 +80,11 @@ export interface ICategoryListItem {
     value: string[][]
 } 
 
+export interface IRequestCategoriesItem {
+    name: string;
+    children: []
+}
+
 interface IInputs {
     main: IBookInfoFields[],
 } 

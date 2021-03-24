@@ -5,6 +5,8 @@ import { useStyles } from "./styles";
 import Categories from "../../../Categories";
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
+import { useSelector, useDispatch } from 'react-redux'
+import { getUser } from '../../../../../store/selectors'
 
 interface IProps {
   tabsData: ITabsData;
@@ -12,6 +14,7 @@ interface IProps {
 
 const Step2: React.FC<IProps> = ({ tabsData }) => {
   const { step, storeData, submit, handleBackButtonClick, genresCheck } = tabsData
+  const personalData = useSelector(getUser)
   const classes = useStyles();
   const {
     setValue,

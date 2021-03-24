@@ -32,7 +32,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
   return (
     <form>
       <Box className={classes.content}>
-          <BookInfo data={storeData} 
+          <BookInfo data={storeData.step1} 
                     control={control} 
                     errors={errors} />
             <Categories step={step} 

@@ -1,14 +1,10 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import api from '../../services/api'
-
-interface IGenreItem {
-  category: string;
-  value: string[][]
-}
+import { ICategoryListItem } from './bookCategories'
 
 export interface IWishData {
-  categories: IGenreItem[];
+  categories: ICategoryListItem[];
 }
 
 export interface IOfferData {
@@ -17,7 +13,7 @@ export interface IOfferData {
   book: string;
   isbn?: string;
   year: string;
-  categories: IGenreItem[];
+  categories: ICategoryListItem[];
 }
 
 interface IStartExchange {
@@ -115,21 +111,20 @@ export const startExchange = createModel<RootModel>()({
         console.error('Failed to send wish data - ', error);
         }
     },
-    async getPersonalData() {
+    async getPersonalData(payload, rootState) {
       try {
-        const response = await api.get(`/api/v1/profile/`);
-        let data = await response.data
+        let data = rootState.user.personalData
         startExchange.SET_EXCHANGE_DATA({
           step3: {
-            name: data?.first_name,
-            secondName: data?.last_name,
-            thirdName: data?.second_name,
-            indexLocation: data?.address[0].index,
-            city: data?.address[0].city,
-            street: data?.address[0].street,
-            homeNumber: data?.address[0].house,
-            buildNumber: data?.address[0].structure,
-            flatNumber: data?.address[0].apart,
+            name: data?.name,
+            secondName: data?.secondName,
+            thirdName: data?.thirdName,
+            indexLocation: data?.indexLocation,
+            city: data?.city,
+            street: data?.street,
+            homeNumber: data?.homeNumber,
+            buildNumber: data?.buildNumber,
+            flatNumber: data?.flatNumber,
           }
         })
         

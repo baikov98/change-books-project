@@ -2,38 +2,10 @@ import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import api from '../../services/api'
 import filterServerData from '../../utils/filterServerData'
-
-interface IRequestOfferItem {
-  name: string;
-  children: []
-}
+import { ICategoryListItem, IRequestCategoriesItem } from './bookCategories'
 
 interface IResponceData {
-  category: IRequestOfferItem[] 
-}
-
-const exchange1 = {
-  id: '123',
-  categories: [
-    {category: 'Жанр', 
-     value: [
-      ['приключения', 'adventures'],
-      ['фантастика', 'fantasy']
-    ]},
-    {category: 'Состояние', 
-     value: [
-      ['Новая', 'fresh'], 
-    ]},
-    {category: 'Дополнительно', 
-     value: [
-      ['Иностранный язык', 'foreignlanguage'], 
-    ]},
-  ]
-}
-
-export interface ICategoryListItem {
-  category: string;
-  value: string[][];
+  category: IRequestCategoriesItem[] 
 }
 
 export interface IBookData {
@@ -79,7 +51,7 @@ export const requestWishBooks = createModel<RootModel>()({
         try {
           const response = await api.put(`/api/v1/request/wishlist/${id}/`);
         } catch (error) {
-            console.error('Failed to putWishList - ', error);
+            console.error('Failed to WishList - ', error);
           }
       },
     }}

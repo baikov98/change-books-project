@@ -75,9 +75,9 @@ export const VALIDATION = {
         authorName: yup.string().required(texts.authorName).matches(/^([a-zA-Z][a-zA-Z\.]+)|([А-Яа-я][А-Яа-я\.]+){1,20}$/, 'Вы используете запрещенные символы').trim().max(20, 'Максимальная длина 20 символов'),
         authorSurname: yup.string().required(texts.authorSurname).matches(/^([a-zA-Z][a-zA-Z\.]+)|([А-Яа-я][А-Яа-я\.]+){1,50}$/, 'Вы используете запрещенные символы').trim().max(50, 'Максимальная длина 50 символов'),
         book: yup.string().required(texts.book).matches(/^([a-zA-Z][a-zA-Z0-9-_\.]+)|([А-Яа-я][А-Яа-я0-9-_\.]+){1,50}$/, 'Вы используете запрещенные символы').trim().max(50, 'Максимальная длина 50 символов'),
-        isbn: yup.string().trim().matches(/^$|^(97[89]-\d{1,5}|\d{1,5})-\d{1,7}-\d{1,6}-\d$/, 'Некорректное значение').max(17, 'Максимальная длина 17 символов'),
+        isbn: yup.string().trim().matches(/[\d ]{0,17}$/, 'Некорректное значение').max(17, 'Максимальная длина 17 символов'),
         year: yup.string().trim().required(texts.year).matches(/(^1\d{3}|^20[01]\d|^202[01])/, 'Некорректное значение').max(4, 'Максимальная длина 4 символа'),
-    }),
+    }), // isbn strict rule = /^$|^(97[89]-\d{1,5}|\d{1,5})-\d{1,7}-\d{1,6}-\d$/
     DELIVERY_INFO: yup.object().shape({
         name: yup.string().trim().max(25, 'Максимальная длина 25 символов').required(texts.name).matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
         secondName: yup.string().trim().max(50, 'Максимальная длина 50 символов').required(texts.secondName).matches(/^[-а-яА-ЯёЁ]+$/, 'Разрешена только кириллица'),
