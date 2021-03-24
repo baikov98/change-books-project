@@ -63,7 +63,6 @@ interface IInputs {
 
 export const bookInfoFields = createModel<RootModel>()({
   state: {
-    error: null,
     main: initialState.main,
   } as IInputs,
 })

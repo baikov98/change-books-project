@@ -53,7 +53,7 @@ export const startExchange = createModel<RootModel>()({
           ...state,
           data: {...state.data, ...payload }
         }
-    },
+      },
   },
   effects: (dispatch) => {
     const { startExchange } = dispatch
@@ -122,8 +122,8 @@ export const startExchange = createModel<RootModel>()({
         startExchange.SET_EXCHANGE_DATA({
           step3: {
             name: data?.first_name,
-            secondName: data?.second_name,
-            thirdName: data?.last_name,
+            secondName: data?.last_name,
+            thirdName: data?.second_name,
             indexLocation: data?.address[0].index,
             city: data?.address[0].city,
             street: data?.address[0].street,
