@@ -30,7 +30,7 @@ const GetUserChange: React.FC = () => {
             editable={editable}
             handleEditable={handleEditable}
           />
-        ))}
+        )) || <Typography>Не найдено</Typography>}
       </Box>
     </Box>
   );
