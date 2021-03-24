@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRequestExchangeBooks } from "../../../store/selectors";
 import { getBookCategories } from "../../../store/selectors";
-import { ICategoryListItem, IBookData } from '../../../store/models/requestExchangeBooks'
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import BookForExchange from "../BookForExchange";
