@@ -20,7 +20,7 @@ const GetUserChange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Typography className={classes.title}>Хочу получить</Typography>
-        {requestData.map((item, index) => (
+        {requestData?.map((item, index) => (
           <BookForWish
             key={"item" + index}
             bookNum={index}
