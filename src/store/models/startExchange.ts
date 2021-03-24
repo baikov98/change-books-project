@@ -82,7 +82,7 @@ export const startExchange = createModel<RootModel>()({
         console.error('Failed to send offer data - ', error);
         }
     },
-    async requestWishList(deliveryData, rootState) {
+    async requestWishList(deliveryData, rootState) { 
       try {
         const offerData = rootState.startExchange.data.step2
         const genreArray = offerData.categories.map(item => (
