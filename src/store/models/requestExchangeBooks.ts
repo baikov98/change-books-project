@@ -29,11 +29,11 @@ export interface ICategoryListItem {
 
 export interface IBookData {
   id?: string;
-  authorName: string;
-  authorSurname: string;
-  book: string;
-  year: string;
-  isbn: string
+  authorName?: string;
+  authorSurname?: string;
+  book?: string;
+  year?: string;
+  isbn?: string
   categories: ICategoryListItem[]
 }
 
@@ -91,14 +91,11 @@ const exTest: IResponceData = {
     }
   ]
 }
-const testResponse = [exTest, exTest, exTest]
 
 export const requestExchangeBooks = createModel<RootModel>()({
     state: {
       data: [
-          exchange1,
-          exchange1,
-          exchange1,
+          
       ]
     } as IBookListItem, 
 

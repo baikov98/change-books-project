@@ -15,7 +15,7 @@ import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 
 interface IProps {
-  data: IBookData;
+  data: IBookData; 
   objectKey: string;
   bookCategories: IBookInfoFields[];
   bookNum: number;
@@ -51,7 +51,7 @@ const BookForWish: React.FC<IProps> = ({
     errors,
   } = useForm({});
   const bookDetailsArray = 
-    data.categoryList.map((item) => {
+    data.categories.map((item) => {
       const value = item.value.map((i) => i[0])
       return <CatAndValue key={item.category}
                    category={item.category} 

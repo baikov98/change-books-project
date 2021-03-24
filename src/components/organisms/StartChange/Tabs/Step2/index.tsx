@@ -24,7 +24,7 @@ const Step2: React.FC<IProps> = ({ tabsData }) => {
         <form>
           <Categories step={step} 
                       control={control} 
-                      data={storeData} 
+                      data={storeData.step2} 
                       setValue={setValue}
                       genresCheck={genresCheck} /> 
           <FormButtons step={step} 

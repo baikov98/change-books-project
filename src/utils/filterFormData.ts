@@ -1,7 +1,7 @@
 import {IBookInfoFields, ICategoryListItem} from '../store/models/bookCategories'
 
 export interface IData {
-    [key: string]: string | boolean | ICategoryListItem[]
+    [key: string]: string | ICategoryListItem[]
 }
 
 const useFilterFormData = (data: IData, listOfCategories: IBookInfoFields[]) => {

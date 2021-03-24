@@ -2,17 +2,16 @@ import { createModel } from "@rematch/core";
 import { RootModel } from ".";
 import api from '../../services/api'
 
-
 interface IGenreItem {
   category: string;
   value: string[][]
 }
-interface IRequestOfferList {
-  name?: string;
-  children: []
+
+export interface IWishData {
+  categories: IGenreItem[];
 }
 
-interface IOfferData {
+export interface IOfferData {
   authorName: string;
   authorSurname: string;
   book: string;
@@ -21,21 +20,14 @@ interface IOfferData {
   categories: IGenreItem[];
 }
 
-export interface IStartExchange {
+interface IStartExchange {
     step: number,
     data: {
-      step1: {
-        authorName: string;
-        authorSurname: string;
-        book: string;
-        isbn?: string;
-        year: string;
-        categories: IGenreItem[];
-      },
-      step2: {
-        categories: IGenreItem[]
-      },
-      step3: {}
+      step1: IOfferData
+      step2: IWishData
+      step3: {
+        [key: string]: string
+      }
     }
 }
 
