@@ -98,7 +98,7 @@ const list =  [
 export const activeExchange = createModel<RootModel>()({
   state: {
     error: null,
-    list,
+    list: [],
   },
   reducers: {
   },

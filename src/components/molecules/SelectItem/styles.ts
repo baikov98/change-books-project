@@ -6,7 +6,7 @@ export const useStyles =  makeStyles(() => ({
     input:{
         width: "100%",
         border: `1px solid ${Colors.bg}`,
-        padding: '18px 12px',
+        padding: '15px 12px',
         position: 'relative',
         outline: 'none',
         borderRadius: 4,
@@ -30,7 +30,7 @@ export const useStyles =  makeStyles(() => ({
     },
     formControl: {
       width: '100%',
-      marginTop: 12,
+      marginTop: 4,
     },
     selectEmpty: {
       borderRadius: 0,
