@@ -11,7 +11,7 @@ const GetUserChange: React.FC = () => {
   const [editable, setEditable] = useState(true)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch.requestExchangeBooks.requestOfferList()
+    dispatch.requestWishBooks.requestWishList()
   }, [])
   const handleEditable = (value: boolean) => setEditable(value)
   const requestData = useSelector(requestWishBooks);

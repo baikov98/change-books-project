@@ -3,6 +3,7 @@ import { RootModel } from ".";
 import api from '../../services/api'
 import filterServerData from '../../utils/filterServerData'
 
+
 interface IRequestOfferItem {
   name: string;
   children: []
@@ -107,6 +108,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
         }
       },
   },
+
   effects: (dispatch) => {
     const { requestExchangeBooks } = dispatch
     return {
