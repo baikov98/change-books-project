@@ -62,8 +62,9 @@ const StartChange: React.FC<IProps> = () => {
   const submit = (data: IData) => { 
     if (step === 2) {
       dispatch.startExchange.requestOfferList(storeData.step1)
+      dispatch.startExchange.requestWishList(data)
       dispatch.startExchange.SET_EXCHANGE_DATA(emptyData)
-        dispatch.startExchange.SET_EXCHANGE_STEP(0) 
+      dispatch.startExchange.SET_EXCHANGE_STEP(0) 
       history.push('userChange/offer')
     } else {
       genresCheck.current = genresChecker(data)
