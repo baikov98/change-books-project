@@ -20,7 +20,7 @@ const GiveUserChange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Typography className={classes.title}>Хочу отдать</Typography>
-        {requestData.map((item, index) => (
+        {requestData?.map((item, index) => (
           <BookForExchange
             key={"item" + index}
             data={item}
