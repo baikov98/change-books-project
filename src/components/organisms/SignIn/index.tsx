@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
                     error={errors.nickname?.message}
                     onChange={onChange}
                     value={value}
-                    placeholder="example@example.com"
+                    placeholder="Введите ваш логин"
                   />
                 )}
               />

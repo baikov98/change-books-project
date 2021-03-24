@@ -75,7 +75,7 @@ const bookInfo =  [
 export const offersExchange = createModel<RootModel>()({
   state: {
     error: null,
-    bookInfo,
+    bookInfo: [],
   },
   reducers: {
   },

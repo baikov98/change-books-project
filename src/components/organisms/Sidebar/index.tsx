@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
         <Box className={classes.logo}>
           <img src={User} />
         </Box>
-        <Typography className={classes.title}>{user?.name}</Typography>
+        <Typography className={classes.title}>{user?.nickname}</Typography>
       </Box>
 
       <Typography className={classes.subtitle}>

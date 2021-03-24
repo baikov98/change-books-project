@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       {auth && (
         <Box className={classes.loginMenu}>
           <AccountCircleIcon fontSize={"small"} />
-          <Typography>{user?.name || " UserName"}</Typography>
+          <Typography>{user?.nickname || " UserName"}</Typography>
         </Box>
       )}
     </Box>

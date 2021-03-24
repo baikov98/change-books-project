@@ -13,10 +13,12 @@ export const useStyles = makeStyles({
     padding: '10px 20px',
   },  
   title: {
-    marginBottom: '40px',
     color: Colors.grape,
     fontSize: 18,
     fontWeight: 500,
+  },
+  messagesWrapper:{
+    marginTop: 40,
   },
   listHeader: {
     display: 'grid',
@@ -25,5 +27,8 @@ export const useStyles = makeStyles({
   },
   headerItem: {
     fontWeight: 700
+  },
+  noDataText:{
+    marginTop: 12,
   },
 }, {index: 3});

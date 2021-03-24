@@ -2,7 +2,7 @@ import React from "react";
 import Crumbs from "../../molecules/Crumbs";
 
 import { useStyles } from "./styles";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getBookInfo } from "../../../store/selectors";
@@ -19,11 +19,18 @@ const OfferUserChange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
-        <Box className={classes.content}>
-          <OffersLine data={data} title={"Полное совпадение"} />
-          <OffersLine data={data} title={"Частичное совпадение"} />
-          <OffersLine data={data} title={"Другие интересные предложения"} />
-        </Box>
+        {!data.length && (
+          <Typography className={classes.noDataText}>
+            У вас нет предложений для обмена
+          </Typography>
+        )}
+        {!!data.length && (
+          <Box className={classes.content}>
+            <OffersLine data={data} title={"Полное совпадение"} />
+            <OffersLine data={data} title={"Частичное совпадение"} />
+            <OffersLine data={data} title={"Другие интересные предложения"} />
+          </Box>
+        )}
       </Box>
     </Box>
   );

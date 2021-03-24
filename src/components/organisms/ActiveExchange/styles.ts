@@ -55,4 +55,7 @@ export const useStyles = makeStyles({
   last:{
     borderBottom: 0,
   },
+  noDataText:{
+    marginTop: 12,
+  },
   }, {index: 3});
