@@ -42,7 +42,7 @@ const list =  [
 export const messages = createModel<RootModel>()({
   state: {
     error: null,
-    list,
+    list: [],
   },
   reducers: {
   },

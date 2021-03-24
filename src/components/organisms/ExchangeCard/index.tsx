@@ -27,34 +27,32 @@ const ExchangeCard: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
+
         {!!data.length &&
-          data.map((item, index) =>
+          data.map((item: any, index) =>
             index === 0 ? (
               <>
                 <Box
                   className={classes.contentLine}
                   key={`contentLine-${index} - ${item.id}`}
                 >
-                    <Box className={classes.book}>
-                      <BookList
-                        data={item?.info.lines}
-                        title={item?.info.title}
-                      />
-                      <Box className={classes.fromWho}>
-                        <BookList data={item?.info?.user} title={"От кого:"} />
-                      </Box>
-                    </Box>
-                    <Box className={classes.middleBox}>
-                      <Box className={classes.middleLine} />
-                      <Box className={classes.iconBack}>
-                        <Box className={classes.icon} />
-                      </Box>
-                    </Box>
                   <Box className={classes.book}>
                     <BookList
-                      data={item?.book.lines}
-                      title={'Меняюсь'}
+                      data={item?.info.lines}
+                      title={item?.info.title}
                     />
+                    <Box className={classes.fromWho}>
+                      <BookList data={item?.info?.user} title={"От кого:"} />
+                    </Box>
+                  </Box>
+                  <Box className={classes.middleBox}>
+                    <Box className={classes.middleLine} />
+                    <Box className={classes.iconBack}>
+                      <Box className={classes.icon} />
+                    </Box>
+                  </Box>
+                  <Box className={classes.book}>
+                    <BookList data={item?.book.lines} title={"Меняюсь"} />
                   </Box>
                 </Box>
                 <Box>

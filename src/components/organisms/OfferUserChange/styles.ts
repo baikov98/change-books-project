@@ -17,5 +17,8 @@ export const useStyles = makeStyles({
     marginTop: 40,
     width: '100%',
   },
+  noDataText:{
+    marginTop: 12,
+  },
 
 }, {index: 3});

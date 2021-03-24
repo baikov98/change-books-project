@@ -60,4 +60,7 @@ export const useStyles = makeStyles({
         fontSize: 14,
         marginTop: 12,
     },
+    noDataText:{
+        marginTop: 12,
+      },
 }, {index: 3});

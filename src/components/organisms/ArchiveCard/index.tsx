@@ -27,27 +27,33 @@ const ArchiveCard: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
+        {!data.length && (
+          <Typography className={classes.noDataText}>
+            У вас нет архивных обменов
+          </Typography>
+        )}
+
         {!!data.length &&
-          data.map((item, index) =>
+          data.map((item: any, index) =>
             index === 0 ? (
               <>
                 <Box
                   className={classes.contentLine}
-                  key={`contentLine-${index} - ${item.id}`}
+                  key={`contentLine-${index} - ${item?.id}`}
                 >
-                    <Box className={classes.book}>
-                      <BookList
-                        data={item?.info.lines}
-                        title={item?.info.title}
-                      />
-                    </Box>
-                    <Box className={classes.book}>
-                      <BookList data={item?.info?.user} title={"От кого:"} />
-                    </Box>
                   <Box className={classes.book}>
                     <BookList
-                      data={item?.book.lines}
-                      title={'Меняюсь'}
+                      data={item?.info?.lines}
+                      title={item?.info?.title}
+                    />
+                  </Box>
+                  <Box className={classes.book}>
+                    <BookList data={item?.info?.user} title={"От кого:"} />
+                  </Box>
+                  <Box className={classes.book}>
+                    <BookList
+                      data={item?.book?.lines}
+                      title={"Меняюсь"}
                       icon={true}
                     />
                   </Box>

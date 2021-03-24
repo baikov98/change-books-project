@@ -28,37 +28,53 @@ const ActiveExchange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
+
+        {!data.length && (
+          <Typography className={classes.noDataText}>
+            У вас нет активных обменов
+          </Typography>
+        )}
+
         {!!data.length &&
-          data.map((item, index) => (
-          <Box className={classes.contextBox}>
-            <Box
-              className={cn(
-                classes.contentLine, 
-                index === data.length - 1 ? classes.last : ""
-              )}
-              key={`contentLine-${index} - ${item.id}`}
-            >
-              <Box className={classes.book}>
-                <BookList data={item?.info.lines} title={item?.info.title} />
+          data.map((item: any, index) => (
+            <Box className={classes.contextBox}>
+              <Box
+                className={cn(
+                  classes.contentLine,
+                  index === data.length - 1 ? classes.last : ""
+                )}
+                key={`contentLine-${index} - ${item?.id}`}
+              >
+                <Box className={classes.book}>
+                  <BookList
+                    data={item?.info?.lines}
+                    title={item?.info?.title}
+                  />
+                </Box>
+                <Box className={classes.book}>
+                  <BookList
+                    data={item?.info?.user}
+                    title={`${item?.book?.lines[0]?.value} "${item?.book?.lines[1]?.value}"`}
+                    icon={true}
+                  />
+                </Box>
               </Box>
-              <Box className={classes.book}>
-                <BookList data={item?.info.user} 
-                          title={`${item?.book.lines[0].value} "${item?.book.lines[1].value}"`}
-                          icon={true} />
+              <Box className={classes.statusBox}>
+                <Box className={classes.status}>
+                  <CatAndValue
+                    valueBold
+                    category={"Статус обмена"}
+                    value={item?.status}
+                  />
+                </Box>
+                <Box
+                  className={classes.link}
+                  onClick={() => handleClick(item?.id)}
+                >
+                  Перейти в карточку обмена
+                </Box>
               </Box>
             </Box>
-            <Box className={classes.statusBox}>
-              <Box className={classes.status}>
-                <CatAndValue
-                  valueBold
-                  category={"Статус обмена"}
-                  value={item?.status}
-                />
-              </Box>
-              <Box className={classes.link}
-                      onClick={() => handleClick(item?.id)}>Перейти в карточку обмена</Box>
-            </Box>
-        </Box>
           ))}
       </Box>
     </Box>
