@@ -85,7 +85,7 @@ const StartChange: React.FC<IProps> = () => {
   } 
   return (
     <Box className={classes.root}>
-      <TitleItem>Бланк обмена</TitleItem>
+      <Typography className={classes.title}>Бланк обмена</Typography>
       <ProgressIndicator step={step} />
       {getStepContent(tabsData)}     
     </Box>

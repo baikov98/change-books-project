@@ -22,9 +22,16 @@ const Header: React.FC = () => {
     history.push("/signup");
   };
 
+  const handleLogoClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    history.push("/");
+  };
+
   return (
     <Box className={classes.root}>
-      <img src={Logo} alt={"Book exchange Web Site"} className={classes.logo} />
+      <img src={Logo} alt={"Book exchange Web Site"} 
+            className={classes.logo}
+            onClick={handleLogoClick} />
       <Box className={classes.nav}>
         {!!menu.length &&
           menu.map((item: IMenuItem, index: number) => (
@@ -46,7 +53,7 @@ const Header: React.FC = () => {
       {auth && (
         <Box className={classes.loginMenu}>
           <AccountCircleIcon fontSize={"small"} />
-          <Typography>{user?.nickname || " UserName"}</Typography>
+          <Typography className={classes.nick}>{user?.nickname || " UserName"}</Typography>
         </Box>
       )}
     </Box>

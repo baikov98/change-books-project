@@ -9,7 +9,8 @@ export const useStyles = makeStyles({
         alignItems: "center",
         padding: "1rem 0 2rem 0",
         fontWeight: "bold",
-        color: Colors.textGray
+        color: Colors.textGray,
+        marginBottom: '2rem'
     },
     mainBox: {
         width: "796px",

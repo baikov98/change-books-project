@@ -4,10 +4,11 @@ import { useStyles } from "./styles";
 
 interface IProps {
   header: ReactChild;
+  footer: ReactChild;
 }
 
 const MainLayout: React.FC<IProps> = (props) => {
-  const { header, children } = props;
+  const { header, children, footer } = props;
 
   const classes = useStyles();
   return (
@@ -17,7 +18,11 @@ const MainLayout: React.FC<IProps> = (props) => {
       </Grid>
       <Grid item className={classes.content} component={"div"}>
         {children}
-      </Grid>
+      </Grid> 
+      <Grid item className={classes.footer} component={"div"}>
+        {footer}
+        <div className={classes.item}/>
+      </Grid> 
     </Grid>
   );
 };

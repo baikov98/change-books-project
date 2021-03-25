@@ -12,6 +12,7 @@ export const useStyles = makeStyles(() => ({
     logo: {
         width: 180,
         height: "auto",
+        cursor: 'pointer'
     },
     loginMenu: {
         display: "flex",
@@ -28,6 +29,9 @@ export const useStyles = makeStyles(() => ({
     },
     login:{
         fontWeight: 900,
+    },
+    nick: {
+        marginLeft: 8
     }
     
 }), { index: 2 });

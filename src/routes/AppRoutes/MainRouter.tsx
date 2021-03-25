@@ -6,6 +6,7 @@ import { routes } from "../index";
 import MainPage from "../../pages/MainPage";
 import MainLayout from "../../layouts/MainLayout";
 import Header from "../../components/organisms/Header";
+import Footer from "../../components/organisms/Footer";
 import SignUpPage from "../../pages/Auth/SignUpPage";
 import ForgetPassPage from "../../pages/Auth/ForgetPassPage";
 import StartChangePage from "../../pages/StartChangePage";
@@ -15,7 +16,7 @@ import PoliticsPage from "../../pages/PoliticsPage";
 import UserChangePage from "../../pages/UserChangePage";
 
 const MainRouter = () => (
-  <MainLayout header={<Header />}>
+  <MainLayout header={<Header />} footer={<Footer />}>
     <Switch>
       <Route component={UserChangePage} strict path={routes.userChange} />
       <Route component={MainPage} exact path={routes.main} />
