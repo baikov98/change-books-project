@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
   return (
     <Box className={classes.root}>
       <Box className={classes.content}>
-      <Typography>Book Exchange — cерсвис обмена книгами @ 2021</Typography>
+      <Typography>Book Exchange — cервис обмена книгами @ 2021</Typography>
       <Typography className={classes.policy}
                   onClick={handlePolicyClick}>Политика конфиденциальности</Typography>
       </Box>
