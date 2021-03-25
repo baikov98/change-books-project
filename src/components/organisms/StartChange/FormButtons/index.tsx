@@ -24,7 +24,7 @@ const FormButtons: React.FC<IProps> = ({ step, handleBackButtonClick, handleNext
 
           <ButtonItem
                 type={step !== 2 ? 'forward' : 'solid'}
-                className={classes.btn}
+                className={step == 2 ? classes.btnSubmit : classes.btn}
                 size="large"
                 onClick={handleNextButtonClick}
             >{nextText}</ButtonItem>  

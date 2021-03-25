@@ -17,6 +17,6 @@ export const useStyles = makeStyles({
 })
 
 export const activeLink = {
-  fontWeight:500,
+  fontWeight:700,
   color: Colors.orange
 }

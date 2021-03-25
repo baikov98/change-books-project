@@ -28,6 +28,9 @@ export const useStyles = makeStyles(() => ({
     },
     login:{
         fontWeight: 900,
+    },
+    nick: {
+        marginLeft: 8
     }
     
 }), { index: 2 });
