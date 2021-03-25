@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../../components/organisms/Header";
+import Footer from "../../components/organisms/Footer";
 import Sidebar from "../../components/organisms/Sidebar";
 import SideLayout from "../../layouts/SideLayout";
 
@@ -19,7 +20,7 @@ import MessagesPage from "../../pages/MessagesPage";
 import ExitPage from "../../pages/ExitPage";
 
 const UserChangeRouter = () => (
-  <SideLayout header={<Header />} sideBarLeft={<Sidebar />}>
+  <SideLayout header={<Header />} sideBarLeft={<Sidebar />} footer={<Footer />}>
     <Switch>
       <Route component={OfferUserChangePage} exact path={routes.offer} />
       <Route component={GiveUserChangePage} exact path={routes.giveaway} />
