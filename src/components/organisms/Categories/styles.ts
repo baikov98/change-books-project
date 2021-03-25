@@ -9,38 +9,38 @@ export const useStyles = makeStyles({
     boxShadow: 'none',
     marginTop: 4,
     '&:before': {
-    display: 'none',
+    display: 'none !important',
     },
     '&.Mui-expanded': {
-        margin: 0,
-        marginTop: 4,
+        margin: '0 !important',
+        marginTop: '4 !important',
     },
   },
   accordionSummary:{
     "&.MuiAccordionSummary-root": {
-        transition: "none",
-        boxShadow: "0 0 0",
-        minHeight: 40,
+        transition: "none !important",
+        boxShadow: "0 0 0 !important",
+        minHeight: '40px !important',
         "&:last-child": {
-          borderBottomRightRadius: 0,
-          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: '0 !important',
+          borderBottomLeftRadius: '0 !important',
         },
         "&:first-child": {
-          borderTopRightRadius: 0,
-          borderTopLeftRadius: 0,
+          borderTopRightRadius: '0 !important',
+          borderTopLeftRadius: '0 !important',
         },
         '& > .MuiTouchRipple-root':{
-          transition: "none",
-          minHeight: 40,
-          boxShadow: "0 0 0",
+          transition: "none !important",
+          minHeight: '40 !important',
+          boxShadow: "0 0 0 !important",
           '&:focus':{
-            transition: "none",
-            boxShadow: "0 0 0",
+            transition: "none !important",
+            boxShadow: "0 0 0 !important",
           },
         }, 
     },
     '& > .MuiAccordionSummary-content': {
-        margin: 0,
+        margin: '0 !important',
     },
 },
   accordionDetails: {
@@ -49,10 +49,10 @@ export const useStyles = makeStyles({
   },
   expandIcon: { 
     '&.Mui-expanded': {
-    transform: 'rotate(90deg)',
+    transform: 'rotate(90deg) !important',
     },
     '& > .MuiTouchRipple-root': {
-    display: 'none'
+    display: 'none !important' 
     }
   },
   textGray: {

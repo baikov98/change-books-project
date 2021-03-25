@@ -12,6 +12,7 @@ export const useStyles = makeStyles(() => ({
     logo: {
         width: 180,
         height: "auto",
+        cursor: 'pointer'
     },
     loginMenu: {
         display: "flex",
