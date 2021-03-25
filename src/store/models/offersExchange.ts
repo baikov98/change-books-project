@@ -1,82 +1,187 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "."; 
+import api from '../../services/api'
 
-//Все данные демонстрационные, для наглядности. В прод будут поступать с Api
-const bookInfo =  [
-        { 
-          id: 1, 
-          info : {
-            status: 3,
-            title: "Книга #234",
-            lines : [  
-                      {category: "Жанр", value: "Детектив" },
-                      { category: "Экранизация", value: "Да" },
-                      { category: "Состояние", value: "Хорошее" },
-                      { category: "Язык издания", value: "Англиский" },
-                    ], 
-            user: [
-                      { category: "Пользователь", value: "Хитрый перец" },
-                      { category: "Город", value: "Хабаровск" },
-                      { category: "Рейтинг", value: "4.7" },
-                    ],
-            city: "Орёл",
-            rating: "4.9"
-            },
-          book : {
-            title: 'Джоан Роулинг "Гарри Поттер и Дары Смерти"',
-            status: 4,
-            lines : [  
-                      { category: "Автор", value: "Джоан Роулинг" },
-                      { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
-                      {category: "Год издания", value: "2007" },
-                      { category: "Обложка", value: "Оригинальная" },
-                      { category: "ISBN", value: "978-5-353-02907-6" },
-                      { category: "Экранизация", value: "Да" },
-                      { category: "Жанр", value: "Детские книги, Фантастика" },
-                    ], 
-            },
-        },
-        { 
-          id: 2, 
-          info : {
-            status: 3,
-            title: "Книга #125",
-            lines : [  
-                      {category: "Жанр", value: "Детектив" },
-                      { category: "Экранизация", value: "Да" },
-                      { category: "Состояние", value: "Хорошее" },
-                      { category: "Язык издания", value: "Англиский" },
-                    ], 
-            user: [
-                        { category: "Пользователь", value: "Хитрый перец" },
-                        { category: "Город", value: "Хабаровск" },
-                        { category: "Рейтинг", value: "4.7" },
-                    ],
-            city: "Хабаровск",
-            rating: "4.6"
-            },
-          book : {
-            title: 'Джоан Роулинг "Гарри Поттер и Дары Смерти"',
-            status: 4,
-            lines : [  
-                      { category: "Автор", value: "Джоан Роулинг" },
-                      { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
-                      {category: "Год издания", value: "2007" },
-                      { category: "Обложка", value: "Оригинальная" },
-                      { category: "ISBN", value: "978-5-353-02907-6" },
-                      { category: "Экранизация", value: "Да" },
-                      { category: "Жанр", value: "Детские книги, Фантастика" },
-                    ], 
-            },
-        },
-   
-];
+interface ILines {
+  category: string;
+  value: string;
+}
+
+interface IData {
+  offerMyId: string;
+  wishMyId: string;
+  offerTheirId: string;
+  wishTheirId: string;
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  user: ILines[],
+  categories: ILines[] 
+}
+
+interface IProps {
+  error: string | null,
+  bookInfo: IData[],
+}
 
 export const offersExchange = createModel<RootModel>()({
   state: {
     error: null,
-    bookInfo: [],
-  },
+    bookInfo: []
+  } as IProps,
   reducers: {
+    SET_OFFERS: (state: IProps, bookInfo: IData[]) => {
+      return {
+          ...state,
+          bookInfo,
+      }
+    }, 
   },
+  effects: (dispatch) => {
+    return {
+      async getOffers () {
+        try {
+            const response = await api.get(`/api/v1/request/bookselect`);
+            const data: IData[] = response.data.map((item: any) => {
+              return {
+                offerMyId: item?.offer_my.id,
+                wishMyId: item?.wish_my.id,
+                offerTheirId: item?.offer_their.id,
+                wishTheirId: item?.wish_their.id,
+                authorName: item?.offer_my.book.author.name,
+                authorSurname: item?.offer_my.book.author.last_name,
+                book: item?.offer_my.book.name,
+                user: [
+                  {category: 'Пользователь', value: item?.offer_user.username},
+                  {category: 'Город', value: item?.wish_their.address.city},
+                  {category: 'Рейтинг', value: item?.offer_user.rating},
+                ],
+                categories: item?.offer_their.category.map((i: any) => ({
+                  category: i.parent,
+                  value: i.name
+                })),
+              }
+            }) 
+            dispatch.offersExchange.SET_OFFERS(data) 
+            
+        } catch (error) {
+            console.error('Failed to GET OFFER DATA - ', error);
+            dispatch.offersExchange.SET_OFFERS([])
+        }
+    },
+    async makeOffer ({offerMyId, wishMyId, offerTheirId, wishTheirId}) {
+      try {
+          const data = {
+            offer_my: +offerMyId,
+            wish_my: +wishMyId,
+            offer_their: +offerTheirId,
+            wish_their: +wishTheirId
+          }
+          const response = await api.post(`/api/v1/exchange/`, data);
+          
+      } catch (error) {
+          console.error('Failed to GET OFFER DATA - ', error); 
+      }
+    }, 
+
+  }
+}
 });
+
+const testt = [
+  {
+    offer_my: {
+      "id": 4,
+      "book": {
+        "author": {
+          "name": "Джоан",
+          "last_name": "Роулинг"
+        },
+        "name": "Гарри Поттер"
+      },
+      "isbn": "",
+      "year_publishing": 2010,
+      "category": [
+        {
+          "parent": "Жанр",
+          "name": "Фэнтэзи"
+        },
+        {
+          "parent": "Состояние книги",
+          "name": "Потрепана"
+        }
+      ],
+      "status": "Свободен"
+    },
+    wish_my: {
+      "id": 1,
+      "status": "Свободен",
+      "address": {
+        "index": "432056",
+        "city": "Moscow",
+        "street": "Pushkina",
+        "house": "56",
+        "structure": "1",
+        "apart": "56",
+        "is_default": true
+      },
+      "category": [
+        {
+          "parent": "Жанр",
+          "name": "Детектив"
+        },
+        {
+          "parent": "Состояние книги",
+          "name": "Новая"
+        }
+      ]
+    },
+    offer_their: {
+      "id": 5,
+      "book": {
+        "author": {
+          "name": "Артур",
+          "last_name": "Конан Дойл"
+        },
+        "name": "Шерлок Холмс"
+      },
+      "isbn": "",
+      "year_publishing": 2020,
+      "category": [
+        {
+          "parent": "Жанр",
+          "name": "Детектив"
+        },
+        {
+          "parent": "Состояние книги",
+          "name": "Новая"
+        }
+      ],
+      "status": "Свободен"
+    },
+    wish_their: {
+      "id": 2,
+      "status": "Свободен",
+      "address": {
+        "index": "432045",
+        "city": "Ulyanovsk",
+        "street": "Goncharova",
+        "house": "34",
+        "structure": "1",
+        "apart": "23",
+        "is_default": true
+      },
+      "category": [
+        {
+          "parent": "Жанр",
+          "name": "Фэнтэзи"
+        },
+        {
+          "parent": "Состояние книги",
+          "name": "Потрепана"
+        }
+      ]
+    }
+  }
+]
+

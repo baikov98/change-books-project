@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Crumbs from "../../molecules/Crumbs";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { getBookInfo } from "../../../store/selectors";
 import OffersLine from "../../molecules/OffersLine";
 
 const OfferUserChange: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch.offersExchange.getOffers()
+  }, [])
   const data = useSelector(getBookInfo);
 
   const crumbs = [{ value: "Предложение для обмена", link: location.pathname }];
@@ -27,13 +30,13 @@ const OfferUserChange: React.FC = () => {
         {!!data.length && (
           <Box className={classes.content}>
             <OffersLine data={data} title={"Полное совпадение"} />
-            <OffersLine data={data} title={"Частичное совпадение"} />
-            <OffersLine data={data} title={"Другие интересные предложения"} />
+            
           </Box>
         )}
       </Box>
     </Box>
   );
 };
-
+{/* <OffersLine data={data} title={"Частичное совпадение"} />
+<OffersLine data={data} title={"Другие интересные предложения"} /> */}
 export default OfferUserChange;

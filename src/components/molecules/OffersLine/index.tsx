@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames";
-
+import { useHistory } from "react-router-dom";
 import { useStyles } from "./styles";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import {
@@ -27,10 +27,12 @@ const OffersLine: React.FC<IProps> = ({
 }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const classBox = cn(classes.offersBox, className);
 
-  const handleClick = (id: number) => {
-    // dispatch to ACTIVE model - после добавления backend
+  const handleClick = (offerMyId: string, wishMyId: string, offerTheirId: string, wishTheirId: string) => {
+    dispatch.offersExchange.makeOffer({offerMyId, wishMyId, offerTheirId, wishTheirId})
+    history.push('/active')
   };
 
   return (
@@ -52,28 +54,28 @@ const OffersLine: React.FC<IProps> = ({
               <Box className={classes.wrapperAccordionSummary}>
                 
                   <Typography className={classes.accordionBook}>
-                    {item?.info?.title}
+                    {`Книга №${item?.offerMyId}`}
                   </Typography>
                   <Typography className={classes.accordionTitle}>
-                    {item?.info?.city}
+                    {item?.user[1].value}
                   </Typography>
                   <Typography className={classes.accordionIcon}>
-                    {item?.info?.rating}
+                    {item?.user[2].value}
                   </Typography>
                   <Typography className={classes.accordionBookDetails}>
-                    {item?.book?.title}
+                    {`${item?.authorName} ${item?.authorSurname} "${item?.book}"`}
                   </Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
-              <BookList data={item.info.lines} />
-              <BookList data={item.info.user} />
+              <BookList data={item?.categories} />
+              <BookList data={item?.user} />
               <ButtonItem
                 btnClassName={classes.btn}
                 btnType="button"
                 type="border"
                 size="small"
-                onClick={() => handleClick(item?.id)}
+                onClick={() => handleClick(item?.offerMyId, item?.wishMyId, item?.offerTheirId, item?.wishTheirId)}
               >
                 Меняюсь
               </ButtonItem>
