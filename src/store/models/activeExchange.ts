@@ -208,9 +208,25 @@ export const activeExchange = createModel<RootModel>()({
     }
   },
   effects: (dispatch) =>  ({
-    async getActiveList(){
+    async getActiveList(_, rootState){
       try {
+        const username = rootState?.user?.personalData?.nickname 
         const response = await api.get(`/api/v1/exchange/`);
+        const data = response.data.map((item: any) => {
+          if(item.activeUser === username){
+            return {
+              //ТО есть я нажал кнопку МЕНЯЮСЬ
+              id: item?.offer_my?.id,
+              user: item?.offerUser,
+              category: item?.offer_my?.category,
+
+            }
+          }else {
+            return {
+
+            }
+          }
+        })
         
     } catch (error) {
         console.error('Failed to GET ACTIVE EXCHANGE- ', error); 
