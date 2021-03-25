@@ -21,6 +21,7 @@ const PersonalData: React.FC = () => {
   const adressInput = useSelector(getAdressInput);
   const personalData: IPerosnalData = useSelector(getUser);
   const dispatch = useDispatch();
+
   const {
     handleSubmit,
     control,
@@ -36,9 +37,8 @@ const PersonalData: React.FC = () => {
 
   const submit = (data: IPerosnalData) => {
     if (data) {
-      dispatch.user.SET_USER(data);
+      dispatch.user.patchUser(data);
     }
-    reset();
   };
 
   const checkDisabled = () => {

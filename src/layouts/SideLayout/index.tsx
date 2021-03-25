@@ -6,12 +6,14 @@ interface IProps {
   sideBarLeft: ReactChild;
   children: ReactChild;
   header: ReactChild;
+  footer: ReactChild;
 }
 
 const SideLayout: React.FC<IProps> = ({
   sideBarLeft,
   children,
   header,
+  footer
 }: IProps) => {
   const classes = useStyles();
   return (
@@ -28,6 +30,10 @@ const SideLayout: React.FC<IProps> = ({
           {children}
         </Grid>
       </Grid>
+      <Grid item className={classes.footer} component={"div"}>
+        {footer}
+        <div className={classes.item}/>
+      </Grid> 
     </Grid>
   );
 };

@@ -35,5 +35,20 @@ export const useStyles = makeStyles(() => ({
         width: 0
       },
     },
+    footer: {
+        marginTop: 44,
+        position: 'relative',
+        width:'100%',
+        height:48, 
+        background: Colors.grape,
+    },
+    item: {
+        position: 'absolute',
+        left: '-100%',
+        top: 0,
+        width: '100%',
+        height:48, 
+        background: Colors.grape,
+    }
     
 }));

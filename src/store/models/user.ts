@@ -94,6 +94,36 @@ export const user = createModel<RootModel>()({
                 //Если есть токен, но ошибка получения пользователя. Причины : недоступен сервер, 
             }
         },
+        async patchUser ({secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber}){
+            try {
+                const data = {
+                    first_name: name,
+                    last_name: secondName,
+                    second_name: thirdName,
+                    username: nickname,
+                    email,
+                    address: [{
+                         index:indexLocation,
+                         city,
+                         street,
+                         house: homeNumber,
+                         structure: buildNumber,
+                         apart: flatNumber,
+                    }]
+                }
+                const newUser = {
+                    secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber
+                }
+                const response = await api.patch(`/api/v1/profile/`, data);
+                dispatch.user.SET_USER(newUser)
+                dispatch.user.resetError()
+            } catch (error) {
+                console.error('Failed to GET USER - ', error);
+                dispatch.user.setError("*Данные этого пользователя не найдены")
+                dispatch.user.logout()
+                //Если есть токен, но ошибка получения пользователя. Причины : недоступен сервер, 
+            }
+        },
         async activationAccount ({uid, token}){
             try {
                 const response = await api.post(`/api/v1/auth/users/activation/`, {
