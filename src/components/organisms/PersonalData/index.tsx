@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { Controller, useForm } from "react-hook-form";
@@ -39,7 +39,6 @@ const PersonalData: React.FC = () => {
     if (data) {
       dispatch.user.patchUser(data);
     }
-    //reset();
   };
 
   const checkDisabled = () => {
