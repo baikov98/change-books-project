@@ -27,7 +27,10 @@ const passwordMatches = /^((?=.*?[A-Z])(?=.*?[a-z]))|((?=.*?[А-Я])(?=.*?[а-я
 
 export const VALIDATION = {
     SIGN_IN: yup.object().shape({
-        nickname: yup.string().required(texts.nickname).min(3, 'Минимальная длина 3 символа').matches(nickNameMatches, 'Вы используете запрещенные символы').trim().max(50, 'Максимальная длина 50 символов'),
+        email: yup
+        .string()
+        .matches(emailMatches, "Email не корректен ")
+        .required("Email обязательное поле"),
         password: yup.string().trim().max(64).required(texts.pass),
     }),
     SIGN_UP: yup.object().shape({

@@ -19,6 +19,7 @@ export const useStyles = makeStyles(() => ({
     content: {
         display: "flex",
         maxWidth: 1180,
+        flex: "0 1 100%",
     },
     footer: {
         marginTop: 44,
