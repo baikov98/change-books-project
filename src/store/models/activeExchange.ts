@@ -3,7 +3,8 @@ import { number } from "yup/lib/locale";
 import { RootModel } from "."; 
 import api from "../../services/api";
 
-const list = [
+
+const list1 = [
   {
     offerMyId: '1',
     wishMyId: '1',
@@ -120,6 +121,8 @@ interface IProps {
   error: string | null,
   list: IData[],
 }
+
+const list = [] as IData[]
 
 export const activeExchange = createModel<RootModel>()({
   state: {
