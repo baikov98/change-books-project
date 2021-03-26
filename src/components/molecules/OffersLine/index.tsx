@@ -69,7 +69,12 @@ const OffersLine: React.FC<IProps> = ({
               </Box>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
-              <BookList data={item?.categories} />
+              <BookList data={item?.categories.map((i: any) => 
+                { let valueArray = i.value.map((item: any) => item[0])
+                  return { category: i.category, 
+                           value: valueArray.join(', ')
+                        }
+                })} />
               <BookList data={item?.user} />
               <ButtonItem
                 btnClassName={classes.btn}
