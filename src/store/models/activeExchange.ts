@@ -1,4 +1,5 @@
 import { createModel } from "@rematch/core";
+import { number } from "yup/lib/locale";
 import { RootModel } from "."; 
 import api from "../../services/api";
 
@@ -99,6 +100,8 @@ const listResponse = [
     track_number_their: "99 8212 21 12"
   }
 ]
+
+
 const list =  [
   { 
     id: 1, 
@@ -193,11 +196,37 @@ const list =  [
 
 ]
 
+
+interface ILines {
+  category: string;
+  value: string;
+}
+
+interface IData {
+  offerMyId: string;
+  wishMyId: string;
+  offerTheirId: string;
+  wishTheirId: string;
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  status: string;
+  trackMy: string;
+  trackTheir: string;
+  bookCategories: ILines[], // для вывода категорий книги(что я отдаю) в карточке справа
+  user: ILines[],
+  categories: ILines[] 
+}
+
+interface IProps {
+  error: string | null,
+  list: IData[],
+}
+
 export const activeExchange = createModel<RootModel>()({
   state: {
     error: null,
     list,
-    listResponse,
   },
   reducers: {
     SET_LIST: (state,list: any) => {
@@ -215,15 +244,58 @@ export const activeExchange = createModel<RootModel>()({
         const data = response.data.map((item: any) => {
           if(item.activeUser === username){
             return {
-              //ТО есть я нажал кнопку МЕНЯЮСЬ
-              id: item?.offer_my?.id,
-              user: item?.offerUser,
-              category: item?.offer_my?.category,
-
+              //КОГДА я нажал кнопку МЕНЯЮСЬ
+              offerMyId: item?.offer_my.id,
+              wishMyId: item?.wish_my.id,
+              offerTheirId: item?.offer_their.id,
+              wishTheirId: item?.wish_their.id,
+              authorName: item?.offer_my?.book?.author?.name,
+              authorSurname: item?.offer_my?.book?.author?.last_name,
+              book: item?.offer_my?.book?.name,
+              status: item?.offer_their?.status,
+              trackMy: item?.track_number_my,
+              trackTheir: item?.track_number_their,
+              bookCategories: item?.offer_my.category.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              user: [
+                {category: 'Пользователь', value: item?.offer_user.username},
+                {category: 'Город', value: item?.wish_their.address.city},
+                {category: 'Рейтинг', value: item?.offer_user.rating},
+              ],
+              categories: item?.offer_their.category.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              
             }
           }else {
+            //КОГДА КТО-ТО нажал кнопку МЕНЯЮСЬ
             return {
-
+              offerMyId: item?.offer_my.id,
+              wishMyId: item?.wish_my.id,
+              offerTheirId: item?.offer_their.id,
+              wishTheirId: item?.wish_their.id,
+              authorName: item?.offer_their?.book?.author?.name,
+              authorSurname: item?.offer_their?.book?.author?.last_name,
+              book: item?.offer_their?.book?.name,
+              status: item?.offer_my?.status,
+              trackMy: item?.track_number_my,
+              trackTheir: item?.track_number_their,
+              bookCategories: item?.offer_their.category.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              user: [
+                {category: 'Пользователь', value: item?.offer_user.username},
+                {category: 'Город', value: item?.wish_my.address.city},
+                {category: 'Рейтинг', value: item?.offer_user.rating},
+              ],
+              categories: item?.offer_my.category.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
             }
           }
         })

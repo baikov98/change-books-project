@@ -76,6 +76,49 @@ const ActiveExchange: React.FC = () => {
               </Box>
             </Box>
           ))}
+
+        {/* Новый вариант  */}
+        {!!data.length &&
+          data.map((item: any, index) => (
+            <Box className={classes.contextBox}>
+              <Box
+                className={cn(
+                  classes.contentLine,
+                  index === data.length - 1 ? classes.last : ""
+                )}
+                key={`contentLine-${index} - ${item?.id}`}
+              >
+                <Box className={classes.book}>
+                  <BookList
+                    data={item?.categories}
+                    title={`Книга #${item?.offerMyId}`}
+                  />
+                </Box>
+                <Box className={classes.book}>
+                  <BookList
+                    data={item?.user}
+                    title={item?.book}
+                    icon={true}
+                  />
+                </Box>
+              </Box>
+              <Box className={classes.statusBox}>
+                <Box className={classes.status}>
+                  <CatAndValue
+                    valueBold
+                    category={"Статус обмена"}
+                    value={item?.status}
+                  />
+                </Box>
+                <Box
+                  className={classes.link}
+                  onClick={() => handleClick(item?.offerMyId)}
+                >
+                  Перейти в карточку обмена
+                </Box>
+              </Box>
+            </Box>
+          ))}
       </Box>
     </Box>
   );
