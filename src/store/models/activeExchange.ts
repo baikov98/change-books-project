@@ -3,199 +3,97 @@ import { number } from "yup/lib/locale";
 import { RootModel } from "."; 
 import api from "../../services/api";
 
+const list = [
+  {
+    offerMyId: '1',
+    wishMyId: '1',
+    offerTheirId: '1',
+    wishTheirId: '1',
+    authorName: 'name',
+    authorSurname: 'surname',
+    book: 'book',
+    status: 'Свободен',
+    trackMy: 'string',
+    trackTheir: 'string',
+    bookCategories: [
+      {category: 'Жанр', value: 'string'},
+      {category: 'Состояние', value: 'string'},
+      {category: 'Дополнительно', value: 'string'},
+    ],
+    user: [
+      {category: 'Пользователь', value: 'string'},
+      {category: 'Город', value: 'string'},
+      {category: 'Рейтинг', value: 'string'},
+    ],
+    categories: [
+      {category: 'Жанр', value: 'string'},
+      {category: 'Состояние', value: 'string'},
+      {category: 'Дополнительно', value: 'string'},
+    ],
+  }
+]
 
 const listResponse = [
   {
     offer_my: {
-      id: 1,
+      id: 4,
       book: {
         author: {
-          name: "Александр",
-          last_name: "Пушкин"
+          id: 1,
+          name: "Джоан",
+          last_name: "Роулинг"
         },
-        name: "Капитанская дочка"
+        name: "Гарри Поттер",
+        note: "Колдунство"
       },
       isbn: "",
-      year_publishing: 1836,
-      category: [
-        {
-          parent: "Жанр",
-          name: "Фэнтэзи"
-        },
-        {
-          parent: "Состояние книги",
-          name: "Потрепана"
-        }
-      ],
-      status: "Свободен",
+      year_publishing: 2010
     },
     wish_my: {
-      id: 2,
+      id: 1,
       address: {
-        index: "125125",
-        city: "Москва",
-        street: "Патриарши",
-        house: "31",
-        structure: "2",
-        apart: "33",
+        index: "432056",
+        city: "ывап",
+        street: "ывап",
+        house: "56",
+        structure: "1",
+        apart: "56",
         is_default: true
-      },
-      category: [
-        {
-          parent: "Жанр",
-          name: "Детектив"
-        },
-        {
-          parent: "Состояние книги",
-          name: "Новая"
-        }
-      ]
+      }
     },
     offer_their: {
-      id: 0,
+      id: 5,
       book: {
         author: {
-          name: "Иван",
-          last_name: "Тургенев"
+          id: 5,
+          name: "Артур",
+          last_name: "Конан Дойл"
         },
-        name: "Дворянское гнездо"
+        name: "Шерлок Холмс",
+        note: "Убийца - дворецкий."
       },
       isbn: "",
-      year_publishing: 1876,
-      category: [
-        {
-          parent: "Жанр",
-          name: "Детектив"
-        },
-        {
-          parent: "Состояние книги",
-          name: "Новая"
-        }
-      ]
+      year_publishing: 2020
     },
     wish_their: {
-      id: 0,
+      id: 2,
       address: {
-        index: "188858",
-        city: "Орёл",
-        street: "Полесская",
+        index: "432045",
+        city: "Ulyanovsk",
+        street: "Goncharova",
         house: "34",
-        structure: "2",
-        apart: "121",
+        structure: "1",
+        apart: "23",
         is_default: true
-      },
-      category: [
-        {
-          parent: "Жанр",
-          name: "Детектив"
-        },
-        {
-          parent: "Состояние книги",
-          name: "Новая"
-        }
-      ]
+      }
     },
-    is_both: true,
+    is_both: false,
     track_number_my: null,
-    track_number_their: "99 8212 21 12"
+    track_number_their: null,
+    user_my: "test_user",
+    user_their: "titaniumslava"
   }
 ]
-
-
-const list =  [
-  { 
-    id: 1, 
-    status: "Ожидает подтверждение со стороны получателя",
-    info : {
-      title: "Книга",
-      lines : [  
-                {category: "Жанр", value: "Детектив" },
-                { category: "Экранизация", value: "Да" },
-                { category: "Состояние", value: "Хорошее" },
-                { category: "Язык издания", value: "Англиский" },
-                { category: "", value: "" },
-              ], 
-      user :  [
-                { category: "Пользователь", value: "Хитрый перец" },
-                { category: "Город", value: "Хабаровск" },
-                { category: "Рейтинг", value: "4.7" },
-              ],
-      },
-      book : {
-        title: "Меняюсь",
-        lines : [ 
-                  { category: "Автор", value: "Джоан Роулинг" },
-                  { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
-                  { category: "Год издания", value: "2007" },
-                  { category: "Обложка", value: "Оригинальная" },
-                  { category: "ISBN", value: "978-5-353-02907-6" },
-                ], 
-        },
-  },
-  { 
-    id: 2, 
-    status: "Подтвердите обмен",
-    info : {
-      title: "Книга",
-      lines : [  
-                {category: "Жанр", value: "Детектив" },
-                { category: "Экранизация", value: "Да" },
-                { category: "Состояние", value: "Хорошее" },
-                { category: "Язык издания", value: "Англиский" },
-                { category: "", value: "" },
-              ], 
-      user :  [
-                { category: "Пользователь", value: "Хитрый перец" },
-                { category: "Город", value: "Хабаровск" },
-                { category: "Рейтинг", value: "4.7" },
-              ],
-      },
-      book : {
-        title: "Меняюсь",
-        lines : [ 
-                  { category: "Автор", value: "Джоан Роулинг" },
-                  { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
-                  { category: "Год издания", value: "2007" },
-                  { category: "Обложка", value: "Оригинальная" },
-                  { category: "ISBN", value: "978-5-353-02907-6" },
-                ], 
-        },
-  },
-  { 
-    id: 3, 
-    status: "Подтверждён",
-    info : {
-      title: "Книга 2 ",
-      lines : [  
-                {category: "Жанр", value: "Детектив" },
-                { category: "Экранизация", value: "Да" },
-                { category: "Состояние", value: "Хорошее" },
-                { category: "Язык издания", value: "Англиский" },
-                { category: "", value: "" },
-              ], 
-      user :  [
-                { category: "Пользователь", value: "Хитрый перец" },
-                { category: "Город", value: "Хабаровск" },
-                { category: "Рейтинг", value: "4.7" },
-              ],
-      },
-    book : {
-      title: "Меняюсь",
-      lines : [ 
-                { category: "Автор", value: "Джоан Роулинг" },
-                { category: "Название книги", value: "Гарри Поттер и Дары Смерти" },
-                { category: "Год издания", value: "2007" },
-                { category: "Обложка", value: "Оригинальная" },
-                { category: "ISBN", value: "978-5-353-02907-6" },
-                { category: "Экранизация", value: "Да" },
-                { category: "Жанр", value: "Детские книги, Фантастика" },
-                { category: "Язык издания", value: "Русский" },
-              ], 
-      },
-  },
-
-]
-
 
 interface ILines {
   category: string;
@@ -227,9 +125,9 @@ export const activeExchange = createModel<RootModel>()({
   state: {
     error: null,
     list,
-  },
+  } as IProps,
   reducers: {
-    SET_LIST: (state,list: any) => {
+    SET_LIST: (state: IProps, list: IData[]) => {
       return {
         ...state,
         list,
@@ -241,8 +139,8 @@ export const activeExchange = createModel<RootModel>()({
       try {
         const username = rootState?.user?.personalData?.nickname 
         const response = await api.get(`/api/v1/exchange/`);
-        const data = response.data.map((item: any) => {
-          if(item.activeUser === username){
+        const data: IData[] = response.data.map((item: any) => {
+          if(item.user_my === username){
             return {
               //КОГДА я нажал кнопку МЕНЯЮСЬ
               offerMyId: item?.offer_my.id,
@@ -255,16 +153,16 @@ export const activeExchange = createModel<RootModel>()({
               status: item?.offer_their?.status,
               trackMy: item?.track_number_my,
               trackTheir: item?.track_number_their,
-              bookCategories: item?.offer_my.category.map((i: any) => ({
+              bookCategories: item?.offer_my?.category?.map((i: any) => ({
                 category: i.parent,
                 value: i.name
               })),
               user: [
-                {category: 'Пользователь', value: item?.offer_user.username},
+                {category: 'Пользователь', value: item?.user_their},
                 {category: 'Город', value: item?.wish_their.address.city},
-                {category: 'Рейтинг', value: item?.offer_user.rating},
+                {category: 'Рейтинг', value: item?.offer_their.rating},
               ],
-              categories: item?.offer_their.category.map((i: any) => ({
+              categories: item?.offer_their?.category?.map((i: any) => ({
                 category: i.parent,
                 value: i.name
               })),
@@ -283,22 +181,23 @@ export const activeExchange = createModel<RootModel>()({
               status: item?.offer_my?.status,
               trackMy: item?.track_number_my,
               trackTheir: item?.track_number_their,
-              bookCategories: item?.offer_their.category.map((i: any) => ({
+              bookCategories: item?.offer_their?.category?.map((i: any) => ({
                 category: i.parent,
                 value: i.name
               })),
               user: [
-                {category: 'Пользователь', value: item?.offer_user.username},
+                {category: 'Пользователь', value: item?.user_my},
                 {category: 'Город', value: item?.wish_my.address.city},
-                {category: 'Рейтинг', value: item?.offer_user.rating},
+                {category: 'Рейтинг', value: item?.offer_my.rating},
               ],
-              categories: item?.offer_my.category.map((i: any) => ({
+              categories: item?.offer_my?.category?.map((i: any) => ({
                 category: i.parent,
                 value: i.name
               })),
             }
           }
         })
+        dispatch.activeExchange.SET_LIST(data)
         
     } catch (error) {
         console.error('Failed to GET ACTIVE EXCHANGE- ', error); 

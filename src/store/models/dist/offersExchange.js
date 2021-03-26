@@ -50,6 +50,7 @@ exports.__esModule = true;
 exports.offersExchange = void 0;
 var core_1 = require("@rematch/core");
 var api_1 = require("../../services/api");
+var filterServerData_1 = require("../../utils/filterServerData");
 exports.offersExchange = core_1.createModel()({
     state: {
         error: null,
@@ -62,7 +63,7 @@ exports.offersExchange = core_1.createModel()({
     },
     effects: function (dispatch) {
         return {
-            getOffers: function () {
+            getOffers: function (payload, rootState) {
                 return __awaiter(this, void 0, void 0, function () {
                     var response, data, error_1;
                     return __generator(this, function (_a) {
@@ -86,14 +87,10 @@ exports.offersExchange = core_1.createModel()({
                                             { category: 'Город', value: item === null || item === void 0 ? void 0 : item.wish_their.address.city },
                                             { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_user.rating },
                                         ],
-                                        categories: item === null || item === void 0 ? void 0 : item.offer_their.category.map(function (i) {
-                                            return {
-                                                category: i.parent,
-                                                value: i.name
-                                            };
-                                        })
-                                    };
+                                        categories: filterServerData_1["default"](item.offer_their.category, rootState.bookCategories.main)
+                                    }; //item?.offer_their.category
                                 });
+                                console.log(data);
                                 dispatch.offersExchange.SET_OFFERS(data);
                                 return [3 /*break*/, 3];
                             case 2:

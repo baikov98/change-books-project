@@ -1,6 +1,7 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "."; 
 import api from '../../services/api'
+import filterServerData from '../../utils/filterServerData'
 
 interface ILines {
   category: string;
@@ -39,7 +40,7 @@ export const offersExchange = createModel<RootModel>()({
   },
   effects: (dispatch) => {
     return {
-      async getOffers () {
+      async getOffers (payload, rootState) {
         try {
             const response = await api.get(`/api/v1/request/bookselect`);
             const data: IData[] = response.data.map((item: any) => {
@@ -56,14 +57,10 @@ export const offersExchange = createModel<RootModel>()({
                   {category: 'Город', value: item?.wish_their.address.city},
                   {category: 'Рейтинг', value: item?.offer_user.rating},
                 ],
-                categories: item?.offer_their.category.map((i: any) => {
-                  return {
-                    category: i.parent,
-                    value: i.name
-                  }
-                }),
-              }
+                categories: filterServerData(item.offer_their.category, rootState.bookCategories.main)
+              } //item?.offer_their.category
             }) 
+            console.log(data)
             dispatch.offersExchange.SET_OFFERS(data) 
             
         } catch (error) {

@@ -33,7 +33,12 @@ var OffersLine = function (_a) {
                             react_1["default"].createElement(core_1.Typography, { className: classes.accordionIcon }, item === null || item === void 0 ? void 0 : item.user[2].value),
                             react_1["default"].createElement(core_1.Typography, { className: classes.accordionBookDetails }, (item === null || item === void 0 ? void 0 : item.authorName) + " " + (item === null || item === void 0 ? void 0 : item.authorSurname) + " \"" + (item === null || item === void 0 ? void 0 : item.book) + "\""))),
                     react_1["default"].createElement(core_1.AccordionDetails, { className: classes.accordionDetails },
-                        react_1["default"].createElement(BookList_1["default"], { data: item === null || item === void 0 ? void 0 : item.categories }),
+                        react_1["default"].createElement(BookList_1["default"], { data: item === null || item === void 0 ? void 0 : item.categories.map(function (i) {
+                                var valueArray = i.value.map(function (item) { return item[0]; });
+                                return { category: i.category,
+                                    value: valueArray.join(', ')
+                                };
+                            }) }),
                         react_1["default"].createElement(BookList_1["default"], { data: item === null || item === void 0 ? void 0 : item.user }),
                         react_1["default"].createElement(ButtonItem_1["default"], { btnClassName: classes.btn, btnType: "button", type: "border", size: "small", onClick: function () { return handleClick(item === null || item === void 0 ? void 0 : item.offerMyId, item === null || item === void 0 ? void 0 : item.wishMyId, item === null || item === void 0 ? void 0 : item.offerTheirId, item === null || item === void 0 ? void 0 : item.wishTheirId); } }, "\u041C\u0435\u043D\u044F\u044E\u0441\u044C"))));
             })));
