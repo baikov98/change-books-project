@@ -158,9 +158,9 @@ export const activeExchange = createModel<RootModel>()({
                 value: i.name
               })),
               user: [
-                {category: 'Пользователь', value: item?.offer_user.username},
+                {category: 'Пользователь', value: item?.user_their},
                 {category: 'Город', value: item?.wish_their.address.city},
-                {category: 'Рейтинг', value: item?.offer_user.rating},
+                {category: 'Рейтинг', value: item?.offer_their.rating},
               ],
               categories: item?.offer_their?.category?.map((i: any) => ({
                 category: i.parent,
@@ -186,9 +186,9 @@ export const activeExchange = createModel<RootModel>()({
                 value: i.name
               })),
               user: [
-                {category: 'Пользователь', value: item?.user_their},
+                {category: 'Пользователь', value: item?.user_my},
                 {category: 'Город', value: item?.wish_my.address.city},
-                {category: 'Рейтинг', value: item?.offer_user.rating},
+                {category: 'Рейтинг', value: item?.offer_my.rating},
               ],
               categories: item?.offer_my?.category?.map((i: any) => ({
                 category: i.parent,

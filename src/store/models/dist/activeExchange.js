@@ -183,9 +183,9 @@ exports.activeExchange = core_1.createModel()({
                                             value: i.name
                                         }); }),
                                         user: [
-                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.offer_user.username },
+                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.user_their },
                                             { category: 'Город', value: item === null || item === void 0 ? void 0 : item.wish_their.address.city },
-                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_user.rating },
+                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_their.rating },
                                         ],
                                         categories: (_o = (_m = item === null || item === void 0 ? void 0 : item.offer_their) === null || _m === void 0 ? void 0 : _m.category) === null || _o === void 0 ? void 0 : _o.map(function (i) { return ({
                                             category: i.parent,
@@ -211,9 +211,9 @@ exports.activeExchange = core_1.createModel()({
                                             value: i.name
                                         }); }),
                                         user: [
-                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.user_their },
+                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.user_my },
                                             { category: 'Город', value: item === null || item === void 0 ? void 0 : item.wish_my.address.city },
-                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_user.rating },
+                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_my.rating },
                                         ],
                                         categories: (_1 = (_0 = item === null || item === void 0 ? void 0 : item.offer_my) === null || _0 === void 0 ? void 0 : _0.category) === null || _1 === void 0 ? void 0 : _1.map(function (i) { return ({
                                             category: i.parent,
