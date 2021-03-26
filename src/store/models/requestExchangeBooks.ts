@@ -65,6 +65,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
         })
         requestExchangeBooks.SET_REQUEST_DATA(stateArray)
       } catch (error) {
+        requestExchangeBooks.SET_REQUEST_DATA([])
         console.error('Failed to requestOfferList - ', error);
         }
     },
