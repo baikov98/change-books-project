@@ -176,7 +176,7 @@ export const user = createModel<RootModel>()({
         async login({nickname, password}) {
             try {
                 const data = {
-                    username: nickname,
+                    email: nickname,
                     password, 
                 }
                 const response = await api.post(`/api/v1/auth/jwt/create/`, data);
