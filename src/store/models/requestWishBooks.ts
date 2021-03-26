@@ -44,6 +44,7 @@ export const requestWishBooks = createModel<RootModel>()({
           })
           requestWishBooks.SET_REQUEST_DATA(stateArray)
         } catch (error) {
+            requestWishBooks.SET_REQUEST_DATA([])
             console.error('Failed to requestWishList - ', error);
           }
       },

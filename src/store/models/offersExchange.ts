@@ -56,10 +56,12 @@ export const offersExchange = createModel<RootModel>()({
                   {category: 'Город', value: item?.wish_their.address.city},
                   {category: 'Рейтинг', value: item?.offer_user.rating},
                 ],
-                categories: item?.offer_their.category.map((i: any) => ({
-                  category: i.parent,
-                  value: i.name
-                })),
+                categories: item?.offer_their.category.map((i: any) => {
+                  return {
+                    category: i.parent,
+                    value: i.name
+                  }
+                }),
               }
             }) 
             dispatch.offersExchange.SET_OFFERS(data) 
@@ -77,7 +79,7 @@ export const offersExchange = createModel<RootModel>()({
             offer_their: +offerTheirId,
             wish_their: +wishTheirId
           }
-          const response = await api.post(`/api/v1/exchange/`, data);
+          const response = await api.post(`/api/v1/exchange`, data);
           
       } catch (error) {
           console.error('Failed to GET OFFER DATA - ', error); 
@@ -105,6 +107,10 @@ const testt = [
         {
           "parent": "Жанр",
           "name": "Фэнтэзи"
+        },
+        {
+          "parent": "Жанр",
+          "name": "Юмор"
         },
         {
           "parent": "Состояние книги",

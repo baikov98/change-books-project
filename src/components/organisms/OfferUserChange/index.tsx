@@ -13,6 +13,9 @@ const OfferUserChange: React.FC = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch.offersExchange.getOffers()
+    setTimeout(() => {
+      dispatch.offersExchange.getOffers()
+    }, 2000)
   }, [])
   const data = useSelector(getBookInfo);
 
