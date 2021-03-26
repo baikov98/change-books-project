@@ -78,7 +78,7 @@ const ActiveExchange: React.FC = () => {
           ))}
 
         {/* Новый вариант  */}
-        {!!data.length &&
+        {/* {!!data.length &&
           data.map((item: any, index) => (
             <Box className={classes.contextBox}>
               <Box
@@ -97,7 +97,7 @@ const ActiveExchange: React.FC = () => {
                 <Box className={classes.book}>
                   <BookList
                     data={item?.user}
-                    title={item?.book}
+                    title={`${item?.authorName} ${item?.authorSurname} "${item?.book}"`}
                     icon={true}
                   />
                 </Box>
@@ -118,7 +118,7 @@ const ActiveExchange: React.FC = () => {
                 </Box>
               </Box>
             </Box>
-          ))}
+          ))} */}
       </Box>
     </Box>
   );

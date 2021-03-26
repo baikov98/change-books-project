@@ -16,7 +16,7 @@ import Popover from "@material-ui/core/Popover";
 import SocialItems from "../../atoms/SocialItems";
 
 type IFormInput = {
-  nickname: string;
+  email: string;
   password: string;
 };
 
@@ -109,17 +109,17 @@ const SignIn: React.FC = () => {
           <form className={classes.form} onSubmit={handleSubmit(submit)}>
             <Box className={classes.inputWrapper}>
               <Controller
-                name="nickname"
+                name="email"
                 control={control}
                 rules={{ required: true }}
                 defaultValue=""
                 render={({ onChange, value }) => (
                   <InputItem
-                    label={"Логин *:"}
-                    error={errors.nickname?.message}
+                    label={"Email *:"}
+                    error={errors.email?.message}
                     onChange={onChange}
                     value={value}
-                    placeholder="Введите ваш логин"
+                    placeholder="example@example.com"
                   />
                 )}
               />
