@@ -33,68 +33,6 @@ const list1 = [
   }
 ]
 
-const listResponse = [
-  {
-    offer_my: {
-      id: 4,
-      book: {
-        author: {
-          id: 1,
-          name: "Джоан",
-          last_name: "Роулинг"
-        },
-        name: "Гарри Поттер",
-        note: "Колдунство"
-      },
-      isbn: "",
-      year_publishing: 2010
-    },
-    wish_my: {
-      id: 1,
-      address: {
-        index: "432056",
-        city: "ывап",
-        street: "ывап",
-        house: "56",
-        structure: "1",
-        apart: "56",
-        is_default: true
-      }
-    },
-    offer_their: {
-      id: 5,
-      book: {
-        author: {
-          id: 5,
-          name: "Артур",
-          last_name: "Конан Дойл"
-        },
-        name: "Шерлок Холмс",
-        note: "Убийца - дворецкий."
-      },
-      isbn: "",
-      year_publishing: 2020
-    },
-    wish_their: {
-      id: 2,
-      address: {
-        index: "432045",
-        city: "Ulyanovsk",
-        street: "Goncharova",
-        house: "34",
-        structure: "1",
-        apart: "23",
-        is_default: true
-      }
-    },
-    is_both: false,
-    track_number_my: null,
-    track_number_their: null,
-    user_my: "test_user",
-    user_their: "titaniumslava"
-  }
-]
-
 interface ILines {
   category: string;
   value: string;
@@ -108,7 +46,8 @@ export interface IActiveExchangeData {
   authorName: string;
   authorSurname: string;
   book: string;
-  status: string;
+  status_my: string;
+  status_their: string;
   trackMy: string;
   trackTheir: string;
   bookCategories: ILines[], // для вывода категорий книги(что я отдаю) в карточке справа
@@ -118,23 +57,28 @@ export interface IActiveExchangeData {
 
 interface IProps {
   error: string | null,
-  list: IActiveExchangeData[],
+  list: IActiveExchangeData[] | [],
 }
 
-const list = [] as IActiveExchangeData[]
 
 export const activeExchange = createModel<RootModel>()({
   state: {
     error: null,
-    list,
+    list: [],
   } as IProps,
   reducers: {
-    SET_LIST: (state: IProps, list: IActiveExchangeData[]) => {
+    setError: (state: IProps, error: string | null) => {
+      return {
+        ...state,
+        error,
+      }
+    },
+    SET_LIST: (state: IProps, list: IActiveExchangeData[] | []) => {
       return {
         ...state,
         list,
       }
-    }
+    },
   },
   effects: (dispatch) =>  ({
     async getActiveList(_, rootState){
@@ -152,7 +96,8 @@ export const activeExchange = createModel<RootModel>()({
               authorName: item?.offer_my?.book?.author?.name,
               authorSurname: item?.offer_my?.book?.author?.last_name,
               book: item?.offer_my?.book?.name,
-              status: item?.offer_their?.status,
+              status_my: item?.offer_my?.status,
+              status_their: item?.offer_their?.status,
               trackMy: item?.track_number_my,
               trackTheir: item?.track_number_their,
               bookCategories: item?.offer_my?.category?.map((i: any) => ({
@@ -180,9 +125,10 @@ export const activeExchange = createModel<RootModel>()({
               authorName: item?.offer_their?.book?.author?.name,
               authorSurname: item?.offer_their?.book?.author?.last_name,
               book: item?.offer_their?.book?.name,
-              status: item?.offer_my?.status,
-              trackMy: item?.track_number_my,
-              trackTheir: item?.track_number_their,
+              status_my: item?.offer_my?.status,
+              status_their: item?.offer_their?.status,
+              trackMy: item?.track_number_their,
+              trackTheir: item?.track_number_my,
               bookCategories: item?.offer_their?.category?.map((i: any) => ({
                 category: i.parent,
                 value: i.name
@@ -200,10 +146,11 @@ export const activeExchange = createModel<RootModel>()({
           }
         })
         dispatch.activeExchange.SET_LIST(data)
-        
+        dispatch.activeExchange.setError(null)
     } catch (error) {
         console.error('Failed to GET ACTIVE EXCHANGE- ', error); 
-    }
-    }
+        dispatch.activeExchange.setError("Ошибка получения активных обменов")
+      }
+    },
   })
 });

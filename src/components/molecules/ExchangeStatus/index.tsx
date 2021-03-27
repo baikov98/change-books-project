@@ -8,17 +8,21 @@ import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
+import { useDispatch } from "react-redux";
 
 interface IProps {
-  id: number;
+  text: string;
+  track_my?: string;
+  track_their?: string;
 }
 
 type IFormInput = {
   track: string;
 };
 
-const ExchangeStatus = ({ id }: IProps) => {
+const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
   const {
     handleSubmit,
     control,
@@ -29,9 +33,20 @@ const ExchangeStatus = ({ id }: IProps) => {
   } = useForm<IFormInput>({
     resolver: yupResolver(VALIDATION.TRACKING),
   });
+    // FREE = "Свободен"
+    // WAIT_CONFIRM = "Ожидается подтверждение"
+    // CONFIRMED = "Подтвержден"
+    // WAIT_TRACK_NUMBER = "Ожидается трэк-номер"
+    // DELIVERING = "Доставляется"
+    // COMPLETED = "Завершен"
 
-  switch (id) {
-    case 1:
+
+  const handleClick = () => {
+    // dispatch
+  } 
+
+  switch (text) {
+    case 'asd':
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
@@ -39,7 +54,7 @@ const ExchangeStatus = ({ id }: IProps) => {
           </Typography>
         </Box>
       );
-    case 2:
+    case "Ожидается подтверждение":
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
@@ -49,12 +64,12 @@ const ExchangeStatus = ({ id }: IProps) => {
             Готовы обменяться? Для этого вам необходимо отправить ему запрос,
             нажав на кнопку “МЕНЯЮСЬ”
           </Typography>
-          <ButtonItem className={classes.btn} type="border" size="large">
+          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleClick}>
             МЕНЯЮСЬ
           </ButtonItem>
         </Box>
       );
-    case 3:
+    case "Подтвержден":
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
@@ -66,7 +81,7 @@ const ExchangeStatus = ({ id }: IProps) => {
           </Typography>
         </Box>
       );
-    case 4:
+    case "Ожидается трэк-номер":
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
@@ -95,26 +110,23 @@ const ExchangeStatus = ({ id }: IProps) => {
           </form>
         </Box>
       );
-    case 5:
+    case "Доставляется23":
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
             Обмен подтверждён!
           </Typography>
           <Typography className={classes.explanation}>
-            Трек для отслеживания книги: 34567890123412. Когда пользователь её
+            Трек для отслеживания книги: {track_their}. Когда пользователь её
             получит, он уведомит систему об этом.
           </Typography>
         </Box>
       );
-    case 6:
+    case "Доставляется":
       return (
         <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Обмен подтверждён!
-          </Typography>
           <Typography className={classes.explanation}>
-            Трек для отслеживания книги: 12345678901234. Не забудьте уведомить
+            Трек для отслеживания книги: {track_their}. Не забудьте уведомить
             нас, когда книга будет поучена!
           </Typography>
           <ButtonItem
@@ -127,7 +139,7 @@ const ExchangeStatus = ({ id }: IProps) => {
           </ButtonItem>
         </Box>
       );
-    case 7:
+    case "Завершен":
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>

@@ -16,8 +16,8 @@ const mainRoutes = {
     review: "/userChange/review",
     exit: "/userChange/exit",
     exchangeCard: "/userChange/offer/:offer",
-    activeCard: "/userChange/active/:card",
-    archiveCard: "/userChange/archive/:card",
+    activeCard: "/userChange/active/:id",
+    archiveCard: "/userChange/archive/:id",
   };
   
   const authRoutes = {
@@ -29,7 +29,7 @@ const mainRoutes = {
   export const links = {
     main: "/",
     exchangeCard: (offer: string) => `/userChange/offer/${offer}`,
-    activeCard: (card: string) => `/userChange/active/${card}`,
-    archiveCard: (card: string) => `/userChange/archive/${card}`,
+    activeCard: (id: string) => `/userChange/active/${id}`,
+    archiveCard: (id: string) => `/userChange/archive/${id}`,
   };
  

@@ -1,39 +1,6 @@
-import { baseURL } from '../../constants/index';
 import { createModel } from "@rematch/core";
 import { RootModel } from ".";
-import axios from 'axios'
 import api from '../../services/api';
-
-export interface IRequest {
-  author: string;
-  book: string;
-  text: string;
-}
-
-const authors = [
-  {id:1 , name: 'Булгаков'},
-  {id:2 , name: 'Пушкин'},
-  {id:3 , name: 'Тургенев'},
-]
-
-const books = [
-  {id:1 , idAuthor: 1, name: 'Булгаков книга 1'},
-  {id:2 , idAuthor: 1, name: 'Булгаков книга 2'},
-  {id:3 , idAuthor: 1, name: 'Булгаков книга 3'},
-  {id:4 , idAuthor: 2, name: 'Пушкин книга 1'},
-  {id:5 , idAuthor: 2, name: 'Пушкин книга 2'},
-  {id:6 , idAuthor: 2, name: 'Пушкин книга 3'},
-  {id:7 , idAuthor: 2, name: 'Пушкин книга 4'},
-  {id:8 , idAuthor: 3, name: 'Тургенев книга 1'},
-  {id:9 , idAuthor: 3, name: 'Тургенев книга 2'},
-]
-
-const reviewList = [
-  {id: 1, idBook: 1, text: "Хорошая книга Хорошая книга Хорошая книга Хорошая книга Хорошая книга Хорошая книга Хорошая книга Хорошая книга", username: "Серый лис", date: "12.03.2021"},
-  {id: 2, idBook: 1, text: "Хорошая книга Хорошая книга Хорошая книга Хорошая книга Хорошая книга", username: "Серый лис", date: "12.03.2021"},
-  {id: 3, idBook: 1, text: "Хорошая книга", username: "Серый лис", date: "12.03.2021"},
-  {id: 4, idBook: 1, text: "Хорошая книга", username: "Серый лис", date: "12.03.2021"},
-] 
 
 interface IAuthors {
   id: number;
@@ -68,7 +35,7 @@ export const reviews = createModel<RootModel>()({
     reviewList: [],
   } as IProps,
   reducers: {
-    setError: (state:IProps, error:string)=> {
+    setError: (state:IProps, error:string | null)=> {
       return {
         ...state,
         error,
@@ -129,7 +96,7 @@ export const reviews = createModel<RootModel>()({
               response: text,
             }
             const response = await api.post(`/api/v1/books/${book}/responses`, data)
-            dispatch.reviews.setError('')
+            dispatch.reviews.setError(null)
         } catch (error) {
           console.error('Failed to send review - ', error);
           dispatch.reviews.setError('Ошибка при отправки отзыва')

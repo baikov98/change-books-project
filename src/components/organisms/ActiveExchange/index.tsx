@@ -33,13 +33,12 @@ const ActiveExchange: React.FC = () => {
         <Crumbs data={crumbs} />
         {!!data.length &&
           data.map((item, index) => (
-            <Box className={classes.contextBox}>
+            <Box className={classes.contextBox}  key={`contentLine-${index} - ${item?.offerMyId}`}>
               <Box
                 className={cn(
                   classes.contentLine,
                   index === data.length - 1 ? classes.last : ""
                 )}
-                key={`contentLine-${index} - ${item?.offerMyId}`}
               >
                 <Box className={classes.book}>
                   <BookList
@@ -60,7 +59,7 @@ const ActiveExchange: React.FC = () => {
                   <CatAndValue
                     valueBold
                     category={"Статус обмена"}
-                    value={item?.status}
+                    value={item?.status_my}
                   />
                 </Box>
                 <Box
