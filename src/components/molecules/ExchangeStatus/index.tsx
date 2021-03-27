@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 interface IProps {
   text: string;
+  id: string;
   track_my?: string;
   track_their?: string;
 }
@@ -20,7 +21,7 @@ type IFormInput = {
   track: string;
 };
 
-const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
+const ExchangeStatus = ({ text, id, track_my, track_their }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const {
@@ -41,10 +42,16 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
     // COMPLETED = "Завершен"
 
 
-  const handleClick = () => {
-    // dispatch
+  const handleAgreeExchangeClick = () => {
+      dispatch.activeExchange.agreeExchange(id)
   } 
-
+  const submit = (data: any) => {
+    console.log(data)
+    dispatch.activeExchange.trackNum(id, data)
+  }
+  const handleConfirmRecieveClick = () => {
+    dispatch.confirmRecieve.agreeExchange(id)
+  }
   switch (text) {
     case 'asd':
       return (
@@ -64,7 +71,7 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
             Готовы обменяться? Для этого вам необходимо отправить ему запрос,
             нажав на кнопку “МЕНЯЮСЬ”
           </Typography>
-          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleClick}>
+          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleAgreeExchangeClick}>
             МЕНЯЮСЬ
           </ButtonItem>
         </Box>
@@ -92,13 +99,20 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
             e-mail, после отправки книги введите трек-номер для отслеживания
             посылки (указывается в чеке на почте)
           </Typography>
-          <form>
-            <InputItem
-              onChange={() => null}
-              value={""}
-              placeholder={"00000000"}
-              label={"Трек для отслеживания"}
-            />
+          <form onSubmit={handleSubmit(submit)}>
+            <Controller
+                name='trackNumber'
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={(props) => (
+                  <InputItem
+                    placeholder={"00000000"}
+                    label={"Трек для отслеживания"}
+                    {...props}
+                  />
+                )}
+              />
             <ButtonItem
               className={classes.btn}
               btnType="submit"
