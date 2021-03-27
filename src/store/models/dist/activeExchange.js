@@ -187,10 +187,10 @@ exports.activeExchange = core_1.createModel()({
                         case 0:
                             _a.trys.push([0, 2, , 3]);
                             data = rootState.activeExchange.list.find(function (el) { return +el.offerMyId === +id; });
-                            return [4 /*yield*/, api_1["default"].post("/api/v1/exchange", { offer_my: data === null || data === void 0 ? void 0 : data.offerTheirId,
-                                    wish_my: data === null || data === void 0 ? void 0 : data.wishTheirId,
-                                    offer_their: data === null || data === void 0 ? void 0 : data.offerMyId,
-                                    wish_their: data === null || data === void 0 ? void 0 : data.wishMyId
+                            return [4 /*yield*/, api_1["default"].post("/api/v1/exchange", { offer_my: data === null || data === void 0 ? void 0 : data.offerMyId,
+                                    wish_my: data === null || data === void 0 ? void 0 : data.wishMyId,
+                                    offer_their: data === null || data === void 0 ? void 0 : data.offerTheirId,
+                                    wish_their: data === null || data === void 0 ? void 0 : data.wishTheirId
                                 })];
                         case 1:
                             response = _a.sent();

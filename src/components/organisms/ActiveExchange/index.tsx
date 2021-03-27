@@ -17,6 +17,7 @@ const ActiveExchange: React.FC = () => {
   const location = useLocation();
   const history = useHistory();
   const data: IActiveExchangeData[] = useSelector(getActiveExchange);
+  const NewToOldData = data.reverse()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch.activeExchange.getActiveList()
@@ -31,19 +32,19 @@ const ActiveExchange: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
-        {!!data.length &&
-          data.map((item, index) => (
+        {!!NewToOldData.length &&
+          NewToOldData.map((item, index) => (
             <Box className={classes.contextBox}  key={`contentLine-${index} - ${item?.offerMyId}`}>
               <Box
                 className={cn(
                   classes.contentLine,
-                  index === data.length - 1 ? classes.last : ""
+                  index === NewToOldData.length - 1 ? classes.last : ""
                 )}
               >
                 <Box className={classes.book}>
                   <BookList
                     data={item?.categories}
-                    title={`Книга #${item?.offerMyId}`}
+                    title={`Книга #${item?.offerTheirId}`}
                   />
                 </Box>
                 <Box className={classes.book}>
