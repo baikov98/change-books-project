@@ -29,7 +29,7 @@ var ActiveExchange = function () {
             react_1["default"].createElement(Crumbs_1["default"], { data: crumbs }),
             !!data.length &&
                 data.map(function (item, index) { return (react_1["default"].createElement(core_1.Box, { className: classes.contextBox },
-                    react_1["default"].createElement(core_1.Box, { className: classnames_1["default"](classes.contentLine, index === data.length - 1 ? classes.last : ""), key: "contentLine-" + index + " - " + (item === null || item === void 0 ? void 0 : item.id) },
+                    react_1["default"].createElement(core_1.Box, { className: classnames_1["default"](classes.contentLine, index === data.length - 1 ? classes.last : ""), key: "contentLine-" + index + " - " + (item === null || item === void 0 ? void 0 : item.offerMyId) },
                         react_1["default"].createElement(core_1.Box, { className: classes.book },
                             react_1["default"].createElement(BookList_1["default"], { data: item === null || item === void 0 ? void 0 : item.categories, title: "\u041A\u043D\u0438\u0433\u0430 #" + (item === null || item === void 0 ? void 0 : item.offerMyId) })),
                         react_1["default"].createElement(core_1.Box, { className: classes.book },

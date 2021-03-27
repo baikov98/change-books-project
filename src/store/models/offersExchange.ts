@@ -8,7 +8,7 @@ interface ILines {
   value: string;
 }
 
-interface IData {
+export interface IOfferExchangeData {
   offerMyId: string;
   wishMyId: string;
   offerTheirId: string;
@@ -22,7 +22,7 @@ interface IData {
 
 interface IProps {
   error: string | null,
-  bookInfo: IData[],
+  bookInfo: IOfferExchangeData[], 
 }
 
 export const offersExchange = createModel<RootModel>()({
@@ -31,7 +31,7 @@ export const offersExchange = createModel<RootModel>()({
     bookInfo: []
   } as IProps,
   reducers: {
-    SET_OFFERS: (state: IProps, bookInfo: IData[]) => {
+    SET_OFFERS: (state: IProps, bookInfo: IOfferExchangeData[]) => {
       return {
           ...state,
           bookInfo,
@@ -43,7 +43,7 @@ export const offersExchange = createModel<RootModel>()({
       async getOffers (payload, rootState) {
         try {
             const response = await api.get(`/api/v1/request/bookselect`);
-            const data: IData[] = response.data.map((item: any) => {
+            const data: IOfferExchangeData[] = response.data.map((item: any) => {
               return {
                 offerMyId: item?.offer_my.id,
                 wishMyId: item?.wish_my.id,

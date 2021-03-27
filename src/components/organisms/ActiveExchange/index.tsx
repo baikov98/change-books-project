@@ -7,7 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getActiveExchange } from "../../../store/selectors";
 import { links } from "../../../routes";
-
+import { IActiveExchangeData } from '../../../store/models/activeExchange'
 import BookList from "../../molecules/BookList";
 import CatAndValue from "../../atoms/CatAndValue";
 import Crumbs from "../../molecules/Crumbs";
@@ -16,14 +16,14 @@ const ActiveExchange: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
-  const data = useSelector(getActiveExchange);
+  const data: IActiveExchangeData[] = useSelector(getActiveExchange);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch.activeExchange.getActiveList()
   }, [])
   const crumbs = [{ value: "Активные обмены", link: location.pathname }];
 
-  const handleClick = (value: number) => {
+  const handleClick = (value: number | string) => {
     history.push(links.activeCard(value.toString()));
   };
 
@@ -32,14 +32,14 @@ const ActiveExchange: React.FC = () => {
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
         {!!data.length &&
-          data.map((item: any, index) => (
+          data.map((item, index) => (
             <Box className={classes.contextBox}>
               <Box
                 className={cn(
                   classes.contentLine,
                   index === data.length - 1 ? classes.last : ""
                 )}
-                key={`contentLine-${index} - ${item?.id}`}
+                key={`contentLine-${index} - ${item?.offerMyId}`}
               >
                 <Box className={classes.book}>
                   <BookList
