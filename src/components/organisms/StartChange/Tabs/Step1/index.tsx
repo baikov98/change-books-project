@@ -37,7 +37,7 @@ const Step1: React.FC<IProps> = ({ tabsData }) => {
                     errors={errors} />
             <Categories step={step} 
                         control={control} 
-                        data={storeData.step1} 
+                        data={storeData.step1.categories} 
                         setValue={setValue} 
                         checkLimit={true}
                         getValues={getValues}

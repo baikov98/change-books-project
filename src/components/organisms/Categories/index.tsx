@@ -10,13 +10,13 @@ import { Box, Typography, FormControl, FormHelperText } from "@material-ui/core"
 import { onlyOneCheckBoxCategoryArray, 
          IBookInfoFields,
          ICategoryListItem } from '../../../store/models/bookCategories'
-import { IBookData } from '../../../store/models/requestExchangeBooks'
+import { IOfferBookData } from '../../../store/models/requestExchangeBooks'
 import CheckBox from '../../atoms/CheckBox'
 
 interface IProps {
   step: number;
   control: Control;
-  data: IBookData;
+  data: ICategoryListItem[];
   setValue: (name: string, value: string | boolean) => void;
   checkLimit?: boolean
   getValues?: (name?: string | string[]) => void
@@ -79,7 +79,7 @@ const Categories: React.FC<IProps> = ({
                 {item.opts.map((val, index) => {
                   const name = val[1]
                   const valuesArray: [] = []
-                  data?.categories?.forEach((val: ICategoryListItem) => 
+                  data?.forEach((val: ICategoryListItem) => 
                       val.value.forEach((i: string[]) => valuesArray.push(i[1] as never)))
                   const defaultValue = valuesArray.some(i => name === i)
 

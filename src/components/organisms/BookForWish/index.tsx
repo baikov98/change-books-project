@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from 'react-redux'
 import { getBookCategories } from '../../../store/selectors'
-import { IBookData } from '../../../store/models/requestWishBooks'
+import { IWishBookData } from '../../../store/models/requestWishBooks'
 import { useForm } from 'react-hook-form';
 import { Box,  Typography } from "@material-ui/core";
 import filterFormData from "../../../utils/filterFormData"; 
@@ -15,7 +15,7 @@ import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 
 interface IProps {
-  data: IBookData; 
+  data: IWishBookData; 
   objectKey: string;
   bookCategories: IBookInfoFields[];
   bookNum: number;
@@ -72,7 +72,7 @@ const BookForWish: React.FC<IProps> = ({
                             <Box>
                               <Categories step={3} 
                                           control={control} 
-                                          data={data} 
+                                          data={data.categories} 
                                           setValue={setValue}
                                           genresCheck={genresCheck} />
                             </Box>

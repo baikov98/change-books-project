@@ -10,7 +10,7 @@ import filterFormData from "../../../utils/filterFormData";
 import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData"; 
 import { IBookInfoFields, ICategoryListItem } from '../../../store/models/bookCategories'
-import { IBookData } from '../../../store/models/requestExchangeBooks'
+import { IOfferBookData } from '../../../store/models/requestExchangeBooks'
 import CatAndValue from '../../atoms/CatAndValue'
 import EditButton from '../../atoms/EditButton'
 import BookInfo from '../BookInfo'
@@ -18,7 +18,7 @@ import Categories from '../Categories'
 import ButtonItem from '../../atoms/ButtonItem'
 
 interface IProps {
-  data: IBookData;
+  data: IOfferBookData;
   objectId: string;
   bookCategories: IBookInfoFields[];
   editable: boolean;
@@ -75,7 +75,7 @@ const BookForExchange: React.FC<IProps> = ({
                                         errors={errors} /> 
                               <Categories step={3} 
                                           control={control} 
-                                          data={data} 
+                                          data={data.categories} 
                                           setValue={setValue}
                                           checkLimit={true} 
                                           genresCheck={genresCheck} /> 

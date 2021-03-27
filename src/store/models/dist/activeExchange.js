@@ -50,7 +50,7 @@ exports.__esModule = true;
 exports.activeExchange = void 0;
 var core_1 = require("@rematch/core");
 var api_1 = require("../../services/api");
-var list = [
+var list1 = [
     {
         offerMyId: '1',
         wishMyId: '1',
@@ -140,6 +140,7 @@ var listResponse = [
         user_their: "titaniumslava"
     }
 ];
+var list = [];
 exports.activeExchange = core_1.createModel()({
     state: {
         error: null,

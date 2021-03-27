@@ -1,9 +1,9 @@
 import { createModel } from "@rematch/core";
-import { number } from "yup/lib/locale";
 import { RootModel } from "."; 
 import api from "../../services/api";
 
-const list = [
+
+const list1 = [
   {
     offerMyId: '1',
     wishMyId: '1',
@@ -100,7 +100,7 @@ interface ILines {
   value: string;
 }
 
-interface IData {
+export interface IActiveExchangeData {
   offerMyId: string;
   wishMyId: string;
   offerTheirId: string;
@@ -118,8 +118,10 @@ interface IData {
 
 interface IProps {
   error: string | null,
-  list: IData[],
+  list: IActiveExchangeData[],
 }
+
+const list = [] as IActiveExchangeData[]
 
 export const activeExchange = createModel<RootModel>()({
   state: {
@@ -127,7 +129,7 @@ export const activeExchange = createModel<RootModel>()({
     list,
   } as IProps,
   reducers: {
-    SET_LIST: (state: IProps, list: IData[]) => {
+    SET_LIST: (state: IProps, list: IActiveExchangeData[]) => {
       return {
         ...state,
         list,
@@ -139,7 +141,7 @@ export const activeExchange = createModel<RootModel>()({
       try {
         const username = rootState?.user?.personalData?.nickname 
         const response = await api.get(`/api/v1/exchange/`);
-        const data: IData[] = response.data.map((item: any) => {
+        const data: IActiveExchangeData[] = response.data.map((item: any) => {
           if(item.user_my === username){
             return {
               //КОГДА я нажал кнопку МЕНЯЮСЬ
