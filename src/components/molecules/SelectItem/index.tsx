@@ -6,10 +6,10 @@ import Select from "@material-ui/core/Select";
 import { Controller, Control } from "react-hook-form";
 import { Box, MenuItem, Typography } from "@material-ui/core";
 
-interface IBook {
+interface IData {
   id: number;
-  idAuthor: number;
   name: string;
+  last_name?: string;
 }
 
 export interface IProps {
@@ -21,7 +21,7 @@ export interface IProps {
   control: Control;
   defaultValue?: string;
   required?: boolean;
-  data: IBook[];
+  data: IData[];
 }
 
 const SelectItem = ({
@@ -67,9 +67,9 @@ const SelectItem = ({
               </MenuItem>
 
               {!!data.length &&
-                data.map((item: IBook, index: number) => (
-                  <MenuItem key={`${index}-${item?.id}`} value={item.name}>
-                    {item.name}
+                data.map((item: IData, index: number) => (
+                  <MenuItem key={`${index}-${item?.id}`} value={item.id}>
+                    {item?.last_name ? item?.name  + " " + item?.last_name : item?.name }
                   </MenuItem>
                 ))}
             </Select>

@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VALIDATION } from "../../../constants";
-import { getBooksByAuthor, getReviewsByBook } from "../../../store/selectors";
+import { getAuthorsList, getBooksByAuthor, getReviewsByBook, getRiviewsError } from "../../../store/selectors";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import SelectItem from "../../molecules/SelectItem";
@@ -22,10 +22,12 @@ type IInputData = {
 const Reviews: React.FC = () => {
   const classes = useStyles();
   const reviewsList = useSelector(getReviewsByBook);
+  const authors = useSelector(getAuthorsList);
+  const books = useSelector(getBooksByAuthor);
+  const reviewsError = useSelector(getRiviewsError)
   const [step, setStep] = useState<number>(1);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const books = useSelector(getBooksByAuthor);
 
   const {
     handleSubmit,
@@ -48,8 +50,13 @@ const Reviews: React.FC = () => {
   const watchAuthor = watch("author");
   const watchBook = watch("book");
 
+  useEffect(()=> {
+    dispatch.reviews.getAuthors()
+  }, [])
+  
+
   useEffect(() => {
-    if (watchBook === "") {
+    if (!watchBook) {
       return;
     }
     if (step === 3) {
@@ -57,27 +64,23 @@ const Reviews: React.FC = () => {
     }
   }, [watchBook]);
 
-  //Для ожидания остановки печатания 1 сек
   useEffect(() => {
-    if (watchAuthor === "") {
+    if (!watchAuthor) {
       return;
     }
     setStep(1);
     setValue("book", "");
-    const delayTyping = setTimeout(() => {
-      dispatch.reviews.getBooksName(watchAuthor);
-      setError("book", {
-        message: "",
-      });
-    }, 1000);
-
-    return () => clearTimeout(delayTyping);
+    setError("book", {
+      message: "",
+    });
+    dispatch.reviews.getBooksName(watchAuthor);
+    
   }, [watchAuthor]);
 
   const submit = (data: IInputData) => {
-    if (data) {
+    if (data) { 
       dispatch.reviews.sendReview(data);
-      setStep(1);
+      setStep(1)
       setOpen(true);
     }
     reset();
@@ -106,8 +109,10 @@ const Reviews: React.FC = () => {
   if (open) {
     return (
       <DialogItem
-        title={"Вы успешно оставили отзыв на книгу!"}
+        title={reviewsError ? "Произошла ошибка при отправки отзыва" : "Вы успешно оставили отзыв на книгу!"}
         value={
+          reviewsError ? "Попробуйте проверить подключение к интернету и повторите попытку" 
+          :
           "Теперь вы можете оставить отзыв на другую книгу или найти отзывы других пользователей"
         }
         open={formState.isSubmitSuccessful}
@@ -123,20 +128,15 @@ const Reviews: React.FC = () => {
 
       <form className={classes.form} onSubmit={handleSubmit(submit)}>
         <Box className={classes.inputRow}>
-          <Controller
+    
+          <SelectItem
             name={"author"}
             control={control}
-            rules={{ required: true }}
             defaultValue=""
-            render={(props) => (
-              <InputItem
-                label={"Автор книги:"}
-                inputType={"text"}
-                error={errors.author?.message}
-                placeholder={"Автор книги"}
-                {...props}
-              />
-            )}
+            required={true}
+            label={"Автор книги:"}
+            placeholder={"Выбрать"}
+            data={authors}
           />
 
           <SelectItem
