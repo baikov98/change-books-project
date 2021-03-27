@@ -142,10 +142,12 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
       );
     case "Доставляется":
       return (
+        <>
+        {track_their ?
         <Box className={classes.underBox}>
           <Typography className={classes.explanation}>
             Трек для отслеживания книги: {track_their}. Не забудьте уведомить
-            нас, когда книга будет поучена!
+            нас, когда книга будет получена!
           </Typography>
           <ButtonItem
             className={classes.btn}
@@ -156,7 +158,14 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
           >
             КНИГА ПОЛУЧЕНА
           </ButtonItem>
-        </Box>
+        </Box> :
+        <Box className={classes.underBox}>
+        <Typography className={classes.explanation}>
+          Как только пользователь введет трек-номер он отобразится здесь.
+          Вы ввели трекномер: {track_my}
+        </Typography>   
+      </Box>}
+        </>
       );
     case "Завершен":
       return (
