@@ -139,15 +139,15 @@ exports.activeExchange = core_1.createModel()({
                                 else {
                                     //КОГДА КТО-ТО нажал кнопку МЕНЯЮСЬ
                                     return {
-                                        offerMyId: item === null || item === void 0 ? void 0 : item.offer_my.id,
-                                        wishMyId: item === null || item === void 0 ? void 0 : item.wish_my.id,
-                                        offerTheirId: item === null || item === void 0 ? void 0 : item.offer_their.id,
-                                        wishTheirId: item === null || item === void 0 ? void 0 : item.wish_their.id,
+                                        offerMyId: item === null || item === void 0 ? void 0 : item.offer_their.id,
+                                        wishMyId: item === null || item === void 0 ? void 0 : item.wish_their.id,
+                                        offerTheirId: item === null || item === void 0 ? void 0 : item.offer_my.id,
+                                        wishTheirId: item === null || item === void 0 ? void 0 : item.wish_my.id,
                                         authorName: (_s = (_r = (_q = item === null || item === void 0 ? void 0 : item.offer_their) === null || _q === void 0 ? void 0 : _q.book) === null || _r === void 0 ? void 0 : _r.author) === null || _s === void 0 ? void 0 : _s.name,
                                         authorSurname: (_v = (_u = (_t = item === null || item === void 0 ? void 0 : item.offer_their) === null || _t === void 0 ? void 0 : _t.book) === null || _u === void 0 ? void 0 : _u.author) === null || _v === void 0 ? void 0 : _v.last_name,
                                         book: (_x = (_w = item === null || item === void 0 ? void 0 : item.offer_their) === null || _w === void 0 ? void 0 : _w.book) === null || _x === void 0 ? void 0 : _x.name,
-                                        status_my: (_y = item === null || item === void 0 ? void 0 : item.offer_my) === null || _y === void 0 ? void 0 : _y.status,
-                                        status_their: (_z = item === null || item === void 0 ? void 0 : item.offer_their) === null || _z === void 0 ? void 0 : _z.status,
+                                        status_my: (_y = item === null || item === void 0 ? void 0 : item.offer_their) === null || _y === void 0 ? void 0 : _y.status,
+                                        status_their: (_z = item === null || item === void 0 ? void 0 : item.offer_my) === null || _z === void 0 ? void 0 : _z.status,
                                         trackMy: item === null || item === void 0 ? void 0 : item.track_number_their,
                                         trackTheir: item === null || item === void 0 ? void 0 : item.track_number_my,
                                         bookCategories: (_1 = (_0 = item === null || item === void 0 ? void 0 : item.offer_their) === null || _0 === void 0 ? void 0 : _0.category) === null || _1 === void 0 ? void 0 : _1.map(function (i) { return ({

@@ -118,15 +118,15 @@ export const activeExchange = createModel<RootModel>()({
           }else {
             //КОГДА КТО-ТО нажал кнопку МЕНЯЮСЬ
             return {
-              offerMyId: item?.offer_my.id,
-              wishMyId: item?.wish_my.id,
-              offerTheirId: item?.offer_their.id,
-              wishTheirId: item?.wish_their.id,
+              offerMyId: item?.offer_their.id,
+              wishMyId: item?.wish_their.id,
+              offerTheirId: item?.offer_my.id,
+              wishTheirId: item?.wish_my.id,
               authorName: item?.offer_their?.book?.author?.name,
               authorSurname: item?.offer_their?.book?.author?.last_name,
               book: item?.offer_their?.book?.name,
-              status_my: item?.offer_my?.status,
-              status_their: item?.offer_their?.status,
+              status_my: item?.offer_their?.status,
+              status_their: item?.offer_my?.status,
               trackMy: item?.track_number_their,
               trackTheir: item?.track_number_my,
               bookCategories: item?.offer_their?.category?.map((i: any) => ({
