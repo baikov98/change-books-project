@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 import ButtonItem from "../../atoms/ButtonItem";
 import InputItem from "../../atoms/InputItem";
@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 
 interface IProps {
   text: string;
+  textTheir: string;
+  id: string;
   track_my?: string;
   track_their?: string;
 }
@@ -20,7 +22,7 @@ type IFormInput = {
   track: string;
 };
 
-const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
+const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const {
@@ -41,10 +43,19 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
     // COMPLETED = "Завершен"
 
 
-  const handleClick = () => {
-    // dispatch
+  const handleAgreeExchangeClick = () => {
+    dispatch.activeExchange.agreeExchange(id)
   } 
+  const submit = (data: IFormInput) => {
+    dispatch.activeExchange.trackNumber(id, data.track)
+  }
+  const handleConfirmRecieveClick = () => {
+    dispatch.activeExchange.confirmRecieve(id)
+  }
 
+  const test = () => {
+    console.log(11)
+  }
   switch (text) {
     case 'asd':
       return (
@@ -64,7 +75,7 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
             Готовы обменяться? Для этого вам необходимо отправить ему запрос,
             нажав на кнопку “МЕНЯЮСЬ”
           </Typography>
-          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleClick}>
+          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleAgreeExchangeClick}>
             МЕНЯЮСЬ
           </ButtonItem>
         </Box>
@@ -92,13 +103,20 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
             e-mail, после отправки книги введите трек-номер для отслеживания
             посылки (указывается в чеке на почте)
           </Typography>
-          <form>
-            <InputItem
-              onChange={() => null}
-              value={""}
-              placeholder={"00000000"}
-              label={"Трек для отслеживания"}
-            />
+          <form onSubmit={handleSubmit(submit)}>
+            <Controller
+                name='track'
+                control={control}
+                rules={{ required: true }}
+                defaultValue=""
+                render={(props) => (
+                  <InputItem
+                    placeholder={"00000000"}
+                    label={"Трек для отслеживания"}
+                    {...props}
+                  />
+                )}
+              />
             <ButtonItem
               className={classes.btn}
               btnType="submit"
@@ -124,20 +142,30 @@ const ExchangeStatus = ({ text, track_my, track_their }: IProps) => {
       );
     case "Доставляется":
       return (
+        <>
+        {track_their ?
         <Box className={classes.underBox}>
           <Typography className={classes.explanation}>
             Трек для отслеживания книги: {track_their}. Не забудьте уведомить
-            нас, когда книга будет поучена!
+            нас, когда книга будет получена!
           </Typography>
           <ButtonItem
             className={classes.btn}
             btnType="submit"
             type="solid"
             size="large"
+            onClick={handleConfirmRecieveClick}
           >
             КНИГА ПОЛУЧЕНА
           </ButtonItem>
-        </Box>
+        </Box> :
+        <Box className={classes.underBox}>
+        <Typography className={classes.explanation}>
+          Как только пользователь введет трек-номер он отобразится здесь.
+          Вы ввели трекномер: {track_my}
+        </Typography>   
+      </Box>}
+        </>
       );
     case "Завершен":
       return (

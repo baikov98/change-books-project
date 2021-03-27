@@ -25,7 +25,7 @@ const initialState = {
         link: routes.active
      },
      {
-        title: "Отзыв на книгу",
+        title: "Отзывы на книгу",
         link: routes.review
      },
      {

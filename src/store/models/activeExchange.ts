@@ -152,5 +152,43 @@ export const activeExchange = createModel<RootModel>()({
         dispatch.activeExchange.setError("Ошибка получения активных обменов")
       }
     },
+    async agreeExchange (id, rootState) {
+      try {
+        const data = rootState.activeExchange.list.find((el: IActiveExchangeData) => +el.offerMyId === +id)
+        const response = await api.post(`/api/v1/exchange`, 
+                                        { offer_my: data?.offerTheirId,
+                                          wish_my: data?.wishTheirId,
+                                          offer_their: data?.offerMyId,
+                                          wish_their: data?.wishMyId
+                                        }); 
+        console.log(response.data)
+      } catch (error) {
+          console.error('Failed to agreeExchange - ', error);
+      }
+    },
+    async trackNumber (id, rootState, trackNum ) {
+      try {
+        const response = await api.patch(`/api/v1/exchange/tracknumber/`, 
+                                        {
+                                          offer: id,
+                                          track_number: "123123212"
+                                        }); 
+        console.log(response.data)
+      } catch (error) {
+          console.error('Failed to trackNumber - ', error);
+      }
+    },
+    async confirmRecieve (id, rootState) {
+      try {
+        const response = await api.patch(`/api/v1/exchange/confirm_recieve/`, 
+                                          {
+                                            offer: id,
+                                            is_received: true
+                                          }); 
+        console.log(response.data)
+      } catch (error) {
+          console.error('Failed to confirmRecieve - ', error);
+      }
+    },
   })
 });

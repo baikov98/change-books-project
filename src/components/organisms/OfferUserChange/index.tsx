@@ -19,7 +19,7 @@ const OfferUserChange: React.FC = () => {
   }, [])
   const data = useSelector(getBookInfo);
 
-  const crumbs = [{ value: "Предложение для обмена", link: location.pathname }];
+  const crumbs = [{ value: "Предложения для обмена", link: location.pathname }];
 
   return (
     <Box className={classes.root}>
