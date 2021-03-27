@@ -32,14 +32,15 @@ const OffersLine: React.FC<IProps> = ({
 
   const handleClick = (offerMyId: string, wishMyId: string, offerTheirId: string, wishTheirId: string) => {
     dispatch.offersExchange.makeOffer({offerMyId, wishMyId, offerTheirId, wishTheirId})
-    history.push('/active')
+    history.push('/userChange/active')
   };
 
   return (
     <Box className={classBox}>
       {title && <Typography className={classes.title}>{title}</Typography>}
       {!!data.length &&
-        data.map((item: any, index: number) => (
+        data.map((item: any, index: number) => {
+          return (
           <Accordion
             className={classes.accordion}
             key={`accordion-${index}-${new Date()}`}
@@ -68,7 +69,12 @@ const OffersLine: React.FC<IProps> = ({
               </Box>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
-              <BookList data={item?.categories} />
+              <BookList data={item?.categories.map((i: any) => 
+                { let valueArray = i.value.map((item: any) => item[0])
+                  return { category: i.category, 
+                           value: valueArray.join(', ')
+                        }
+                })} />
               <BookList data={item?.user} />
               <ButtonItem
                 btnClassName={classes.btn}
@@ -81,7 +87,9 @@ const OffersLine: React.FC<IProps> = ({
               </ButtonItem>
             </AccordionDetails>
           </Accordion>
-        ))}
+          )
+        }
+        )}
     </Box>
   );
 };

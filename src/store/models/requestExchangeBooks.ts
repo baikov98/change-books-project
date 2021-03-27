@@ -18,18 +18,18 @@ interface IResponceData {
   category: IRequestCategoriesItem[] 
 }
 
-export interface IBookData {
+export interface IOfferBookData {
   id?: string;
-  authorName?: string;
-  authorSurname?: string;
-  book?: string;
-  year?: string;
+  authorName: string;
+  authorSurname: string;
+  book: string;
+  year: string;
   isbn?: string
   categories: ICategoryListItem[]
 } 
 
 interface IBookListItem {
-  data: IBookData[]
+  data: IOfferBookData[]
 }
 
 export const requestExchangeBooks = createModel<RootModel>()({
@@ -38,7 +38,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
     } as IBookListItem, 
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: IBookData[]) => {
+      SET_REQUEST_DATA: (state: IBookListItem, payload: IOfferBookData[]) => {
         return {
           ...state,
           data: payload
@@ -52,7 +52,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
     async requestOfferList(payload, rootState) {
       try {
         const response = await api.get(`/api/v1/request/offerlist/`);
-        const stateArray: IBookData[] = response.data.map((item: IResponceData) => { 
+        const stateArray: IOfferBookData[] = response.data.map((item: IResponceData) => { 
           return {
             id: item.id,
             authorName: item.book.author.name,
@@ -65,10 +65,11 @@ export const requestExchangeBooks = createModel<RootModel>()({
         })
         requestExchangeBooks.SET_REQUEST_DATA(stateArray)
       } catch (error) {
+        requestExchangeBooks.SET_REQUEST_DATA([])
         console.error('Failed to requestOfferList - ', error);
         }
     },
-    async putEditedOffer(payload: IBookData, rootState, id) {
+    async putEditedOffer(payload: IOfferBookData, rootState, id) {
       try {
         const genreArray = payload.categories.map(item => (
           item.value.map(val => (

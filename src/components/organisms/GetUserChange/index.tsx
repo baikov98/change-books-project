@@ -25,7 +25,7 @@ const GetUserChange: React.FC = () => {
             key={"item" + index}
             bookNum={index}
             data={item}
-            objectKey={item.id}
+            objectKey={item.id || ''}
             bookCategories={bookCategories}
             editable={editable}
             handleEditable={handleEditable}

@@ -5,7 +5,6 @@ import { Box, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getBookInfo } from "../../../store/selectors";
-
 import Crumbs from "../../molecules/Crumbs";
 import BookList from "../../molecules/BookList";
 import ExchangeStatus from "../../molecules/ExchangeStatus";

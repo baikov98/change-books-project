@@ -1,13 +1,14 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "."; 
 import api from '../../services/api'
+import filterServerData from '../../utils/filterServerData'
 
 interface ILines {
   category: string;
   value: string;
 }
 
-interface IData {
+export interface IOfferExchangeData {
   offerMyId: string;
   wishMyId: string;
   offerTheirId: string;
@@ -21,7 +22,7 @@ interface IData {
 
 interface IProps {
   error: string | null,
-  bookInfo: IData[],
+  bookInfo: IOfferExchangeData[], 
 }
 
 export const offersExchange = createModel<RootModel>()({
@@ -30,7 +31,7 @@ export const offersExchange = createModel<RootModel>()({
     bookInfo: []
   } as IProps,
   reducers: {
-    SET_OFFERS: (state: IProps, bookInfo: IData[]) => {
+    SET_OFFERS: (state: IProps, bookInfo: IOfferExchangeData[]) => {
       return {
           ...state,
           bookInfo,
@@ -39,10 +40,10 @@ export const offersExchange = createModel<RootModel>()({
   },
   effects: (dispatch) => {
     return {
-      async getOffers () {
+      async getOffers (payload, rootState) {
         try {
             const response = await api.get(`/api/v1/request/bookselect`);
-            const data: IData[] = response.data.map((item: any) => {
+            const data: IOfferExchangeData[] = response.data.map((item: any) => {
               return {
                 offerMyId: item?.offer_my.id,
                 wishMyId: item?.wish_my.id,
@@ -56,12 +57,10 @@ export const offersExchange = createModel<RootModel>()({
                   {category: 'Город', value: item?.wish_their.address.city},
                   {category: 'Рейтинг', value: item?.offer_user.rating},
                 ],
-                categories: item?.offer_their.category.map((i: any) => ({
-                  category: i.parent,
-                  value: i.name
-                })),
-              }
+                categories: filterServerData(item.offer_their.category, rootState.bookCategories.main)
+              } //item?.offer_their.category
             }) 
+            console.log(data)
             dispatch.offersExchange.SET_OFFERS(data) 
             
         } catch (error) {
@@ -77,7 +76,7 @@ export const offersExchange = createModel<RootModel>()({
             offer_their: +offerTheirId,
             wish_their: +wishTheirId
           }
-          const response = await api.post(`/api/v1/exchange/`, data);
+          const response = await api.post(`/api/v1/exchange`, data);
           
       } catch (error) {
           console.error('Failed to GET OFFER DATA - ', error); 
@@ -105,6 +104,10 @@ const testt = [
         {
           "parent": "Жанр",
           "name": "Фэнтэзи"
+        },
+        {
+          "parent": "Жанр",
+          "name": "Юмор"
         },
         {
           "parent": "Состояние книги",

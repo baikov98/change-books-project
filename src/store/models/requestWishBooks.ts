@@ -8,13 +8,13 @@ interface IResponceData {
   category: IRequestCategoriesItem[] 
 }
 
-export interface IBookData {
-  id: string;
+export interface IWishBookData {
+  id?: string;
   categories: ICategoryListItem[];
 }
 
 interface IBookListItem {
-    data: IBookData[]
+    data: IWishBookData[]
 }
 
 export const requestWishBooks = createModel<RootModel>()({
@@ -24,7 +24,7 @@ export const requestWishBooks = createModel<RootModel>()({
     } as IBookListItem,
 
     reducers: {
-      SET_REQUEST_DATA: (state: IBookListItem, payload: IBookData[]) => { 
+      SET_REQUEST_DATA: (state: IBookListItem, payload: IWishBookData[]) => { 
         return {
           ...state,
           data: payload
@@ -37,13 +37,14 @@ export const requestWishBooks = createModel<RootModel>()({
       async requestWishList(payload, rootState) {
         try {
           const response = await api.get(`/api/v1/request/wishlist/`);
-          const stateArray: IBookData[] = response.data.map((item: IResponceData) => { 
+          const stateArray: IWishBookData[] = response.data.map((item: IResponceData) => { 
             return {
               categories: filterServerData(item.category, rootState.bookCategories.main)
             }
           })
           requestWishBooks.SET_REQUEST_DATA(stateArray)
         } catch (error) {
+            requestWishBooks.SET_REQUEST_DATA([])
             console.error('Failed to requestWishList - ', error);
           }
       },

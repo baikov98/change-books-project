@@ -9,15 +9,15 @@ import genresChecker from "../../../utils/genresChecker";
 import { IData } from "../../../utils/filterFormData";
 import { Box, Typography } from "@material-ui/core";
 import ProgressIndicator from "../../atoms/ProgressIndicator"
-import { IOfferData, IWishData } from '../../../store/models/startExchange'
+import { IOfferBookData } from '../../../store/models/requestExchangeBooks'
+import { IWishBookData } from '../../../store/models/requestWishBooks'
 import Step1 from "./Tabs/Step1"
 import Step2 from "./Tabs/Step2"
 import Step3 from "./Tabs/Step3"
-import TitleItem from '../../atoms/TitleItem'
 
 interface IStepData {
-  step1: IOfferData;
-  step2: IWishData;
+  step1: IOfferBookData;
+  step2: IWishBookData;
   step3: {
     [key: string]: string
   };
@@ -54,26 +54,20 @@ const StartChange: React.FC<IProps> = () => {
   const dispatch = useDispatch()
   const history = useHistory();
   const genresCheck = useRef(true)
-  const emptyData = {
-    step1: {},
-    step2: {},
-    step3: {},
-  }
-  const submit = (data: IData) => { 
+  const submit = (data: IData) => {
+    const store = dispatch.startExchange
     if (step === 2) {
-      dispatch.startExchange.requestOfferList(storeData.step1)
-      dispatch.startExchange.requestWishList(data)
-      dispatch.startExchange.SET_EXCHANGE_DATA(emptyData)
-      dispatch.startExchange.SET_EXCHANGE_STEP(0) 
+      store.requestOfferList(storeData.step1)
+      store.requestWishList(data)
+      store.CLEAR_DATA()
       history.push('userChange/offer')
     } else {
       genresCheck.current = genresChecker(data)
       if (genresCheck.current) {
-        if (step === 0) dispatch.startExchange.getPersonalData()
+        if (step === 0) store.getPersonalData()
         const filteredData = filterFormData(data, listOfCategories)
-        const stepLabel = `step${step+1}`
-        dispatch.startExchange.SET_EXCHANGE_DATA({[stepLabel]: filteredData})
-        dispatch.startExchange.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
+        store.SET_EXCHANGE_DATA({[`step${step+1}`]: filteredData})
+        store.SET_EXCHANGE_STEP(step < 2 ? step+1 : step) 
       }
     }
   } 
