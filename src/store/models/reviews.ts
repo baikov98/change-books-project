@@ -129,7 +129,7 @@ export const reviews = createModel<RootModel>()({
               response: text,
             }
             const response = await api.post(`/api/v1/books/${book}/responses`, data)
-            
+            dispatch.reviews.setError('')
         } catch (error) {
           console.error('Failed to send review - ', error);
           dispatch.reviews.setError('Ошибка при отправки отзыва')
