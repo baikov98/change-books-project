@@ -16,7 +16,7 @@ interface IBook {
 interface IReview {
   id: number;
   user: string;
-  created_at: string;
+  created_at: Date;
   response: string;
 }
 
