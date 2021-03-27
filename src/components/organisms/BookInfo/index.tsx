@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 import { Control, FieldErrors } from 'react-hook-form';
 import { useSelector } from "react-redux";
 import { IBookInfoFields } from '../../../store/models/bookInfoFields'
-import { IBookData } from '../../../store/models/requestExchangeBooks'
+import { IOfferBookData } from '../../../store/models/requestExchangeBooks'
 import InputItem from '../../atoms/InputItem'
 import { getBookInput } from '../../../store/selectors'
 
@@ -29,7 +29,7 @@ const BookInfo: React.FC<IProps> = ({ data, control, errors }) => {
                         name={name}
                         control={control}
                         rules={{ required: required }}
-                        defaultValue={data[name]} 
+                        defaultValue={data[name] || ''} 
                         render={(props) => (
                           <InputItem
                             label={label}
