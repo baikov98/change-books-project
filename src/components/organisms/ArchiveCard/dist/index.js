@@ -8,7 +8,6 @@ var react_redux_1 = require("react-redux");
 var selectors_1 = require("../../../store/selectors");
 var Crumbs_1 = require("../../molecules/Crumbs");
 var BookList_1 = require("../../molecules/BookList");
-var ExchangeStatus_1 = require("../../molecules/ExchangeStatus");
 var ArchiveCard = function () {
     var classes = styles_1.useStyles();
     var location = react_router_dom_1.useLocation();
@@ -35,8 +34,7 @@ var ArchiveCard = function () {
                                 react_1["default"].createElement(BookList_1["default"], { data: (_c = item === null || item === void 0 ? void 0 : item.info) === null || _c === void 0 ? void 0 : _c.user, title: "От кого:" })),
                             react_1["default"].createElement(core_1.Box, { className: classes.book },
                                 react_1["default"].createElement(BookList_1["default"], { data: (_d = item === null || item === void 0 ? void 0 : item.book) === null || _d === void 0 ? void 0 : _d.lines, title: "Меняюсь", icon: true }))),
-                        react_1["default"].createElement(core_1.Box, null,
-                            react_1["default"].createElement(ExchangeStatus_1["default"], { text: "Завершён", id: '1' })))) : null;
+                        react_1["default"].createElement(core_1.Box, null, '<ExchangeStatus text={"Завершён"} />'))) : null;
                 }))));
 };
 exports["default"] = ArchiveCard;

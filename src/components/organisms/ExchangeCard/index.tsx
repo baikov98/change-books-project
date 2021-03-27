@@ -70,8 +70,12 @@ const ExchangeCard: React.FC = () => {
             </Box>
           </Box>
           <Box> 
-            <ExchangeStatus text={data?.status_my} id={id} track_my={data?.trackMy} track_their={data?.trackTheir}/>
-            {'<ExchangeStatus text={data?.status_their} id={id} track_my={data?.trackTheir} track_their={data?.trackMy}/>'}
+          <ExchangeStatus   text={data?.status_my} 
+                            textTheir={data?.status_their} 
+                            id={id} 
+                            track_my={data?.trackMy} 
+                            track_their={data?.trackTheir} /> 
+
           </Box>
         </>
         )}

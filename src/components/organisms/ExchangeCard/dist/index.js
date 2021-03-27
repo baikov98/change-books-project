@@ -42,7 +42,6 @@ var ExchangeCard = function () {
                     react_1["default"].createElement(core_1.Box, { className: classes.book },
                         react_1["default"].createElement(BookList_1["default"], { data: data === null || data === void 0 ? void 0 : data.bookCategories, title: "\u041C\u0435\u043D\u044F\u044E - \n                " + (data === null || data === void 0 ? void 0 : data.authorName) + " " + (data === null || data === void 0 ? void 0 : data.authorSurname) + " \"" + (data === null || data === void 0 ? void 0 : data.book) + "\"\n                " }))),
                 react_1["default"].createElement(core_1.Box, null,
-                    react_1["default"].createElement(ExchangeStatus_1["default"], { text: data === null || data === void 0 ? void 0 : data.status_my, id: id, track_my: data === null || data === void 0 ? void 0 : data.trackMy, track_their: data === null || data === void 0 ? void 0 : data.trackTheir }),
-                    '<ExchangeStatus text={data?.status_their} id={id} track_my={data?.trackTheir} track_their={data?.trackMy}/>'))))));
+                    react_1["default"].createElement(ExchangeStatus_1["default"], { text: data === null || data === void 0 ? void 0 : data.status_my, textTheir: data === null || data === void 0 ? void 0 : data.status_their, id: id, track_my: data === null || data === void 0 ? void 0 : data.trackMy, track_their: data === null || data === void 0 ? void 0 : data.trackTheir })))))));
 };
 exports["default"] = ExchangeCard;

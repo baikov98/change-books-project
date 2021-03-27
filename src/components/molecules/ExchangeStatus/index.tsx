@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 interface IProps {
   text: string;
+  textTheir: string;
   id: string;
   track_my?: string;
   track_their?: string;
@@ -21,7 +22,7 @@ type IFormInput = {
   track: string;
 };
 
-const ExchangeStatus = ({ text, id, track_my, track_their }: IProps) => {
+const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const {
@@ -43,14 +44,17 @@ const ExchangeStatus = ({ text, id, track_my, track_their }: IProps) => {
 
 
   const handleAgreeExchangeClick = () => {
-      dispatch.activeExchange.agreeExchange(id)
+    dispatch.activeExchange.agreeExchange(id)
   } 
-  const submit = (data: any) => {
-    console.log(data)
-    dispatch.activeExchange.trackNum(id, data)
+  const submit = (data: IFormInput) => {
+    dispatch.activeExchange.trackNumber(id, data.track)
   }
   const handleConfirmRecieveClick = () => {
-    dispatch.confirmRecieve.agreeExchange(id)
+    dispatch.activeExchange.confirmRecieve(id)
+  }
+
+  const test = () => {
+    console.log(11)
   }
   switch (text) {
     case 'asd':
@@ -101,7 +105,7 @@ const ExchangeStatus = ({ text, id, track_my, track_their }: IProps) => {
           </Typography>
           <form onSubmit={handleSubmit(submit)}>
             <Controller
-                name='trackNumber'
+                name='track'
                 control={control}
                 rules={{ required: true }}
                 defaultValue=""
@@ -148,6 +152,7 @@ const ExchangeStatus = ({ text, id, track_my, track_their }: IProps) => {
             btnType="submit"
             type="solid"
             size="large"
+            onClick={handleConfirmRecieveClick}
           >
             КНИГА ПОЛУЧЕНА
           </ButtonItem>

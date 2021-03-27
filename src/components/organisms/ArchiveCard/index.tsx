@@ -59,7 +59,7 @@ const ArchiveCard: React.FC = () => {
                   </Box>
                 </Box>
                 <Box>
-                  <ExchangeStatus text={"Завершён"} id={'1'} />
+                  {'<ExchangeStatus text={"Завершён"} />'}
                 </Box>
               </>
             ) : null

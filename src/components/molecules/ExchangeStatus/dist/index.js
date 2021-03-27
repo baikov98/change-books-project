@@ -21,7 +21,7 @@ var yup_1 = require("@hookform/resolvers/yup");
 var constants_1 = require("../../../constants");
 var react_redux_1 = require("react-redux");
 var ExchangeStatus = function (_a) {
-    var text = _a.text, id = _a.id, track_my = _a.track_my, track_their = _a.track_their;
+    var text = _a.text, textTheir = _a.textTheir, id = _a.id, track_my = _a.track_my, track_their = _a.track_their;
     var classes = styles_1.useStyles();
     var dispatch = react_redux_1.useDispatch();
     var _b = react_hook_form_1.useForm({
@@ -37,11 +37,13 @@ var ExchangeStatus = function (_a) {
         dispatch.activeExchange.agreeExchange(id);
     };
     var submit = function (data) {
-        console.log(data);
-        dispatch.activeExchange.trackNum(id, data);
+        dispatch.activeExchange.trackNumber(id, data.track);
     };
     var handleConfirmRecieveClick = function () {
-        dispatch.confirmRecieve.agreeExchange(id);
+        dispatch.activeExchange.confirmRecieve(id);
+    };
+    var test = function () {
+        console.log(11);
     };
     switch (text) {
         case 'asd':
@@ -61,7 +63,7 @@ var ExchangeStatus = function (_a) {
                 react_1["default"].createElement(core_1.Typography, { className: classes.warning }, "\u041E\u0431\u043C\u0435\u043D \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D!"),
                 react_1["default"].createElement(core_1.Typography, { className: classes.explanation }, "\u0412\u0430\u043C \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u043A\u043D\u0438\u0433\u0443 \u043F\u043E \u0430\u0434\u0440\u0435\u0441\u0443, \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \u0432\u0430\u043C \u0432 e-mail, \u043F\u043E\u0441\u043B\u0435 \u043E\u0442\u043F\u0440\u0430\u0432\u043A\u0438 \u043A\u043D\u0438\u0433\u0438 \u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0440\u0435\u043A-\u043D\u043E\u043C\u0435\u0440 \u0434\u043B\u044F \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u043D\u0438\u044F \u043F\u043E\u0441\u044B\u043B\u043A\u0438 (\u0443\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0432 \u0447\u0435\u043A\u0435 \u043D\u0430 \u043F\u043E\u0447\u0442\u0435)"),
                 react_1["default"].createElement("form", { onSubmit: handleSubmit(submit) },
-                    react_1["default"].createElement(react_hook_form_1.Controller, { name: 'trackNumber', control: control, rules: { required: true }, defaultValue: "", render: function (props) { return (react_1["default"].createElement(InputItem_1["default"], __assign({ placeholder: "00000000", label: "Трек для отслеживания" }, props))); } }),
+                    react_1["default"].createElement(react_hook_form_1.Controller, { name: 'track', control: control, rules: { required: true }, defaultValue: "", render: function (props) { return (react_1["default"].createElement(InputItem_1["default"], __assign({ placeholder: "00000000", label: "Трек для отслеживания" }, props))); } }),
                     react_1["default"].createElement(ButtonItem_1["default"], { className: classes.btn, btnType: "submit", type: "solid", size: "large" }, "\u0421\u041E\u0425\u0420\u0410\u041D\u0418\u0422\u042C"))));
         case "Доставляется23":
             return (react_1["default"].createElement(core_1.Box, { className: classes.underBox },
@@ -76,7 +78,7 @@ var ExchangeStatus = function (_a) {
                     "\u0422\u0440\u0435\u043A \u0434\u043B\u044F \u043E\u0442\u0441\u043B\u0435\u0436\u0438\u0432\u0430\u043D\u0438\u044F \u043A\u043D\u0438\u0433\u0438: ",
                     track_their,
                     ". \u041D\u0435 \u0437\u0430\u0431\u0443\u0434\u044C\u0442\u0435 \u0443\u0432\u0435\u0434\u043E\u043C\u0438\u0442\u044C \u043D\u0430\u0441, \u043A\u043E\u0433\u0434\u0430 \u043A\u043D\u0438\u0433\u0430 \u0431\u0443\u0434\u0435\u0442 \u043F\u043E\u0443\u0447\u0435\u043D\u0430!"),
-                react_1["default"].createElement(ButtonItem_1["default"], { className: classes.btn, btnType: "submit", type: "solid", size: "large" }, "\u041A\u041D\u0418\u0413\u0410 \u041F\u041E\u041B\u0423\u0427\u0415\u041D\u0410")));
+                react_1["default"].createElement(ButtonItem_1["default"], { className: classes.btn, btnType: "submit", type: "solid", size: "large", onClick: handleConfirmRecieveClick }, "\u041A\u041D\u0418\u0413\u0410 \u041F\u041E\u041B\u0423\u0427\u0415\u041D\u0410")));
         case "Завершен":
             return (react_1["default"].createElement(core_1.Box, { className: classes.underBox },
                 react_1["default"].createElement(core_1.Typography, { className: classes.warning }, "\u041E\u0431\u043C\u0435\u043D \u0437\u0430\u0432\u0435\u0440\u0448\u0451\u043D")));

@@ -166,15 +166,14 @@ export const activeExchange = createModel<RootModel>()({
           console.error('Failed to agreeExchange - ', error);
       }
     },
-    async trackNumber (id, trackNum, rootState) {
+    async trackNumber (id, rootState, trackNum ) {
       try {
-        console.log(id, trackNum, rootState) 
-        /*const response = await api.patch(`/api/v1/exchange/tracknumber/`, 
+        const response = await api.patch(`/api/v1/exchange/tracknumber/`, 
                                         {
                                           offer: id,
                                           track_number: "123123212"
                                         }); 
-        console.log(response.data) */
+        console.log(response.data)
       } catch (error) {
           console.error('Failed to trackNumber - ', error);
       }

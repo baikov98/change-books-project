@@ -205,28 +205,33 @@ exports.activeExchange = core_1.createModel()({
                 });
             });
         },
-        trackNumber: function (id, trackNum, rootState) {
+        trackNumber: function (id, rootState, trackNum) {
             return __awaiter(this, void 0, void 0, function () {
+                var response, error_3;
                 return __generator(this, function (_a) {
-                    try {
-                        console.log(id, trackNum, rootState);
-                        /*const response = await api.patch(`/api/v1/exchange/tracknumber/`,
-                                                        {
-                                                          offer: id,
-                                                          track_number: "123123212"
-                                                        });
-                        console.log(response.data) */
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, api_1["default"].patch("/api/v1/exchange/tracknumber/", {
+                                    offer: id,
+                                    track_number: "123123212"
+                                })];
+                        case 1:
+                            response = _a.sent();
+                            console.log(response.data);
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_3 = _a.sent();
+                            console.error('Failed to trackNumber - ', error_3);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
                     }
-                    catch (error) {
-                        console.error('Failed to trackNumber - ', error);
-                    }
-                    return [2 /*return*/];
                 });
             });
         },
         confirmRecieve: function (id, rootState) {
             return __awaiter(this, void 0, void 0, function () {
-                var response, error_3;
+                var response, error_4;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -240,8 +245,8 @@ exports.activeExchange = core_1.createModel()({
                             console.log(response.data);
                             return [3 /*break*/, 3];
                         case 2:
-                            error_3 = _a.sent();
-                            console.error('Failed to confirmRecieve - ', error_3);
+                            error_4 = _a.sent();
+                            console.error('Failed to confirmRecieve - ', error_4);
                             return [3 /*break*/, 3];
                         case 3: return [2 /*return*/];
                     }
