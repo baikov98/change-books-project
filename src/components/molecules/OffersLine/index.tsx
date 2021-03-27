@@ -55,7 +55,7 @@ const OffersLine: React.FC<IProps> = ({
               <Box className={classes.wrapperAccordionSummary}>
                 
                   <Typography className={classes.accordionBook}>
-                    {`Книга №${item?.offerMyId}`}
+                    {`Книга №${item?.offerTheirId}`}
                   </Typography>
                   <Typography className={classes.accordionTitle}>
                     {item?.user[1].value}

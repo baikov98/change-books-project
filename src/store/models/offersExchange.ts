@@ -25,6 +25,10 @@ interface IProps {
   bookInfo: IOfferExchangeData[], 
 }
 
+function sortByOfferId(arr: IOfferExchangeData[]) {
+  arr.sort((a, b) => a.offerMyId > b.offerMyId ? 1 : -1);
+}
+
 export const offersExchange = createModel<RootModel>()({
   state: {
     error: null,
@@ -61,6 +65,7 @@ export const offersExchange = createModel<RootModel>()({
               } //item?.offer_their.category
             }) 
             console.log(data)
+            sortByOfferId(data)
             dispatch.offersExchange.SET_OFFERS(data) 
             
         } catch (error) {

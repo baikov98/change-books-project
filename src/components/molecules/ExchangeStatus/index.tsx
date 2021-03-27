@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Box, Typography } from "@material-ui/core";
 import { useStyles } from "./styles";
@@ -25,6 +25,7 @@ type IFormInput = {
 const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch()
+  useEffect(() => {}, [text, textTheir, track_my, track_their])
   const {
     handleSubmit,
     control,
@@ -41,7 +42,6 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
     // WAIT_TRACK_NUMBER = "Ожидается трэк-номер"
     // DELIVERING = "Доставляется"
     // COMPLETED = "Завершен"
-
 
   const handleAgreeExchangeClick = () => {
     dispatch.activeExchange.agreeExchange(id)
@@ -84,11 +84,11 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
-            Обмен подтверждён!
+            Вы отправили запрос на обмен!
           </Typography>
           <Typography className={classes.explanation}>
-            Когда пользователь отправит вам книгу, здесь появится трек для
-            отслеживания
+            Когда пользователь согласится на обмен, здесь появится трек номер для
+            ввода и отслеживания
           </Typography>
         </Box>
       );
@@ -128,18 +128,6 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
           </form>
         </Box>
       );
-    case "Доставляется23":
-      return (
-        <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Обмен подтверждён!
-          </Typography>
-          <Typography className={classes.explanation}>
-            Трек для отслеживания книги: {track_their}. Когда пользователь её
-            получит, он уведомит систему об этом.
-          </Typography>
-        </Box>
-      );
     case "Доставляется":
       return (
         <>
@@ -169,11 +157,19 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
       );
     case "Завершен":
       return (
-        <Box className={classes.underBox}>
+      <>
+        { textTheir !== 'Завершен' ? <Box className={classes.underBox}>
           <Typography className={classes.warning}>
             Обмен завершён
           </Typography>
+        </Box> : 
+        <Box className={classes.underBox}>
+          <Typography className={classes.warning}>
+            Пользователь еще не подтвердил получение книги
+          </Typography>
         </Box>
+        }
+      </>
       )
     default:
       return null;
