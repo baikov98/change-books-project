@@ -170,5 +170,4 @@ const SignIn: React.FC = () => {
     </Box>
   );
 };
-
 export default SignIn;

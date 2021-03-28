@@ -14,9 +14,10 @@ var OfferUserChange = function () {
     var dispatch = react_redux_1.useDispatch();
     react_1.useEffect(function () {
         dispatch.offersExchange.getOffers();
-        setTimeout(function () {
+        var timeout = setTimeout(function () {
             dispatch.offersExchange.getOffers();
-        }, 2000);
+        }, 1500);
+        return clearTimeout(timeout);
     }, []);
     var data = react_redux_1.useSelector(selectors_1.getBookInfo);
     var crumbs = [{ value: "Предложения для обмена", link: location.pathname }];

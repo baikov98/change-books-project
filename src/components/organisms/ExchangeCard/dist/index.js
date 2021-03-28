@@ -9,6 +9,7 @@ var selectors_1 = require("../../../store/selectors");
 var Crumbs_1 = require("../../molecules/Crumbs");
 var BookList_1 = require("../../molecules/BookList");
 var ExchangeStatus_1 = require("../../molecules/ExchangeStatus");
+var NavItem_1 = require("../../atoms/NavItem");
 var ExchangeCard = function () {
     var classes = styles_1.useStyles();
     var location = react_router_dom_1.useLocation();
@@ -19,6 +20,7 @@ var ExchangeCard = function () {
     react_1.useEffect(function () {
         dispatch.activeExchange.getActiveList();
     }, []);
+    react_1.useEffect(function () { }, [list]);
     var crumbs = [
         {
             value: "Активные обмены",
@@ -29,10 +31,15 @@ var ExchangeCard = function () {
     return (react_1["default"].createElement(core_1.Box, { className: classes.root },
         react_1["default"].createElement(core_1.Box, { className: classes.wrapper },
             react_1["default"].createElement(Crumbs_1["default"], { data: crumbs }),
+            data ? '' :
+                react_1["default"].createElement(core_1.Box, { className: classes.archiveLink },
+                    "\u0414\u0430\u043D\u043D\u044B\u0439 \u043E\u0431\u043C\u0435\u043D \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D \u0438 \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D \u0432 \u0430\u0440\u0445\u0438\u0432",
+                    react_1["default"].createElement(core_1.Box, null,
+                        react_1["default"].createElement(NavItem_1["default"], { link: '/userChange/archive', title: '\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u0432 \u0430\u0440\u0445\u0438\u0432' }))),
             data && (react_1["default"].createElement(react_1["default"].Fragment, null,
                 react_1["default"].createElement(core_1.Box, { className: classes.contentLine },
                     react_1["default"].createElement(core_1.Box, { className: classes.book },
-                        react_1["default"].createElement(BookList_1["default"], { data: data === null || data === void 0 ? void 0 : data.categories, title: "\u041A\u043D\u0438\u0433\u0430 #" + (data === null || data === void 0 ? void 0 : data.offerMyId) }),
+                        react_1["default"].createElement(BookList_1["default"], { data: data === null || data === void 0 ? void 0 : data.categories, title: "\u041A\u043D\u0438\u0433\u0430 #" + (data === null || data === void 0 ? void 0 : data.offerTheirId) }),
                         react_1["default"].createElement(core_1.Box, { className: classes.fromWho },
                             react_1["default"].createElement(BookList_1["default"], { data: data === null || data === void 0 ? void 0 : data.user, title: "От кого:" }))),
                     react_1["default"].createElement(core_1.Box, { className: classes.middleBox },
