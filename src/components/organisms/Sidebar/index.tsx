@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
       </Box>
 
       <Typography className={classes.subtitle}>
-        Рейтинг <StarIcon className={classes.icon} viewBox="0 0 16 16" /> 4,8
+        Рейтинг <StarIcon className={classes.icon} viewBox="0 0 16 16" /> {user?.rating || 0}
       </Typography>
       <Box className={classes.nav}>
         {nav.map((item, index) => (

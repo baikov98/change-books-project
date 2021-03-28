@@ -19,8 +19,13 @@ const ActiveExchange: React.FC = () => {
   const data: IActiveExchangeData[] = useSelector(getActiveExchange);
   const NewToOldData = data.reverse()
   const dispatch = useDispatch()
+  useEffect(() => {}, [data])
   useEffect(() => {
     dispatch.activeExchange.getActiveList()
+    let timeout = setTimeout(() => {
+      dispatch.activeExchange.getActiveList()
+    }, 2000)
+    return clearTimeout(timeout)
   }, [])
   const crumbs = [{ value: "Активные обмены", link: location.pathname }];
 

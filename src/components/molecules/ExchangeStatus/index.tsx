@@ -22,10 +22,11 @@ type IFormInput = {
   track: string;
 };
 
-const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) => {
+const ExchangeStatus = 
+  ({ text, textTheir, id, track_my, track_their }: IProps) => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  useEffect(() => {}, [text, textTheir, track_my, track_their])
+
   const {
     handleSubmit,
     control,
@@ -36,12 +37,12 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
   } = useForm<IFormInput>({
     resolver: yupResolver(VALIDATION.TRACKING),
   });
-    // FREE = "Свободен"
-    // WAIT_CONFIRM = "Ожидается подтверждение"
-    // CONFIRMED = "Подтвержден"
-    // WAIT_TRACK_NUMBER = "Ожидается трэк-номер"
-    // DELIVERING = "Доставляется"
-    // COMPLETED = "Завершен"
+  // FREE = "Свободен"
+  // WAIT_CONFIRM = "Ожидается подтверждение от другого участника."
+  // CONFIRMED = "Подтвержден другим участником."
+  // WAIT_TRACK_NUMBER = "Подтвержден. Ожидается трэк-номер."
+  // DELIVERING = "Доставляется"
+  // COMPLETED = "Завершен"
 
   const handleAgreeExchangeClick = () => {
     dispatch.activeExchange.agreeExchange(id)
@@ -61,49 +62,58 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
       return (
         <Box className={classes.underBox}>
           <Typography className={classes.warning}>
-            Обмен со стороны данного пользователя ещё не подтверждён!
+            Обмен со стороны данного пользователя ещё не подтверждён.
           </Typography>
         </Box>
       );
-    case "Ожидается подтверждение":
+    case "Подтвержден другим участником.":
       return (
         <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Данный пользователь предлагает вам обмен!
-          </Typography>
-          <Typography className={classes.explanation}>
-            Готовы обменяться? Для этого вам необходимо отправить ему запрос,
-            нажав на кнопку “МЕНЯЮСЬ”
-          </Typography>
-          <ButtonItem className={classes.btn} type="border" size="large" onClick={handleAgreeExchangeClick}>
-            МЕНЯЮСЬ
-          </ButtonItem>
+          <Box>
+            <Typography className={classes.warning}>
+              Данный пользователь предлагает вам обмен.
+            </Typography>
+            
+          </Box>
+          <Box>
+            <Typography className={classes.explanation}>
+                Готовы обменяться? Для этого вам необходимо отправить ему запрос,
+                нажав на кнопку “МЕНЯЮСЬ”
+            </Typography>
+            <ButtonItem className={classes.btn} type="border" size="medium" 
+                        onClick={handleAgreeExchangeClick}>
+              МЕНЯЮСЬ
+            </ButtonItem>
+          </Box>
         </Box>
       );
-    case "Подтвержден":
+    case "Ожидается подтверждение от другого участника.":
       return (
         <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Вы отправили запрос на обмен!
-          </Typography>
           <Typography className={classes.explanation}>
             Когда пользователь согласится на обмен, здесь появится трек номер для
             ввода и отслеживания
           </Typography>
+          <Typography className={classes.warning}>
+            Вы отправили запрос на обмен.
+          </Typography>
         </Box>
       );
-    case "Ожидается трэк-номер":
+    case "Подтвержден. Ожидается трэк-номер.":
       return (
         <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Обмен подтверждён!
-          </Typography>
-          <Typography className={classes.explanation}>
-            Вам необходимо отправить книгу по адресу, отправленному вам в
-            e-mail, после отправки книги введите трек-номер для отслеживания
-            посылки (указывается в чеке на почте)
-          </Typography>
-          <form onSubmit={handleSubmit(submit)}>
+          <Box>
+            <Typography className={classes.warning}>
+              Обмен подтверждён.
+            </Typography>
+            <Typography className={classes.explanation}>
+              Вам необходимо отправить книгу по адресу, отправленному вам в
+              e-mail, после отправки книги введите трек-номер для отслеживания
+              посылки (указывается в чеке на почте)
+            </Typography>
+          </Box>
+          <form onSubmit={handleSubmit(submit)}
+                className={classes.trackForm}>
             <Controller
                 name='track'
                 control={control}
@@ -118,7 +128,7 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
                 )}
               />
             <ButtonItem
-              className={classes.btn}
+              className={classes.btnSave}
               btnType="submit"
               type="solid"
               size="large"
@@ -129,45 +139,70 @@ const ExchangeStatus = ({ text, textTheir, id, track_my, track_their }: IProps) 
         </Box>
       );
     case "Доставляется":
-      return (
-        <>
-        {track_their ?
-        <Box className={classes.underBox}>
-          <Typography className={classes.explanation}>
-            Трек для отслеживания книги: {track_their}. Не забудьте уведомить
-            нас, когда книга будет получена!
-          </Typography>
-          <ButtonItem
-            className={classes.btn}
-            btnType="submit"
-            type="solid"
-            size="large"
-            onClick={handleConfirmRecieveClick}
-          >
-            КНИГА ПОЛУЧЕНА
-          </ButtonItem>
-        </Box> :
-        <Box className={classes.underBox}>
-        <Typography className={classes.explanation}>
-          Как только пользователь введет трек-номер он отобразится здесь.
-          Вы ввели трекномер: {track_my}
-        </Typography>   
-      </Box>}
-        </>
-      );
+      if (track_their) {
+        if (textTheir === "Доставляется") {
+          return (
+              <Box className={classes.underBox}>
+                <Typography className={classes.explanation}>
+                  Трек для отслеживания книги: {track_their}. Не забудьте уведомить
+                  нас, когда книга будет получена.
+                </Typography>
+                <ButtonItem
+                  className={classes.btn}
+                  btnType="submit"
+                  type="solid"
+                  size="large"
+                  onClick={handleConfirmRecieveClick}
+                >
+                  КНИГА ПОЛУЧЕНА
+                </ButtonItem>
+              </Box> 
+              );
+            } else {
+              return <Box className={classes.underBox}>
+                <Typography className={classes.warning}>
+                  Пользователь еще не подтвердил получение книги
+                </Typography>
+              </Box>
+            }
+      } else {
+        return (
+          <Box className={classes.underBox}>
+            <Typography className={classes.explanation}>
+              Как только пользователь введет трек-номер он отобразится здесь.
+            </Typography>   
+            <Typography className={classes.explanation}>
+              Вы ввели трекномер: {track_my}
+            </Typography>  
+          </Box>
+        )
+      }
+      
     case "Завершен":
       return (
       <>
-        { textTheir !== 'Завершен' ? <Box className={classes.underBox}>
+        { textTheir === 'Доставляется' ? 
+          <Box className={classes.underBox}>
+            <Typography className={classes.explanation}>
+              Трек для отслеживания книги: {track_their}. Не забудьте уведомить
+              нас, когда книга будет получена.
+            </Typography>
+            <ButtonItem
+              className={classes.btn}
+              btnType="submit"
+              type="solid"
+              size="large"
+              onClick={handleConfirmRecieveClick}
+            >
+              КНИГА ПОЛУЧЕНА
+            </ButtonItem>
+          </Box> 
+          : 
+        <Box className={classes.underBox}>
           <Typography className={classes.warning}>
             Обмен завершён
           </Typography>
-        </Box> : 
-        <Box className={classes.underBox}>
-          <Typography className={classes.warning}>
-            Пользователь еще не подтвердил получение книги
-          </Typography>
-        </Box>
+        </Box> 
         }
       </>
       )

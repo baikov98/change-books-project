@@ -39,9 +39,7 @@ var StartChange = function () {
             store.requestOfferList(storeData.step1);
             store.requestWishList(data);
             store.CLEAR_DATA();
-            setTimeout(function () {
-                history.push('userChange/offer');
-            }, 500);
+            history.push('userChange/offer');
         }
         else {
             genresCheck.current = genresChecker_1["default"](data);

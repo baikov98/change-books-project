@@ -18,8 +18,13 @@ var ActiveExchange = function () {
     var data = react_redux_1.useSelector(selectors_1.getActiveExchange);
     var NewToOldData = data.reverse();
     var dispatch = react_redux_1.useDispatch();
+    react_1.useEffect(function () { }, [data]);
     react_1.useEffect(function () {
         dispatch.activeExchange.getActiveList();
+        var timeout = setTimeout(function () {
+            dispatch.activeExchange.getActiveList();
+        }, 2000);
+        return clearTimeout(timeout);
     }, []);
     var crumbs = [{ value: "Активные обмены", link: location.pathname }];
     var handleClick = function (value) {
