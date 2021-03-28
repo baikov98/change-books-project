@@ -25,7 +25,6 @@ export const useStyles = makeStyles({
     gridTemplateColumns: 'repeat(auto-fit,minmax(200px, 1fr))',
     gridColumnGap: 12,
     width: '100%',
-    borderBottom: `1px solid ${Colors.gray}`,
   },
   title:{
       fontSize: 14,
@@ -52,5 +51,11 @@ export const useStyles = makeStyles({
   },
   last:{
     borderBottom: 0,
+  },
+  contextBox: {
+    borderBottom: `1px solid ${Colors.gray}`,
+  },
+  statusBox: {
+      marginBottom: 22,
   },
   }, {index: 3});

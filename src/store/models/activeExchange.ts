@@ -58,6 +58,7 @@ export interface IActiveExchangeData {
 interface IProps {
   error: string | null,
   list: IActiveExchangeData[] | [],
+  archive: IActiveExchangeData[] | [],
 }
 
 
@@ -65,6 +66,7 @@ export const activeExchange = createModel<RootModel>()({
   state: {
     error: null,
     list: [],
+    archive: [],
   } as IProps,
   reducers: {
     setError: (state: IProps, error: string | null) => {
@@ -77,6 +79,12 @@ export const activeExchange = createModel<RootModel>()({
       return {
         ...state,
         list,
+      }
+    },
+    SET_ARCHIEVE: (state: IProps, archive: IActiveExchangeData[] | []) => {
+      return {
+        ...state,
+        archive,
       }
     },
   },
@@ -190,5 +198,77 @@ export const activeExchange = createModel<RootModel>()({
           console.error('Failed to confirmRecieve - ', error);
       }
     },
+    async getArchieveList (_, rootState){
+      try {
+        const username = rootState?.user?.personalData?.nickname 
+        const response = await api.get(`/api/v1/exchange/archive/`); 
+        const data: IActiveExchangeData[] = response.data.map((item: any) => {
+          if(item.user_my === username){
+            return {
+              //КОГДА я нажал кнопку МЕНЯЮСЬ
+              offerMyId: item?.offer_my.id,
+              wishMyId: item?.wish_my.id,
+              offerTheirId: item?.offer_their.id,
+              wishTheirId: item?.wish_their.id,
+              authorName: item?.offer_my?.book?.author?.name,
+              authorSurname: item?.offer_my?.book?.author?.last_name,
+              book: item?.offer_my?.book?.name,
+              status_my: item?.offer_my?.status,
+              status_their: item?.offer_their?.status,
+              trackMy: item?.track_number_my,
+              trackTheir: item?.track_number_their,
+              bookCategories: item?.offer_my?.category?.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              user: [
+                {category: 'Пользователь', value: item?.user_their},
+                {category: 'Город', value: item?.wish_their.address.city},
+                {category: 'Рейтинг', value: item?.offer_their.rating},
+              ],
+              categories: item?.offer_their?.category?.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              
+            }
+          }else {
+            //КОГДА КТО-ТО нажал кнопку МЕНЯЮСЬ
+            return {
+              offerMyId: item?.offer_their.id,
+              wishMyId: item?.wish_their.id,
+              offerTheirId: item?.offer_my.id,
+              wishTheirId: item?.wish_my.id,
+              authorName: item?.offer_their?.book?.author?.name,
+              authorSurname: item?.offer_their?.book?.author?.last_name,
+              book: item?.offer_their?.book?.name,
+              status_my: item?.offer_their?.status,
+              status_their: item?.offer_my?.status,
+              trackMy: item?.track_number_their,
+              trackTheir: item?.track_number_my,
+              bookCategories: item?.offer_their?.category?.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+              user: [
+                {category: 'Пользователь', value: item?.user_my},
+                {category: 'Город', value: item?.wish_my.address.city},
+                {category: 'Рейтинг', value: item?.offer_my.rating},
+              ],
+              categories: item?.offer_my?.category?.map((i: any) => ({
+                category: i.parent,
+                value: i.name
+              })),
+            }
+          }
+        })
+        dispatch.activeExchange.SET_ARCHIEVE(data)
+        dispatch.activeExchange.setError(null)
+        
+      } catch (error) {
+          console.error('Failed to GET ARCHIEVE LIST - ', error);
+          dispatch.activeExchange.setError("Ошибка получения архивных обменов")
+      }
+    }
   })
 });

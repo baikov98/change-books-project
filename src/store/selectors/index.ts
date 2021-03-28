@@ -20,8 +20,7 @@ export const getBookInfo = (state: RootState) => state.offersExchange.bookInfo;
 
 // ACTIVE EXCHANGE
 export const getActiveExchange = (state: RootState) => state.activeExchange.list;
-
-export const getArchiveExchange = (state: RootState) => state.archiveExchange.list;
+export const getArchiveExchange = (state: RootState) => state.activeExchange.archive;
 
 export const getMessages = (state: RootState) => state.messages.list;
 
