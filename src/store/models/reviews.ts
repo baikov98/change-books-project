@@ -8,6 +8,14 @@ interface IAuthors {
   last_name: string;
 }
 
+interface IUser {
+  first_name: string,
+  last_name: string,
+  second_name: string,
+  email: string,
+  username: string,
+}
+
 interface IBook {
   id: number;
   name: string;
@@ -15,7 +23,7 @@ interface IBook {
 
 interface IReview {
   id: number;
-  user: string;
+  user: IUser;
   created_at: Date;
   response: string;
 }

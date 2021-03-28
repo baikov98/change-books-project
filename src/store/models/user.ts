@@ -162,9 +162,9 @@ export const user = createModel<RootModel>()({
                             index:indexLocation,
                             city,
                             street,
-                            house: homeNumber,
-                            structure: buildNumber,
-                            apart: flatNumber,
+                            house: homeNumber || '',
+                            structure: buildNumber || '',
+                            apart: flatNumber || '',
                        }
                    }
                 

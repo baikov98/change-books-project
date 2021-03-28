@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { useStyles } from "./styles";
 import { Box, Typography } from "@material-ui/core";
 
+interface IUser {
+  first_name: string,
+  last_name: string,
+  second_name: string,
+  email: string,
+  username: string,
+}
+
 interface IReview {
   id: number;
-  user: string;
+  user: IUser;
   created_at: Date;
   response: string;
 }
@@ -25,7 +33,7 @@ const ReviewsItem: React.FC<IProps> = ({data}: IProps) => {
   return (
     <Box className={classes.root}>
       <Typography className={readmore ? classes.topic : opened}>
-        {user || 'UserName'}
+        {user?.username || 'UserName'}
       </Typography>
       <Typography>{ new Date(created_at).toLocaleDateString() || new Date().toLocaleDateString()}</Typography>
       <Box className={readmore ? classes.text : opened}>
