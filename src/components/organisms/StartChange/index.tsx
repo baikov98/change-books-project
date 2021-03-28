@@ -60,9 +60,7 @@ const StartChange: React.FC<IProps> = () => {
       store.requestOfferList(storeData.step1)
       store.requestWishList(data)
       store.CLEAR_DATA()
-      setTimeout(() => {
-        history.push('userChange/offer')
-      }, 500)
+      history.push('userChange/offer')
     } else {
       genresCheck.current = genresChecker(data)
       if (genresCheck.current) {

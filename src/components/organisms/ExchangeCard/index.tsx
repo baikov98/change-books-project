@@ -9,6 +9,7 @@ import { IActiveExchangeData } from '../../../store/models/activeExchange'
 import Crumbs from "../../molecules/Crumbs";
 import BookList from "../../molecules/BookList";
 import ExchangeStatus from "../../molecules/ExchangeStatus";
+import NavItem from "../../atoms/NavItem";
 
 interface IParams {
   id: string;
@@ -26,6 +27,8 @@ const ExchangeCard: React.FC = () => {
     dispatch.activeExchange.getActiveList()
   }, [])
 
+  useEffect(()=> {}, [list])
+
   const crumbs = [
     {
       value: "Активные обмены",
@@ -38,7 +41,14 @@ const ExchangeCard: React.FC = () => {
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
         <Crumbs data={crumbs} />
-
+        {data ? '' : 
+          <Box className={classes.archiveLink}>
+            Данный обмен завершен и перемещен в архив
+            <Box>
+              <NavItem link='/userChange/archive' title='Перейти в архив'/>
+            </Box>
+          </Box>
+        }
         {data && (
           <>
           <Box
@@ -47,7 +57,7 @@ const ExchangeCard: React.FC = () => {
             <Box className={classes.book}>
               <BookList
                  data={data?.categories}
-                 title={`Книга #${data?.offerMyId}`}
+                 title={`Книга #${data?.offerTheirId}`}
               />
               <Box className={classes.fromWho}>
                 <BookList data={data?.user} title={"От кого:"} />
@@ -74,7 +84,8 @@ const ExchangeCard: React.FC = () => {
                             textTheir={data?.status_their} 
                             id={id} 
                             track_my={data?.trackMy} 
-                            track_their={data?.trackTheir} /> 
+                            track_their={data?.trackTheir}
+                            /> 
 
           </Box>
         </>

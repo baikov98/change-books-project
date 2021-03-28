@@ -194,7 +194,7 @@ exports.activeExchange = core_1.createModel()({
                                 })];
                         case 1:
                             response = _a.sent();
-                            console.log(response.data);
+                            dispatch.activeExchange.getActiveList();
                             return [3 /*break*/, 3];
                         case 2:
                             error_2 = _a.sent();
@@ -214,11 +214,11 @@ exports.activeExchange = core_1.createModel()({
                             _a.trys.push([0, 2, , 3]);
                             return [4 /*yield*/, api_1["default"].patch("/api/v1/exchange/tracknumber/", {
                                     offer: id,
-                                    track_number: "123123212"
+                                    track_number: trackNum
                                 })];
                         case 1:
                             response = _a.sent();
-                            console.log(response.data);
+                            dispatch.activeExchange.getActiveList();
                             return [3 /*break*/, 3];
                         case 2:
                             error_3 = _a.sent();
@@ -231,18 +231,19 @@ exports.activeExchange = core_1.createModel()({
         },
         confirmRecieve: function (id, rootState) {
             return __awaiter(this, void 0, void 0, function () {
-                var response, error_4;
+                var data, response, error_4;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
                             _a.trys.push([0, 2, , 3]);
+                            data = rootState.activeExchange.list.find(function (el) { return +el.offerMyId === +id; });
                             return [4 /*yield*/, api_1["default"].patch("/api/v1/exchange/confirm_recieve/", {
-                                    offer: id,
+                                    offer: data === null || data === void 0 ? void 0 : data.offerTheirId,
                                     is_received: true
                                 })];
                         case 1:
                             response = _a.sent();
-                            console.log(response.data);
+                            dispatch.activeExchange.getActiveList();
                             return [3 /*break*/, 3];
                         case 2:
                             error_4 = _a.sent();
