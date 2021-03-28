@@ -20,7 +20,7 @@ const UserChange: React.FC = () => {
   return (
     <Box className={classes.root}>
       <Box className={classes.wrapper}>
-        <Typography className={classes.title}>Мои обмены</Typography>
+        <Typography className={classes.title}></Typography>
         <Typography className={classes.subtitle}>
           Вы не авторизованы!
         </Typography>

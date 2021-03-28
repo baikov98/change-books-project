@@ -64,7 +64,6 @@ export const offersExchange = createModel<RootModel>()({
                 categories: filterServerData(item.offer_their.category, rootState.bookCategories.main)
               } //item?.offer_their.category
             }) 
-            console.log(data)
             sortByOfferId(data)
             dispatch.offersExchange.SET_OFFERS(data) 
             

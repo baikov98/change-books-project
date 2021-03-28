@@ -140,11 +140,6 @@ const SignIn: React.FC = () => {
                 )}
               />
             </Box>
-
-            <Box className={classes.textRow}>
-              <SocialItems title={"Войти с помощью"} />
-            </Box>
-
             <ButtonItem
               btnType="submit"
               size="large"

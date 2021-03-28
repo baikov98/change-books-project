@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import NavItem from "../../atoms/NavItem";
 import User from "../../../assets/image/user.png";
@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
   const classes = useStyles();
   const user = useSelector(getUser);
   const nav = useSelector(getNavList);
-
+  useEffect(() => {}, [user])
   return (
     <Box className={classes.root}>
       <Box className={classes.user}>

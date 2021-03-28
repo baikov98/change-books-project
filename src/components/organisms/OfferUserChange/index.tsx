@@ -11,14 +11,16 @@ const OfferUserChange: React.FC = () => {
   const classes = useStyles();
   const location = useLocation();
   const dispatch = useDispatch()
+  const data = useSelector(getBookInfo);
   useEffect(() => {
     dispatch.offersExchange.getOffers()
     let timeout = setTimeout(() => {
       dispatch.offersExchange.getOffers()
     }, 1500)
-    return clearTimeout(timeout)
+    return () => clearTimeout(timeout)
   }, [])
-  const data = useSelector(getBookInfo);
+  useEffect(() => {}, [data])
+  
 
   const crumbs = [{ value: "Предложения для обмена", link: location.pathname }];
 

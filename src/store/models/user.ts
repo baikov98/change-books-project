@@ -113,10 +113,11 @@ export const user = createModel<RootModel>()({
                          apart: flatNumber,
                     }]
                 }
-                const newUser = {
-                    secondName, name, thirdName, nickname, email, indexLocation, city, street, homeNumber, buildNumber, flatNumber
-                }
                 const response = await api.patch(`/api/v1/profile/`, data);
+                const rating = response.data.rating
+                const newUser = {
+                    secondName, name, thirdName, nickname, email, rating, indexLocation, city, street, homeNumber, buildNumber, flatNumber
+                }
                 dispatch.user.SET_USER(newUser)
                 dispatch.user.resetError()
             } catch (error) {
