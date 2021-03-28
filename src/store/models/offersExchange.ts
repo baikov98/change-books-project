@@ -62,7 +62,7 @@ export const offersExchange = createModel<RootModel>()({
                   {category: 'Рейтинг', value: item?.offer_user.rating},
                 ],
                 categories: filterServerData(item.offer_their.category, rootState.bookCategories.main)
-              } //item?.offer_their.category
+              }
             }) 
             sortByOfferId(data)
             dispatch.offersExchange.SET_OFFERS(data) 
@@ -80,7 +80,7 @@ export const offersExchange = createModel<RootModel>()({
             offer_their: +offerTheirId,
             wish_their: +wishTheirId
           }
-          const response = await api.post(`/api/v1/exchange`, data);
+          const response = await api.post(`/api/v1/exchange/`, data);
           
       } catch (error) {
           console.error('Failed to GET OFFER DATA - ', error); 
