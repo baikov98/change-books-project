@@ -86,7 +86,7 @@ const BookForWish: React.FC<IProps> = ({
                   <Box className={classes.title}>
                     {`Книга ${bookNum+1}`}
                   </Box>
-                  <EditButton onClick={handleEditButtonClick} />
+                  <Box></Box>
                 </Box >
                 <Box className={classes.content}>
                   {bookDetailsArray}

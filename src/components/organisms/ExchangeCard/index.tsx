@@ -25,6 +25,10 @@ const ExchangeCard: React.FC = () => {
 
   useEffect(()=> {
     dispatch.activeExchange.getActiveList()
+    let interval = setInterval(() => {
+      dispatch.activeExchange.getActiveList()
+    }, 2000)
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(()=> {}, [list])

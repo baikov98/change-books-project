@@ -12,8 +12,8 @@ import { IRegFields } from '../../../../../store/models/regFields'
 import InputItem from '../../../../atoms/InputItem'
 import FormButtons from '../../FormButtons'
 import { ITabsData } from '../../index'
-import { getMainInput, getAdressInput } from '../../../../../store/selectors' 
-
+import { getMainInput, getAdressInput, getUser } from '../../../../../store/selectors'  
+import UserChange from '../../../UserChange'
 
 interface IProps {
   tabsData: ITabsData;
@@ -25,7 +25,9 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
   const mainInput = useSelector(getMainInput)
   const adressInput = useSelector(getAdressInput);
   const onlyNames = mainInput.slice(0, 3)
-
+  const personalData = useSelector(getUser);
+  const logged = Object.keys(personalData)
+  console.log(logged)
   const {
     handleSubmit,
     control,
@@ -36,6 +38,8 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
   const handleNextButtonClick = handleSubmit(submit)
 
   return (
+    <>
+      { !logged.length ? <UserChange /> : 
       <Box className={classes.wrapper}>
         <form>
           <Typography>Адрес доставки</Typography>
@@ -96,8 +100,8 @@ const Step3: React.FC<IProps> = ({ tabsData }) => {
                        handleBackButtonClick={handleBackButtonClick} 
                        handleNextButtonClick={handleNextButtonClick} />
           </form>
-      </Box>
-
+      </Box>}
+      </>
   );
 };
 

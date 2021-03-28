@@ -90,7 +90,7 @@ const BookForExchange: React.FC<IProps> = ({
                   <Box className={classes.title}>
                     {`${exchangeBook.authorName} ${exchangeBook.authorSurname} "${exchangeBook.book}"`}
                   </Box>
-                  <EditButton onClick={handleEditButtonClick} />
+                  <Box></Box>
                 </Box >
                 <Box className={classes.content}>
                   {exchangeBook.year && 

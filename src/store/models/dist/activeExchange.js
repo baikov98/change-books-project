@@ -82,7 +82,8 @@ var list1 = [
 exports.activeExchange = core_1.createModel()({
     state: {
         error: null,
-        list: []
+        list: [],
+        archive: []
     },
     reducers: {
         setError: function (state, error) {
@@ -90,6 +91,9 @@ exports.activeExchange = core_1.createModel()({
         },
         SET_LIST: function (state, list) {
             return __assign(__assign({}, state), { list: list });
+        },
+        SET_ARCHIEVE: function (state, archive) {
+            return __assign(__assign({}, state), { archive: archive });
         }
     },
     effects: function (dispatch) { return ({
@@ -102,7 +106,7 @@ exports.activeExchange = core_1.createModel()({
                         case 0:
                             _c.trys.push([0, 2, , 3]);
                             username_1 = (_b = (_a = rootState === null || rootState === void 0 ? void 0 : rootState.user) === null || _a === void 0 ? void 0 : _a.personalData) === null || _b === void 0 ? void 0 : _b.nickname;
-                            return [4 /*yield*/, api_1["default"].get("/api/v1/exchange/")];
+                            return [4 /*yield*/, api_1["default"].get("/api/v1/exchange/list/")];
                         case 1:
                             response = _c.sent();
                             data = response.data.map(function (item) {
@@ -187,7 +191,7 @@ exports.activeExchange = core_1.createModel()({
                         case 0:
                             _a.trys.push([0, 2, , 3]);
                             data = rootState.activeExchange.list.find(function (el) { return +el.offerMyId === +id; });
-                            return [4 /*yield*/, api_1["default"].post("/api/v1/exchange", { offer_my: data === null || data === void 0 ? void 0 : data.offerMyId,
+                            return [4 /*yield*/, api_1["default"].post("/api/v1/exchange/", { offer_my: data === null || data === void 0 ? void 0 : data.offerMyId,
                                     wish_my: data === null || data === void 0 ? void 0 : data.wishMyId,
                                     offer_their: data === null || data === void 0 ? void 0 : data.offerTheirId,
                                     wish_their: data === null || data === void 0 ? void 0 : data.wishTheirId
@@ -248,6 +252,92 @@ exports.activeExchange = core_1.createModel()({
                         case 2:
                             error_4 = _a.sent();
                             console.error('Failed to confirmRecieve - ', error_4);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        },
+        getArchieveList: function (_, rootState) {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var username_2, response, data, error_5;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            _c.trys.push([0, 2, , 3]);
+                            username_2 = (_b = (_a = rootState === null || rootState === void 0 ? void 0 : rootState.user) === null || _a === void 0 ? void 0 : _a.personalData) === null || _b === void 0 ? void 0 : _b.nickname;
+                            return [4 /*yield*/, api_1["default"].get("/api/v1/exchange/archive/")];
+                        case 1:
+                            response = _c.sent();
+                            data = response.data.map(function (item) {
+                                var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3;
+                                if (item.user_my === username_2) {
+                                    return {
+                                        //КОГДА я нажал кнопку МЕНЯЮСЬ
+                                        offerMyId: item === null || item === void 0 ? void 0 : item.offer_my.id,
+                                        wishMyId: item === null || item === void 0 ? void 0 : item.wish_my.id,
+                                        offerTheirId: item === null || item === void 0 ? void 0 : item.offer_their.id,
+                                        wishTheirId: item === null || item === void 0 ? void 0 : item.wish_their.id,
+                                        authorName: (_c = (_b = (_a = item === null || item === void 0 ? void 0 : item.offer_my) === null || _a === void 0 ? void 0 : _a.book) === null || _b === void 0 ? void 0 : _b.author) === null || _c === void 0 ? void 0 : _c.name,
+                                        authorSurname: (_f = (_e = (_d = item === null || item === void 0 ? void 0 : item.offer_my) === null || _d === void 0 ? void 0 : _d.book) === null || _e === void 0 ? void 0 : _e.author) === null || _f === void 0 ? void 0 : _f.last_name,
+                                        book: (_h = (_g = item === null || item === void 0 ? void 0 : item.offer_my) === null || _g === void 0 ? void 0 : _g.book) === null || _h === void 0 ? void 0 : _h.name,
+                                        status_my: (_j = item === null || item === void 0 ? void 0 : item.offer_my) === null || _j === void 0 ? void 0 : _j.status,
+                                        status_their: (_k = item === null || item === void 0 ? void 0 : item.offer_their) === null || _k === void 0 ? void 0 : _k.status,
+                                        trackMy: item === null || item === void 0 ? void 0 : item.track_number_my,
+                                        trackTheir: item === null || item === void 0 ? void 0 : item.track_number_their,
+                                        bookCategories: (_m = (_l = item === null || item === void 0 ? void 0 : item.offer_my) === null || _l === void 0 ? void 0 : _l.category) === null || _m === void 0 ? void 0 : _m.map(function (i) { return ({
+                                            category: i.parent,
+                                            value: i.name
+                                        }); }),
+                                        user: [
+                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.user_their },
+                                            { category: 'Город', value: item === null || item === void 0 ? void 0 : item.wish_their.address.city },
+                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_their.rating },
+                                        ],
+                                        categories: (_p = (_o = item === null || item === void 0 ? void 0 : item.offer_their) === null || _o === void 0 ? void 0 : _o.category) === null || _p === void 0 ? void 0 : _p.map(function (i) { return ({
+                                            category: i.parent,
+                                            value: i.name
+                                        }); })
+                                    };
+                                }
+                                else {
+                                    //КОГДА КТО-ТО нажал кнопку МЕНЯЮСЬ
+                                    return {
+                                        offerMyId: item === null || item === void 0 ? void 0 : item.offer_their.id,
+                                        wishMyId: item === null || item === void 0 ? void 0 : item.wish_their.id,
+                                        offerTheirId: item === null || item === void 0 ? void 0 : item.offer_my.id,
+                                        wishTheirId: item === null || item === void 0 ? void 0 : item.wish_my.id,
+                                        authorName: (_s = (_r = (_q = item === null || item === void 0 ? void 0 : item.offer_their) === null || _q === void 0 ? void 0 : _q.book) === null || _r === void 0 ? void 0 : _r.author) === null || _s === void 0 ? void 0 : _s.name,
+                                        authorSurname: (_v = (_u = (_t = item === null || item === void 0 ? void 0 : item.offer_their) === null || _t === void 0 ? void 0 : _t.book) === null || _u === void 0 ? void 0 : _u.author) === null || _v === void 0 ? void 0 : _v.last_name,
+                                        book: (_x = (_w = item === null || item === void 0 ? void 0 : item.offer_their) === null || _w === void 0 ? void 0 : _w.book) === null || _x === void 0 ? void 0 : _x.name,
+                                        status_my: (_y = item === null || item === void 0 ? void 0 : item.offer_their) === null || _y === void 0 ? void 0 : _y.status,
+                                        status_their: (_z = item === null || item === void 0 ? void 0 : item.offer_my) === null || _z === void 0 ? void 0 : _z.status,
+                                        trackMy: item === null || item === void 0 ? void 0 : item.track_number_their,
+                                        trackTheir: item === null || item === void 0 ? void 0 : item.track_number_my,
+                                        bookCategories: (_1 = (_0 = item === null || item === void 0 ? void 0 : item.offer_their) === null || _0 === void 0 ? void 0 : _0.category) === null || _1 === void 0 ? void 0 : _1.map(function (i) { return ({
+                                            category: i.parent,
+                                            value: i.name
+                                        }); }),
+                                        user: [
+                                            { category: 'Пользователь', value: item === null || item === void 0 ? void 0 : item.user_my },
+                                            { category: 'Город', value: item === null || item === void 0 ? void 0 : item.wish_my.address.city },
+                                            { category: 'Рейтинг', value: item === null || item === void 0 ? void 0 : item.offer_my.rating },
+                                        ],
+                                        categories: (_3 = (_2 = item === null || item === void 0 ? void 0 : item.offer_my) === null || _2 === void 0 ? void 0 : _2.category) === null || _3 === void 0 ? void 0 : _3.map(function (i) { return ({
+                                            category: i.parent,
+                                            value: i.name
+                                        }); })
+                                    };
+                                }
+                            });
+                            dispatch.activeExchange.SET_ARCHIEVE(data);
+                            dispatch.activeExchange.setError(null);
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_5 = _c.sent();
+                            console.error('Failed to GET ARCHIEVE LIST - ', error_5);
+                            dispatch.activeExchange.setError("Ошибка получения архивных обменов");
                             return [3 /*break*/, 3];
                         case 3: return [2 /*return*/];
                     }
