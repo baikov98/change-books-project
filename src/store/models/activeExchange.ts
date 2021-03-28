@@ -163,7 +163,7 @@ export const activeExchange = createModel<RootModel>()({
     async agreeExchange (id, rootState) {
       try {
         const data = rootState.activeExchange.list.find((el: IActiveExchangeData) => +el.offerMyId === +id)
-        const response = await api.post(`/api/v1/exchange/`, 
+        const response = await api.post(`/api/v1/exchange`, 
                                         { offer_my: data?.offerMyId,
                                           wish_my: data?.wishMyId,
                                           offer_their: data?.offerTheirId,
