@@ -51,11 +51,10 @@ const BookForWish: React.FC<IProps> = ({
     errors,
   } = useForm({});
   const bookDetailsArray = 
-    data?.categories.map((item) => {
-      const value = item.value.map((i) => i[0])
+    data?.categories.map((item: any) => {
       return <CatAndValue key={item.category}
-                   category={item.category} 
-                   value={value.join(', ')}
+                   category={item?.category} 
+                   value={item?.value}
                    /> 
     })
        

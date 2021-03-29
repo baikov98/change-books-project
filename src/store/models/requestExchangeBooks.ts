@@ -74,7 +74,7 @@ export const requestExchangeBooks = createModel<RootModel>()({
         const genreArray = payload.categories.map(item => (
           item.value.map(val => (
             {
-              name: val[0],
+              name: val,
               children: []
             }
           ))

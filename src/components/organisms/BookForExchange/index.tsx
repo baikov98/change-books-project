@@ -33,7 +33,7 @@ const BookForExchange: React.FC<IProps> = ({
 }) => {
   const [editState, setEditState] = useState(false)
   const genresCheck = useRef(true)
-  const exchangeBook = data
+  const exchangeBook: any = data
   const dispatch = useDispatch()
   const listOfCategories = useSelector(getBookCategories)
   const handleSwitchEditState = () => {
@@ -50,11 +50,10 @@ const BookForExchange: React.FC<IProps> = ({
     resolver: yupResolver(VALIDATION.BOOK_INFO),
   });
   const bookDetailsArray = 
-    exchangeBook?.categories.map((item) => {
-      const value = item.value.map((i) => i[0])
+    exchangeBook?.categories.map((item: any) => {
       return <CatAndValue key={item.category}
-                   category={item.category} 
-                   value={value.join(', ')}
+                   category={item?.category} 
+                   value={item?.value}
                    /> 
     })
 
