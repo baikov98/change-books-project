@@ -140,7 +140,6 @@ const SignUp: React.FC = () => {
           )}
         </Box>
         <Box className={classes.textRow}>
-          <SocialItems title={"Зарегистрироваться с помощью"} />
         </Box>
         <Box className={classes.textRow}>
           <Typography>

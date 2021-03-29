@@ -3,6 +3,7 @@ import cn from "classnames";
 import { useHistory } from "react-router-dom";
 import { useStyles } from "./styles";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import { IOfferExchangeData } from '../../../store/models/offersExchange'
 import {
   Accordion,
   AccordionDetails,
@@ -15,7 +16,7 @@ import ButtonItem from "../../atoms/ButtonItem";
 import { useDispatch } from "react-redux";
 
 interface IProps {
-  data: any; //Any - демонстартивные данные, изменение после добавления backend
+  data: IOfferExchangeData[];
   title: string;
   className?: string;
 }
@@ -39,7 +40,7 @@ const OffersLine: React.FC<IProps> = ({
     <Box className={classBox}>
       {title && <Typography className={classes.title}>{title}</Typography>}
       {!!data.length &&
-        data.map((item: any, index: number) => {
+        data.map((item, index) => {
           return (
           <Accordion
             className={classes.accordion}
@@ -73,7 +74,7 @@ const OffersLine: React.FC<IProps> = ({
                 { let valueArray = i.value.map((item: any) => item[0])
                   return { category: i.category, 
                            value: valueArray.join(', ')
-                        }
+                         }
                 })} />
               <BookList data={item?.user} />
               <ButtonItem
