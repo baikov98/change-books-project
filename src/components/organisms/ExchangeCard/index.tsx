@@ -22,7 +22,7 @@ const ExchangeCard: React.FC = () => {
   const { id } = useParams<IParams>()
   const list: IActiveExchangeData[] = useSelector(getActiveExchange);
   const data = list.find((el:IActiveExchangeData) => +el.offerMyId === +id)
-
+  useEffect(() => {dispatch.user.getUser()}, [data])
   useEffect(()=> {
     dispatch.activeExchange.getActiveList()
     let interval = setInterval(() => {

@@ -22,6 +22,7 @@ const Archive: React.FC = () => {
   
   useEffect(() => {
     dispatch.activeExchange.getArchieveList()
+    dispatch.user.getUser()
   }, [])
 
   const crumbs = [

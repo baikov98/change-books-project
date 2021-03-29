@@ -43,6 +43,5 @@ const OfferUserChange: React.FC = () => {
     </Box>
   );
 };
-{/* <OffersLine data={data} title={"Частичное совпадение"} />
-<OffersLine data={data} title={"Другие интересные предложения"} /> */}
+
 export default OfferUserChange;
