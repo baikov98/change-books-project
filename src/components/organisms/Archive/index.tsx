@@ -24,15 +24,7 @@ const Archive: React.FC = () => {
     dispatch.activeExchange.getArchieveList()
     dispatch.user.getUser()
   }, [])
-
-  const crumbs = [
-    {
-      value: "Архив",
-      link: location.pathname.split("/").splice(0, 3).join("/"),
-    },
-    { value: "Карточка обмена", link: location.pathname },
-  ];
-
+  const crumbs = [{ value: "Архив", link: location.pathname }];
   const handleClick = (value: number | string) => {
     history.push(links.archiveCard(value.toString()));
   };

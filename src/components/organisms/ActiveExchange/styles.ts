@@ -29,6 +29,7 @@ export const useStyles = makeStyles({
   },
   statusBox: {
     marginBottom: 22,
+    marginTop: 22,
   },
   title:{
       fontSize: 14,

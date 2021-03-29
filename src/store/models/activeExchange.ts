@@ -1,7 +1,7 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "."; 
 import api from "../../services/api";
-
+import filterServerData from '../../utils/filterServerData'
 
 const list1 = [
   {
@@ -108,19 +108,13 @@ export const activeExchange = createModel<RootModel>()({
               status_their: item?.offer_their?.status,
               trackMy: item?.track_number_my,
               trackTheir: item?.track_number_their,
-              bookCategories: item?.offer_my?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              bookCategories: filterServerData(item?.offer_my?.category, rootState.bookCategories.main),
               user: [
                 {category: 'Пользователь', value: item?.user_their},
                 {category: 'Город', value: item?.wish_their.address.city},
                 {category: 'Рейтинг', value: item?.offer_their.rating},
               ],
-              categories: item?.offer_their?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              categories: filterServerData(item?.offer_their?.category, rootState.bookCategories.main),
               
             }
           }else {
@@ -137,19 +131,13 @@ export const activeExchange = createModel<RootModel>()({
               status_their: item?.offer_my?.status,
               trackMy: item?.track_number_their,
               trackTheir: item?.track_number_my,
-              bookCategories: item?.offer_their?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              bookCategories: filterServerData(item?.offer_their?.category, rootState.bookCategories.main),
               user: [
                 {category: 'Пользователь', value: item?.user_my},
                 {category: 'Город', value: item?.wish_my.address.city},
                 {category: 'Рейтинг', value: item?.offer_my.rating},
               ],
-              categories: item?.offer_my?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              categories: filterServerData(item?.offer_my?.category, rootState.bookCategories.main),
             }
           }
         })
@@ -218,19 +206,13 @@ export const activeExchange = createModel<RootModel>()({
               status_their: item?.offer_their?.status,
               trackMy: item?.track_number_my,
               trackTheir: item?.track_number_their,
-              bookCategories: item?.offer_my?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              bookCategories: filterServerData(item?.offer_my?.category, rootState.bookCategories.main),
               user: [
                 {category: 'Пользователь', value: item?.user_their},
                 {category: 'Город', value: item?.wish_their.address.city},
                 {category: 'Рейтинг', value: item?.offer_their.rating},
               ],
-              categories: item?.offer_their?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              categories: filterServerData(item?.offer_their?.category, rootState.bookCategories.main),
               
             }
           }else {
@@ -247,19 +229,13 @@ export const activeExchange = createModel<RootModel>()({
               status_their: item?.offer_my?.status,
               trackMy: item?.track_number_their,
               trackTheir: item?.track_number_my,
-              bookCategories: item?.offer_their?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              bookCategories: filterServerData(item?.offer_their?.category, rootState.bookCategories.main),
               user: [
                 {category: 'Пользователь', value: item?.user_my},
                 {category: 'Город', value: item?.wish_my.address.city},
                 {category: 'Рейтинг', value: item?.offer_my.rating},
               ],
-              categories: item?.offer_my?.category?.map((i: any) => ({
-                category: i.parent,
-                value: i.name
-              })),
+              categories: filterServerData(item?.offer_my?.category, rootState.bookCategories.main),
             }
           }
         })
