@@ -1,8 +1,9 @@
-# Сервис обмена книгами - позволяет людям обменивать физические книги с другими людьми
-# Ссылка на деплой - https://baikov98.github.io/ReactHooks/
-Перенесено с Gitlub
-## После скачивания - npm install
+## Book sharing service - allows people to exchange books with other people
+## Сервис обмена книгами - позволяет людям обменивать физические книги с другими людьми
+## DEPLOY - https://baikov98.github.io/ReactHooks/
 
-## Для старта проекта - npm run start
+## npm install
 
-## Сборка проекта в прод - npm run build
+## npm run start
+
+## npm run build
